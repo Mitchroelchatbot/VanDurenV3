@@ -10,6 +10,7 @@ const href =
   cta.type === 'anker' ? cta.anker :
   cta.type === 'formulier' ? `#${cta.formulier}` :
   cta.href;
+// (een cta met alleen 'href' is een gewone interne link)
 const extern = href?.startsWith('http');
 ---
 <a class={`knop knop--${soort}`} href={href} rel={extern ? 'noopener' : undefined}

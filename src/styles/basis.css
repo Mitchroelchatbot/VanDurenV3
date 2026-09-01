@@ -78,7 +78,12 @@ img, video { max-width: 100%; height: auto; display: block; }
   border: 2px solid var(--blauw);
 }
 .knop--secundair:hover { background: var(--blauw); color: var(--wit); }
-.op-blauw .knop--secundair { color: var(--wit); border-color: var(--wit); }
+.op-blauw .knop--secundair {
+  color: var(--wit); border-color: var(--wit);
+  /* Op een foto steunt een randknop op wat er toevallig achter staat.
+     Een lichte eigen vulling garandeert het contrast van het label. */
+  background: rgb(20 42 100 / 0.7);   /* 5,4:1 met wit, zelfs over een witte foto */
+}
 .op-blauw .knop--secundair:hover { background: var(--wit); color: var(--blauw); }
 
 /* --- Toegankelijkheid --------------------------------------------------- */

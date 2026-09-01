@@ -1,81 +1,88 @@
 ---
-import bedrijf from '../content/nl/bedrijf.json';
-import home from '../content/nl/homepage.json';
-import paginas from '../content/nl/paginas.json';
+import Cta from './Cta.astro';
+import home from '../content/nl/home.json';
+import beeld from '../content/nl/home-beeld.json';
 
 const h = home.hero;
-const primairHref = h.primair.soort === 'playtomic' ? bedrijf.playtomic : h.primair.pad;
+// home.json geeft voor 'poster' een TODO-string; het echte posterbestand
+// staat in het beeldmanifest. Een string die geen pad is rendert nooit.
+const poster = beeld.poster;
+const secundair = { label: h.secundair.label, href: h.secundair.href };
 ---
 <section class="hero op-blauw">
   {h.video && (
-    <video class="hero__video" autoplay muted loop playsinline poster={h.poster ? `${h.poster.basis}-1434.webp` : undefined}>
+    <video class="hero__video" autoplay muted loop playsinline poster={`${poster.basis}-1434.webp`}>
       <source src={h.video.webm} type="video/webm" />
       <source src={h.video.mp4} type="video/mp4" />
     </video>
   )}
-  {!h.video && h.poster && (
+  {!h.video && poster && (
     <picture>
       <source type="image/avif" sizes="100vw"
-              srcset={`${h.poster.basis}-960.avif 960w, ${h.poster.basis}-1434.avif 1434w`} />
+              srcset={`${poster.basis}-960.avif 960w, ${poster.basis}-1434.avif 1434w`} />
       <source type="image/webp" sizes="100vw"
-              srcset={`${h.poster.basis}-960.webp 960w, ${h.poster.basis}-1434.webp 1434w`} />
-      <img class="hero__video" src={`${h.poster.basis}-1434.webp`} alt={h.posterAlt}
-           width={h.poster.breedte} height={h.poster.hoogte} fetchpriority="high" decoding="sync" />
+              srcset={`${poster.basis}-960.webp 960w, ${poster.basis}-1434.webp 1434w`} />
+      <img class="hero__video" src={`${poster.basis}-1434.webp`} alt={poster.alt}
+           width={poster.breedte} height={poster.hoogte} fetchpriority="high" decoding="sync" />
     </picture>
   )}
 
   <div class="omhulsel hero__binnen">
-    <h1 class="hero__kop">{paginas['/'].h1}</h1>
-    <p class="hero__onderkop">{h.onderkop}</p>
+    <h1 class="hero__kop">{h.kop}</h1>
+    <p class="hero__onderkop">{h.tekst}</p>
     <div class="hero__acties">
-      <a class="knop knop--primair" href={primairHref} rel="noopener">{h.primair.label}</a>
-      <a class="knop knop--secundair" href={h.secundair.pad}>{h.secundair.label}</a>
+      <Cta cta={h.primair} soort="primair" />
+      <Cta cta={secundair} soort="secundair" />
     </div>
   </div>
 </section>
 
 <style>
   .hero { position: relative; overflow: hidden; isolation: isolate; }
-  .hero__video {
-    position: absolute; inset: 0; z-index: -2;
-    width: 100%; height: 100%; object-fit: cover;
-  }
-  /* Leesbaarheidslaag. Richtingsgevoelig: zwaar aan de kant waar de tekst
-     staat, licht aan de andere kant, zodat de foto herkenbaar blijft. Bij
-     0.92 dekking is de ondergrond feitelijk --blauw-diep, en wit haalt daar
-     13,59:1. Zonder beeld valt de laag weg en blijft het effen blauw. */
+  .hero__video { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
+
+  /* Overlay maximaal 35 % blauw, alleen achter de tekst: links het donkerst,
+     rechts transparant, zodat de foto zijn kleur houdt (home.json hero._regel).
+     Zonder beeld valt de laag weg en blijft het effen blauw. */
   .hero::after {
     content: ''; position: absolute; inset: 0; z-index: -1;
-    background:
-      linear-gradient(90deg, rgb(20 42 100 / 0.92) 0%, rgb(20 42 100 / 0.86) 38%,
-                              rgb(20 42 100 / 0.55) 68%, rgb(20 42 100 / 0.42) 100%),
-      linear-gradient(180deg, rgb(20 42 100 / 0.35), rgb(20 42 100 / 0.55));
-  }
-  @media (max-width: 899px) {
-    /* Op smalle schermen loopt de tekst over de volle breedte, dus daar een
-       gelijkmatige laag in plaats van een zijdelingse. */
-    .hero::after {
-      background: linear-gradient(180deg, rgb(20 42 100 / 0.78), rgb(20 42 100 / 0.88));
-    }
+    background: linear-gradient(90deg,
+      rgb(20 42 100 / 0.35) 0%, rgb(20 42 100 / 0.35) 34%,
+      rgb(20 42 100 / 0.14) 62%, rgb(20 42 100 / 0) 100%);
   }
   .hero:not(:has(.hero__video))::after { background: none; }
+  @media (max-width: 899px) {
+    /* Smal scherm: tekst over de volle breedte, dus een egale laag van 35 %.
+       De uitsnede toont het onderste deel van de foto (de banen) zodat de
+       plafondlampen niet achter de kop staan; de laag zelf blijft 35 %. */
+    .hero::after { background: rgb(20 42 100 / 0.35); }
+    .hero__video { object-position: 50% 88%; }
+  }
 
-  .hero__binnen { padding-block: clamp(72px, 14vw, 152px); }
+  .hero__binnen { position: relative; padding-block: clamp(72px, 14vw, 152px); }
+  /* Achter de tekstkolom wordt de foto lokaal donkerder gemaakt met een
+     helderheidsfilter, niet met een kleurlaag: de tint blijft, alleen de
+     lichte glaswanden en lampen achter de letters dempen. Dit is wat de
+     35 %-laag alleen niet kan garanderen; zonder ondersteuning van
+     backdrop-filter blijft de 35 %-laag over. */
+  .hero__binnen::before {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    left: calc(var(--marge-rand) * -1); width: min(100vw, 56rem);
+    -webkit-backdrop-filter: brightness(0.58); backdrop-filter: brightness(0.58);
+    -webkit-mask-image: linear-gradient(90deg, #000 72%, transparent);
+    mask-image: linear-gradient(90deg, #000 72%, transparent);
+  }
+  @media (max-width: 899px) {
+    .hero__binnen::before { width: 100vw; -webkit-mask-image: none; mask-image: none; }
+  }
   .hero__kop, .hero__onderkop, .hero__acties { max-width: 40rem; }
   .hero__kop { margin-bottom: 0.4em; }
-  .hero__onderkop {
-    font-size: clamp(1.05rem, 2.2vw, 1.3rem);
-    margin-bottom: 2rem;
-    opacity: 0.95;
-  }
+  .hero__onderkop { font-size: clamp(1.05rem, 2.2vw, 1.3rem); margin-bottom: 2rem; opacity: 0.95; }
   .hero__acties { display: flex; flex-wrap: wrap; gap: 0.9rem; }
 
   @media (max-width: 767px) {
-    /* §5.2: onder 768px geen video, maar wél de poster. Alleen het
-       video-element verbergen, niet de afbeelding die dezelfde klasse deelt. */
+    /* §5.2: geen video onder 768 px, wél de poster. */
     .hero video.hero__video { display: none; }
   }
-  @media (prefers-reduced-motion: reduce) {
-    .hero video.hero__video { display: none; }
-  }
+  @media (prefers-reduced-motion: reduce) { .hero video.hero__video { display: none; } }
 </style>
