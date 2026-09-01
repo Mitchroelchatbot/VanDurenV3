@@ -1,0 +1,25 @@
+{
+  "_bron": "Beeldmanifest voor de homepage. De sleutels zijn die uit home.json (tegels[].foto). Bronfoto's uit 'Fotos van Bennet', verwerkt naar AVIF en WebP; nooit opgeschaald. Tekst staat in home.json, niet hier.",
+  "poster": { "basis": "/beeld/hal/hero-poster", "maten": [960, 1434], "breedte": 1434, "hoogte": 807,
+              "alt": "De hal van Van Duren Indoor Padel Centrum met blauwe indoor padelbanen en oranje omloop." },
+  "fotos": {
+    "hal-overzicht":           { "basis": "/beeld/hal/hal-overzicht",           "maten": [640, 1280, 2048], "breedte": 2048, "hoogte": 1152 },
+    "doorkijk-banen":          { "basis": "/beeld/hal/doorkijk-banen",          "maten": [640, 1280], "breedte": 1280, "hoogte": 853 },
+    "spelers-bij-net":         { "basis": "/beeld/hal/spelers-bij-net",         "maten": [640, 1280], "breedte": 1280, "hoogte": 746 },
+    "spelers-achterste-banen": { "basis": "/beeld/hal/spelers-achterste-banen", "maten": [640, 1280], "breedte": 1280, "hoogte": 960 },
+    "hal-baan":                { "basis": "/beeld/hal/hal-baan",                "maten": [640, 1280], "breedte": 1280, "hoogte": 853 },
+    "hal-bord":                { "basis": "/beeld/hal/hal-bord",                "maten": [640, 1280], "breedte": 1280, "hoogte": 960 },
+    "rackets":                 { "basis": "/beeld/hal/rackets",                 "maten": [640, 744],  "breedte": 744,  "hoogte": 496 }
+  },
+  "galerij": {
+    "_regel": "Kleine strook onderaan zonder kop (home.json galerij._regel). Alt-teksten beschrijven wat er te zien is, zonder het lesprogramma bij naam te noemen (§3).",
+    "items": [
+      { "foto": "doorkijk-banen",          "alt": "Doorkijk over de banen vanaf de kopse kant van de hal." },
+      { "foto": "spelers-achterste-banen", "alt": "Spelers op een van de achterste banen, gezien vanaf de zijkant." },
+      { "foto": "spelers-bij-net",         "alt": "Twee spelers in een partij bij het net." },
+      { "foto": "hal-baan",                "alt": "Lege baan met de glazen achterwand en het reclamebord van de club erboven." },
+      { "foto": "hal-bord",                "alt": "Het bord van de club boven de lesbaan." },
+      { "foto": "rackets",                 "alt": "Drie Babolat padelrackets op de blauwe ondergrond van een baan." }
+    ]
+  }
+}

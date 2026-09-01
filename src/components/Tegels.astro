@@ -1,0 +1,56 @@
+---
+import Foto from './Foto.astro';
+import home from '../content/nl/home.json';
+import beeld from '../content/nl/home-beeld.json';
+
+// Vier tegels, elk één foto, één label, één regel; de hele tegel is één link.
+const t = home.tegels;
+const items = t.items
+  .map((it) => ({ ...it, bron: beeld.fotos[it.foto] }))
+  .filter((it) => it.bron);   // een tegel zonder bestaande foto rendert niet
+---
+<section class="sectie tegels">
+  <div class="omhulsel">
+    <h2>{t.kop}</h2>
+    <div class="tegels__raster">
+      {items.map((it) => (
+        <a class="tegel" href={it.href}>
+          <span class="tegel__beeld">
+            <Foto basis={it.bron.basis} maten={it.bron.maten} alt={it.fotoAlt}
+                  breedte={it.bron.breedte} hoogte={it.bron.hoogte} sizes="(min-width: 900px) 25vw, 50vw" />
+          </span>
+          <span class="tegel__tekst">
+            <span class="tegel__label">{it.label}</span>
+            <span class="tegel__regel">{it.regel}</span>
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tegels__raster {
+    display: grid; gap: var(--gutter);
+    grid-template-columns: repeat(2, 1fr);           /* mobiel: twee-bij-twee */
+  }
+  @media (min-width: 900px) {
+    .tegels__raster { grid-template-columns: repeat(4, 1fr); }   /* desktop: vier naast elkaar */
+  }
+  .tegel {
+    display: flex; flex-direction: column;
+    text-decoration: none; color: var(--inkt);
+    border-radius: var(--radius); overflow: hidden;
+    background: var(--wit); border: 2px solid var(--grijs-100);
+  }
+  .tegel__beeld { display: block; overflow: hidden; aspect-ratio: 4 / 3; }
+  .tegel__beeld :global(img) {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 240ms ease-out;
+  }
+  .tegel:hover .tegel__beeld :global(img) { transform: scale(1.04); }   /* lichte zoom, verder niets */
+  .tegel__tekst { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.9rem 1rem 1rem; }
+  .tegel__label { font-family: var(--font-kop); font-weight: 600; font-size: 1.05rem; color: var(--blauw); }
+  .tegel__regel { font-size: 0.9rem; color: var(--grijs-500); }
+  @media (prefers-reduced-motion: reduce) { .tegel__beeld :global(img) { transition: none; } }
+</style>
