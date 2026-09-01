@@ -3,11 +3,11 @@ import Foto from './Foto.astro';
 import home from '../content/nl/home.json';
 import beeld from '../content/nl/home-beeld.json';
 
-// Vier tegels, elk één foto, één label, één regel; de hele tegel is één link.
+// De hele tegel is de foto; label en regel staan eroverheen.
 const t = home.tegels;
 const items = t.items
   .map((it) => ({ ...it, bron: beeld.fotos[it.foto] }))
-  .filter((it) => it.bron);   // een tegel zonder bestaande foto rendert niet
+  .filter((it) => it.bron);
 ---
 <section class="sectie tegels">
   <div class="omhulsel">
@@ -17,7 +17,8 @@ const items = t.items
         <a class="tegel" href={it.href}>
           <span class="tegel__beeld">
             <Foto basis={it.bron.basis} maten={it.bron.maten} alt={it.fotoAlt}
-                  breedte={it.bron.breedte} hoogte={it.bron.hoogte} sizes="(min-width: 900px) 25vw, 50vw" />
+                  breedte={it.bron.breedte} hoogte={it.bron.hoogte}
+                  sizes="(min-width: 900px) 33vw, 100vw" />
           </span>
           <span class="tegel__tekst">
             <span class="tegel__label">{it.label}</span>
@@ -30,27 +31,42 @@ const items = t.items
 </section>
 
 <style>
-  .tegels__raster {
-    display: grid; gap: var(--gutter);
-    grid-template-columns: repeat(2, 1fr);           /* mobiel: twee-bij-twee */
-  }
-  @media (min-width: 900px) {
-    .tegels__raster { grid-template-columns: repeat(4, 1fr); }   /* desktop: vier naast elkaar */
-  }
+  .tegels__raster { display: grid; gap: var(--gutter); grid-template-columns: 1fr; }
+  @media (min-width: 900px) { .tegels__raster { grid-template-columns: repeat(3, 1fr); } }
+
   .tegel {
-    display: flex; flex-direction: column;
-    text-decoration: none; color: var(--inkt);
-    border-radius: var(--radius); overflow: hidden;
-    background: var(--wit); border: 2px solid var(--grijs-100);
+    position: relative; display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden; border-radius: var(--radius);
+    text-decoration: none; color: var(--wit);
+    background: var(--grijs-900);
   }
-  .tegel__beeld { display: block; overflow: hidden; aspect-ratio: 4 / 3; }
+  .tegel__beeld { position: absolute; inset: 0; display: block; }
+  .tegel__beeld :global(picture) { display: block; height: 100%; }
   .tegel__beeld :global(img) {
     width: 100%; height: 100%; object-fit: cover; display: block;
     transition: transform 240ms ease-out;
   }
-  .tegel:hover .tegel__beeld :global(img) { transform: scale(1.04); }   /* lichte zoom, verder niets */
-  .tegel__tekst { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.9rem 1rem 1rem; }
-  .tegel__label { font-family: var(--font-kop); font-weight: 600; font-size: 1.05rem; color: var(--blauw); }
-  .tegel__regel { font-size: 0.9rem; color: var(--grijs-500); }
+  /* Alleen de foto schaalt op hover, de tekst niet: die staat buiten
+     .tegel__beeld en heeft dus geen transform. */
+  .tegel:hover .tegel__beeld :global(img) { transform: scale(1.04); }
+
+  /* Scrim over de onderste helft, zodat wit altijd leesbaar blijft. */
+  .tegel::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to top,
+      rgba(20, 22, 28, 0.78) 0%,
+      rgba(20, 22, 28, 0.45) 40%,
+      transparent 70%);
+  }
+  .tegel__tekst {
+    position: absolute; z-index: 1; left: 0; right: 0; bottom: 0;
+    display: flex; flex-direction: column; gap: 0.15rem;
+    padding: clamp(0.9rem, 2.5vw, 1.25rem);
+  }
+  .tegel__label { font-family: var(--font-kop); font-weight: 700; font-size: 1.15rem; color: var(--wit); }
+  .tegel__regel { font-size: 0.92rem; color: var(--wit); opacity: 0.85; }
+
+  .tegel:focus-visible { outline: 3px solid var(--wit); outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) { .tegel__beeld :global(img) { transition: none; } }
 </style>
