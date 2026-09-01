@@ -1,0 +1,114 @@
+/* =========================================================================
+   Basisstijlen. Kleur, ruimte en typografie komen uitsluitend uit
+   tokens.css — hier staan geen hexwaarden.
+   ========================================================================= */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--wit);
+  color: var(--inkt);
+  font-family: var(--font-tekst);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-kop);
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.5rem, 3.5vw, 2.25rem); letter-spacing: -0.01em; }
+h3 { font-size: 1.25rem; }
+
+p { margin: 0 0 1rem; max-width: 68ch; }
+
+a { color: var(--blauw); text-underline-offset: 0.18em; }
+a:hover { color: var(--blauw-diep); }
+
+img, video { max-width: 100%; height: auto; display: block; }
+
+/* --- Structuur --------------------------------------------------------- */
+
+.omhulsel {
+  width: 100%;
+  max-width: var(--max-breed);
+  margin-inline: auto;
+  padding-inline: var(--marge-rand);
+}
+.omhulsel--midden { max-width: var(--max-midden); }
+.omhulsel--smal   { max-width: var(--max-smal); }
+
+.sectie { padding-block: var(--sectie-gap); }
+.sectie--licht { background: var(--grijs-100); }
+
+/* Blauwe vlakken dragen .op-blauw, zodat de regels uit tokens.css
+   (witte ring op de primaire knop, lichte focusring) aanslaan. */
+.op-blauw { background: var(--blauw); color: var(--wit); }
+.op-blauw h1, .op-blauw h2, .op-blauw h3 { color: var(--wit); }
+.op-blauw a { color: var(--wit); }
+
+/* --- Knoppen ----------------------------------------------------------- */
+
+.knop {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  min-height: 48px;
+  padding: 0.7em 1.4em;
+  border-radius: var(--radius-klein);
+  font-family: var(--font-kop);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* .knop--primair staat in tokens.css: dat is de contrastregel zelf. */
+.knop--secundair {
+  background: transparent;
+  color: var(--blauw);
+  border: 2px solid var(--blauw);
+}
+.knop--secundair:hover { background: var(--blauw); color: var(--wit); }
+.op-blauw .knop--secundair { color: var(--wit); border-color: var(--wit); }
+.op-blauw .knop--secundair:hover { background: var(--wit); color: var(--blauw); }
+
+/* --- Toegankelijkheid --------------------------------------------------- */
+
+.overslaan {
+  position: absolute;
+  left: var(--marge-rand);
+  top: -100px;
+  z-index: 100;
+  padding: 0.7em 1.2em;
+  background: var(--wit);
+  color: var(--blauw);
+  border-radius: var(--radius-klein);
+  transition: top 120ms ease-in;
+}
+.overslaan:focus { top: 12px; }
+
+.alleen-schermlezer {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,22 @@
+---
+import BasisLayout from '../layouts/BasisLayout.astro';
+import paginas from '../content/nl/paginas.json';
+
+const pad = '/404';
+const meta = paginas[pad];
+---
+<BasisLayout pad={pad} waSjabloon={meta.wa}>
+  <section class="sectie">
+    <div class="omhulsel omhulsel--smal">
+      <h1>{meta.h1}</h1>
+      <p>{meta.tekst}</p>
+      <ul class="vier04__links">
+        {meta.links.map((l) => (<li><a href={l.pad}>{l.label}</a></li>))}
+      </ul>
+    </div>
+  </section>
+</BasisLayout>
+
+<style>
+  .vier04__links { list-style: none; padding: 0; display: grid; gap: 0.5rem; }
+</style>

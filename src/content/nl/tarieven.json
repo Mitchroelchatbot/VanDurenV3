@@ -1,0 +1,44 @@
+{
+  "baanhuur": {
+    "toelichting": "Baan 1 en 2 zijn te huren per 1,5 uur. Baan 3 en 4 alleen per heel uur, startend op het hele uur.",
+    "rijen": [
+      { "label": "Daluren", "detail": "vanaf 09:00", "uur": 28, "anderhalfUur": 42 },
+      { "label": "Piekuren", "detail": "ma t/m vr 18:30 – 22:30", "uur": 36, "anderhalfUur": 54 }
+    ]
+  },
+  "contractbaan": {
+    "kolommen": [
+      { "label": "6 maanden", "detail": "20 tot 26 keer" },
+      { "label": "12 maanden", "detail": "45 tot 52 keer" }
+    ],
+    "rijen": [
+      { "label": "Daluren, 1 uur", "prijzen": [450, 850] },
+      { "label": "Daluren, 1,5 uur", "prijzen": [675, 1275] },
+      { "label": "Piekuren, 1 uur", "prijzen": [650, 1250] },
+      { "label": "Piekuren, 1,5 uur", "prijzen": [975, 1875] }
+    ]
+  },
+  "vipDaluren": {
+    "titel": "VIP-daluren lidmaatschap",
+    "prijsPerJaar": 249.99,
+    "punten": [
+      "Drie keer per week spelen tussen 09:00 en 17:00 — meer dan 150 keer per jaar.",
+      "Maximaal één week vooruit reserveren.",
+      "Medespelers zonder VIP betalen een evenredig deel van de baanhuur."
+    ],
+    "aanmelden": "Via Playtomic: kies het centrum, ga naar Memberships en kies daluren VIP.",
+    "aanmeldUrl": "https://playtomic.io/van-duren-indoor-padel-centrum/a52205f6-6954-4d82-bda0-b2040fc82dc4"
+  },
+  "lessen": {
+    "toelichting": "Alle prijzen zijn inclusief baanhuur, materiaal en trainer. Een les duurt 60 minuten en wordt altijd vooraf betaald.",
+    "rijen": [
+      { "label": "Proefles", "prijs": "€ 100 per les", "groep": "1 tot 4 personen", "reeksen": "eenmalig" },
+      { "label": "Privéles", "prijs": "€ 90 per les", "groep": "1-op-1", "reeksen": "5, 8 of 10 lessen" },
+      { "label": "Groepsles", "prijs": "€ 70 daluren / € 90 piekuren", "groep": "2, 3 of 4 personen", "reeksen": "5, 8 of 10 lessen" }
+    ]
+  },
+  "clinics": {
+    "vanafPrijs": "vanaf € 29,00 per persoon",
+    "inbegrepen": "Begeleiding door gediplomeerde trainers, al het materiaal en toegang tot de horeca. Lunch, borrel en hapjes zijn optioneel bij te boeken."
+  }
+}

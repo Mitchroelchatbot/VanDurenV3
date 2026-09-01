@@ -1,0 +1,87 @@
+---
+import bedrijf from '../content/nl/bedrijf.json';
+import nav from '../content/nl/navigatie.json';
+
+const { pad } = Astro.props;
+const { hoofdmenu, labels } = nav;
+---
+<header class="kop op-blauw">
+  <div class="omhulsel kop__binnen">
+    <a class="wordmerk" href="/">
+      <span class="wordmerk__groot">{bedrijf.naamKort}</span>
+      <span class="wordmerk__klein">{bedrijf.naamOnder}</span>
+    </a>
+
+    <button class="kop__schakelaar" type="button" aria-expanded="false" aria-controls="hoofdnav">
+      <span class="alleen-schermlezer">{labels.menuOpenen}</span>
+      <span class="kop__streepjes" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+
+    <nav id="hoofdnav" class="kop__nav" aria-label={labels.hoofdnavigatie}>
+      <ul>
+        {hoofdmenu.map((item) => (
+          <li>
+            <a href={item.pad} aria-current={item.pad === pad ? 'page' : undefined}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <a class="knop knop--primair kop__cta" href={bedrijf.playtomic} rel="noopener">{labels.boekEenBaan}</a>
+  </div>
+</header>
+
+<style>
+  .kop { position: sticky; top: 0; z-index: 50; }
+  .kop__binnen {
+    display: flex;
+    align-items: center;
+    gap: var(--gutter);
+    min-height: 76px;
+    flex-wrap: wrap;
+  }
+
+  .wordmerk { display: flex; flex-direction: column; text-decoration: none; margin-right: auto; }
+  .wordmerk__groot {
+    font-family: var(--font-kop);
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .wordmerk__klein {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.92;
+  }
+
+  .kop__nav ul { display: flex; gap: 1.25rem; list-style: none; margin: 0; padding: 0; }
+  .kop__nav a { text-decoration: none; font-size: 0.95rem; padding-block: 0.4em; }
+  .kop__nav a:hover { text-decoration: underline; }
+  .kop__nav a[aria-current='page'] { text-decoration: underline; text-underline-offset: 0.35em; }
+
+  .kop__schakelaar { display: none; background: none; border: 0; padding: 10px; cursor: pointer; }
+  .kop__streepjes { display: grid; gap: 5px; }
+  .kop__streepjes i { display: block; width: 26px; height: 2px; background: var(--wit); }
+
+  @media (max-width: 1100px) {
+    .kop__binnen { min-height: 64px; }
+    .kop__schakelaar { display: block; order: 3; }
+    .kop__cta { order: 2; }
+    .kop__nav { order: 4; flex-basis: 100%; display: none; padding-bottom: 1rem; }
+    .kop__nav[data-open='true'] { display: block; }
+    .kop__nav ul { flex-direction: column; gap: 0; }
+    .kop__nav a { display: block; padding: 0.75em 0; }
+  }
+</style>
+
+<script>
+  const knop = document.querySelector('.kop__schakelaar');
+  const menu = document.getElementById('hoofdnav');
+  knop?.addEventListener('click', () => {
+    const open = knop.getAttribute('aria-expanded') === 'true';
+    knop.setAttribute('aria-expanded', String(!open));
+    menu?.setAttribute('data-open', String(!open));
+  });
+</script>

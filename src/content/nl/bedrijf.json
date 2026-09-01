@@ -1,0 +1,46 @@
+{
+  "naam": "Van Duren Indoor Padel Centrum",
+  "naamKort": "Van Duren",
+  "naamOnder": "Indoor Padel Centrum",
+  "bezoekadres": {
+    "straat": "Rooijse weg 7",
+    "postcode": "5691 PA",
+    "plaats": "Son en Breugel",
+    "land": "NL"
+  },
+  "parkeeradres": {
+    "straat": "Vlielandlaan 12",
+    "postcode": "5691 ZK",
+    "plaats": "Son en Breugel"
+  },
+  "telefoon": "06-19154409",
+  "telefoonE164": "+31619154409",
+  "whatsapp": "https://wa.me/31619154409",
+  "email": "vanduren@indoorpadelcentrum.nl",
+  "kvk": "82978344",
+  "btw": "NL862678274B01",
+  "openingstijden": [
+    {
+      "dagen": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "van": "09:00",
+      "tot": "23:00"
+    },
+    {
+      "dagen": [
+        "Saturday",
+        "Sunday"
+      ],
+      "van": "09:00",
+      "tot": "17:00"
+    }
+  ],
+  "playtomic": "https://playtomic.io/van-duren-indoor-padel-centrum/a52205f6-6954-4d82-bda0-b2040fc82dc4",
+  "facebook": "https://www.facebook.com/VanDurenindoorpadelcentrum/",
+  "instagram": "https://www.instagram.com/vandurenindoorpadelcentrum/"
+}

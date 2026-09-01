@@ -1,0 +1,42 @@
+---
+import '../styles/tokens.css';
+import '../styles/basis.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Sponsorbalk from '../components/Sponsorbalk.astro';
+import WhatsAppKnop from '../components/WhatsAppKnop.astro';
+import SchemaOrg from '../components/SchemaOrg.astro';
+import nav from '../content/nl/navigatie.json';
+import paginas from '../content/nl/paginas.json';
+
+const { pad, waSjabloon, meta: metaProp } = Astro.props;
+const meta = metaProp ?? paginas[pad];
+const canoniek = new URL(pad, Astro.site).href;
+---
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{meta.titel}</title>
+    <meta name="description" content={meta.beschrijving} />
+    <link rel="canonical" href={canoniek} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={meta.titel} />
+    <meta property="og:description" content={meta.beschrijving} />
+    <meta property="og:url" content={canoniek} />
+    <meta property="og:locale" content="nl_NL" />
+    {pad === '/' && <SchemaOrg />}
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="overslaan" href="#inhoud">{nav.labels.naarHoofdinhoud}</a>
+    <Header pad={pad} />
+    <main id="inhoud">
+      <slot />
+    </main>
+    <Sponsorbalk />
+    <Footer />
+    <WhatsAppKnop bericht={waSjabloon} />
+  </body>
+</html>

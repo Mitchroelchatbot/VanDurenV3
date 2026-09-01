@@ -1,0 +1,28 @@
+---
+import sponsoren from '../content/nl/sponsoren.json';
+import nav from '../content/nl/navigatie.json';
+
+// §7.7: de balk rendert niet zolang er geen echte logo's zijn.
+const tonen = sponsoren.logos.length > 0;
+---
+{tonen && (
+  <section class="sponsorbalk sectie--licht" aria-label={nav.labels.sponsorbalk}>
+    <div class="omhulsel sponsorbalk__rij">
+      {sponsoren.logos.slice(0, 8).map((s) => (
+        <a href="/sponsoren" class="sponsorbalk__item">
+          <img src={s.logo} alt={s.naam} width="140" height="56" loading="lazy" />
+        </a>
+      ))}
+    </div>
+  </section>
+)}
+
+<style>
+  .sponsorbalk { padding-block: 2rem; }
+  .sponsorbalk__rij {
+    display: flex; flex-wrap: wrap; align-items: center;
+    justify-content: center; gap: 2.5rem;
+  }
+  .sponsorbalk__item img { filter: grayscale(1); opacity: 0.65; transition: filter 150ms, opacity 150ms; }
+  .sponsorbalk__item:hover img { filter: grayscale(0); opacity: 1; }
+</style>

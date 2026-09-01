@@ -1,0 +1,14 @@
+---
+import BasisLayout from '../layouts/BasisLayout.astro';
+import paginas from '../content/nl/paginas.json';
+
+const pad = '/';
+const meta = paginas[pad];
+---
+<BasisLayout pad={pad} waSjabloon={meta.wa}>
+  <section class="sectie">
+    <div class="omhulsel">
+      <h1>{meta.h1}</h1>
+    </div>
+  </section>
+</BasisLayout>

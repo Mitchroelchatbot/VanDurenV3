@@ -1,0 +1,65 @@
+{
+  "/": {
+    "titel": "Van Duren Indoor Padel Centrum — Padelbaan huren in Son en Breugel",
+    "beschrijving": "Vier indoor padelbanen in Son en Breugel. Boek een baan, volg een les of organiseer een clinic bij Van Duren Indoor Padel Centrum.",
+    "h1": "Padelbaan huren in Son en Breugel",
+    "wa": "Hoi! Ik heb een vraag over Van Duren Indoor Padel Centrum."
+  },
+  "/banen": {
+    "titel": "Padelbaan huren — Van Duren Indoor Padel Centrum",
+    "beschrijving": "Losse boeking, VIP-daluren lidmaatschap of een vaste contractbaan. Bekijk de tarieven en boek direct.",
+    "h1": "Padelbaan huren",
+    "wa": "Hoi! Ik heb een vraag over het huren van een baan."
+  },
+  "/clinics": {
+    "titel": "Clinics en bedrijfsuitjes — Van Duren Indoor Padel Centrum",
+    "beschrijving": "Een padelclinic voor je bedrijf, vriendengroep of kinderfeestje in Son en Breugel. Vraag een voorstel op maat aan.",
+    "h1": "Clinics en bedrijfsuitjes",
+    "wa": "Hoi! Ik heb een vraag over een clinic."
+  },
+  "/evenementen": {
+    "titel": "Evenementen en toernooien — Van Duren Indoor Padel Centrum",
+    "beschrijving": "Toernooien en evenementen bij Van Duren Indoor Padel Centrum in Son en Breugel.",
+    "h1": "Evenementen",
+    "wa": "Hoi! Ik heb een vraag over een evenement."
+  },
+  "/spelregels": {
+    "titel": "Spelregels en veelgestelde vragen — Van Duren Indoor Padel Centrum",
+    "beschrijving": "De padelregels uitgelegd, plus antwoord op de vragen die we het vaakst krijgen.",
+    "h1": "Spelregels en veelgestelde vragen",
+    "wa": "Hoi! Ik heb een vraag over de spelregels."
+  },
+  "/sponsoren": {
+    "titel": "Sponsoren en partners — Van Duren Indoor Padel Centrum",
+    "beschrijving": "De partners van Van Duren Indoor Padel Centrum in Son en Breugel.",
+    "h1": "Sponsoren en partners",
+    "wa": "Hoi! Ik heb een vraag over sponsoring."
+  },
+  "/over-ons": {
+    "titel": "Over ons en contact — Van Duren Indoor Padel Centrum",
+    "beschrijving": "Het verhaal van Martin en Bennet van Duren, plus adres, parkeren, openingstijden en contactgegevens.",
+    "h1": "Over ons en contact",
+    "wa": "Hoi! Ik heb een vraag."
+  },
+  "/404": {
+    "titel": "Pagina niet gevonden — Van Duren Indoor Padel Centrum",
+    "beschrijving": "Deze pagina bestaat niet meer.",
+    "h1": "Deze pagina bestaat niet meer",
+    "tekst": "Mogelijk is de link verouderd. Ga naar de startpagina of kies hieronder verder.",
+    "links": [
+      {
+        "pad": "/banen",
+        "label": "Padelbaan huren"
+      },
+      {
+        "pad": "/lessen",
+        "label": "Lessen bekijken"
+      },
+      {
+        "pad": "/",
+        "label": "Naar de startpagina"
+      }
+    ],
+    "wa": "Hoi! Ik heb een vraag."
+  }
+}

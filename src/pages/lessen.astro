@@ -1,0 +1,14 @@
+---
+import BasisLayout from '../layouts/BasisLayout.astro';
+import lessen from '../content/nl/lessen.json';
+
+const pad = '/lessen';
+const meta = lessen.pagina;
+---
+<BasisLayout pad={pad} meta={meta} waSjabloon={meta.wa}>
+  <section class="sectie">
+    <div class="omhulsel">
+      <h1>{meta.h1}</h1>
+    </div>
+  </section>
+</BasisLayout>

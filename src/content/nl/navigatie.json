@@ -1,0 +1,61 @@
+{
+  "hoofdmenu": [
+    {
+      "pad": "/",
+      "label": "Home"
+    },
+    {
+      "pad": "/banen",
+      "label": "Baanhuur"
+    },
+    {
+      "pad": "/lessen",
+      "label": "Lessen"
+    },
+    {
+      "pad": "/clinics",
+      "label": "Clinics & bedrijven"
+    },
+    {
+      "pad": "/evenementen",
+      "label": "Evenementen"
+    },
+    {
+      "pad": "/spelregels",
+      "label": "Spelregels & FAQ"
+    },
+    {
+      "pad": "/sponsoren",
+      "label": "Sponsoren"
+    },
+    {
+      "pad": "/over-ons",
+      "label": "Over ons & contact"
+    }
+  ],
+  "labels": {
+    "menuOpenen": "Menu openen",
+    "menuSluiten": "Menu sluiten",
+    "naarHoofdinhoud": "Naar hoofdinhoud",
+    "hoofdnavigatie": "Hoofdnavigatie",
+    "boekEenBaan": "Boek een baan",
+    "whatsapp": "Stuur ons een WhatsApp-bericht",
+    "sponsorbalk": "Onze sponsoren",
+    "volgOns": "Volg ons",
+    "openingstijden": "Openingstijden",
+    "bezoekadres": "Bezoekadres",
+    "parkeeradres": "Parkeren",
+    "contact": "Contact",
+    "dagenKort": {
+      "Monday": "ma",
+      "Tuesday": "di",
+      "Wednesday": "wo",
+      "Thursday": "do",
+      "Friday": "vr",
+      "Saturday": "za",
+      "Sunday": "zo"
+    },
+    "kvk": "KvK",
+    "btw": "BTW"
+  }
+}

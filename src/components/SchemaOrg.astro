@@ -1,0 +1,28 @@
+---
+import bedrijf from '../content/nl/bedrijf.json';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'SportsActivityLocation',
+  name: bedrijf.naam,
+  url: 'https://indoorpadelcentrum.nl',
+  telephone: bedrijf.telefoonE164,
+  email: bedrijf.email,
+  vatID: bedrijf.btw,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: bedrijf.bezoekadres.straat,
+    postalCode: bedrijf.bezoekadres.postcode,
+    addressLocality: bedrijf.bezoekadres.plaats,
+    addressCountry: bedrijf.bezoekadres.land,
+  },
+  openingHoursSpecification: bedrijf.openingstijden.map((t) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: t.dagen,
+    opens: t.van,
+    closes: t.tot,
+  })),
+  sameAs: [bedrijf.facebook, bedrijf.instagram, bedrijf.playtomic],
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
