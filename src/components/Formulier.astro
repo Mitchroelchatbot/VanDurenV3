@@ -60,8 +60,10 @@ const isEmail = (v) => /mail/i.test(v);
 
       {st.type === 'aantal' && (
         <>
+          {/* De legenda staat er visueel boven, maar telt niet als
+              toegankelijke naam voor een invoerveld: vandaar aria-label. */}
           <input class="form__invoer form__invoer--kort" type="number" inputmode="numeric" min="1"
-                 name={st.vraag} data-leeg-invullen
+                 name={st.vraag} aria-label={st.vraag} data-leeg-invullen
                  data-zacht-min={aantalGrens && st.nr === grensVraag ? String(aantalGrens.zachtMin) : undefined}
                  data-zacht-max={aantalGrens && st.nr === grensVraag ? String(aantalGrens.zachtMax) : undefined} />
           {aantalGrens && st.nr === grensVraag && (
