@@ -1,14 +1,71 @@
 ---
 import BasisLayout from '../layouts/BasisLayout.astro';
-import paginas from '../content/nl/paginas.json';
+import Kaart from '../components/Kaart.astro';
+import PrijsTabel from '../components/PrijsTabel.astro';
+import Wizard from '../components/Wizard.astro';
+import Cta from '../components/Cta.astro';
+import banen from '../content/nl/banen.json';
+import tarieven from '../content/nl/tarieven.json';
 
 const pad = '/banen';
-const meta = paginas[pad];
+const meta = { titel: banen.metaTitle, beschrijving: banen.metaDescription };
+const w = banen.contractbaanWizard;
 ---
-<BasisLayout pad={pad} waSjabloon={meta.wa}>
+<BasisLayout pad={pad} meta={meta} wa="banen">
   <section class="sectie">
     <div class="omhulsel">
-      <h1>{meta.h1}</h1>
+      <h1>{banen.titel}</h1>
+      <div class="raster-drie">
+        {banen.opties.map((o) => (
+          <Kaart eyebrow={o.eyebrow} label={o.label} omschrijving={o.omschrijving}
+                 punten={o.punten} cta={o.cta}
+                 ctaSoort={o.cta.type === 'playtomic' ? 'primair' : 'secundair'} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sectie sectie--licht">
+    <div class="omhulsel">
+      <PrijsTabel titel={tarieven.baanhuur.titel} intro={tarieven.baanhuur.intro}
+                  kolommen={tarieven.baanhuur.kolommen} rijen={tarieven.baanhuur.rijen}
+                  voetnoot={tarieven.baanhuur.voetnoot} />
+    </div>
+  </section>
+
+  <section class="sectie" id="vip">
+    <div class="omhulsel omhulsel--midden">
+      <h2>{tarieven.vipDaluren.titel}</h2>
+      <p class="vip__prijs">{tarieven.vipDaluren.prijs}
+        <span class="vip__per">{tarieven.vipDaluren.prijsPer}</span></p>
+      <ul class="vip__punten">{tarieven.vipDaluren.punten.map((p) => (<li>{p}</li>))}</ul>
+      <p>{tarieven.vipDaluren.aanmelden}</p>
+      <Cta cta={tarieven.vipDaluren.cta} soort="secundair" />
+    </div>
+  </section>
+
+  <section class="sectie sectie--licht">
+    <div class="omhulsel">
+      <h2>{banen.babolat.titel}</h2>
+      <p class="omhulsel--smal babolat__tekst">{banen.babolat.tekst}</p>
+    </div>
+  </section>
+
+  <section class="sectie" id="contractbaan">
+    <div class="omhulsel">
+      <PrijsTabel titel={tarieven.contractbaan.titel} intro={tarieven.contractbaan.intro}
+                  kolommen={tarieven.contractbaan.kolommen} rijen={tarieven.contractbaan.rijen}
+                  voetnoot={tarieven.contractbaan.voetnoot} />
+      <Wizard naam="contractbaan" titel={w.titel} intro={w.intro} stappen={w.stappen}
+              bevestiging={w.bevestiging} />
     </div>
   </section>
 </BasisLayout>
+
+<style>
+  .raster-drie { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+  .vip__prijs { font-family: var(--font-kop); font-weight: 700; font-size: 2rem; color: var(--blauw); margin-bottom: 0.2rem; }
+  .vip__per { font-family: var(--font-tekst); font-weight: 400; font-size: 1rem; color: var(--grijs-500); }
+  .vip__punten { padding-left: 1.2rem; display: grid; gap: 0.35rem; margin-bottom: 1.25rem; }
+  .babolat__tekst { padding-inline: 0; }
+</style>

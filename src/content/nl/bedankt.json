@@ -1,0 +1,11 @@
+{
+  "titel": "Je aanvraag is verstuurd",
+  "metaTitle": "Aanvraag verstuurd — Van Duren Indoor Padel Centrum",
+  "metaDescription": "Je aanvraag is bij ons binnengekomen.",
+  "tekst": "We komen binnen één werkdag bij je terug met een voorstel. Je hoeft niets meer te mailen.",
+  "links": [
+    { "pad": "/banen", "label": "Padelbaan huren" },
+    { "pad": "/lessen", "label": "Lessen bekijken" },
+    { "pad": "/", "label": "Naar de startpagina" }
+  ]
+}

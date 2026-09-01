@@ -1,14 +1,51 @@
 ---
 import BasisLayout from '../layouts/BasisLayout.astro';
-import paginas from '../content/nl/paginas.json';
+import Accordeon from '../components/Accordeon.astro';
+import spelregels from '../content/nl/spelregels.json';
 
 const pad = '/spelregels';
-const meta = paginas[pad];
+const meta = { titel: spelregels.metaTitle, beschrijving: spelregels.metaDescription };
 ---
-<BasisLayout pad={pad} waSjabloon={meta.wa}>
+<BasisLayout pad={pad} meta={meta} faq={spelregels.faq}>
   <section class="sectie">
-    <div class="omhulsel">
-      <h1>{meta.h1}</h1>
+    <div class="omhulsel omhulsel--midden">
+      <h1>{spelregels.titel}</h1>
+      <nav class="ankers" aria-label={spelregels.titel}>
+        <ul>{spelregels.ankers.map((a) => (<li><a href={`#${a.id}`}>{a.label}</a></li>))}</ul>
+      </nav>
+    </div>
+  </section>
+
+  <section class="sectie" id="faq">
+    <div class="omhulsel omhulsel--midden">
+      <h2>{spelregels.ankers[0].label}</h2>
+      <Accordeon items={spelregels.faq} />
+    </div>
+  </section>
+
+  <section class="sectie sectie--licht" id="padelregels">
+    <div class="omhulsel omhulsel--midden">
+      <h2>{spelregels.padelregels.titel}</h2>
+      <p class="regels__intro">{spelregels.padelregels.intro}</p>
+      {spelregels.padelregels.secties.map((s) => (
+        <div class="regels__sectie">
+          <h3>{s.titel}</h3>
+          <ul>{s.punten.map((p) => (<li>{p}</li>))}</ul>
+        </div>
+      ))}
     </div>
   </section>
 </BasisLayout>
+
+<style>
+  .ankers ul { display: flex; flex-wrap: wrap; gap: 0.75rem; list-style: none; padding: 0; margin: 0; }
+  .ankers a {
+    display: inline-block; padding: 0.5em 1em;
+    border: 2px solid var(--blauw); border-radius: 999px;
+    text-decoration: none; font-size: 0.95rem;
+  }
+  .ankers a:hover { background: var(--blauw); color: var(--wit); }
+  .regels__intro { max-width: 62ch; }
+  .regels__sectie { margin-top: 2rem; }
+  .regels__sectie ul { padding-left: 1.2rem; display: grid; gap: 0.4rem; max-width: 62ch; }
+</style>

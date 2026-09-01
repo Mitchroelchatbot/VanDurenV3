@@ -9,7 +9,7 @@ import SchemaOrg from '../components/SchemaOrg.astro';
 import nav from '../content/nl/navigatie.json';
 import paginas from '../content/nl/paginas.json';
 
-const { pad, waSjabloon, meta: metaProp, posterPreload } = Astro.props;
+const { pad, meta: metaProp, posterPreload, wa = 'algemeen', faq } = Astro.props;
 const meta = metaProp ?? paginas[pad];
 const canoniek = new URL(pad, Astro.site).href;
 ---
@@ -40,6 +40,7 @@ const canoniek = new URL(pad, Astro.site).href;
     <meta property="og:url" content={canoniek} />
     <meta property="og:locale" content="nl_NL" />
     {pad === '/' && <SchemaOrg />}
+    {faq && <SchemaOrg faq={faq} />}
     <slot name="head" />
   </head>
   <body>
@@ -50,6 +51,6 @@ const canoniek = new URL(pad, Astro.site).href;
     </main>
     <Sponsorbalk />
     <Footer />
-    <WhatsAppKnop bericht={waSjabloon} />
+    <WhatsAppKnop sleutel={wa} />
   </body>
 </html>

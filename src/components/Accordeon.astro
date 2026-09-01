@@ -1,0 +1,29 @@
+---
+const { items } = Astro.props;
+---
+<div class="accordeon">
+  {items.map((it) => (
+    <details class="accordeon__item">
+      <summary class="accordeon__vraag">{it.vraag}</summary>
+      <div class="accordeon__antwoord"><p>{it.antwoord}</p></div>
+    </details>
+  ))}
+</div>
+
+<style>
+  .accordeon__item { border-bottom: 1px solid var(--grijs-100); }
+  .accordeon__vraag {
+    cursor: pointer; padding: 1.1rem 2rem 1.1rem 0; position: relative;
+    font-family: var(--font-kop); font-weight: 600; font-size: 1.05rem;
+    list-style: none;
+  }
+  .accordeon__vraag::-webkit-details-marker { display: none; }
+  .accordeon__vraag::after {
+    content: ''; position: absolute; right: 0.4rem; top: 1.5rem;
+    width: 10px; height: 10px; border-right: 2px solid var(--blauw); border-bottom: 2px solid var(--blauw);
+    transform: rotate(45deg); transition: transform 150ms;
+  }
+  .accordeon__item[open] .accordeon__vraag::after { transform: rotate(-135deg); top: 1.75rem; }
+  .accordeon__antwoord { padding-bottom: 1.1rem; }
+  .accordeon__antwoord p { margin: 0; }
+</style>

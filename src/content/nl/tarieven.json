@@ -1,44 +1,93 @@
 {
+  "_bron": "indoorpadelcentrum.nl/tarieven/ en /vip-daluren/ — geverifieerd 1 september 2026. Zie CLAUDE.md §4.2. Neem NIETS over uit /mogelijkheden/: die pagina uit 2023 noemt € 20 per uur en € 15 per proefles en spreekt deze tarieven tegen (OPEN.md O21).",
+
+  "daluren": {
+    "label": "Daluren",
+    "toelichting": "Vanaf 09:00, buiten de piekuren"
+  },
+  "piekuren": {
+    "label": "Piekuren",
+    "toelichting": "Maandag t/m vrijdag, 18:30 – 22:30"
+  },
+
   "baanhuur": {
-    "toelichting": "Baan 1 en 2 zijn te huren per 1,5 uur. Baan 3 en 4 alleen per heel uur, startend op het hele uur.",
+    "titel": "Baanhuur",
+    "intro": "Losse boekingen lopen via Playtomic. Daar zie je live welke banen vrij zijn.",
+    "kolommen": ["Per uur", "Per 1,5 uur"],
     "rijen": [
-      { "label": "Daluren", "detail": "vanaf 09:00", "uur": 28, "anderhalfUur": 42 },
-      { "label": "Piekuren", "detail": "ma t/m vr 18:30 – 22:30", "uur": 36, "anderhalfUur": 54 }
-    ]
-  },
-  "contractbaan": {
-    "kolommen": [
-      { "label": "6 maanden", "detail": "20 tot 26 keer" },
-      { "label": "12 maanden", "detail": "45 tot 52 keer" }
+      { "label": "Daluren", "toelichting": "vanaf 09:00", "prijzen": ["€ 28", "€ 42"] },
+      { "label": "Piekuren", "toelichting": "ma–vr 18:30 – 22:30", "prijzen": ["€ 36", "€ 54"] }
     ],
-    "rijen": [
-      { "label": "Daluren, 1 uur", "prijzen": [450, 850] },
-      { "label": "Daluren, 1,5 uur", "prijzen": [675, 1275] },
-      { "label": "Piekuren, 1 uur", "prijzen": [650, 1250] },
-      { "label": "Piekuren, 1,5 uur", "prijzen": [975, 1875] }
-    ]
+    "voetnoot": "Baan 1 en 2 zijn te huren per 1,5 uur. Baan 3 en 4 gaan per heel uur en starten op het hele uur.",
+    "cta": { "label": "Boek een baan", "type": "playtomic" }
   },
+
+  "contractbaan": {
+    "titel": "Contractbaan",
+    "intro": "Een vaste baan op een vast moment, het hele seizoen. Vul het formulier in en we komen met een voorstel terug.",
+    "kolommen": ["6 maanden (20–26×)", "12 maanden (45–52×)"],
+    "rijen": [
+      { "label": "Daluren, 1 uur",    "prijzen": ["€ 450", "€ 850"] },
+      { "label": "Daluren, 1,5 uur",  "prijzen": ["€ 675", "€ 1.275"] },
+      { "label": "Piekuren, 1 uur",   "prijzen": ["€ 650", "€ 1.250"] },
+      { "label": "Piekuren, 1,5 uur", "prijzen": ["€ 975", "€ 1.875"] }
+    ],
+    "voetnoot": "Een contract van 1,5 uur loopt op baan 1 of 2.",
+    "cta": { "label": "Contractbaan aanvragen", "type": "formulier", "formulier": "contractbaan" }
+  },
+
   "vipDaluren": {
     "titel": "VIP-daluren lidmaatschap",
-    "prijsPerJaar": 249.99,
+    "prijs": "€ 249,99",
+    "prijsPer": "per jaar",
     "punten": [
-      "Drie keer per week spelen tussen 09:00 en 17:00 — meer dan 150 keer per jaar.",
-      "Maximaal één week vooruit reserveren.",
-      "Medespelers zonder VIP betalen een evenredig deel van de baanhuur."
+      "Drie keer per week spelen tussen 09:00 en 17:00",
+      "Dat zijn meer dan 150 speelmomenten per jaar",
+      "Maximaal één week vooruit reserveren",
+      "Medespelers zonder VIP betalen een evenredig deel van de baanhuur"
     ],
-    "aanmelden": "Via Playtomic: kies het centrum, ga naar Memberships en kies daluren VIP.",
-    "aanmeldUrl": "https://playtomic.io/van-duren-indoor-padel-centrum/a52205f6-6954-4d82-bda0-b2040fc82dc4"
+    "aanmelden": "Aanmelden gaat via Playtomic: kies het centrum, ga naar Memberships en selecteer 'daluren VIP'.",
+    "cta": { "label": "Word VIP via Playtomic", "type": "playtomic-memberships" }
   },
+
   "lessen": {
-    "toelichting": "Alle prijzen zijn inclusief baanhuur, materiaal en trainer. Een les duurt 60 minuten en wordt altijd vooraf betaald.",
+    "titel": "Lestarieven",
+    "voorwaarden": [
+      "Alle lessen duren 60 minuten",
+      "Baanhuur, materiaal en trainer zijn inbegrepen",
+      "Lessen en trainingen worden altijd vooraf betaald"
+    ],
     "rijen": [
-      { "label": "Proefles", "prijs": "€ 100 per les", "groep": "1 tot 4 personen", "reeksen": "eenmalig" },
-      { "label": "Privéles", "prijs": "€ 90 per les", "groep": "1-op-1", "reeksen": "5, 8 of 10 lessen" },
-      { "label": "Groepsles", "prijs": "€ 70 daluren / € 90 piekuren", "groep": "2, 3 of 4 personen", "reeksen": "5, 8 of 10 lessen" }
+      {
+        "id": "proefles",
+        "label": "Proefles",
+        "prijs": "€ 100",
+        "prijsPer": "per les",
+        "groep": "1 tot 4 personen",
+        "reeks": "Eenmalige kennismaking"
+      },
+      {
+        "id": "priveles",
+        "label": "Privéles",
+        "prijs": "€ 90",
+        "prijsPer": "per les",
+        "groep": "1-op-1 met je trainer",
+        "reeks": "Reeks van 5, 8 of 10 lessen"
+      },
+      {
+        "id": "groepsles",
+        "label": "Groepsles",
+        "prijs": "€ 70 daluren / € 90 piekuren",
+        "prijsPer": "per les",
+        "groep": "2, 3 of 4 personen",
+        "reeks": "Reeks van 5, 8 of 10 lessen"
+      }
     ]
   },
+
   "clinics": {
-    "vanafPrijs": "vanaf € 29,00 per persoon",
-    "inbegrepen": "Begeleiding door gediplomeerde trainers, al het materiaal en toegang tot de horeca. Lunch, borrel en hapjes zijn optioneel bij te boeken."
+    "vanafPrijs": "€ 29,00",
+    "vanafPrijsPer": "per persoon",
+    "_todo": "Geldt deze vanafprijs ook voor een kinderfeestje? De prijs is geschreven voor bedrijven. Zie OPEN.md O20."
   }
 }

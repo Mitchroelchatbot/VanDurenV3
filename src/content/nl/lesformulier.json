@@ -1,0 +1,17 @@
+{
+  "_bron": "Veldenlijst volgens CLAUDE.md §6.3: lesvorm, niveau, voorkeursdagdelen, aantal personen, contactgegevens.",
+  "titel": "Proefles of privéles aanvragen",
+  "intro": "Vijf vragen, daarna weten we genoeg om je een voorstel te sturen. Openbare groepslessen boek je rechtstreeks via Playtomic.",
+  "ontvanger": "vanduren@indoorpadelcentrum.nl",
+  "stappen": [
+    { "nr": 1, "vraag": "Welke lesvorm wil je?", "type": "keuze", "opties": ["Proefles", "Privéles"] },
+    { "nr": 2, "vraag": "Wat is je niveau?", "type": "keuze", "opties": ["Nog nooit gespeeld", "Beginner", "Gevorderd"] },
+    { "nr": 3, "vraag": "Wanneer kun je meestal?", "type": "meerkeuze", "opties": ["Doordeweeks overdag", "Doordeweeks avond", "Weekend overdag", "Flexibel"] },
+    { "nr": 4, "vraag": "Met hoeveel personen?", "type": "aantal" },
+    { "nr": 5, "vraag": "Hoe kunnen we je bereiken?", "type": "contact", "velden": ["Naam", "E-mail", "Telefoon"], "extra": { "label": "Opmerking", "type": "tekstvak" } }
+  ],
+  "bevestiging": {
+    "titel": "Je aanvraag is verstuurd",
+    "tekst": "Je krijgt een bevestiging per mail met alles wat je hebt ingevuld. We komen binnen één werkdag bij je terug."
+  }
+}

@@ -1,14 +1,51 @@
 ---
 import BasisLayout from '../layouts/BasisLayout.astro';
-import paginas from '../content/nl/paginas.json';
+import Kaart from '../components/Kaart.astro';
+import Wizard from '../components/Wizard.astro';
+import clinics from '../content/nl/clinics.json';
 
 const pad = '/clinics';
-const meta = paginas[pad];
+const meta = { titel: clinics.metaTitle, beschrijving: clinics.metaDescription };
+const w = clinics.wizard;
+// Kaarten zonder omschrijving of met actief:false renderen niet (§0.3).
+const kaarten = clinics.kaarten.filter((k) => k.actief && k.omschrijving);
 ---
-<BasisLayout pad={pad} waSjabloon={meta.wa}>
+<BasisLayout pad={pad} meta={meta} wa="clinics">
   <section class="sectie">
     <div class="omhulsel">
-      <h1>{meta.h1}</h1>
+      <h1>{clinics.titel}</h1>
+      <p class="clinics__intro">{clinics.intro}</p>
+      {kaarten.length > 0 && (
+        <div class="raster-drie">
+          {kaarten.map((k) => (
+            <Kaart label={k.label} omschrijving={k.omschrijving}
+                   cta={{ label: clinics.kaartCta, type: 'anker', anker: '#aanvraag' }} />
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="sectie sectie--licht">
+    <div class="omhulsel omhulsel--midden">
+      <h2>{clinics.inbegrepen.titel}</h2>
+      <p class="clinics__vanaf">{clinics.inbegrepen.vanafPrijs}</p>
+      <ul class="clinics__punten">{clinics.inbegrepen.punten.map((p) => (<li>{p}</li>))}</ul>
+      <p>{clinics.inbegrepen.optioneel}</p>
+    </div>
+  </section>
+
+  <section class="sectie" id="aanvraag">
+    <div class="omhulsel">
+      <Wizard naam="clinic" titel={clinics.titel} intro={clinics.intro}
+              stappen={w.stappen} bevestiging={w.bevestiging} aantalGrens={w.aantalGrens} />
     </div>
   </section>
 </BasisLayout>
+
+<style>
+  .raster-drie { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); margin-top: 2rem; }
+  .clinics__intro { max-width: 60ch; }
+  .clinics__vanaf { font-family: var(--font-kop); font-weight: 700; font-size: 1.9rem; color: var(--blauw); margin-bottom: 0.6rem; }
+  .clinics__punten { padding-left: 1.2rem; display: grid; gap: 0.35rem; margin-bottom: 1.25rem; }
+</style>

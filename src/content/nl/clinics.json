@@ -1,0 +1,157 @@
+{
+  "_bron": "indoorpadelcentrum.nl/bedrijfsclinics/ — geverifieerd 1 september 2026. Wizard-opzet volgens CLAUDE.md §6.1.",
+  "titel": "Clinics en bedrijfsuitjes",
+  "metaTitle": "Padelclinic in Son en Breugel — Van Duren Indoor Padel Centrum",
+  "metaDescription": "Een padelclinic voor je bedrijf, vriendengroep of kinderfeestje. Vanaf € 29,00 per persoon, inclusief trainer en materiaal.",
+  "intro": "Een middag of avond padel onder begeleiding van onze gediplomeerde trainers. Iedereen kan meteen meedoen, ook wie nog nooit een racket heeft vastgehouden.",
+  "inbegrepen": {
+    "titel": "Wat je krijgt",
+    "vanafPrijs": "€ 29,00 per persoon",
+    "punten": [
+      "Begeleiding door onze gediplomeerde trainers",
+      "Al het materiaal: rackets en ballen",
+      "Toegang tot onze eigen horeca",
+      "Een programma dat we samen met jou samenstellen"
+    ],
+    "optioneel": "Lunch, borrel of hapjes zijn los bij te boeken."
+  },
+  "kaarten": [
+    {
+      "id": "bedrijf",
+      "label": "Bedrijf",
+      "omschrijving": "Een bedrijfsuitje, teamdag of relatie-event. Combineer padel met een borrel of diner in onze horeca. Facturatie op rekening is mogelijk.",
+      "actief": true
+    },
+    {
+      "id": "vrienden",
+      "label": "Vriendengroep",
+      "omschrijving": null,
+      "actief": false,
+      "_todo": "Er staat op de huidige site niets over vriendengroepen. Geen tekst verzinnen — laat deze kaart de algemene omschrijving en het formulier gebruiken, of zet 'actief' pas op true als de eigenaren tekst hebben aangeleverd. Zie OPEN.md O19b."
+    },
+    {
+      "id": "kinderfeestje",
+      "label": "Kinderfeestje",
+      "omschrijving": null,
+      "actief": false,
+      "_todo": "Idem. Bovendien is onbekend of de vanafprijs van € 29,00 p.p. ook voor kinderen geldt. Zie OPEN.md O20."
+    }
+  ],
+  "wizard": {
+    "ontvanger": "vanduren@indoorpadelcentrum.nl",
+    "aantalGrens": {
+      "zachtMin": 4,
+      "zachtMax": 48,
+      "buitenBereikTekst": "We nemen contact met je op om te kijken wat er mogelijk is.",
+      "_regel": "Zachte grens, geen harde validatie. Aanvragen buiten dit bereik worden gewoon geaccepteerd. Het echte minimum en maximum zijn niet bekend — OPEN.md O20."
+    },
+    "stappen": [
+      {
+        "nr": 1,
+        "vraag": "Wat voor groep zijn jullie?",
+        "type": "keuze",
+        "opties": [
+          "Bedrijf",
+          "Vriendengroep",
+          "Kinderfeestje"
+        ]
+      },
+      {
+        "nr": 2,
+        "vraag": "Met hoeveel personen komen jullie?",
+        "type": "aantal"
+      },
+      {
+        "nr": "2a",
+        "vraag": "Hoe oud zijn de kinderen?",
+        "type": "keuze",
+        "opties": [
+          "t/m 8 jaar",
+          "9 t/m 12 jaar",
+          "13 t/m 16 jaar",
+          "Gemengd"
+        ],
+        "toonBij": {
+          "stap": 1,
+          "waarde": "Kinderfeestje"
+        }
+      },
+      {
+        "nr": "2b",
+        "vraag": "Hoeveel volwassen begeleiders komen mee?",
+        "type": "aantal",
+        "toonBij": {
+          "stap": 1,
+          "waarde": "Kinderfeestje"
+        }
+      },
+      {
+        "nr": 3,
+        "vraag": "Wanneer ongeveer?",
+        "type": "datum-dagdeel",
+        "opties": [
+          "Ochtend",
+          "Middag",
+          "Avond",
+          "Flexibel"
+        ]
+      },
+      {
+        "nr": 4,
+        "vraag": "Hoeveel ervaring heeft de groep?",
+        "type": "keuze",
+        "opties": [
+          "Nog nooit gespeeld",
+          "Gemengd",
+          "Ervaren"
+        ]
+      },
+      {
+        "nr": 5,
+        "vraag": "Willen jullie er iets bij eten of drinken?",
+        "type": "keuze",
+        "opties": [
+          "Niets",
+          "Borrel",
+          "Lunch",
+          "Diner"
+        ]
+      },
+      {
+        "nr": 6,
+        "vraag": "Moet de factuur op rekening?",
+        "type": "ja-nee-plus-velden",
+        "velden": [
+          "Bedrijfsnaam",
+          "Factuuradres",
+          "Referentie of PO-nummer"
+        ],
+        "toonBij": {
+          "stap": 1,
+          "waarde": "Bedrijf"
+        }
+      },
+      {
+        "nr": 7,
+        "vraag": "Hoe kunnen we je bereiken?",
+        "type": "contact",
+        "velden": [
+          "Naam",
+          "E-mail",
+          "Telefoon"
+        ],
+        "extra": {
+          "label": "Eigen idee of opmerking",
+          "type": "tekstvak",
+          "placeholder": "Heb je zelf een idee voor het programma? Vertel het hier."
+        }
+      }
+    ],
+    "bevestiging": {
+      "titel": "Je aanvraag is verstuurd",
+      "tekst": "Je krijgt een bevestiging per mail met alles wat je hebt ingevuld. We komen binnen één werkdag bij je terug met een voorstel."
+    }
+  },
+  "_verwijderd": "Het blok 'Zo werkt het' (stap 1 mail je wensen, 2 voorstel, 3 reserveren, 4 spelen) van de oude site komt NIET terug. Dat legt het mailproces uit dat we juist afschaffen. Geen mailto op deze pagina.",
+  "kaartCta": "Aanvraag starten"
+}

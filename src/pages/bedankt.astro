@@ -1,0 +1,22 @@
+---
+import BasisLayout from '../layouts/BasisLayout.astro';
+import bedankt from '../content/nl/bedankt.json';
+
+const pad = '/bedankt';
+const meta = { titel: bedankt.metaTitle, beschrijving: bedankt.metaDescription };
+---
+<BasisLayout pad={pad} meta={meta}>
+  <section class="sectie">
+    <div class="omhulsel omhulsel--smal">
+      <h1>{bedankt.titel}</h1>
+      <p>{bedankt.tekst}</p>
+      <ul class="bedankt__links">
+        {bedankt.links.map((l) => (<li><a href={l.pad}>{l.label}</a></li>))}
+      </ul>
+    </div>
+  </section>
+</BasisLayout>
+
+<style>
+  .bedankt__links { list-style: none; padding: 0; display: grid; gap: 0.5rem; }
+</style>

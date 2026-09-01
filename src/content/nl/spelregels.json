@@ -1,0 +1,100 @@
+{
+  "_bron": "Padelregels: indoorpadelcentrum.nl/padel-regels/ — overgenomen 1 september 2026. FAQ: samengesteld uit /contact/, /tarieven/, /tarieven-lessen/, /vip-daluren/ en /bedrijfsclinics/. Alles wat niet uit die bronnen komt staat onder _todo en is NIET beantwoord.",
+
+  "titel": "Spelregels en veelgestelde vragen",
+  "metaTitle": "Padelregels en veelgestelde vragen — Van Duren Indoor Padel Centrum",
+  "metaDescription": "De spelregels van padel en antwoord op de vragen die we het vaakst krijgen over boeken, tarieven en lessen in Son en Breugel.",
+
+  "ankers": [
+    { "id": "faq", "label": "Veelgestelde vragen" },
+    { "id": "padelregels", "label": "Padelregels" }
+  ],
+
+  "faq": [
+    {
+      "vraag": "Hoe boek ik een baan?",
+      "antwoord": "Losse boekingen lopen via Playtomic. Daar zie je live welke banen vrij zijn en reken je direct af."
+    },
+    {
+      "vraag": "Wat kost een baan?",
+      "antwoord": "In de daluren € 28 per uur en € 42 per anderhalf uur. In de piekuren, maandag tot en met vrijdag tussen 18:30 en 22:30, is dat € 36 per uur en € 54 per anderhalf uur."
+    },
+    {
+      "vraag": "Kan ik anderhalf uur boeken?",
+      "antwoord": "Ja, op baan 1 en 2. Baan 3 en 4 gaan per heel uur en starten op het hele uur."
+    },
+    {
+      "vraag": "Wat zijn de openingstijden?",
+      "antwoord": "Maandag tot en met vrijdag van 09:00 tot 23:00 uur. Zaterdag en zondag van 09:00 tot 17:00 uur."
+    },
+    {
+      "vraag": "Waar kan ik parkeren?",
+      "antwoord": "Parkeren doe je aan de Vlielandlaan 12 in Son en Breugel. Dat is een ander adres dan het bezoekadres — navigeer dus niet op de Rooijse weg als je met de auto komt."
+    },
+    {
+      "vraag": "Wat is het VIP-daluren lidmaatschap?",
+      "antwoord": "Voor € 249,99 per jaar speel je drie keer per week tussen 09:00 en 17:00 uur — meer dan 150 keer per jaar. Je reserveert maximaal één week vooruit. Medespelers die geen VIP zijn betalen een evenredig deel van de baanhuur. Aanmelden gaat via Playtomic onder Memberships."
+    },
+    {
+      "vraag": "Moet ik zelf een racket meenemen?",
+      "antwoord": "Bij een les niet: baanhuur, materiaal en trainer zijn inbegrepen. Je eigen racket meenemen mag natuurlijk altijd."
+    },
+    {
+      "vraag": "Wat kost een les?",
+      "antwoord": "Een proefles is € 100 per les voor één tot vier personen. Een privéles is € 90 per les en een groepsles € 70 in de daluren of € 90 in de piekuren. Alle lessen duren 60 minuten en zijn inclusief baanhuur, materiaal en trainer."
+    },
+    {
+      "vraag": "Hoe schrijf ik me in voor een les?",
+      "antwoord": "Openbare groepslessen boek je rechtstreeks via Playtomic. Voor een proefles of privéles vul je het formulier op de lessenpagina in — dan komen we met een voorstel terug."
+    },
+    {
+      "vraag": "Moet ik vooraf betalen voor een les?",
+      "antwoord": "Ja. Lessen en trainingen worden altijd vooraf betaald."
+    },
+    {
+      "vraag": "Kan ik met mijn bedrijf of vriendengroep komen?",
+      "antwoord": "Ja. Een clinic kost vanaf € 29,00 per persoon, inclusief begeleiding door onze gediplomeerde trainers, al het materiaal en toegang tot onze horeca. Lunch, borrel of hapjes zijn los bij te boeken. Via het formulier op de clinicspagina stel je je aanvraag in een paar stappen samen."
+    }
+  ],
+
+  "_todo_faq": [
+    "Annuleringsvoorwaarden: tot hoe lang van tevoren kan een boeking kosteloos worden geannuleerd? Het prototype noemde 24 uur, maar dat staat nergens op de echte site en is dus niet bevestigd. NIET publiceren voor het bevestigd is.",
+    "Kledingvoorschriften: zijn zaalschoenen met niet-afgevende zool verplicht? Het prototype beweert van wel; onbevestigd.",
+    "Losse materiaalhuur buiten lessen om: kan dat, en wat kost het?",
+    "Zijn er kleedkamers en douches?",
+    "Is er een minimum leeftijd om te spelen?",
+    "Kun je zonder lidmaatschap spelen? (Waarschijnlijk ja, maar niet bevestigd.)"
+  ],
+
+  "padelregels": {
+    "titel": "De spelregels van padel",
+    "intro": "Padel wordt meestal gespeeld als dubbelspel, twee tegen twee, op een baan van 10 bij 20 meter die omgeven is door glas en hekwerk.",
+    "secties": [
+      {
+        "titel": "De basis",
+        "punten": [
+          "De bal moet over het net en in het vak van de tegenstanders worden geslagen.",
+          "De bal mag slechts één keer stuiteren op de grond.",
+          "De bal moet aan de overkant eerst de grond raken, voordat hij het glas of het hekwerk raakt.",
+          "Om een bal terug te spelen mag je het glas aan je eigen kant gebruiken."
+        ]
+      },
+      {
+        "titel": "De opslag",
+        "punten": [
+          "De opslag is altijd onderhands, op heuphoogte.",
+          "Je laat de bal eerst stuiteren en speelt hem dan diagonaal over het net in het servicevak.",
+          "Bij de service mag de bal wel het glas raken, maar niet het hek."
+        ]
+      },
+      {
+        "titel": "Punten tellen",
+        "punten": [
+          "De telling werkt als bij tennis: 0 – 15 – 30 – 40 – game.",
+          "Een set win je met zes games en minimaal twee games verschil.",
+          "Een wedstrijd gaat om twee gewonnen sets."
+        ]
+      }
+    ]
+  }
+}

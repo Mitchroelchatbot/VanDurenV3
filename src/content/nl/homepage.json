@@ -68,7 +68,7 @@
         ],
         "breedte": 1280,
         "hoogte": 853,
-        "alt": "Lege baan met de glazen achterwand en het bord van de Padel Academy erboven."
+        "alt": "Lege baan met de glazen achterwand en het reclamebord van de club erboven."
       },
       {
         "basis": "/beeld/hal/hal-bord",
@@ -78,7 +78,7 @@
         ],
         "breedte": 1280,
         "hoogte": 960,
-        "alt": "Het bord van de Padel Academy boven de lesbaan."
+        "alt": "Het bord van de club boven de lesbaan."
       },
       {
         "basis": "/beeld/hal/rackets",

@@ -1,14 +1,65 @@
 ---
 import BasisLayout from '../layouts/BasisLayout.astro';
+import Kaart from '../components/Kaart.astro';
+import Wizard from '../components/Wizard.astro';
 import lessen from '../content/nl/lessen.json';
+import lesformulier from '../content/nl/lesformulier.json';
 
 const pad = '/lessen';
-const meta = lessen.pagina;
+const meta = { titel: lessen.metaTitle, beschrijving: lessen.metaDescription };
+const f = lesformulier;
 ---
-<BasisLayout pad={pad} meta={meta} waSjabloon={meta.wa}>
+<BasisLayout pad={pad} meta={meta} wa="lessen">
   <section class="sectie">
     <div class="omhulsel">
-      <h1>{meta.h1}</h1>
+      <h1>{lessen.titel}</h1>
+      <p class="lessen__ondertitel">{lessen.ondertitel}</p>
+      <p class="lessen__intro">{lessen.intro}</p>
+
+      <div class="raster-drie">
+        {lessen.lesvormen.map((l) => (
+          <Kaart eyebrow={l.eyebrow} label={l.label} omschrijving={l.omschrijving}
+                 prijs={l.prijs} prijsPer={l.prijsPer} punten={l.kenmerken}
+                 cta={l.route === 'playtomic'
+                      ? { label: l.cta, type: 'playtomic' }
+                      : { label: l.cta, type: 'anker', anker: `#${l.formulier}` }}
+                 ctaSoort={l.route === 'playtomic' ? 'primair' : 'secundair'} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sectie sectie--licht">
+    <div class="omhulsel">
+      <h2>{lessen.praktischeBalk.titel}</h2>
+      <dl class="praktisch">
+        {lessen.praktischeBalk.punten.map((p) => (
+          <div class="praktisch__item"><dt>{p.label}</dt><dd>{p.tekst}</dd></div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="sectie" id="les">
+    <div class="omhulsel">
+      <Wizard naam="les" titel={f.titel} intro={f.intro} stappen={f.stappen}
+              bevestiging={f.bevestiging} />
+    </div>
+  </section>
+
+  <section class="sectie sectie--licht">
+    <div class="omhulsel omhulsel--smal">
+      <p class="trainers">{lessen.trainers.tekst}</p>
     </div>
   </section>
 </BasisLayout>
+
+<style>
+  .raster-drie { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); margin-top: 2rem; }
+  .lessen__ondertitel { font-family: var(--font-kop); font-size: 1.2rem; color: var(--grijs-500); margin-top: -0.5rem; }
+  .lessen__intro { max-width: 60ch; }
+  .praktisch { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 0; }
+  .praktisch__item dt { font-family: var(--font-kop); font-weight: 600; margin-bottom: 0.25rem; }
+  .praktisch__item dd { margin: 0; font-size: 0.95rem; }
+  .trainers { margin: 0; color: var(--grijs-500); }
+</style>

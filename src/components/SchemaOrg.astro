@@ -1,7 +1,12 @@
 ---
 import bedrijf from '../content/nl/bedrijf.json';
 
-const schema = {
+const dagNaar = { ma: 'Monday', di: 'Tuesday', wo: 'Wednesday', do: 'Thursday',
+                  vr: 'Friday', za: 'Saturday', zo: 'Sunday' };
+
+const { faq } = Astro.props;
+
+const locatie = {
   '@context': 'https://schema.org',
   '@type': 'SportsActivityLocation',
   name: bedrijf.naam,
@@ -18,11 +23,22 @@ const schema = {
   },
   openingHoursSpecification: bedrijf.openingstijden.map((t) => ({
     '@type': 'OpeningHoursSpecification',
-    dayOfWeek: t.dagen,
-    opens: t.van,
-    closes: t.tot,
+    dayOfWeek: t.dagen.map((d) => dagNaar[d]),
+    opens: t.open,
+    closes: t.sluit,
   })),
-  sameAs: [bedrijf.facebook, bedrijf.instagram, bedrijf.playtomic],
+  sameAs: bedrijf.sameAs,
 };
+
+const faqSchema = faq && faq.length ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((v) => ({
+    '@type': 'Question',
+    name: v.vraag,
+    acceptedAnswer: { '@type': 'Answer', text: v.antwoord },
+  })),
+} : null;
 ---
-<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+{!faq && <script type="application/ld+json" set:html={JSON.stringify(locatie)} />}
+{faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}

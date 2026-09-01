@@ -1,7 +1,14 @@
 {
+  "_bron": "indoorpadelcentrum.nl/contact/ — geverifieerd 1 september 2026. Zie CLAUDE.md §3.1. Wijzig hier niets zonder de bron opnieuw te controleren.",
+
   "naam": "Van Duren Indoor Padel Centrum",
-  "naamKort": "Van Duren",
-  "naamOnder": "Indoor Padel Centrum",
+  "naamLesprogramma": "Padel Academy van Duren",
+  "wordmark": {
+    "regel1": "Van Duren",
+    "regel2": "Indoor Padel Centrum",
+    "_todo": "Er bestaat geen logo voor 'Indoor Padel Centrum'. Het enige merkmiddel is de lockup 'PADEL ACADEMY VAN DUREN — powered by Babolat'. Zie OPEN.md O24."
+  },
+
   "bezoekadres": {
     "straat": "Rooijse weg 7",
     "postcode": "5691 PA",
@@ -11,36 +18,46 @@
   "parkeeradres": {
     "straat": "Vlielandlaan 12",
     "postcode": "5691 ZK",
-    "plaats": "Son en Breugel"
+    "plaats": "Son en Breugel",
+    "toelichting": "Parkeren doe je op de Vlielandlaan, niet op de Rooijse weg."
   },
+
   "telefoon": "06-19154409",
   "telefoonE164": "+31619154409",
   "whatsapp": "https://wa.me/31619154409",
   "email": "vanduren@indoorpadelcentrum.nl",
+
   "kvk": "82978344",
   "btw": "NL862678274B01",
+
   "openingstijden": [
-    {
-      "dagen": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "van": "09:00",
-      "tot": "23:00"
-    },
-    {
-      "dagen": [
-        "Saturday",
-        "Sunday"
-      ],
-      "van": "09:00",
-      "tot": "17:00"
-    }
+    { "dagen": ["ma", "di", "wo", "do", "vr"], "open": "09:00", "sluit": "23:00" },
+    { "dagen": ["za", "zo"], "open": "09:00", "sluit": "17:00" }
   ],
+  "openingstijdenTekst": [
+    { "label": "Maandag t/m vrijdag", "tijd": "09:00 – 23:00" },
+    { "label": "Zaterdag en zondag", "tijd": "09:00 – 17:00" }
+  ],
+
   "playtomic": "https://playtomic.io/van-duren-indoor-padel-centrum/a52205f6-6954-4d82-bda0-b2040fc82dc4",
+  "playtomicMemberships": "https://playtomic.io/van-duren-indoor-padel-centrum/a52205f6-6954-4d82-bda0-b2040fc82dc4",
   "facebook": "https://www.facebook.com/VanDurenindoorpadelcentrum/",
-  "instagram": "https://www.instagram.com/vandurenindoorpadelcentrum/"
+  "instagram": "https://www.instagram.com/vandurenindoorpadelcentrum/",
+
+  "sameAs": [
+    "https://www.facebook.com/VanDurenindoorpadelcentrum/",
+    "https://www.instagram.com/vandurenindoorpadelcentrum/",
+    "https://playtomic.io/van-duren-indoor-padel-centrum/a52205f6-6954-4d82-bda0-b2040fc82dc4"
+  ],
+
+  "aantalBanen": 4,
+  "formulierOntvanger": "vanduren@indoorpadelcentrum.nl",
+
+  "whatsappTeksten": {
+    "algemeen": "Hoi! Ik heb een vraag over Van Duren Indoor Padel Centrum.",
+    "banen": "Hoi! Ik heb een vraag over het huren van een baan.",
+    "lessen": "Hoi! Ik heb een vraag over de lessen.",
+    "clinics": "Hoi! Ik heb een vraag over een clinic.",
+    "evenementen": "Hoi! Ik heb een vraag over een evenement."
+  }
 }

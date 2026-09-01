@@ -2,8 +2,9 @@
 import bedrijf from '../content/nl/bedrijf.json';
 import nav from '../content/nl/navigatie.json';
 
-const { bericht } = Astro.props;
-const href = bericht ? `${bedrijf.whatsapp}?text=${encodeURIComponent(bericht)}` : bedrijf.whatsapp;
+const { sleutel = 'algemeen' } = Astro.props;
+const tekst = bedrijf.whatsappTeksten[sleutel] ?? bedrijf.whatsappTeksten.algemeen;
+const href = `${bedrijf.whatsapp}?text=${encodeURIComponent(tekst)}`;
 ---
 <a class="wa" href={href} target="_blank" rel="noopener">
   <span class="alleen-schermlezer">{nav.labels.whatsapp}</span>
@@ -14,16 +15,10 @@ const href = bericht ? `${bedrijf.whatsapp}?text=${encodeURIComponent(bericht)}`
 
 <style>
   .wa {
-    position: fixed;
-    right: clamp(14px, 4vw, 28px);
-    bottom: clamp(14px, 4vw, 28px);
-    z-index: 60;
-    display: grid;
-    place-items: center;
-    width: 56px; height: 56px;
-    border-radius: 50%;
-    background: var(--blauw);
-    color: var(--wit);
+    position: fixed; right: clamp(14px, 4vw, 28px); bottom: clamp(14px, 4vw, 28px);
+    z-index: 60; display: grid; place-items: center;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--blauw); color: var(--wit);
     box-shadow: 0 6px 20px rgb(0 0 0 / 0.28);
   }
   .wa:hover { background: var(--blauw-diep); color: var(--wit); }

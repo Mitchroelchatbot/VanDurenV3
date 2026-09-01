@@ -1,0 +1,16 @@
+---
+import bedrijf from '../content/nl/bedrijf.json';
+
+// Eén plek die een cta-object uit de content omzet naar een link.
+// Verschuift Playtomic later van beleid, dan is dat hier één regel.
+const { cta, soort = 'primair' } = Astro.props;
+const href =
+  cta.type === 'playtomic' ? bedrijf.playtomic :
+  cta.type === 'playtomic-memberships' ? bedrijf.playtomicMemberships :
+  cta.type === 'anker' ? cta.anker :
+  cta.type === 'formulier' ? `#${cta.formulier}` :
+  cta.href;
+const extern = href?.startsWith('http');
+---
+<a class={`knop knop--${soort}`} href={href} rel={extern ? 'noopener' : undefined}
+   target={extern ? '_blank' : undefined}>{cta.label}</a>

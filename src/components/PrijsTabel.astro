@@ -1,0 +1,45 @@
+---
+import Cta from './Cta.astro';
+
+const { titel, intro, kolommen, rijen, voetnoot, cta } = Astro.props;
+---
+<div class="prijstabel">
+  {titel && <h3 class="prijstabel__kop">{titel}</h3>}
+  {intro && <p>{intro}</p>}
+  <div class="prijstabel__rol">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col"><span class="alleen-schermlezer">—</span></th>
+          {kolommen.map((k) => (<th scope="col">{k}</th>))}
+        </tr>
+      </thead>
+      <tbody>
+        {rijen.map((r) => (
+          <tr>
+            <th scope="row">
+              {r.label}
+              {r.toelichting && <span class="prijstabel__toelichting">{r.toelichting}</span>}
+            </th>
+            {r.prijzen.map((p) => (<td>{p}</td>))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  {voetnoot && <p class="prijstabel__voetnoot">{voetnoot}</p>}
+  {cta && <Cta cta={cta} soort="primair" />}
+</div>
+
+<style>
+  .prijstabel__kop { font-size: 1.35rem; }
+  /* Brede tabellen scrollen in hun eigen kader, de pagina zelf nooit. */
+  .prijstabel__rol { overflow-x: auto; margin-block: 1rem; }
+  table { border-collapse: collapse; width: 100%; min-width: 30rem; }
+  th, td { text-align: left; padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--grijs-100); }
+  thead th { font-family: var(--font-kop); font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--grijs-500); }
+  tbody th { font-weight: 600; }
+  td { font-variant-numeric: tabular-nums; }
+  .prijstabel__toelichting { display: block; font-weight: 400; font-size: 0.85rem; color: var(--grijs-500); }
+  .prijstabel__voetnoot { font-size: 0.9rem; color: var(--grijs-500); }
+</style>

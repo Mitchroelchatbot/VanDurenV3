@@ -1,8 +1,96 @@
 {
-  "pagina": {
-    "titel": "Padel Academy van Duren — Padellessen in Son en Breugel",
-    "beschrijving": "Proefles, privéles of groepsles bij Padel Academy van Duren. Inclusief baanhuur, materiaal en trainer.",
-    "h1": "Padel Academy van Duren",
-    "wa": "Hoi! Ik heb een vraag over de lessen."
-  }
+  "_bron": "indoorpadelcentrum.nl/tarieven-lessen/ — geverifieerd 1 september 2026. Routing volgens CLAUDE.md §6.3 en B8.",
+
+  "titel": "Padel Academy van Duren",
+  "ondertitel": "Padellessen in Son en Breugel",
+  "metaTitle": "Padel Academy van Duren — Padellessen in Son en Breugel",
+  "metaDescription": "Proefles, privéles of groepsles bij Van Duren Indoor Padel Centrum in Son en Breugel. Inclusief baanhuur, materiaal en trainer.",
+
+  "intro": "Beter leren spelen doe je bij de Padel Academy van Duren. Onze gediplomeerde trainers werken met beginners die de basis willen leren en met gevorderden die hun spel scherper willen krijgen.",
+
+  "lesvormen": [
+    {
+      "id": "proefles",
+      "label": "Proefles",
+      "eyebrow": "Kennismaking",
+      "omschrijving": "Nog nooit gepadeld? In één les van 60 minuten weet je of het bij je past. Racket en ballen liggen klaar.",
+      "prijs": "€ 100",
+      "prijsPer": "per les",
+      "kenmerken": [
+        "60 minuten",
+        "1 tot 4 personen",
+        "Eenmalige kennismaking",
+        "Inclusief baan, materiaal en trainer"
+      ],
+      "route": "formulier",
+      "formulier": "les",
+      "playtomicUrl": null,
+      "cta": "Plan een proefles",
+      "video": null
+    },
+    {
+      "id": "priveles",
+      "label": "Privéles",
+      "eyebrow": "Individueel",
+      "omschrijving": "Eén op één met je trainer. De snelste manier om een specifiek onderdeel van je spel aan te pakken.",
+      "prijs": "€ 90",
+      "prijsPer": "per les",
+      "kenmerken": [
+        "60 minuten",
+        "1-op-1 met je trainer",
+        "Reeks van 5, 8 of 10 lessen",
+        "Inclusief baan, materiaal en trainer"
+      ],
+      "route": "formulier",
+      "formulier": "les",
+      "playtomicUrl": null,
+      "cta": "Privéles aanvragen",
+      "video": null
+    },
+    {
+      "id": "groepsles",
+      "label": "Groepsles",
+      "eyebrow": "Samen",
+      "omschrijving": "Met twee, drie of vier spelers van hetzelfde niveau. Openbare groepslessen schrijf je direct in via Playtomic.",
+      "prijs": "€ 70 daluren / € 90 piekuren",
+      "prijsPer": "per les",
+      "kenmerken": [
+        "60 minuten",
+        "2, 3 of 4 personen",
+        "Reeks van 5, 8 of 10 lessen",
+        "Inclusief baan, materiaal en trainer"
+      ],
+      "route": "playtomic",
+      "formulier": null,
+      "playtomicUrl": "https://playtomic.io/van-duren-indoor-padel-centrum/a52205f6-6954-4d82-bda0-b2040fc82dc4",
+      "cta": "Bekijk beschikbare groepslessen",
+      "video": null
+    }
+  ],
+
+  "praktischeBalk": {
+    "titel": "Goed om te weten",
+    "punten": [
+      {
+        "label": "Materiaal",
+        "tekst": "Racket en ballen van Babolat zijn inbegrepen. Eigen racket meenemen mag."
+      },
+      {
+        "label": "Betalen",
+        "tekst": "Lessen en trainingen worden altijd vooraf betaald."
+      },
+      {
+        "label": "Zelf meenemen",
+        "tekst": "Sportkleding en schone zaalschoenen."
+      }
+    ]
+  },
+
+  "trainers": {
+    "tekst": "De lessen worden gegeven door onze gediplomeerde trainers.",
+    "_regel": "Geen namen, geen foto's, geen trainerskaartjes. Akkoord eigenaren, CLAUDE.md §11. Noem hier NOOIT dat Martin en Bennet alle lessen geven, en gebruik het woord 'Madrid' niet."
+  },
+
+  "_todo_video": "Op de Instagram van Van Duren staan technische reels (portret 9:16) die hier bij de lesvormen horen. De bronbestanden ontbreken — zie OPEN.md O23. Laat het veld 'video' null en render geen leeg videovlak.",
+  "_todo_jeugd": "De oude site heeft een apart jeugdaanbod (/padel-jeugd-tot-en-met-14-jaar, menu-item 'Jeugd', webshopproduct 'jeugdtraining'). Dat ontbreekt hier volledig. Zie OPEN.md O25."
 }

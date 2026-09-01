@@ -56,6 +56,26 @@
       "Sunday": "zo"
     },
     "kvk": "KvK",
-    "btw": "BTW"
+    "btw": "BTW",
+    "naarPlaytomic": "Openen in Playtomic",
+    "sociaal": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "playtomic": "Playtomic"
+    }
+  },
+  "wizardLabels": {
+    "vorige": "Vorige",
+    "volgende": "Volgende",
+    "versturen": "Aanvraag versturen",
+    "datum": "Datum",
+    "dagdeel": "Dagdeel",
+    "jaNee": [
+      "Ja",
+      "Nee"
+    ],
+    "honeypotVeld": "bot-veld",
+    "honeypotLabel": "Laat dit veld leeg",
+    "tellerSjabloon": "Stap {n} van {van}"
   }
 }

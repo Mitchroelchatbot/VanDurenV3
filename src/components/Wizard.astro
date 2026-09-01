@@ -1,0 +1,269 @@
+---
+import bedrijf from '../content/nl/bedrijf.json';
+import nav from '../content/nl/navigatie.json';
+
+// Zonder JavaScript is dit één lang formulier: alle velden staan in de HTML,
+// niets is verborgen. Met JavaScript worden de fieldsets stappen. Netlify
+// leest de velden bij de build, dus ze moeten allemaal statisch aanwezig zijn.
+const { naam, titel, intro, stappen, bevestiging, aantalGrens, extraKlasse = '' } = Astro.props;
+const L = nav.wizardLabels;
+// De zachte grens hoort bij de groepsgrootte, niet bij elk aantalveld.
+// Hij geldt daarom alleen voor de eerste stap van het type 'aantal'.
+const grensStap = stappen.find((st) => st.type === 'aantal')?.nr;
+---
+<form
+  class={`wizard ${extraKlasse}`}
+  name={naam}
+  method="POST"
+  action="/bedankt"
+  data-netlify="true"
+  netlify-honeypot={L.honeypotVeld}
+  data-wizard
+>
+  <input type="hidden" name="form-name" value={naam} />
+  <p class="wizard__honeypot">
+    <label>{L.honeypotLabel} <input name={L.honeypotVeld} tabindex="-1" autocomplete="off" /></label>
+  </p>
+
+  {titel && <h2 class="wizard__titel">{titel}</h2>}
+  {intro && <p class="wizard__intro">{intro}</p>}
+
+  <div class="wizard__voortgang" data-voortgang hidden>
+    <div class="wizard__balk"><span data-balk></span></div>
+    <p class="wizard__teller" aria-live="polite" data-teller data-sjabloon={L.tellerSjabloon}></p>
+  </div>
+
+  {stappen.map((st) => (
+    <fieldset
+      class="wizard__stap"
+      data-stap={String(st.nr)}
+      data-toon-bij-stap={st.toonBij ? String(st.toonBij.stap) : undefined}
+      data-toon-bij-waarde={st.toonBij ? st.toonBij.waarde : undefined}
+    >
+      <legend class="wizard__vraag">{st.vraag}</legend>
+      {st.toelichting && <p class="wizard__toelichting">{st.toelichting}</p>}
+
+      {st.type === 'keuze' && st.opties.map((o) => (
+        <label class="wizard__optie">
+          <input type="radio" name={st.vraag} value={o} /> <span>{o}</span>
+        </label>
+      ))}
+
+      {st.type === 'meerkeuze' && st.opties.map((o) => (
+        <label class="wizard__optie">
+          <input type="checkbox" name={st.vraag} value={o} /> <span>{o}</span>
+        </label>
+      ))}
+
+      {st.type === 'aantal' && (
+        <>
+          <input class="wizard__invoer wizard__invoer--kort" type="number" inputmode="numeric"
+                 min="1" name={st.vraag} data-aantal
+                 data-zacht-min={aantalGrens && st.nr === grensStap ? String(aantalGrens.zachtMin) : undefined}
+                 data-zacht-max={aantalGrens && st.nr === grensStap ? String(aantalGrens.zachtMax) : undefined} />
+          {aantalGrens && st.nr === grensStap && (
+            <p class="wizard__zacht" data-zacht-tekst hidden>{aantalGrens.buitenBereikTekst}</p>
+          )}
+        </>
+      )}
+
+      {st.type === 'datum-dagdeel' && (
+        <div class="wizard__paar">
+          <label class="wizard__veld">
+            <span>{L.datum}</span>
+            <input class="wizard__invoer" type="date" name={`${st.vraag} — ${L.datum}`} />
+          </label>
+          <div class="wizard__veld">
+            <span>{L.dagdeel}</span>
+            <div>
+              {st.opties.map((o) => (
+                <label class="wizard__optie">
+                  <input type="radio" name={`${st.vraag} — ${L.dagdeel}`} value={o} /> <span>{o}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {st.type === 'keuze-plus-tekst' && (
+        <>
+          {st.opties.map((o) => (
+            <label class="wizard__optie">
+              <input type="radio" name={st.vraag} value={o}
+                     data-opent-tekstveld={o === st.tekstveldBij ? 'true' : undefined} /> <span>{o}</span>
+            </label>
+          ))}
+          <label class="wizard__veld" data-tekstveld hidden>
+            <span>{st.tekstveldLabel}</span>
+            <input class="wizard__invoer" type="text" name={st.tekstveldLabel} />
+          </label>
+        </>
+      )}
+
+      {st.type === 'ja-nee-plus-velden' && (
+        <>
+          {L.jaNee.map((o) => (
+            <label class="wizard__optie">
+              <input type="radio" name={st.vraag} value={o}
+                     data-opent-velden={o === L.jaNee[0] ? 'true' : undefined} /> <span>{o}</span>
+            </label>
+          ))}
+          <div data-extra-velden hidden>
+            {st.velden.map((v) => (
+              <label class="wizard__veld">
+                <span>{v}</span>
+                <input class="wizard__invoer" type="text" name={v} />
+              </label>
+            ))}
+          </div>
+        </>
+      )}
+
+      {st.type === 'contact' && (
+        <>
+          {st.velden.map((v, i) => (
+            <label class="wizard__veld">
+              <span>{v}</span>
+              <input class="wizard__invoer" required
+                     type={i === 1 ? 'email' : i === 2 ? 'tel' : 'text'}
+                     autocomplete={i === 1 ? 'email' : i === 2 ? 'tel' : 'name'}
+                     name={v} />
+            </label>
+          ))}
+          {st.extra && (
+            <label class="wizard__veld">
+              <span>{st.extra.label}</span>
+              <textarea class="wizard__invoer" rows="4" name={st.extra.label}
+                        placeholder={st.extra.placeholder ?? undefined}></textarea>
+            </label>
+          )}
+        </>
+      )}
+    </fieldset>
+  ))}
+
+  <div class="wizard__knoppen">
+    <button class="knop knop--secundair" type="button" data-vorige hidden>{L.vorige}</button>
+    <button class="knop knop--secundair" type="button" data-volgende hidden>{L.volgende}</button>
+    <button class="knop knop--primair" type="submit" data-versturen>{L.versturen}</button>
+  </div>
+
+  <p class="wizard__ontvanger">{bevestiging.tekst}</p>
+</form>
+
+<style>
+  .wizard { max-width: var(--max-smal); }
+  .wizard__honeypot { position: absolute; left: -9999px; }
+  .wizard__titel { margin-bottom: 0.35em; }
+  .wizard__intro { color: var(--grijs-500); }
+
+  .wizard__voortgang { margin: 1.5rem 0 2rem; }
+  .wizard__balk { height: 6px; border-radius: 999px; background: var(--grijs-100); overflow: hidden; }
+  .wizard__balk span { display: block; height: 100%; width: 0; background: var(--blauw); transition: width 180ms ease-out; }
+  .wizard__teller { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--grijs-500); }
+
+  .wizard__stap { border: 0; padding: 0; margin: 0 0 2rem; }
+  .wizard__vraag { font-family: var(--font-kop); font-weight: 600; font-size: 1.25rem; padding: 0; margin-bottom: 0.75rem; }
+  .wizard__toelichting { font-size: 0.95rem; color: var(--grijs-500); margin-top: -0.35rem; }
+
+  .wizard__optie { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 0; cursor: pointer; }
+  .wizard__optie input { width: 20px; height: 20px; accent-color: var(--blauw); }
+
+  .wizard__veld { display: block; margin-bottom: 1rem; }
+  .wizard__veld > span { display: block; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  .wizard__invoer {
+    width: 100%; padding: 0.7em 0.8em; font: inherit; color: var(--inkt);
+    border: 2px solid var(--grijs-500); border-radius: var(--radius-klein); background: var(--wit);
+  }
+  .wizard__invoer--kort { max-width: 10rem; }
+  .wizard__paar { display: grid; gap: 1rem; }
+  @media (min-width: 640px) { .wizard__paar { grid-template-columns: 1fr 1fr; } }
+  .wizard__zacht { font-size: 0.9rem; color: var(--oranje); margin: 0.4rem 0 0; }
+
+  .wizard__knoppen { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+  .wizard__ontvanger { font-size: 0.9rem; color: var(--grijs-500); margin-top: 1rem; }
+</style>
+
+<script>
+  // Progressive enhancement: zonder dit script blijft het formulier één
+  // lange lijst met alle velden zichtbaar en werkt versturen gewoon.
+  document.querySelectorAll('form[data-wizard]').forEach((form) => {
+    const alleStappen = [...form.querySelectorAll('.wizard__stap')];
+    const voortgang = form.querySelector('[data-voortgang]');
+    const balk = form.querySelector('[data-balk]');
+    const teller = form.querySelector('[data-teller]');
+    const knopVorige = form.querySelector('[data-vorige]');
+    const knopVolgende = form.querySelector('[data-volgende]');
+    const knopVersturen = form.querySelector('[data-versturen]');
+    const sjabloon = teller.dataset.sjabloon || teller.textContent || '';
+
+    voortgang.hidden = false;
+    knopVorige.hidden = false;
+    knopVolgende.hidden = false;
+
+    let index = 0;
+
+    // Een stap met data-toon-bij-stap telt alleen mee als het antwoord op die
+    // eerdere stap overeenkomt. Zo blijft de teller kloppen.
+    const zichtbareStappen = () => alleStappen.filter((st) => {
+      const bron = st.dataset.toonBijStap;
+      if (!bron) return true;
+      const veld = form.querySelector(`.wizard__stap[data-stap="${bron}"] input:checked`);
+      return veld && veld.value === st.dataset.toonBijWaarde;
+    });
+
+    function teken() {
+      const zichtbaar = zichtbareStappen();
+      if (index >= zichtbaar.length) index = zichtbaar.length - 1;
+      if (index < 0) index = 0;
+      alleStappen.forEach((st) => { st.hidden = true; });
+      const huidig = zichtbaar[index];
+      if (huidig) huidig.hidden = false;
+
+      const pct = Math.round(((index + 1) / zichtbaar.length) * 100);
+      balk.style.width = pct + '%';
+      teller.textContent = sjabloon.replace('{n}', String(index + 1)).replace('{van}', String(zichtbaar.length));
+
+      knopVorige.disabled = index === 0;
+      const laatste = index === zichtbaar.length - 1;
+      knopVolgende.hidden = laatste;
+      knopVersturen.hidden = !laatste;
+      huidig?.querySelector('input, select, textarea')?.focus({ preventScroll: true });
+    }
+
+    knopVorige.addEventListener('click', () => { index--; teken(); });
+    knopVolgende.addEventListener('click', () => {
+      const huidig = zichtbareStappen()[index];
+      const verplicht = [...huidig.querySelectorAll('[required]')];
+      if (verplicht.some((v) => !v.reportValidity())) return;
+      index++; teken();
+    });
+
+    // Voorwaardelijke tekstvelden en factuurvelden binnen een stap.
+    form.addEventListener('change', (e) => {
+      const t = e.target;
+      if (t.dataset.opentTekstveld !== undefined || t.type === 'radio') {
+        const stap = t.closest('.wizard__stap');
+        const tekstveld = stap?.querySelector('[data-tekstveld]');
+        if (tekstveld) tekstveld.hidden = !stap.querySelector('[data-opent-tekstveld]:checked');
+        const extra = stap?.querySelector('[data-extra-velden]');
+        if (extra) extra.hidden = !stap.querySelector('[data-opent-velden]:checked');
+      }
+      teken();
+    });
+
+    // Zachte grens: melding tonen, nooit blokkeren.
+    form.querySelectorAll('[data-aantal]').forEach((veld) => {
+      const melding = veld.parentElement.querySelector('[data-zacht-tekst]');
+      if (!melding) return;
+      veld.addEventListener('input', () => {
+        const n = Number(veld.value);
+        const min = Number(veld.dataset.zachtMin), max = Number(veld.dataset.zachtMax);
+        melding.hidden = !(veld.value !== '' && (n < min || n > max));
+      });
+    });
+
+    teken();
+  });
+</script>

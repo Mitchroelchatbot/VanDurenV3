@@ -3,11 +3,6 @@ import bedrijf from '../content/nl/bedrijf.json';
 import nav from '../content/nl/navigatie.json';
 
 const { labels } = nav;
-const kort = labels.dagenKort;
-const tijden = bedrijf.openingstijden.map((t) => ({
-  dagen: `${kort[t.dagen[0]]} t/m ${kort[t.dagen[t.dagen.length - 1]]}`,
-  uren: `${t.van} – ${t.tot}`,
-}));
 const jaar = new Date().getFullYear();
 ---
 <footer class="voet op-blauw">
@@ -28,12 +23,15 @@ const jaar = new Date().getFullYear();
         {bedrijf.parkeeradres.straat}<br />
         {bedrijf.parkeeradres.postcode} {bedrijf.parkeeradres.plaats}
       </address>
+      {bedrijf.parkeeradres.toelichting && (
+        <p class="voet__regel voet__let-op">{bedrijf.parkeeradres.toelichting}</p>
+      )}
     </div>
 
     <div>
       <h2 class="voet__kop">{labels.openingstijden}</h2>
       <dl class="voet__tijden">
-        {tijden.map((t) => (<><dt>{t.dagen}</dt><dd>{t.uren}</dd></>))}
+        {bedrijf.openingstijdenTekst.map((t) => (<><dt>{t.label}</dt><dd>{t.tijd}</dd></>))}
       </dl>
     </div>
 
@@ -45,29 +43,24 @@ const jaar = new Date().getFullYear();
       </p>
       <h2 class="voet__kop">{labels.volgOns}</h2>
       <p class="voet__regel voet__sociaal">
-        <a href={bedrijf.facebook} rel="noopener">Facebook</a>
-        <a href={bedrijf.instagram} rel="noopener">Instagram</a>
-        <a href={bedrijf.playtomic} rel="noopener">Playtomic</a>
+        <a href={bedrijf.facebook} rel="noopener">{labels.sociaal.facebook}</a>
+        <a href={bedrijf.instagram} rel="noopener">{labels.sociaal.instagram}</a>
+        <a href={bedrijf.playtomic} rel="noopener">{labels.sociaal.playtomic}</a>
       </p>
     </div>
   </div>
 
-  <div class="omhulsel voet__onder">
-    <p>© {jaar} {bedrijf.naam}</p>
-  </div>
+  <div class="omhulsel voet__onder"><p>© {jaar} {bedrijf.naam}</p></div>
 </footer>
 
 <style>
   .voet { padding-top: 3.5rem; }
-  .voet__raster {
-    display: grid;
-    gap: 2rem var(--gutter);
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  }
+  .voet__raster { display: grid; gap: 2rem var(--gutter); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
   .voet__merk { font-family: var(--font-kop); font-weight: 700; font-size: 1.15rem; margin-bottom: 0.35rem; }
   .voet__kop { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.85; margin: 1.25rem 0 0.4rem; }
   .voet__kop:first-child { margin-top: 0; }
   .voet__regel { font-size: 0.95rem; font-style: normal; margin: 0; }
+  .voet__let-op { margin-top: 0.4rem; opacity: 0.85; }
   .voet__tijden { display: grid; grid-template-columns: auto 1fr; gap: 0.15rem 1rem; margin: 0; font-size: 0.95rem; }
   .voet__tijden dt { opacity: 0.85; }
   .voet__tijden dd { margin: 0; }
