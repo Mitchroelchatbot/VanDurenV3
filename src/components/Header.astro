@@ -3,6 +3,9 @@ import bedrijf from '../content/nl/bedrijf.json';
 import nav from '../content/nl/navigatie.json';
 
 const { pad } = Astro.props;
+// §5.1: één oranje knop per scherm. Op de homepage staat de primaire actie
+// al in de hero, dus de kop-CTA verschijnt pas zodra de hero uit beeld is.
+const ctaNaScroll = pad === '/';
 const { hoofdmenu, labels } = nav;
 ---
 <header class="kop op-blauw">
@@ -27,7 +30,8 @@ const { hoofdmenu, labels } = nav;
       </ul>
     </nav>
 
-    <a class="knop knop--primair kop__cta" href={bedrijf.playtomic} rel="noopener">{labels.boekEenBaan}</a>
+    <a class="knop knop--primair kop__cta" href={bedrijf.playtomic} rel="noopener"
+       data-na-scroll={ctaNaScroll ? 'true' : undefined}>{labels.boekEenBaan}</a>
   </div>
 </header>
 
@@ -65,6 +69,12 @@ const { hoofdmenu, labels } = nav;
   .kop__streepjes { display: grid; gap: 5px; }
   .kop__streepjes i { display: block; width: 26px; height: 2px; background: var(--wit); }
 
+  /* Zonder JavaScript blijft de knop gewoon staan; alleen wanneer het
+     script draait wordt hij tijdelijk verborgen. Geen flits bij het laden
+     omdat .js al in de <head> op <html> gezet wordt. */
+  :global(html.js) .kop__cta[data-na-scroll] { visibility: hidden; }
+  :global(html.js) .kop__cta[data-na-scroll][data-zichtbaar='true'] { visibility: visible; }
+
   @media (max-width: 1100px) {
     .kop__binnen { min-height: 64px; }
     .kop__schakelaar { display: block; order: 3; }
@@ -77,6 +87,18 @@ const { hoofdmenu, labels } = nav;
 </style>
 
 <script>
+  // Kop-CTA op de homepage pas tonen zodra de hero voorbij is (§5.1).
+  const cta = document.querySelector('.kop__cta[data-na-scroll]');
+  const hero = document.querySelector('.hero');
+  if (cta && hero && 'IntersectionObserver' in window) {
+    new IntersectionObserver(
+      ([e]) => cta.setAttribute('data-zichtbaar', String(!e.isIntersecting)),
+      { rootMargin: '-72px 0px 0px 0px' }
+    ).observe(hero);
+  } else if (cta) {
+    cta.setAttribute('data-zichtbaar', 'true');
+  }
+
   const knop = document.querySelector('.kop__schakelaar');
   const menu = document.getElementById('hoofdnav');
   knop?.addEventListener('click', () => {

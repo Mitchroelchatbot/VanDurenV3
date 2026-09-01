@@ -1,0 +1,26 @@
+---
+import home from '../content/nl/homepage.json';
+
+const p = home.persoonlijk;
+---
+<section class="sectie persoonlijk">
+  <div class="omhulsel persoonlijk__raster" data-met-foto={p.foto ? 'true' : 'false'}>
+    {p.foto && (
+      <img class="persoonlijk__foto" src={p.foto} alt={p.fotoAlt} width="960" height="720" loading="lazy" />
+    )}
+    <div class="persoonlijk__tekst">
+      <h2>{p.kop}</h2>
+      {p.alinea.map((a) => (<p>{a}</p>))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .persoonlijk__raster { display: grid; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
+  .persoonlijk__raster[data-met-foto='true'] { grid-template-columns: 1fr; }
+  @media (min-width: 900px) {
+    .persoonlijk__raster[data-met-foto='true'] { grid-template-columns: 1fr 1fr; }
+  }
+  .persoonlijk__foto { border-radius: var(--radius); width: 100%; object-fit: cover; }
+  .persoonlijk__tekst p:last-child { margin-bottom: 0; }
+</style>

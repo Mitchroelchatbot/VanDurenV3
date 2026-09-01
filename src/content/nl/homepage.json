@@ -1,0 +1,30 @@
+{
+  "hero": {
+    "onderkop": "Vier indoor banen, zeven dagen per week open. Boek direct online, zonder te bellen of te mailen.",
+    "primair": {
+      "label": "Boek een baan",
+      "soort": "playtomic"
+    },
+    "secundair": {
+      "label": "Bekijk het lesaanbod",
+      "pad": "/lessen"
+    },
+    "video": null,
+    "poster": null,
+    "posterAlt": null
+  },
+  "persoonlijk": {
+    "kop": "Een familiebedrijf, geen keten",
+    "alinea": [
+      "Van Duren Indoor Padel Centrum is van Martin en Bennet van Duren. Vier indoor banen aan de Rooijse weg in Son en Breugel, zeven dagen per week open.",
+      "Je speelt hier in samenwerking met Babolat, en onze gediplomeerde trainers helpen je verder zodra je dat wilt. Van een eerste proefles tot een vaste contractbaan."
+    ],
+    "foto": null,
+    "fotoAlt": null,
+    "conceptGoedgekeurd": false
+  },
+  "beeldblok": {
+    "kop": "In de hal",
+    "fotos": []
+  }
+}

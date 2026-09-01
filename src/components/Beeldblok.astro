@@ -1,0 +1,30 @@
+---
+import home from '../content/nl/homepage.json';
+
+// Rendert niets zolang er geen echte foto's zijn (§0.3: geen nepplaceholder).
+const b = home.beeldblok;
+const tonen = b.fotos.length > 0;
+---
+{tonen && (
+  <section class="sectie sectie--licht">
+    <div class="omhulsel">
+      <h2>{b.kop}</h2>
+      <div class="beeldblok__raster">
+        {b.fotos.map((f) => (
+          <figure class="beeldblok__item">
+            <img src={f.bestand} alt={f.alt} width="800" height="600" loading="lazy" />
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .beeldblok__raster {
+    display: grid; gap: var(--gutter);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+  .beeldblok__item { margin: 0; }
+  .beeldblok__item img { border-radius: var(--radius); width: 100%; object-fit: cover; }
+</style>

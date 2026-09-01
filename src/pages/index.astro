@@ -1,14 +1,15 @@
 ---
 import BasisLayout from '../layouts/BasisLayout.astro';
+import Hero from '../components/Hero.astro';
+import PersoonlijkBlok from '../components/PersoonlijkBlok.astro';
+import Beeldblok from '../components/Beeldblok.astro';
 import paginas from '../content/nl/paginas.json';
 
 const pad = '/';
 const meta = paginas[pad];
 ---
 <BasisLayout pad={pad} waSjabloon={meta.wa}>
-  <section class="sectie">
-    <div class="omhulsel">
-      <h1>{meta.h1}</h1>
-    </div>
-  </section>
+  <Hero />
+  <PersoonlijkBlok />
+  <Beeldblok />
 </BasisLayout>

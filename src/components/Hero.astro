@@ -1,0 +1,61 @@
+---
+import bedrijf from '../content/nl/bedrijf.json';
+import home from '../content/nl/homepage.json';
+import paginas from '../content/nl/paginas.json';
+
+const h = home.hero;
+const primairHref = h.primair.soort === 'playtomic' ? bedrijf.playtomic : h.primair.pad;
+---
+<section class="hero op-blauw">
+  {h.video && (
+    <video class="hero__video" autoplay muted loop playsinline poster={h.poster ?? undefined}>
+      <source src={h.video.webm} type="video/webm" />
+      <source src={h.video.mp4} type="video/mp4" />
+    </video>
+  )}
+  {!h.video && h.poster && (
+    <img class="hero__video" src={h.poster} alt={h.posterAlt} width="1920" height="1080" fetchpriority="high" />
+  )}
+
+  <div class="omhulsel hero__binnen">
+    <h1 class="hero__kop">{paginas['/'].h1}</h1>
+    <p class="hero__onderkop">{h.onderkop}</p>
+    <div class="hero__acties">
+      <a class="knop knop--primair" href={primairHref} rel="noopener">{h.primair.label}</a>
+      <a class="knop knop--secundair" href={h.secundair.pad}>{h.secundair.label}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero { position: relative; overflow: hidden; isolation: isolate; }
+  .hero__video {
+    position: absolute; inset: 0; z-index: -2;
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  /* Leesbaarheidslaag: zonder deze laag is de tekstcontrast op bewegend
+     beeld niet gegarandeerd. Met beeld donkerder, zonder beeld effen blauw. */
+  .hero::after {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(180deg, rgb(20 42 100 / 0.55), rgb(20 42 100 / 0.8));
+  }
+  .hero:not(:has(.hero__video))::after { background: none; }
+
+  .hero__binnen { padding-block: clamp(72px, 14vw, 152px); max-width: var(--max-midden); }
+  .hero__kop { margin-bottom: 0.4em; }
+  .hero__onderkop {
+    font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+    max-width: 52ch;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+  }
+  .hero__acties { display: flex; flex-wrap: wrap; gap: 0.9rem; }
+
+  @media (max-width: 767px) {
+    /* §5.2: onder 768px geen video laden, daar de poster of het effen vlak. */
+    .hero__video { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero video.hero__video { display: none; }
+  }
+</style>
