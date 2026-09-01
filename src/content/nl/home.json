@@ -28,14 +28,14 @@
   },
   "tegels": {
     "kop": "Wat wil je doen?",
-    "_regel": "Dit vervangt de losse fotogalerij 'In de hal'. Elke tegel is één foto, één label, één regel, en de hele tegel is klikbaar. Vier tegels op desktop naast elkaar, op mobiel twee-bij-twee. Foto's krijgen op hover een lichte zoom; verder geen effecten. Dit is het patroon van padelboxtel.nl ('Padel les · Club Games · Community'), maar dan met onze vier omzetpagina's. Evenementen is als tegel verwijderd: die pagina is leeg zolang er niets gepland staat, en dat is geen bestemming om vanaf de homepage heen te sturen. Evenementen blijft wel in het hoofdmenu.",
+    "_regel": "Dit vervangt de losse fotogalerij 'In de hal'. Elke tegel is één foto, één label, één regel, en de hele tegel is klikbaar. Vier tegels op desktop naast elkaar, op mobiel twee-bij-twee. Foto's krijgen op hover een lichte zoom; verder geen effecten. Dit is het patroon van padelboxtel.nl ('Padel les · Club Games · Community'), maar dan met onze vier omzetpagina's. Evenementen is als tegel verwijderd: die pagina is leeg zolang er niets gepland staat, en dat is geen bestemming om vanaf de homepage heen te sturen. Evenementen blijft wel in het hoofdmenu. Tegel 1 gebruikte 'doorkijk-banen', maar dat is vrijwel dezelfde compositie als 'spelers-bij-net' bij Lessen: allebei de symmetrische doorkijk met het bord in het midden. Gemeten paarsverschil 28 tegenover ~50 voor de andere paren. Tegel 1 gebruikt daarom 'hal-overzicht'; 'doorkijk-banen' blijft in de galerijstrook staan.",
     "items": [
       {
         "label": "Baan huren",
         "regel": "Los, met VIP-daluren of als contractbaan",
         "href": "/banen",
-        "foto": "doorkijk-banen",
-        "fotoAlt": "Doorkijk over de vier indoor padelbanen"
+        "foto": "hal-overzicht",
+        "fotoAlt": "Overzicht van de indoor padelbanen in de hal."
       },
       {
         "label": "Lessen",
