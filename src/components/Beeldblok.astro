@@ -1,7 +1,7 @@
 ---
+import Foto from './Foto.astro';
 import home from '../content/nl/homepage.json';
 
-// Rendert niets zolang er geen echte foto's zijn (§0.3: geen nepplaceholder).
 const b = home.beeldblok;
 const tonen = b.fotos.length > 0;
 ---
@@ -12,7 +12,7 @@ const tonen = b.fotos.length > 0;
       <div class="beeldblok__raster">
         {b.fotos.map((f) => (
           <figure class="beeldblok__item">
-            <img src={f.bestand} alt={f.alt} width="800" height="600" loading="lazy" />
+            <Foto basis={f.basis} maten={f.maten} alt={f.alt} breedte={f.breedte} hoogte={f.hoogte} />
           </figure>
         ))}
       </div>
@@ -26,5 +26,10 @@ const tonen = b.fotos.length > 0;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
   .beeldblok__item { margin: 0; }
-  .beeldblok__item img { border-radius: var(--radius); width: 100%; object-fit: cover; }
+  .beeldblok__item :global(img) {
+    border-radius: var(--radius);
+    width: 100%; height: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
 </style>

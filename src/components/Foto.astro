@@ -1,0 +1,21 @@
+---
+// Levert AVIF met WebP als terugval, in de aangeleverde maten.
+// De bronbestanden worden nooit opgeschaald, dus `maten` bevat alleen
+// breedtes die echt bestaan.
+const { basis, maten, alt, breedte, hoogte, laden = 'lazy', prioriteit } = Astro.props;
+const srcset = (ext) => maten.map((b) => `${basis}-${b}.${ext} ${b}w`).join(', ');
+const grootste = maten[maten.length - 1];
+---
+<picture>
+  <source type="image/avif" srcset={srcset('avif')} sizes="(min-width: 900px) 33vw, 100vw" />
+  <source type="image/webp" srcset={srcset('webp')} sizes="(min-width: 900px) 33vw, 100vw" />
+  <img
+    src={`${basis}-${grootste}.webp`}
+    alt={alt}
+    width={breedte}
+    height={hoogte}
+    loading={laden}
+    decoding={prioriteit ? 'sync' : 'async'}
+    fetchpriority={prioriteit ? 'high' : undefined}
+  />
+</picture>

@@ -8,13 +8,17 @@ const primairHref = h.primair.soort === 'playtomic' ? bedrijf.playtomic : h.prim
 ---
 <section class="hero op-blauw">
   {h.video && (
-    <video class="hero__video" autoplay muted loop playsinline poster={h.poster ?? undefined}>
+    <video class="hero__video" autoplay muted loop playsinline poster={h.poster ? `${h.poster.basis}.webp` : undefined}>
       <source src={h.video.webm} type="video/webm" />
       <source src={h.video.mp4} type="video/mp4" />
     </video>
   )}
   {!h.video && h.poster && (
-    <img class="hero__video" src={h.poster} alt={h.posterAlt} width="1920" height="1080" fetchpriority="high" />
+    <picture>
+      <source type="image/avif" srcset={`${h.poster.basis}.avif`} />
+      <img class="hero__video" src={`${h.poster.basis}.webp`} alt={h.posterAlt}
+           width={h.poster.breedte} height={h.poster.hoogte} fetchpriority="high" decoding="sync" />
+    </picture>
   )}
 
   <div class="omhulsel hero__binnen">

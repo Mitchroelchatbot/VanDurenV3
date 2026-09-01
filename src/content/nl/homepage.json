@@ -10,8 +10,12 @@
       "pad": "/lessen"
     },
     "video": null,
-    "poster": null,
-    "posterAlt": null
+    "poster": {
+      "basis": "/beeld/hal/hero-poster",
+      "breedte": 1024,
+      "hoogte": 576
+    },
+    "posterAlt": "Twee spelers op een blauwe indoor padelbaan met oranje omloop in de hal van Van Duren in Son en Breugel."
   },
   "persoonlijk": {
     "kop": "Een familiebedrijf, geen keten",
@@ -25,6 +29,37 @@
   },
   "beeldblok": {
     "kop": "In de hal",
-    "fotos": []
+    "fotos": [
+      {
+        "basis": "/beeld/hal/hal-spelers",
+        "maten": [
+          640,
+          1024
+        ],
+        "breedte": 1024,
+        "hoogte": 683,
+        "alt": "Twee spelers geven elkaar een hand na een partij op de blauwe indoor baan."
+      },
+      {
+        "basis": "/beeld/hal/hal-speler",
+        "maten": [
+          640,
+          1024
+        ],
+        "breedte": 1024,
+        "hoogte": 683,
+        "alt": "Speler met racket loopt over de baan langs de glazen achterwand."
+      },
+      {
+        "basis": "/beeld/hal/rackets",
+        "maten": [
+          640,
+          744
+        ],
+        "breedte": 744,
+        "hoogte": 496,
+        "alt": "Drie Babolat padelrackets op de blauwe ondergrond van een baan."
+      }
+    ]
   }
 }
