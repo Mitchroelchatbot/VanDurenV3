@@ -35,24 +35,33 @@ De redirect-inventaris (`public/_redirects`) vervangt T7.
 |---|---|---|
 | T18 | **Woordvolgorde van de bedrijfsnaam.** Gekozen: "Indoor Padel Centrum van Duren". CLAUDE.md §3 regel 102 verbiedt die volgorde expliciet, en KvK ("Van Duren indoor padel centrum BV"), Facebook, de Playtomic-slug en vier directories zetten "Van Duren" vóóraan. In de code raakt dit één bestand (`bedrijf.json`, dankzij de harde regel van §4.1); daarbuiten raakt het elke externe vermelding. Bevestiging nodig vóór `bedrijf.json`. | `bedrijf.json` |
 
-## Fase 1 — stand van het beeldmateriaal
+## Fase 1 — beeldmateriaal beoordeeld
 
-Uit `Fotos van websitesocials` zijn drie foto's verwerkt naar AVIF + WebP in twee
-maten en op de homepage gezet: twee halfoto's en de rackets. De hero draait nu op
-een poster in plaats van een effen vlak. Bronbestanden worden nooit opgeschaald.
+Alle 16 bestanden uit `Fotos van Bennet` en de 5 uit `Fotos van websitesocials` zijn
+stuk voor stuk bekeken. Zeven staan nu op de homepage: de hero-poster plus zes
+foto's in het blok "In de hal", als AVIF met WebP-terugval in twee maten.
 
-| # | Punt | Stand |
-|---|---|---|
-| F1 | **Foto van Martin en Bennet samen (O19).** De aangeleverde banner `D-ALTIJD-PADELLEN-IN-DE-SON.jpg` is **607 × 331 pixels**. Bijsnijden tot alleen hun twee gezichten levert ongeveer 270 × 230 op — te klein voor een blok dat op desktop zo'n 600 px breed is. Opschalen maakt het zichtbaar zacht. | Blok rendert nog zonder foto. Er is een bruikbare foto nodig van minimaal ~1200 px breed. |
-| F2 | **De banner draagt ingebakken tekst en het logo PADEL ACADEMY VAN DUREN.** §3 staat die naam alleen op `/lessen` toe; als beeld op de homepage omzeilt dat de grep uit §9. Los van de resolutie is dat een tweede reden om hem niet integraal te plaatsen. | Niet gebruikt. |
-| F8 | **`kantine-htc-son.jpg` is volgens de bestandsnaam de kantine van HTC Son**, een andere vereniging. Als het padelcentrum die horeca deelt is de foto terecht en hoort dat ook zo op de site te staan; zo niet, dan is het het pand van iemand anders. §6.1 belooft clinicdeelnemers "toegang tot de horeca" — dat moet dan wel over deze ruimte gaan. | Niet gebruikt tot dit bevestigd is. |
-| F9 | **`JessicaPhotographyHR-93` en `-143` dragen de naam van een fotograaf.** Portretrecht is geregeld door de eigenaren, maar auteursrecht ligt bij de maker tenzij dat is overgedragen. Dat is een andere vraag dan die van O10. | Wel gebruikt, want ze staan al op de eigen socials; bevestigen dat webgebruik afgedekt is. |
-| F10 | **`martin-van-duren.png` lijkt synthetisch.** Vervormde letters op poloshirt en racket. | Niet gebruikt. |
-| F11 | **Hero-video ontbreekt nog.** `Van_Duren_Versie_1a.mp4` is 254 MB en komt niet door de Drive-koppeling; hij moet sowieso eerst naar max. 6 MB (§5.2). De staande clip `e75c590e….MP4` kan als los blok. `4776981e….MP4` blijft eruit (O10). | Hero draait op de poster; `video` blijft een optioneel veld. |
-| F12 | **De map `Fotos van Bennet` (15 stuks) is nog niet verwerkt.** Elke foto moet eerst langs O10 op herkenbare kinderen en daarna naar WebP/AVIF. | Volgende stap. |
-| F13 | **De mappen `test/Instagram_files` en `test/Instagram2_files` zijn een ruwe scrape.** Veel bestanden zijn 3 tot 8 KB en dat zijn interface-iconen, geen foto's; de twee mappen overlappen elkaar grotendeels. Niet geschikt als bron zonder selectie. | Niet gebruikt. |
-| F6 | **De tekst van het persoonlijke blok is mijn concept.** Geen verzonnen feiten, maar niet hun woorden. `conceptGoedgekeurd` staat op `false`. | Moet goedgekeurd of vervangen worden. |
-| F7 | **T3 opgelost.** "Bekijk het lesaanbod" staat even groot naast de primaire knop, maar secundair uitgevoerd; de kop-CTA verschijnt pas na de hero, zodat er nooit twee oranje knoppen tegelijk staan (§5.1). | Gebouwd en gemeten. |
+### Uitgesloten, met reden
+
+| Bestand | Reden |
+|---|---|
+| `4776981e….MP4` | Klein kind spelend in het net. Bevestigd door de eigenaren dat deze eruit gaat. |
+| `IMG_6981.HEIC` | Ongeveer twintig spelers in **PSV / Brainport Eindhoven**-tenue. Portretrecht van profsporters loopt doorgaans via de club, en het clublogo staat prominent in beeld. Op een commerciële site suggereert dat een samenwerking die er niet is. Toestemming nodig van PSV, niet van de eigenaren. |
+| `b715ac8b….JPG` | 640 × 480 — te klein voor de site. Bevat bovendien een groep waarin minstens één persoon jong oogt; op deze resolutie niet te beoordelen. Beide redenen op zich al genoeg. |
+| `16efa1d5….JPG` | Geen foto maar een **schermafdruk van een telefoon** (statusbalk, batterij 39%), van de galerij `jessicaphotography36.pixieset.com`. |
+| `martin-van-duren.png` | Vervormde letters op poloshirt en racket — patroon van een gegenereerd of zwaar opgeschaald beeld. |
+| `D-ALTIJD-PADELLEN-IN-DE-SON.jpg` | 607 × 331, te klein, en draagt ingebakken tekst plus het logo Padel Academy van Duren. |
+
+### Bevindingen die om een besluit vragen
+
+| # | Punt |
+|---|---|
+| F8 | **Opgelost door het beeld zelf.** `41995c41….JPG` toont het bord "Welkom · HTC SON TENNIS · PADEL ACADEMY VAN DUREN powered by Babolat". Het padelcentrum ligt dus op het terrein van HTC Son Tennis, wat ook het aparte parkeeradres uit §3.1 verklaart. `kantine-htc-son.jpg` is daarmee vrijwel zeker de gedeelde horeca — één bevestiging en hij kan erop, en dan hoort die samenwerking ook op `/over-ons` te staan. |
+| F9 | **Auteursrecht Jessica Photography is nu concreet.** De schermafdruk hierboven wijst naar een Pixieset-klantgalerij: dat is een betaalde shoot met een fotograaf. Portretrecht is geregeld door de eigenaren, auteursrecht ligt bij de maker tenzij overgedragen. Die twee foto's zijn daarom **van de homepage gehaald**; de hero draait nu op een eigen foto van Bennet. Zodra webgebruik bevestigd is kunnen ze terug. |
+| F14 | **§3 is niet te handhaven op foto's.** Op vrijwel elke halfoto hangt het fysieke bord "PADEL ACADEMY VAN DUREN". §3 staat die naam alleen toe in `lessen.*`, maar erkent zelf dat het bord in de hal klopt. Voorstel: de regel geldt voor **tekst**, niet voor beeld — anders kun je je eigen hal niet laten zien. Nu zo uitgevoerd. |
+| F1 | **Foto van Martin en Bennet samen (O19) blijft open.** In `IMG_0321.HEIC` staan twee mannen in Padel Academy-shirt, maar op de rug gezien, dus onbruikbaar voor het persoonlijke blok. Nodig: een foto van jullie tweeën, minimaal ~1200 px breed. |
+| F11 | **Hero-video.** `Van_Duren_Versie_1a.mp4` (254 MB) komt niet door de Drive-koppeling. De staande clip `e75c590e….MP4` is 8,8 MB en wél op te halen; die kan als los blok, nooit als desktop-hero. |
+| F6 | **De tekst van het persoonlijke blok is mijn concept**, geen verzonnen feiten maar niet hun woorden. `conceptGoedgekeurd` staat op `false`. |
 
 ## Openstaand bij Bennet & Martin
 
