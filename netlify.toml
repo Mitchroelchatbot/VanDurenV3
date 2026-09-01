@@ -1,0 +1,15 @@
+# Build-instellingen, versiebeheerd in de repo (CLAUDE.md §4.4).
+# Zodra het Netlify-project aan deze GitHub-repo gekoppeld is, bouwt elke
+# push naar de branch hiermee. Een API-deploy vanuit een werkmap omzeilt dit
+# bestand én de _redirects; dat is precies wat er nu gebeurt.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Formulieren: de wizards posten naar Netlify Forms (CLAUDE.md B3, §6).
+# Forms moet in het Netlify-project aan staan; op vandurenv4 is dat op
+# 1 september 2026 gedaan.
