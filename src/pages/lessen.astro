@@ -1,7 +1,7 @@
 ---
 import BasisLayout from '../layouts/BasisLayout.astro';
 import Kaart from '../components/Kaart.astro';
-import Wizard from '../components/Wizard.astro';
+import Formulier from '../components/Formulier.astro';
 import lessen from '../content/nl/lessen.json';
 import lesformulier from '../content/nl/lesformulier.json';
 
@@ -42,7 +42,7 @@ const f = lesformulier;
 
   <section class="sectie" id="les">
     <div class="omhulsel">
-      <Wizard naam="les" titel={f.titel} intro={f.intro} stappen={f.stappen}
+      <Formulier naam="les" titel={f.titel} intro={f.intro} stappen={f.stappen}
               bevestiging={f.bevestiging} />
     </div>
   </section>

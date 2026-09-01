@@ -1,0 +1,262 @@
+---
+import nav from '../content/nl/navigatie.json';
+
+// Eén doorlopend formulier: alle vragen onder elkaar, geen stappen.
+// Alleen het e-mailadres is verplicht; al het andere is optioneel en mag
+// leeg verstuurd worden. Werkt zonder JavaScript.
+const { naam, titel, intro, stappen, bevestiging, aantalGrens } = Astro.props;
+const L = nav.formulierLabels;
+const grensVraag = stappen.find((st) => st.type === 'aantal')?.nr;
+const isEmail = (v) => /mail/i.test(v);
+---
+<form
+  class="form"
+  name={naam}
+  method="POST"
+  action="/bedankt"
+  data-netlify="true"
+  netlify-honeypot={L.honeypotVeld}
+  data-form
+  data-leeg-tekst={L.nietIngevuld}
+>
+  <input type="hidden" name="form-name" value={naam} />
+  <p class="form__honeypot">
+    <label>{L.honeypotLabel} <input name={L.honeypotVeld} tabindex="-1" autocomplete="off" /></label>
+  </p>
+
+  {titel && <h2 class="form__titel">{titel}</h2>}
+  {intro && <p class="form__intro">{intro}</p>}
+
+  {stappen.map((st) => (
+    <fieldset class="form__vraag">
+      <legend class="form__legenda">{st.vraag}</legend>
+      {st.toelichting && <p class="form__toelichting">{st.toelichting}</p>}
+
+      {st.type === 'keuze' && (
+        <div class="chips">
+          {/* Verborgen, standaard aangevinkte optie: radio's binnen één naam
+              sluiten elkaar uit, dus zodra de bezoeker kiest verdwijnt deze
+              vanzelf. Zo staat elke onbeantwoorde vraag toch in de mail,
+              ook zonder JavaScript. */}
+          <input type="radio" name={st.vraag} value={L.nietIngevuld} checked hidden />
+          {st.opties.map((o) => (
+            <label class="chip">
+              <input type="radio" name={st.vraag} value={o} /><span>{o}</span>
+            </label>
+          ))}
+        </div>
+      )}
+
+      {st.type === 'meerkeuze' && (
+        <div class="chips">
+          <input type="checkbox" name={st.vraag} value={L.nietIngevuld} checked hidden data-leeg-vink />
+          {st.opties.map((o) => (
+            <label class="chip">
+              <input type="checkbox" name={st.vraag} value={o} data-echte-keuze /><span>{o}</span>
+            </label>
+          ))}
+        </div>
+      )}
+
+      {st.type === 'aantal' && (
+        <>
+          <input class="form__invoer form__invoer--kort" type="number" inputmode="numeric" min="1"
+                 name={st.vraag} data-leeg-invullen
+                 data-zacht-min={aantalGrens && st.nr === grensVraag ? String(aantalGrens.zachtMin) : undefined}
+                 data-zacht-max={aantalGrens && st.nr === grensVraag ? String(aantalGrens.zachtMax) : undefined} />
+          {aantalGrens && st.nr === grensVraag && (
+            <p class="form__zacht" data-zacht-tekst hidden>{aantalGrens.buitenBereikTekst}</p>
+          )}
+        </>
+      )}
+
+      {st.type === 'datum-dagdeel' && (
+        <div class="form__paar">
+          <label class="form__veld">
+            <span>{L.datum}</span>
+            <input class="form__invoer" type="date" name={`${st.vraag} — ${L.datum}`} data-leeg-invullen />
+          </label>
+          <div class="form__veld">
+            <span>{L.dagdeel}</span>
+            <div class="chips">
+              <input type="radio" name={`${st.vraag} — ${L.dagdeel}`} value={L.nietIngevuld} checked hidden />
+              {st.opties.map((o) => (
+                <label class="chip">
+                  <input type="radio" name={`${st.vraag} — ${L.dagdeel}`} value={o} /><span>{o}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {st.type === 'keuze-plus-tekst' && (
+        <>
+          <div class="chips">
+            <input type="radio" name={st.vraag} value={L.nietIngevuld} checked hidden />
+            {st.opties.map((o) => (
+              <label class="chip">
+                <input type="radio" name={st.vraag} value={o}
+                       data-opent-tekstveld={o === st.tekstveldBij ? 'true' : undefined} /><span>{o}</span>
+              </label>
+            ))}
+          </div>
+          <label class="form__veld" data-tekstveld>
+            <span>{st.tekstveldLabel}</span>
+            <input class="form__invoer" type="text" name={st.tekstveldLabel} data-leeg-invullen />
+          </label>
+        </>
+      )}
+
+      {st.type === 'ja-nee-plus-velden' && (
+        <>
+          <div class="chips">
+            <input type="radio" name={st.vraag} value={L.nietIngevuld} checked hidden />
+            {L.jaNee.map((o) => (
+              <label class="chip">
+                <input type="radio" name={st.vraag} value={o}
+                       data-opent-velden={o === L.jaNee[0] ? 'true' : undefined} /><span>{o}</span>
+              </label>
+            ))}
+          </div>
+          <div data-extra-velden>
+            {st.velden.map((v) => (
+              <label class="form__veld">
+                <span>{v}</span>
+                <input class="form__invoer" type="text" name={v} data-leeg-invullen />
+              </label>
+            ))}
+          </div>
+        </>
+      )}
+
+      {st.type === 'contact' && (
+        <>
+          {st.velden.map((v) => (
+            <label class="form__veld">
+              <span>{v}{!isEmail(v) && <em class="form__optioneel">{L.optioneel}</em>}</span>
+              <input class="form__invoer"
+                     type={isEmail(v) ? 'email' : /tel/i.test(v) ? 'tel' : 'text'}
+                     autocomplete={isEmail(v) ? 'email' : /tel/i.test(v) ? 'tel' : 'name'}
+                     name={v}
+                     required={isEmail(v) || undefined}
+                     data-email={isEmail(v) ? 'true' : undefined}
+                     data-leeg-invullen={!isEmail(v) || undefined} />
+            </label>
+          ))}
+          {st.extra && (
+            <label class="form__veld">
+              <span>{st.extra.label}<em class="form__optioneel">{L.optioneel}</em></span>
+              <textarea class="form__invoer" rows="4" name={st.extra.label} data-leeg-invullen
+                        placeholder={st.extra.placeholder ?? undefined}></textarea>
+            </label>
+          )}
+        </>
+      )}
+    </fieldset>
+  ))}
+
+  <div class="form__afsluiting">
+    <button class="knop knop--primair" type="submit" data-versturen>{L.versturen}</button>
+    <p class="form__hint">{L.hint}</p>
+  </div>
+  <p class="form__bevestiging">{bevestiging.tekst}</p>
+</form>
+
+<style>
+  .form { max-width: var(--max-smal); }
+  .form__honeypot { position: absolute; left: -9999px; }
+  .form__titel { margin-bottom: 0.35em; }
+  .form__intro { color: var(--grijs-500); }
+
+  .form__vraag { border: 0; padding: 0; margin: 0 0 2rem; }
+  .form__legenda { font-family: var(--font-kop); font-weight: 600; font-size: 1.1rem; padding: 0; margin-bottom: 0.7rem; }
+  .form__toelichting { font-size: 0.95rem; color: var(--grijs-500); margin-top: -0.35rem; }
+
+  /* Chips: grote tikbare knoppen, geen dropdowns. */
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chip { position: relative; display: inline-flex; }
+  .chip input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+  .chip span {
+    display: inline-flex; align-items: center;
+    min-height: 44px; padding: 0.55em 1.1em;
+    border: 2px solid var(--grijs-500); border-radius: 999px;
+    background: var(--wit); color: var(--inkt);
+    font-size: 0.95rem; line-height: 1.2;
+  }
+  .chip:hover span { border-color: var(--blauw); }
+  .chip input:checked + span { background: var(--blauw); border-color: var(--blauw); color: var(--wit); }
+  .chip input:focus-visible + span { outline: 3px solid var(--focus-donker); outline-offset: 2px; }
+
+  .form__veld { display: block; margin-top: 1rem; }
+  .form__veld > span { display: block; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  .form__optioneel { font-style: normal; color: var(--grijs-500); font-size: 0.85em; margin-left: 0.4em; }
+  .form__invoer {
+    width: 100%; min-height: 48px; padding: 0.7em 0.8em; font: inherit; color: var(--inkt);
+    border: 2px solid var(--grijs-500); border-radius: var(--radius-klein); background: var(--wit);
+  }
+  .form__invoer--kort { max-width: 10rem; }
+  .form__paar { display: grid; gap: 1rem; }
+  @media (min-width: 640px) { .form__paar { grid-template-columns: 1fr 1fr; } }
+  .form__zacht { font-size: 0.9rem; color: var(--oranje); margin: 0.4rem 0 0; }
+
+  .form__afsluiting { margin-top: 2rem; }
+  .form__hint { font-size: 0.85rem; color: var(--grijs-500); margin: 0.6rem 0 0; }
+  .form__bevestiging { font-size: 0.9rem; color: var(--grijs-500); margin-top: 1rem; }
+  [data-versturen][disabled] { opacity: 0.55; cursor: not-allowed; }
+</style>
+
+<script>
+  document.querySelectorAll('form[data-form]').forEach((form) => {
+    const knop = form.querySelector('[data-versturen]');
+    const email = form.querySelector('[data-email]');
+    const leeg = form.dataset.leegTekst || '';
+
+    // De knop is pas actief zodra er een geldig e-mailadres staat. Zonder
+    // JavaScript blijft hij gewoon actief en vangt de browservalidatie het af.
+    const toets = () => { if (knop && email) knop.disabled = !email.checkValidity() || email.value.trim() === ''; };
+    if (knop && email) { toets(); email.addEventListener('input', toets); }
+
+    // Voorwaardelijke subvelden binnen één vraag.
+    const stel = () => {
+      form.querySelectorAll('[data-tekstveld]').forEach((el) => {
+        const v = el.closest('fieldset');
+        el.hidden = !v.querySelector('[data-opent-tekstveld]:checked');
+      });
+      form.querySelectorAll('[data-extra-velden]').forEach((el) => {
+        const v = el.closest('fieldset');
+        el.hidden = !v.querySelector('[data-opent-velden]:checked');
+      });
+    };
+    stel();
+    form.addEventListener('change', (e) => {
+      stel();
+      // Zodra er een echte keuze is aangevinkt, gaat het lege-vinkje eruit.
+      const t = e.target;
+      if (t.matches('[data-echte-keuze]')) {
+        const v = t.closest('fieldset');
+        const leegVink = v.querySelector('[data-leeg-vink]');
+        if (leegVink) leegVink.checked = !v.querySelector('[data-echte-keuze]:checked');
+      }
+    });
+
+    // Lege velden krijgen bij versturen de markering mee, zodat Bennet in de
+    // mail elke vraag ziet staan, ook de onbeantwoorde. Een number- of
+    // date-invoer weigert een tekstwaarde, dus daar gaat de markering mee via
+    // een verborgen tekstveld met dezelfde naam en wordt het lege veld zelf
+    // uitgeschakeld (uitgeschakelde velden worden niet meegestuurd).
+    form.addEventListener('submit', () => {
+      form.querySelectorAll('[data-leeg-invullen]').forEach((el) => {
+        if (el.disabled || el.value.trim() !== '') return;
+        const tekstachtig = el.tagName === 'TEXTAREA' || ['text', 'tel', 'email', ''].includes(el.type);
+        if (tekstachtig) { el.value = leeg; return; }
+        const vervanger = document.createElement('input');
+        vervanger.type = 'hidden';
+        vervanger.name = el.name;
+        vervanger.value = leeg;
+        el.disabled = true;
+        form.appendChild(vervanger);
+      });
+    });
+  });
+</script>

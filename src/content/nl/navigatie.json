@@ -64,18 +64,19 @@
       "playtomic": "Playtomic"
     }
   },
-  "wizardLabels": {
-    "vorige": "Vorige",
-    "volgende": "Volgende",
+  "formulierLabels": {
     "versturen": "Aanvraag versturen",
+    "hint": "Hoe meer je invult, hoe sneller we met een concreet voorstel komen.",
+    "nietIngevuld": "— niet ingevuld —",
     "datum": "Datum",
     "dagdeel": "Dagdeel",
     "jaNee": [
       "Ja",
       "Nee"
     ],
+    "optioneel": "optioneel",
     "honeypotVeld": "bot-veld",
     "honeypotLabel": "Laat dit veld leeg",
-    "tellerSjabloon": "Stap {n} van {van}"
+    "emailVeld": "E-mail"
   }
 }

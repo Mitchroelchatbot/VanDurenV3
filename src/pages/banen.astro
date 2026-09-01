@@ -2,7 +2,7 @@
 import BasisLayout from '../layouts/BasisLayout.astro';
 import Kaart from '../components/Kaart.astro';
 import PrijsTabel from '../components/PrijsTabel.astro';
-import Wizard from '../components/Wizard.astro';
+import Formulier from '../components/Formulier.astro';
 import Cta from '../components/Cta.astro';
 import banen from '../content/nl/banen.json';
 import tarieven from '../content/nl/tarieven.json';
@@ -56,7 +56,7 @@ const w = banen.contractbaanWizard;
       <PrijsTabel titel={tarieven.contractbaan.titel} intro={tarieven.contractbaan.intro}
                   kolommen={tarieven.contractbaan.kolommen} rijen={tarieven.contractbaan.rijen}
                   voetnoot={tarieven.contractbaan.voetnoot} />
-      <Wizard naam="contractbaan" titel={w.titel} intro={w.intro} stappen={w.stappen}
+      <Formulier naam="contractbaan" titel={w.titel} intro={w.intro} stappen={w.stappen}
               bevestiging={w.bevestiging} />
     </div>
   </section>

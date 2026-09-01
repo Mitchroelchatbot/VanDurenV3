@@ -1,7 +1,7 @@
 ---
 import BasisLayout from '../layouts/BasisLayout.astro';
 import Kaart from '../components/Kaart.astro';
-import Wizard from '../components/Wizard.astro';
+import Formulier from '../components/Formulier.astro';
 import clinics from '../content/nl/clinics.json';
 
 const pad = '/clinics';
@@ -37,7 +37,7 @@ const kaarten = clinics.kaarten.filter((k) => k.actief && k.omschrijving);
 
   <section class="sectie" id="aanvraag">
     <div class="omhulsel">
-      <Wizard naam="clinic" titel={clinics.titel} intro={clinics.intro}
+      <Formulier naam="clinic" titel={clinics.titel} intro={clinics.intro}
               stappen={w.stappen} bevestiging={w.bevestiging} aantalGrens={w.aantalGrens} />
     </div>
   </section>
