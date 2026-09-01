@@ -34,18 +34,27 @@ const ctaNaScroll = pad === '/';
 </header>
 
 <style>
-  .kop { position: sticky; top: 0; z-index: 50; }
+  .kop {
+    position: sticky; top: 0; z-index: 50;
+    /* De sticky header loopt met viewport-fit=cover door onder de statusbalk.
+       Zonder deze inset wordt de bovenrand van de primaire knop, inclusief de
+       witte ring uit tokens.css, door de notch afgesneden. Geen vaste hoogte
+       en geen overflow: de ring is een box-shadow en mag niet worden geknipt. */
+    padding-top: max(12px, env(safe-area-inset-top));
+    padding-bottom: 12px;
+    overflow: visible;
+  }
   .kop__binnen {
     display: flex; align-items: center;
-    gap: clamp(12px, 1.6vw, 24px);
-    min-height: 76px; flex-wrap: wrap;
+    gap: clamp(10px, 1.2vw, 20px);
+    min-height: 60px; flex-wrap: wrap;
   }
   .wordmerk { display: flex; flex-direction: column; text-decoration: none; margin-right: auto; }
   .wordmerk__groot { font-family: var(--font-kop); font-weight: 700; font-size: 1.5rem; line-height: 1.05; letter-spacing: -0.02em; }
   .wordmerk__klein { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.92; }
 
-  .kop__nav ul { display: flex; gap: clamp(0.7rem, 1.1vw, 1.15rem); list-style: none; margin: 0; padding: 0; }
-  .kop__nav a { text-decoration: none; font-size: 0.92rem; padding-block: 0.4em; white-space: nowrap; }
+  .kop__nav ul { display: flex; gap: clamp(0.6rem, 0.95vw, 1rem); list-style: none; margin: 0; padding: 0; }
+  .kop__nav a { text-decoration: none; font-size: 0.875rem; padding-block: 0.4em; white-space: nowrap; }
   .kop__nav a:hover { text-decoration: underline; }
   .kop__nav a[aria-current='page'] { text-decoration: underline; text-underline-offset: 0.35em; }
 
@@ -58,8 +67,36 @@ const ctaNaScroll = pad === '/';
   :global(html.js) .kop__cta[data-na-scroll] { display: none; }
   :global(html.js) .kop__cta[data-na-scroll][data-zichtbaar='true'] { display: inline-flex; }
 
+  /* Onder 560px moeten wordmerk, CTA en hamburger samen op één rij passen,
+     anders valt de header uit elkaar en wordt hij twee rijen hoog. */
+  @media (max-width: 560px) {
+    .kop__binnen { gap: 10px; }
+    .wordmerk__groot { font-size: 1.2rem; }
+    .wordmerk__klein { font-size: 0.62rem; letter-spacing: 0.1em; }
+    .kop__cta { padding: 0.5em 0.8em; font-size: 0.85rem; min-height: 44px; }
+    .kop__schakelaar { padding: 8px 4px; }
+  }
+
+  /* Zeer smalle toestellen (320-380px): verder verkleinen zodat de rij heel
+     blijft. Het wordmerk blijft volledig leesbaar, alleen kleiner. */
+  @media (max-width: 380px) {
+    .kop__binnen { gap: 8px; }
+    .wordmerk__groot { font-size: 1.05rem; }
+    .wordmerk__klein { font-size: 0.55rem; letter-spacing: 0.08em; }
+    .kop__cta { padding: 0.45em 0.7em; font-size: 0.8rem; }
+    .kop__schakelaar { padding: 6px 2px; }
+  }
+
+  /* Onder 340px (iPhone SE 1e generatie) past de tweede regel van het
+     wordmerk er niet meer bij zonder dat de rij breekt. Daar blijft alleen
+     "Van Duren" staan; de volledige naam staat in de footer en in de title. */
+  @media (max-width: 340px) {
+    .wordmerk__klein { display: none; }
+    .kop__cta { padding: 0.45em 0.6em; font-size: 0.78rem; }
+  }
+
   @media (max-width: 1240px) {
-    .kop__binnen { min-height: 64px; }
+    .kop__binnen { min-height: 56px; }
     .kop__schakelaar { display: block; order: 3; }
     .kop__cta { order: 2; }
     .kop__nav { order: 4; flex-basis: 100%; display: none; padding-bottom: 1rem; }
