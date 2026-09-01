@@ -1,0 +1,18 @@
+---
+import Cta from './Cta.astro';
+import home from '../content/nl/home.json';
+
+const h = home.herhaalCta;
+---
+<section class="sectie herhaal op-blauw">
+  <div class="omhulsel omhulsel--midden herhaal__binnen">
+    <h2>{h.kop}</h2>
+    <p class="herhaal__tekst">{h.tekst}</p>
+    <Cta cta={h.primair} soort="primair" />
+  </div>
+</section>
+
+<style>
+  .herhaal__binnen { text-align: center; }
+  .herhaal__tekst { margin-inline: auto; margin-bottom: 1.75rem; max-width: 46ch; }
+</style>
