@@ -1,0 +1,24 @@
+---
+import Foto from './Foto.astro';
+import beeld from '../content/nl/home-beeld.json';
+
+// Kleine strook onderaan, zonder kop: sfeer, geen sectie (home.json galerij._regel).
+const items = beeld.galerij.items.map((it) => ({ ...it, bron: beeld.fotos[it.foto] })).filter((it) => it.bron);
+---
+{items.length > 0 && (
+  <div class="strook" aria-hidden="false">
+    {items.map((it) => (
+      <div class="strook__item">
+        <Foto basis={it.bron.basis} maten={it.bron.maten} alt={it.alt}
+              breedte={it.bron.breedte} hoogte={it.bron.hoogte} sizes="(min-width: 900px) 16vw, 33vw" />
+      </div>
+    ))}
+  </div>
+)}
+
+<style>
+  .strook { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+  @media (min-width: 900px) { .strook { grid-template-columns: repeat(6, 1fr); } }
+  .strook__item { aspect-ratio: 4 / 3; overflow: hidden; }
+  .strook__item :global(img) { width: 100%; height: 100%; object-fit: cover; display: block; }
+</style>
