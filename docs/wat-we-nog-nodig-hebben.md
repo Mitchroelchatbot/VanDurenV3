@@ -1,171 +1,122 @@
-# Wat we nog van jullie nodig hebben
+# Restlijst — wat er nog mist
 
-**Nieuwe website Van Duren Indoor Padel Centrum**
-Van: Mitch Bastiaans (Mr Hostly) · 1 september 2026
+**Nieuwe website Van Duren Indoor Padel Centrum** · bijgewerkt 1 september 2026
+Van: Mitch Bastiaans (Mr Hostly)
 
-Hoi Bennet, hoi Martin,
-
-Jullie feedback is verwerkt in een compleet bouwplan. Het meeste kon ik zelf
-uitzoeken — de tarieven, het adres, de KvK-gegevens en de openingstijden heb ik
-van jullie huidige site gehaald, en de kleuren komen uit het logo.
-
-Wat hieronder staat kan ik níét zelf verzinnen. De eerste vijf punten houden de
-bouw tegen; de rest kan later, maar niet oneindig later.
+De vorige lijst is grotendeels beantwoord. Wat hieronder staat is wat er nog over
+is — zeven punten, waarvan er twee de bouw tegenhouden.
 
 ---
 
-## Nodig voordat ik kan beginnen
+## Houdt de bouw tegen
 
-### 1. Foto's en video: mogen we ze gebruiken?
+### 1. Foto van Martin en Bennet samen
 
-Dit is geen formaliteit. Op de foto's en filmpjes staan herkenbare spelers, en in
-één filmpje staat een kind duidelijk in beeld. Voor volwassenen geldt: liever even
-gevraagd dan achteraf gedoe. Voor een minderjarige is toestemming van een ouder
-verplicht — zonder dat kan het beeld niet online.
+Het persoonlijke stuk op de homepage is jullie sterkste troef tegenover de grote
+hallen: een familiebedrijf, geen keten. Daar hoort een echte foto bij.
 
-**Graag van jullie:**
+- [ ] Wanneer kan die gemaakt worden? Liefst in de hal, samen.
 
-- [ ] Van welke foto's/filmpjes weten jullie zeker dat de mensen erop akkoord zijn?
-- [ ] Het kind in het filmpje: kennen jullie de ouders, en kunnen we toestemming vragen?
-- [ ] Zo niet — dan laten we die beelden gewoon weg, ook prima. Even bevestigen.
+Tot die er is blijft dat blok op de homepage leeg. Alle andere onderdelen kunnen
+wel door.
 
-### 2. De grote video (`Van_Duren_Versie_1a.mp4`)
+### 2. Het kind in het filmpje
 
-Deze staat in de map en is 254 MB. Ik heb hem nog niet kunnen bekijken.
+Jullie gaven aan dat alle beelden gebruikt mogen worden — dank, dat scheelt veel.
+Eén uitzondering, en dat is geen bureaucratie: in `4776981e….MP4` staat een
+herkenbaar kind prominent in beeld. Toestemming daarvoor kan alleen de ouder
+geven, niet de club. Dat is niet iets waar ik omheen kan.
 
-**Graag van jullie:**
+Goed nieuws: die clip was toch al onbruikbaar (te lage resolutie, staand
+opgenomen). Hij gaat er dus gewoon uit en het kost jullie niets.
 
-- [ ] Wie heeft die video gemaakt, en mogen we hem gebruiken op de website?
-- [ ] Zit er nog het oude logo of de oude huisstijl in beeld?
-
-Als deze niet bruikbaar is, wordt de bovenkant van de homepage een sterke foto in
-plaats van bewegend beeld. Dat werkt ook, maar minder goed — jullie vroegen zelf om
-video, en dat is terecht: dat is precies wat Padel Boxtel goed doet.
-
-### 3. Foto van jullie samen
-
-Het stuk op de homepage over de club wordt persoonlijk — dat is jullie grootste
-voordeel ten opzichte van de grote hallen. Daar hoort een echte foto van jullie
-tweeën bij, geen sfeerbeeld van een lege baan.
-
-- [ ] Een goede foto van Martin en Bennet samen, liefst in de hal.
-
-### 4. Wat is het VIP-daluren lidmaatschap precies?
-
-Jullie noemen dit als een van de drie opties bij baanhuur, maar het staat niet op
-de tarievenpagina. Ik wil er geen woord over verzinnen.
-
-- [ ] Wat kost het en wat krijg je ervoor?
-- [ ] Voor welke tijden geldt het?
-- [ ] Hoe word je lid — kan dat via de site of gaat dat in overleg?
-
-### 5. Wie geeft de lessen?
-
-Jullie gaven aan dat er niet moet staan dat Martin en Bennet alle lessen geven. De
-tekst wordt dan "onze gediplomeerde trainers" — maar dan moet dat wel kloppen.
-
-- [ ] Met hoeveel trainers werken jullie?
-- [ ] Willen jullie hun namen op de site, of alleen "onze gediplomeerde trainers"?
+- [ ] Even bevestigen dat dat akkoord is. Staan er op de foto's ook herkenbare
+      kinderen, dan geldt hetzelfde.
 
 ---
 
 ## Nodig tijdens de bouw
 
-### 6. De evenementenagenda
+### 3. Clinics: drie getallen
 
-Alle evenementen die nu op de testsite staan waren voorbeelden — die gaan er
-allemaal uit. De nieuwe agenda wordt een Google Sheet die Bennet zelf bijhoudt: je
-vult een regel in, en binnen een dag staat het op de site. Geen gedoe met inloggen
-op een website.
+Van de huidige site haal ik: vanaf **€ 29,00 per persoon**, inclusief begeleiding
+door gediplomeerde trainers, materiaal en toegang tot de horeca, met lunch, borrel
+of hapjes optioneel. Dat is genoeg voor de tekst, maar niet voor het formulier —
+dat vraagt straks "met hoeveel personen?" en moet dan weten wat kan.
 
-- [ ] Bennet: akkoord dat jij dit bijhoudt?
-- [ ] Zijn er al toernooien of clinics gepland die er meteen in moeten?
-
-### 7. Sponsoren
-
-Voor nu zet ik lege plaatsen neer. Zodra jullie de lijst hebben, verschijnt de
-sponsorbalk automatisch onder elke pagina.
-
-- [ ] De definitieve lijst van sponsoren.
-- [ ] Van elke sponsor het logo, het liefst als AI-, EPS- of SVG-bestand (dat is
-      het bestand dat hun ontwerper heeft gemaakt). Een JPG van een visitekaartje
-      wordt onscherp.
-- [ ] Klopt het dat **Martin Glas** een sponsor is? Die staat op de baanborden.
-
-### 8. Clinics en kinderfeestjes
-
-De aanvraagformulieren vragen straks door naar wat mensen willen, zodat jullie
-kunnen antwoorden met een voorstel in plaats van met een vraag.
-
-- [ ] Wat kunnen jullie qua horeca aanbieden — borrel, lunch, diner? Alle drie?
-- [ ] Doen jullie kinderfeestjes? Zo ja: vanaf welke leeftijd, en hoeveel kinderen
-      tegelijk?
 - [ ] Vanaf hoeveel personen kan een clinic, en wat is het maximum?
+- [ ] Hoe lang duurt een clinic standaard?
+- [ ] Geldt die € 29,00 per persoon ook voor een kinderfeestje? Die prijs staat nu
+      op de pagina voor bedrijven; als kinderen een ander tarief hebben moeten we
+      dat weten voordat iemand de verkeerde verwachting krijgt.
 
-### 9. Waar komen de aanvragen binnen?
+Kinderfeestjes komen als derde keuze in het formulier, waarbij gewoon het aantal
+personen wordt gevraagd — net als bij de andere twee. Ik zet daar wel twee korte
+extra vragen bij: de leeftijd van de kinderen en of er volwassen begeleiding
+meekomt. Dat scheelt precies het mailtje dat jullie anders zelf moeten sturen.
+Willen jullie die vragen niet, dan halen we ze eruit.
 
-- [ ] Op welk mailadres moeten clinic-, contractbaan- en lesaanvragen binnenkomen?
-      Blijft dat `vanduren@indoorpadelcentrum.nl` of willen jullie een apart adres?
+### 4. Twee prijzen die elkaar tegenspreken
+
+Op `indoorpadelcentrum.nl/mogelijkheden/` staat "baan al vanaf € 20,00 per uur" en
+"proefles al vanaf € 15,00 p.p.". Op jullie tarievenpagina's staat € 28 (daluren)
+en € 100 per proefles.
+
+Die pagina is uit 2023, dus ik ga uit van de tarievenpagina's.
+
+- [ ] Klopt dat? Als € 20 nog ergens rondzwerft — in een folder, op Google, in een
+      advertentie — dan is dat een discussie aan de balie die je niet wilt.
+
+### 5. Sponsoren
+
+Voorlopig komen er neutrale vakjes. De balk onder aan de pagina's blijft verborgen
+tot er echte logo's zijn, zodat het nergens onaf oogt.
+
+- [ ] De definitieve lijst, met logo's als AI-, EPS- of SVG-bestand.
+- [ ] Is **Martin Glas** een sponsor? Die naam staat op jullie baanborden.
 
 ---
 
-## Kan later, maar niet vergeten
+## Kan later
 
-### 10. Telefoonnummer
+### 6. Het telefoonnummer
 
-Op de site komt nu **06-19154409**, ook achter de WhatsApp-knop.
+Mijn vraag was of 0619154409 het nummer blijft óf dat er een zakelijk nummer komt.
+Het antwoord was "ja" — daar kan ik beide kanten mee op.
 
-- [ ] Blijft dit het nummer, of komt er een zakelijk nummer? Als het verandert,
-      moet het ook aangepast worden bij Google, Playtomic en Facebook — anders
-      raakt jullie vindbaarheid in de war.
+- [ ] Voor nu bouw ik met **0619154409**. Verandert dat later, dan is het één
+      aanpassing op de site plus bijwerken bij Google, Playtomic en Facebook.
 
-### 11. Social media
+### 7. Het Google-bedrijfsprofiel
 
-- [ ] De links naar jullie Facebook en Instagram, voor onderaan elke pagina.
-
-### 12. Privacyverklaring en algemene voorwaarden
-
-Omdat mensen straks formulieren invullen, moeten die er zijn.
-
-- [ ] Hebben jullie deze al ergens liggen (bijv. van de boekhouder of de KvK)?
-      Zo niet, dan regel ik dat.
-
-### 13. Google-vermelding
-
-Jullie adres staat op de oude testsite verkeerd (Wolverstraat 2). Op de echte site
-staat het goed: Rooijse weg 7. Ik wil controleren of Google, Playtomic en Facebook
-het ook overal gelijk hebben staan — dat is een van de sterkste dingen die je kunt
-doen om beter gevonden te worden in de buurt.
+Het adres is bevestigd (Rooijse weg 7). Nu nog controleren of Google, Facebook en
+Playtomic alle drie dezelfde naam, openingstijden en telefoonnummer tonen. Dat is
+een van de goedkoopste manieren om beter gevonden te worden in de omgeving.
 
 - [ ] Wie beheert het Google-bedrijfsprofiel, en kan ik daar even in kijken?
 
-### 14. Lesfilmpjes
-
-Jullie wilden korte filmpjes bij de lesvormen (bajada, smash). Die bestaan nog niet.
-De site wordt zo gebouwd dat ze er later zonder verbouwing bij kunnen.
-
-- [ ] Willen we op termijn een opnamedag plannen? Een halve dag met een goede
-      camera levert genoeg materiaal op voor de hele site.
-
 ---
 
-## Wat er al geregeld is
-
-Zodat jullie weten waar we staan:
+## Wat er nu vastligt
 
 | Onderwerp | Stand |
 |---|---|
-| Naam | **Van Duren Indoor Padel Centrum** is het bedrijf, **Padel Academy van Duren** is het lesprogramma op de lessenpagina. Zo blijft het bord in de hal kloppen en blijft de baanhuur goed vindbaar. |
-| Kleuren | Blauw en oranje, rechtstreeks uit het logo — en het blijkt precies de kleur van jullie banen. Het groen gaat eruit. |
-| Nieuwsbrief | Verdwijnt volledig. |
-| Tarieven | Overgenomen van jullie huidige site en gecontroleerd. |
-| Adres, KvK, BTW, openingstijden | Overgenomen van jullie huidige site. |
-| Lessen | Openbare groepslessen gaan via Playtomic. Proeflessen en privélessen via een kort formulier, want die kunnen niet in Playtomic. |
-| Volgorde in het menu | Over ons en contact komen achteraan, zoals gevraagd. |
-| Mailen | Overal waar nu "mail je aanvraag" staat komt een formulier dat doorvraagt. Jullie krijgen één complete mail in plaats van vier keer heen en weer. |
+| Naam | **Van Duren Indoor Padel Centrum** = het bedrijf · **Padel Academy van Duren** = het lesprogramma |
+| Kleuren | Blauw en oranje uit het logo, doorgerekend op leesbaarheid. Groen is weg. |
+| Hero-video | Bennets eigen opname wordt de bovenkant van de homepage |
+| Trainers | Alleen "onze gediplomeerde trainers" — geen namen, geen profielen |
+| Agenda | Bennet houdt een Google Sheet bij; start leeg, want er is nu niets gepland |
+| Webshop | Vervalt · `/winkel` gaat naar de lessenpagina |
+| Competitie | Geen eigen pagina; hooguit een item in de agenda |
+| Aanvragen | Komen binnen op `vanduren@indoorpadelcentrum.nl` |
+| Social | Facebook en Instagram staan in de footer |
+| Juridisch | Mitch werkt de bestaande voorwaarden en privacyverklaring bij |
+| Nieuwsbrief | Verdwijnt volledig |
+| Oude links | Alle 47 pagina's krijgen een doorverwijzing — geen foutmeldingen |
+| Lesfilmpjes | Op de wenslijst voor een opnamedag na livegang |
 
 ---
 
-Als iets onduidelijk is of je wilt ergens over sparren: bel gerust.
+Vragen? Bel gerust.
 
 Mitch

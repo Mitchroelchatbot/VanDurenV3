@@ -5,7 +5,7 @@
 > de projectmap staat. Wijk hier niet van af zonder dat de wijziging eerst in dit
 > bestand is vastgelegd.
 >
-> Laatst bijgewerkt: 1 september 2026 (v2 — open punten O1 t/m O9 gesloten)
+> Laatst bijgewerkt: 1 september 2026 (v3 — antwoorden eigenaren verwerkt)
 > Opdrachtgever: Mitch Bastiaans (Mr Hostly) · Klant: Martin & Bennet van Duren
 
 ---
@@ -121,14 +121,20 @@ footer, contactpagina, schema.org en Google Business Profile.
 Bedrijfsnaam   Van Duren Indoor Padel Centrum
 Bezoekadres    Rooijse weg 7, 5691 PA Son en Breugel
 Parkeeradres   Vlielandlaan 12, 5691 ZK Son en Breugel
-Telefoon       06-19154409          (voorlopig; zie O3)
+Telefoon       06-19154409          (voorlopig; zie O3b)
 E-mail         vanduren@indoorpadelcentrum.nl
 KvK            82978344
 BTW            NL862678274B01
 Openingstijden ma t/m vr  09:00 – 23:00
                za en zo   09:00 – 17:00
 Playtomic      https://playtomic.io/van-duren-indoor-padel-centrum/a52205f6-6954-4d82-bda0-b2040fc82dc4
+Facebook       https://www.facebook.com/VanDurenindoorpadelcentrum/
+Instagram      https://www.instagram.com/vandurenindoorpadelcentrum/
 ```
+
+Aanvragen uit alle formulieren gaan naar `vanduren@indoorpadelcentrum.nl` —
+hetzelfde adres als nu. Facebook en Instagram horen in de footer én in `sameAs`
+van het `SportsActivityLocation`-schema.
 
 **Let op:** het prototype in `03 — Website Bestanden/site/` bevat op elk van deze
 punten fouten — adres Wolverstraat 2, KvK 12345678, openingstijden 08:00–23:00 en
@@ -211,6 +217,19 @@ altijd vooraf betalen.
 | Privéles | € 90 per les | 1-op-1 | 5, 8 of 10 lessen |
 | Groepsles | € 70 daluren / € 90 piekuren | 2, 3 of 4 personen | 5, 8 of 10 lessen |
 
+**Clinics** — "vanaf € 29,00 p.p." (bron: `indoorpadelcentrum.nl/bedrijfsclinics/`).
+Inbegrepen: begeleiding door gediplomeerde trainers en al het materiaal. Horeca
+(lunch, borrel, bites) los bij te boeken. Duur en groepsgrootte staan er niet;
+zie O19.
+
+**⚠️ Waarschuwing bij het overnemen van content: `/mogelijkheden/` liegt.**
+Die pagina (laatst gewijzigd juni 2023, staat vandaag nog live) noemt
+"baan huren al vanaf € 20,00 per uur" en "proefles al vanaf € 15,00 pp".
+Beide kloppen niet met de tarievenpagina's hierboven — daar staat € 28 en € 100.
+Neem **niets** van `/mogelijkheden/` over. De pagina redirect naar `/banen`.
+Losse actie voor Mitch: de eigenaren erop wijzen dat er nu twee prijzen naast
+elkaar op hun eigen site staan.
+
 ### 4.3 Wie past de agenda aan — antwoord op O7
 
 De vraag was of een simpele redactiepagina te bouwen is. Kan wel, maar een
@@ -241,58 +260,82 @@ inclusief de nieuwsbriefpagina, die naar de homepage gaat.
 
 ## 5. Design & kleur
 
-### 5.1 Palet
+### 5.1 Palet — beslist en doorgerekend
+
+**De tokens staan in `src/styles/tokens.css`. Dat bestand is af en meegeleverd.
+Neem het over zoals het is; wijzig geen hexwaarde zonder de contrastverhouding
+opnieuw te berekenen.**
 
 Het logo bevat twee kleuren; die zijn leidend. Het lime `#c3f400` uit het prototype
 is **verboden** — dat is precies waar de eigenaren over vielen.
 
-```css
-:root {
-  /* Merk — direct uit Logo.png gemeten */
-  --blauw:        #1d3d90;   /* primair, diep blauw */
-  --blauw-diep:   #142a64;   /* hover / donkerder vlak */
-  --oranje:       #dd4c13;   /* accent, oranjerood — CTA's */
-  --oranje-warm:  #f0682f;   /* hover op oranje */
+**Correctie op een eerdere versie van dit document.** Daar stond: "wit op
+`--oranje` haalt AA net niet, gebruik `--inkt` als tekstkleur". Dat klopt niet.
+Doorgerekend haalt `--inkt` op `#dd4c13` 4,41:1 — óók onder de 4,5:1. Er bestond
+geen tekstkleur die op de logokleur voldeed. Daarom is het palet gesplitst:
 
-  /* Neutraal */
-  --inkt:         #14161c;
-  --grijs-900:    #1e2129;
-  --grijs-500:    #6b7280;
-  --grijs-100:    #f2f3f5;
-  --wit:          #ffffff;
-}
-```
+| Token | Hex | Rol |
+|---|---|---|
+| `--oranje-merk` | `#dd4c13` | De exacte logokleur. Logo en decoratieve vlakken. **Draagt nooit tekst.** |
+| `--oranje` | `#c04010` | Dezelfde tint, donkerder. De enige oranje die tekst draagt of zelf tekst is. |
+| `--oranje-hover` | `#a8340a` | Hover en `:active` op de primaire knop. |
+| `--blauw` | `#1d3d90` | Dragende kleur: header, vlakken, koppen. |
+| `--blauw-diep` | `#142a64` | Donkerder vlak, focusring op licht. |
+| `--inkt` | `#14161c` | Bodytekst. |
+| `--grijs-500` | `#5f6672` | Bijschriften. Was `#6b7280`; die zakte op `--grijs-100` naar 4,35:1. |
+| `--grijs-100` | `#f2f3f5` | Lichte sectie-achtergrond. |
 
-**Gebruik:**
+**Gemeten contrastverhoudingen (WCAG 2.1, sRGB):**
 
-- Oranje `--oranje` is uitsluitend voor de primaire actie ("Boek een baan").
-  Eén oranje knop per scherm — anders werkt hij niet meer.
-- Blauw is de dragende kleur: header, vlakken, koppen.
+| Combinatie | Ratio | Eis | |
+|---|---|---|---|
+| wit op `--oranje` (CTA-vlak) | 5,27:1 | 4,5 | ✅ |
+| `--inkt` op `--oranje` | 3,43:1 | 4,5 | ❌ **niet gebruiken** |
+| wit op `--oranje-hover` | 6,64:1 | 4,5 | ✅ |
+| `--oranje` als tekst op wit | 5,27:1 | 4,5 | ✅ |
+| `--oranje` als tekst op `--grijs-100` | 4,75:1 | 4,5 | ✅ |
+| wit op `--blauw` | 9,89:1 | 4,5 | ✅ |
+| wit op `--blauw-diep` | 13,59:1 | 4,5 | ✅ |
+| `--blauw` als tekst op wit | 9,89:1 | 4,5 | ✅ |
+| `--inkt` op wit | 18,08:1 | 4,5 | ✅ |
+| `--grijs-500` op `--grijs-100` | 5,21:1 | 4,5 | ✅ |
+| `--oranje-merk` op wit | 4,10:1 | 3,0 | ✅ alleen groot/decoratief |
+| `--oranje` naast `--blauw` | 1,88:1 | 3,0 | ❌ zie regel 3 hieronder |
+
+**Drie regels die hieruit volgen en die als CSS in `tokens.css` staan, niet als
+goed bedoeld advies in dit document:**
+
+1. Tekst op een oranje vlak is **altijd wit**. Nooit `--inkt`.
+2. Het logo-oranje `#dd4c13` draagt nooit letters. Zet je het logo op een
+   gekleurd vlak, dan is dat een vlak zonder tekst eroverheen.
+3. Een oranje knop op een blauw vlak heeft geen randcontrast (1,88:1) — de
+   knopvorm valt weg. Op blauw krijgt de primaire knop daarom een witte ring van
+   2px. Die ring haalt 9,89:1 tegen het blauw en 5,27:1 tegen het oranje.
+
+**Verder:**
+
+- Oranje is uitsluitend voor de primaire actie ("Boek een baan"). Eén oranje knop
+  per scherm — anders werkt hij niet meer.
 - **Het palet klopt met de hal.** In het videomateriaal is te zien dat de banen
   blauw zijn met een oranje/terracotta omloop. Blauw + oranje is niet alleen het
   logo, het is letterlijk wat de bezoeker ziet als hij binnenloopt.
-- Contrast: elke tekst/achtergrond-combinatie haalt WCAG AA (4.5:1). Let op:
-  wit op `--oranje` haalt dit **net niet** — gebruik daar `--inkt` als tekstkleur
-  of een donkerdere oranje. Controleer dit, ga er niet van uit.
 
 ### 5.2 Beeld
 
 De eigenaren willen **veel meer foto's, en het liefst video** — Padel Boxtel is de
 referentie. Beeld is hier geen decoratie maar de belangrijkste overtuiging.
 
-**Inventarisatie videomateriaal (gecontroleerd, 1 september 2026):**
+**Inventarisatie videomateriaal (gecontroleerd en vrijgegeven, 1 september 2026):**
 
-| Bestand | Formaat | Duur | Bruikbaar als |
+| Bestand | Formaat | Duur | Inzet |
 |---|---|---|---|
-| `Van_Duren_Versie_1a.mp4` | 254 MB, specificaties nog niet geverifieerd | ? | **Enige kandidaat voor de hero.** Moet eerst gecontroleerd worden, zie O14 |
-| `Fotos van Bennet/4776981e….MP4` | 480×864 staand, 1,6 Mbit | 27 s | Niet bruikbaar. Te lage resolutie, en er zit een herkenbaar kind prominent in beeld (O10) |
-| `Fotos van Bennet/e75c590e….MP4` | 1280×720 met rotatie −90°, dus **staand** | 25 s | Alleen als staande clip in een mobiel blok. Telefoonopname door het glas. Nooit als desktop-hero |
+| `Van_Duren_Versie_1a.mp4` | 254 MB, **liggend 16:9** | ? | **De hero.** Brede overzichtsopname van de hal met spelers. Door Bennet zelf gemaakt, gebruiksrecht geregeld. Bevestigd: dit ís de hal van Van Duren |
+| `Fotos van Bennet/e75c590e….MP4` | 1280×720 met rotatie −90°, dus **staand** | 25 s | Staande clip in een mobiel blok of een lesvorm-kaart. Nooit als desktop-hero |
+| `Fotos van Bennet/4776981e….MP4` | 480×864 staand, 1,6 Mbit | 27 s | **Niet gebruiken.** Te lage resolutie, én er staat een herkenbaar kind prominent in beeld — zie O10, dat is een andere vraag dan het gebruiksrecht van de eigenaren |
 
-**Conclusie: er is op dit moment geen bevestigd geschikt hero-materiaal.** Ga er
-niet vanuit dat `Van_Duren_Versie_1a.mp4` liggend, scherp en rechtenvrij is —
-controleer dat vóór fase 1 begint. Als het niet klopt, is de hero een sterke foto
-en wordt er nieuw materiaal geschoten. Bouw de hero-component daarom zo dat
-`video` een optioneel veld is en de poster-afbeelding altijd werkt.
+Bouw de hero-component desondanks zo dat `video` een optioneel veld is en de
+poster-afbeelding altijd werkt. De video is nu 254 MB en moet eerst door de
+verwerking hieronder; tot dat klaar is draait de pagina op de poster.
 
 **Verwerking van de hero-video (zodra goedgekeurd):**
 
@@ -333,13 +376,48 @@ antwoorden, zodat ze kunnen antwoorden met een voorstel in plaats van met een vr
 
 ### 6.1 Clinic-aanvraag (`/clinics`)
 
+**Wat een clinic inhoudt** (van `indoorpadelcentrum.nl/bedrijfsclinics/`, bevestigd
+door de eigenaren): vanaf **€ 29,00 per persoon**, inclusief begeleiding door
+gediplomeerde trainers, materiaal en toegang tot de horeca. Lunch, borrel en hapjes
+zijn optioneel bij te boeken. Het programma wordt naar wens samengesteld.
+
+**Kinderfeestjes** blijven als derde kaart bestaan en krijgen geen eigen logica:
+net als bij de andere twee vraagt stap 2 gewoon het aantal personen. Bouw dus geen
+apart pad — één wizard, drie ingangen.
+
+Twee extra vragen die alleen bij "Kinderfeestje" verschijnen, en die er zijn om
+precies één mailtje te voorkomen:
+
+- **Leeftijd van de kinderen** (keuze: t/m 8 · 9–12 · 13–16 · gemengd). Bepaalt de
+  trainer, het materiaal en de opzet; hier wordt anders gegarandeerd naar gevraagd.
+- **Hoeveel volwassen begeleiders komen mee?** Relevant voor toezicht en horeca.
+
+Zijn die twee overbodig, schrap ze — maar schrap ze bewust, niet per ongeluk.
+
+Minimum- en maximumaantal personen en de duur van een clinic zijn nog steeds
+**niet bekend** (O20). Bouw het aantalveld voorlopig als vrij getal met een zachte
+grens van 4 tot 48 en een `<!-- TODO -->`: onder de 4 en boven de 48 wel accepteren,
+maar met een regel eronder dat we contact opnemen om het passend te maken. Een hard
+maximum verzinnen is erger dan geen maximum — dan wijs je aanvragen af die je wilt
+hebben.
+
 Startkeuze — drie kaarten: **Bedrijf / Vriendengroep / Kinderfeestje**. De keuze
 bepaalt de vervolgvragen.
+
+**Let op — de content voor twee van die drie kaarten bestaat nog niet.** De
+huidige site beschrijft alleen bedrijfsclinics (vanaf € 29 p.p., materiaal en
+trainer inbegrepen, horeca los bij te boeken). Over vriendengroepen en
+kinderfeestjes staat er nergens iets, terwijl de eigenaren die kaarten wel
+expliciet vroegen. Verzin daar geen tekst, prijs of leeftijdsgrens bij: zie O19.
+Tot die informatie er is bouw je de drie kaarten met alleen de bedrijfskaart
+gevuld, en de andere twee als `<!-- TODO -->` die niet renderen.
 
 | Stap | Vraag | Type |
 |---|---|---|
 | 1 | Wat voor groep? | Bedrijf · Vrienden · Kinderfeestje |
-| 2 | Met hoeveel personen? | Aantal (4–48) |
+| 2 | Met hoeveel personen? | Aantal, zachte grens 4–48 |
+| 2a | *Alleen bij Kinderfeestje:* leeftijd van de kinderen | t/m 8 · 9–12 · 13–16 · gemengd |
+| 2b | *Alleen bij Kinderfeestje:* aantal volwassen begeleiders | Aantal |
 | 3 | Wanneer ongeveer? | Datum + dagdeel + "flexibel" optie |
 | 4 | Ervaring in de groep? | Nooit gespeeld · Gemengd · Ervaren |
 | 5 | Horeca erbij? | Niets · Borrel · Lunch · Diner |
@@ -428,8 +506,18 @@ Weg: alles wat naar de nieuwsbrief verwijst.
 
 - **Bovenaan direct de drie opties**: Losse boeking · VIP-daluren lidmaatschap ·
   Contractbaan. Dit is het eerste wat de bezoeker ziet, niet een introtekst.
-- Losse boeking → Playtomic. VIP → uitleg + aanmelding (**inhoud onbekend, zie O15**).
+- Losse boeking → Playtomic. VIP-daluren → uitlegblok (inhoud hieronder).
   Contractbaan → wizard §6.2.
+
+**VIP-daluren lidmaatschap** (overgenomen van `indoorpadelcentrum.nl/vip-daluren/`,
+1 september 2026). Zet dit in `tarieven.json`, niet in de pagina:
+
+- **€ 249,99 per jaar.**
+- Drie keer per week spelen tussen 09:00 en 17:00 — meer dan 150 keer per jaar.
+- Maximaal één week vooruit reserveren.
+- Medespelers die geen VIP zijn betalen een evenredig deel van de baanhuur.
+- Aanmelden gaat via Playtomic → het centrum kiezen → *Memberships* →
+  *daluren VIP*. Link daar rechtstreeks naartoe; dit is geen formulier.
 - Tarieventabel uit §4.2, inclusief de regel dat baan 1–2 per 1,5 uur gaan en
   baan 3–4 per heel uur.
 - **Verwijderen:** het uitlegblok over WPT-banen ("Internationale WPT-kwaliteit,
@@ -444,7 +532,9 @@ Kop mag luiden: **Padel Academy van Duren**.
 
 - **Verwijderen:** de verwijzing naar "Babolat Padel Academy Madrid" bovenin.
 - **Verwijderen:** de zin dat lessen altijd door Martin en Bennet worden gegeven.
-  Vervangen door neutraal: "Onze gediplomeerde trainers."
+  Vervangen door letterlijk: **"Onze gediplomeerde trainers."** Er werken meerdere
+  trainers; namen en foto's komen bewust niet op de site (akkoord eigenaren).
+  Zet dus ook geen trainerskaartjes met "Naam coach" neer — die sectie bestaat niet.
 - Drie opties: Proefles · Privéles · Groepsles, met de prijzen uit §4.2 en de
   routing uit §6.3.
 - **Onder** de drie opties één balk met praktische info: wat neem je zelf mee,
@@ -473,6 +563,9 @@ Zie §6.1. Verder:
   gepland. Wil je op de hoogte blijven? Volg ons op Facebook of Instagram." —
   géén nieuwsbrief-aanmelding.
 - Onderaan blok: "Zelf een toernooi organiseren?" → formulier (hergebruik §6.1).
+- **Bevestigd:** er staan op dit moment geen toernooien of clinics gepland. De
+  pagina gaat dus live in de lege staat. Dat is geen tekortkoming maar de
+  werkelijkheid — verzin er niets bij.
 
 ### 7.6 Spelregels (FAQ + padelregels)
 
@@ -519,7 +612,11 @@ Zie de conditie in §7.7.
   - `FAQPage` op `/spelregels`;
   - `Event` per item op `/evenementen`.
 - `sitemap.xml` en `robots.txt` automatisch genereren.
-- Alle oude URL's 301-redirecten. Geen enkele 404 vanuit een bestaande vermelding.
+- **Redirects: de complete lijst staat in `public/_redirects`** en is meegeleverd.
+  Die is opgebouwd uit de echte sitemap van `indoorpadelcentrum.nl` (43 pagina's
+  en 4 blogberichten, opgehaald 1 september 2026), niet uit aannames. Elk pad
+  daarin bestaat vandaag en levert een 404 op zodra de nieuwe site live gaat als
+  het ontbreekt. Loop de lijst na livegang handmatig na.
 - **Losse actie buiten de site om:** Google Business Profile, Facebook en Playtomic
   nalopen op naam, adres en openingstijden en gelijktrekken met §3.1.
 
@@ -586,25 +683,40 @@ Als de richting daar niet klopt, is doorbouwen weggegooid werk.
 
 ## 11. Open punten
 
-**Gesloten op 1 september 2026:** O1 (Playtomic → §6.3), O2 (prijzen → §4.2),
-O3 (nummer voorlopig 0619154409), O4 (agenda leeg + Sheet), O5 (geen lesvideo's),
-O6 (placeholders, balk verborgen), O7 (Google Sheet → §4.3), O8 (Rooijse weg 7),
+**Gesloten, ronde 1:** O1 (Playtomic → §6.3), O2 (prijzen → §4.2), O4 (agenda leeg
++ Sheet), O5 (geen lesvideo's), O7 (Google Sheet → §4.3), O8 (Rooijse weg 7),
 O9 (KvK 82978344 / BTW NL862678274B01), O12 (chatbot niet van toepassing),
-O13 (naamsplitsing akkoord → §3).
+O13 (naamsplitsing akkoord → §3), O15 (VIP-daluren → §7.2),
+**contrastbesluit** (→ §5.1 en `tokens.css`), **redirect-inventaris**
+(→ `public/_redirects`).
+
+**Gesloten, ronde 2 — akkoord eigenaren, 1 september 2026:**
+
+| # | Besluit |
+|---|---|
+| O14 | **De hal in `Van_Duren_Versie_1a.mp4` is die van Van Duren en Bennet heeft de opname zelf gemaakt.** Gebruiksrecht geregeld; dit wordt de hero. Mijn eerdere twijfel over de dakconstructie was onjuist — hier genoteerd zodat die discussie niet opnieuw gevoerd wordt. |
+| O16 | Facebook en Instagram → §3.1, footer en `sameAs`. |
+| O17 | **Webshop vervalt.** Geen betaalsysteem in de nieuwe site; redirects staan in `_redirects`. |
+| O18 | **Geen aparte competitiepagina.** Competitie is hooguit een item in de agenda. `/competitie` → `/evenementen`. |
+| O11 | Mitch werkt de bestaande privacyverklaring, algemene voorwaarden en reserveringsvoorwaarden bij. Niet nieuw schrijven. |
+| — | **Trainers:** meerdere, uitsluitend "onze gediplomeerde trainers", geen namen, geen profielen — ook niet op `/over-ons`. |
+| — | **Agenda:** Bennet houdt de Sheet bij. Nu geen toernooien of clinics gepland → live in de lege staat van §7.5. |
+| — | **Aanvragen** komen binnen op `vanduren@indoorpadelcentrum.nl`. |
+| — | **Sponsoren:** `Sponsor 1` t/m `Sponsor 8` als neutrale vakken; footerbalk verborgen tot `sponsoren.json` gevuld is (§7.7). |
+| — | **Beeldmateriaal** mag gebruikt worden — met één uitzondering, zie O10. |
+| — | **Opnamedag** voor lesvideo's staat op de wenslijst voor na livegang. |
 
 **Nog open:**
 
 | # | Punt | Blokkeert | Wie |
 |---|---|---|---|
-| O3b | Komt er een zakelijk telefoonnummer in plaats van 0619154409? Zo ja, één regel in `bedrijf.json` én bijwerken op Google/Playtomic/Facebook. | — | Bennet & Martin |
-| O6b | Definitieve sponsorlijst met logo's in vectorformaat. `Martin Glas` staat op de baanborden — bevestigen. | Fase 4 | Bennet & Martin |
-| O10 | **Portretrecht.** In `4776981e….MP4` zit een herkenbaar kind prominent in beeld, en op de foto's staan spelers. Voor minderjarigen is schriftelijke toestemming van een ouder nodig. Zonder toestemming: niet publiceren. | Fase 1 | Bennet & Martin |
-| O11 | Wie levert de privacyverklaring en algemene voorwaarden? | Fase 5 | Mitch |
-| O14 | **Hero-video ongecontroleerd.** `Van_Duren_Versie_1a.mp4` (254 MB): resolutie, beeldverhouding, of er groen/oud logo in beeld zit, wie hem gemaakt heeft en of het gebruiksrecht geregeld is. | Fase 1 | Mitch |
-| O15 | **Wat is het VIP-daluren lidmaatschap precies?** De eigenaren noemen het als een van de drie baanopties, maar het staat niet op de tarievenpagina. Prijs, voorwaarden, hoe je lid wordt. | Fase 2 | Bennet & Martin |
-| O16 | Facebook- en Instagram-URL's voor de footer en `sameAs` in de schema. | Fase 5 | Bennet & Martin |
-
----
+| O10 | **Portretrecht van de minderjarige.** De eigenaren geven toestemming voor het beeldmateriaal, maar een clubeigenaar kán die toestemming niet geven voor het portret van andermans kind — dat kan alleen de ouder. Zolang die er niet is: `4776981e….MP4` niet publiceren. Die clip was toch al onbruikbaar (480×864 staand), dus dit kost niets. Dezelfde regel geldt voor foto's met herkenbare kinderen. | Fase 1 | Bennet & Martin |
+| O19 | **Foto van Martin en Bennet samen moet nog gemaakt worden.** Het persoonlijke blok op de homepage (§7.1, punt 3) kan niet af zonder. Dit is het enige wat fase 1 nu nog tegenhoudt. | Fase 1 | Bennet & Martin |
+| O20 | **Clinics: nog twee onbekenden.** Kinderfeestjes zijn geregeld (§6.1: derde kaart, gewoon aantal personen). Nog open: (a) minimum en maximum aantal personen, (b) hoe lang een clinic duurt. Tot die er zijn draait het aantalveld op een zachte grens van 4–48. **En:** geldt de vanafprijs van € 29,00 p.p. ook voor een kinderfeestje, of is dat een ander tarief? Er staat nu één prijs op de site en die is geschreven voor bedrijven. | Fase 3 | Bennet & Martin |
+| O21 | **Twee pagina's spreken elkaar tegen over prijzen.** `/mogelijkheden/` (2023) adverteert "baan vanaf € 20,00 per uur" en "proefles vanaf € 15,00 p.p."; `/tarieven/` en `/tarieven-lessen/` (2024/2026) zeggen € 28 daluren en € 100 per proefles. Ik ga uit van de tarievenpagina's omdat die recenter zijn — maar bevestig dat, want als € 20 nog ergens rondzwerft is dat een discussie aan de balie. | Fase 2 | Bennet & Martin |
+| O6b | Definitieve sponsorlijst met logo's in vectorformaat. Is `Martin Glas` — zichtbaar op de baanborden — een sponsor? | Fase 4 | Bennet & Martin |
+| O3b | **Antwoord onduidelijk.** Gevraagd: blijft het 0619154409 óf komt er een zakelijk nummer? Antwoord was "ja". Er wordt gebouwd met 0619154409; verandert dat, dan is het één regel in `bedrijf.json` plus bijwerken op Google, Playtomic en Facebook. | — | Bennet & Martin |
+| O22 | **Wie beheert het Google-bedrijfsprofiel?** Het adres is bevestigd, maar er is nog geen toegang om naam, openingstijden en telefoonnummer op Google, Facebook en Playtomic gelijk te trekken met §3.1 — de losse actie uit §8. | Fase 5 | Bennet & Martin |
 
 ## 12. Wat je juist níét doet
 

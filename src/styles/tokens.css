@@ -1,0 +1,117 @@
+/* =========================================================================
+   Van Duren Indoor Padel Centrum — design tokens
+   Enige bron van waarheid voor kleur, typografie en spacing.
+   Alle contrastverhoudingen hieronder zijn berekend volgens WCAG 2.1
+   (relatieve luminantie, sRGB) en staan als commentaar bij de token.
+   Wijzig hier niets zonder de verhouding opnieuw te berekenen.
+   ========================================================================= */
+
+:root {
+
+  /* ---------------------------------------------------------------------
+     MERKKLEUREN — gemeten uit Logo.png
+     --------------------------------------------------------------------- */
+
+  /* Blauw is de dragende kleur: header, vlakken, koppen.
+     Ruim voldoende contrast met wit, ook op AAA-niveau. */
+  --blauw:          #1d3d90;   /* wit erop 9.89:1  · als tekst op wit 9.89:1  */
+  --blauw-diep:     #142a64;   /* wit erop 13.59:1 · hover/donkerder vlak     */
+
+  /* LET OP — twee verschillende oranjes, met opzet.
+
+     --oranje-merk is de exacte logokleur. Die haalt met wit 4.10:1 en met
+     --inkt 4.41:1; allebei onder de 4.5:1 die WCAG AA voor normale tekst
+     eist. Deze kleur mag dus NOOIT tekst dragen. Gebruik hem uitsluitend
+     voor het logo zelf en voor decoratieve vlakken zonder letters.
+
+     --oranje is dezelfde tint, donkerder gemaakt tot hij wél voldoet.
+     Dit is de enige oranje die tekst mag dragen of zelf tekst mag zijn. */
+  --oranje-merk:    #dd4c13;   /* ALLEEN logo/decoratie — draagt geen tekst  */
+  --oranje:         #c04010;   /* wit erop 5.27:1 · als tekst op wit 5.27:1
+                                  · als tekst op --grijs-100 4.75:1          */
+  --oranje-hover:   #a8340a;   /* wit erop 6.64:1 · hover en :active         */
+
+  /* ---------------------------------------------------------------------
+     NEUTRAAL
+     --------------------------------------------------------------------- */
+
+  --inkt:           #14161c;   /* bodytekst · op wit 18.08:1 · op grijs-100 16.29:1 */
+  --grijs-900:      #1e2129;
+  --grijs-500:      #5f6672;   /* bijschriften · op wit 5.78:1 · op grijs-100 5.21:1
+                                  (was #6b7280 — die zakte naar 4.35:1 op grijs-100) */
+  --grijs-100:      #f2f3f5;   /* lichte sectie-achtergrond                  */
+  --wit:            #ffffff;
+
+  /* ---------------------------------------------------------------------
+     TYPOGRAFIE — zelf gehost, geen Google Fonts
+     --------------------------------------------------------------------- */
+
+  --font-kop:       'Lexend', system-ui, sans-serif;
+  --font-tekst:     'Inter', system-ui, sans-serif;
+
+  /* ---------------------------------------------------------------------
+     RUIMTE & LAYOUT
+     --------------------------------------------------------------------- */
+
+  --marge-rand:     clamp(20px, 5vw, 40px);
+  --sectie-gap:     clamp(56px, 8vw, 96px);
+  --gutter:         24px;
+
+  --max-breed:      1280px;
+  --max-midden:     1024px;
+  --max-smal:       720px;
+
+  --radius:         10px;
+  --radius-klein:   6px;
+
+  /* ---------------------------------------------------------------------
+     FOCUS — WCAG 2.1 eist 3:1 voor niet-tekst
+     --------------------------------------------------------------------- */
+
+  --focus-licht:    #ffffff;   /* focusring op donkere vlakken               */
+  --focus-donker:   #142a64;   /* focusring op lichte vlakken                */
+  --focus-dikte:    3px;
+  --focus-offset:   2px;
+}
+
+/* =========================================================================
+   REGELS DIE UIT DE CONTRASTMETING VOLGEN
+   Deze staan hier als code, niet als goed bedoeld advies in een document,
+   zodat ze niet per ongeluk overschreven worden.
+   ========================================================================= */
+
+/* 1. Tekst op een oranje vlak is ALTIJD wit. Nooit --inkt: dat haalt op
+      --oranje maar 3.43:1 en zakt dus onder AA. */
+.knop--primair {
+  background: var(--oranje);
+  color: var(--wit);
+  border: 0;
+  border-radius: var(--radius-klein);
+  font-family: var(--font-kop);
+  font-weight: 600;
+}
+.knop--primair:hover,
+.knop--primair:focus-visible {
+  background: var(--oranje-hover);
+  color: var(--wit);
+}
+
+/* 2. Een oranje knop op een blauw vlak heeft géén randcontrast:
+      --oranje tegen --blauw is 1.88:1, ruim onder de 3:1 die nodig is om
+      de knopvorm herkenbaar te maken. Op blauw krijgt de knop daarom een
+      witte ring (wit/blauw 9.89:1, wit/oranje 5.27:1 — beide ruim goed). */
+.op-blauw .knop--primair {
+  box-shadow: 0 0 0 2px var(--wit);
+}
+
+/* 3. Zichtbare focus op alles wat bedienbaar is. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: var(--focus-dikte) solid var(--focus-donker);
+  outline-offset: var(--focus-offset);
+}
+.op-blauw :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline-color: var(--focus-licht);
+}
+
+/* 4. Het lime uit het prototype bestaat niet meer. Staat hier als
+      vangnet: komt #c3f400 ergens terug, dan valt het meteen op. */

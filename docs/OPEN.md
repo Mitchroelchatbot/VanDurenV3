@@ -1,45 +1,56 @@
 # Open punten
 
-> Bijgehouden door de agent. Elk punt dat niet zeker is staat hier; niets wordt
-> verzonnen (CLAUDE.md §0.3). Bijgewerkt: 1 september 2026.
+> Bijgehouden door de agent. Niets wordt verzonnen (CLAUDE.md §0.3).
+> Bijgewerkt: 1 september 2026, na CLAUDE.md v3.
 
-## Tegenstrijdigheden in CLAUDE.md zelf — eerst oplossen
+## Opgelost sinds v2
+
+`tokens.css` is nagerekend: **alle veertien contrastwaarden kloppen exact** (WCAG 2.1,
+sRGB, tot op twee decimalen). De splitsing `--oranje-merk` / `--oranje` lost T2 op.
+De redirect-inventaris (`public/_redirects`) vervangt T7.
+
+## Nog open in CLAUDE.md v3 — meegenomen uit v2, niet gerepareerd
+
+| # | Punt | Waar | Blokkeert |
+|---|---|---|---|
+| T3 | §7.1 punt 2 wil "Bekijk het lesaanbod" **even prominent** naast "Boek een baan"; §12 verbiedt een tweede primaire knop in hetzelfde scherm en §5.1 één oranje knop per scherm. Onopgelost. | regel 496 vs 726 | Fase 1 |
+| T4 | §6 belooft een automatische bevestigingsmail aan de aanvrager; B3 zegt "Netlify Forms, geen eigen server". Netlify-notificaties gaan naar een vast adres — een mail terug naar de invuller vereist een Netlify Function of een externe dienst. Onopgelost. | regel 59 vs 373 | Fase 2 |
+| T5 | §8 adviseert nog steeds "Plausible of **Vercel Analytics**". Vercel Analytics werkt niet op Netlify-hosting. | regel 640 | Fase 5 |
+
+## Nieuw gevonden in v3
 
 | # | Punt | Blokkeert |
 |---|---|---|
-| T1 | **Eén naam of twee?** `feedback-eigenaren.md` vraagt letterlijk om "één naam" en een keuze uit drie. CLAUDE.md B4 maakt er twee van en noteert "Akkoord eigenaren"; dat akkoord blijkt nergens uit het bronmateriaal. CLAUDE.md §0.1 zegt dat de letterlijke feedback wint. Raakt `bedrijf.json`, alle `<title>`, header-wordmark en schema.org. | Fase 0 |
-| T2 | **Contrast klopt niet.** Gemeten: wit op `--oranje` 4,10:1 en `--inkt` op `--oranje` 4,41:1 — beide onder AA (4,5:1). `--oranje` tegen `--blauw` is 2,41:1 en zakt door de 3:1-grens voor UI-elementen (WCAG 1.4.11), terwijl §5.1 + §7.1 juist een oranje CTA op een blauw hero-vlak voorschrijven. Enige combinatie uit het eigen palet die beide haalt: `#f0682f` als knopvlak met `--inkt` als tekst (5,79:1 en 3,17:1). | Fase 0 |
-| T3 | **§7.1 vs §12.** §7.1 wil "Bekijk het lesaanbod" *even prominent* naast "Boek een baan"; §12 en §5.1 verbieden een tweede primaire knop in hetzelfde scherm. | Fase 1 |
-| T4 | **Bevestigingsmail kan niet met alleen Netlify Forms.** §6 belooft een automatische bevestigingsmail aan de aanvrager; Netlify-notificaties gaan naar een vast adres. Vereist een Netlify Function of externe dienst — B3 zegt "geen eigen server". | Fase 2 |
-| T5 | **Vercel Analytics werkt niet op Netlify** (§8). Plausible is het enige valide advies uit dat rijtje. | Fase 5 |
-| T6 | **`/privacy` ontbreekt in de sitemap** (§7) terwijl §8 hem eist. Idem algemene voorwaarden en een 404-pagina. | Fase 5 |
-| T7 | **Geen inventaris van oude URL's.** "Geen enkele 404" (§8) is niet te controleren zonder een crawl van `indoorpadelcentrum.nl`. | Fase 5 |
-| T8 | **O1 gesloten zonder bewijs.** De feedback zegt "navragen playtomic?"; §11 vinkt O1 af. Is Playtomic daadwerkelijk benaderd? | Fase 2 |
-| T9 | **Hero-video zonder doellengte.** §5.2 stelt max 6 MB op 1920×1080 maar noemt geen duur. Bij padel (veel beweging) is dat scherp tot ±12 s en daarna pap. | Fase 1 |
-| T10 | **Contractbaan 20–26× / 45–52×** (§4.2) geeft 30% prijsverschil per sessie zonder uitleg waar dat van afhangt. Elke lezer gaat hierover mailen — precies wat §1 wil voorkomen. | Fase 2 |
+| T11 | **`_redirects` bevatte een lus:** `/evenementen → /evenementen 301`. Verwijderd; zes andere regels wezen naar dat pad. | — (opgelost) |
+| T12 | **Vier redirect-doelen bestaan niet in de sitemap van §7:** `/privacy`, `/voorwaarden`, `/clinics/bedankt` en `/404.html`. `/privacybeleid → /privacy` levert vandaag een 404 op een pagina die wettelijk verplicht is. Die vier routes moeten in §7 opgenomen worden. | Fase 5 |
+| T13 | **§7.2 is structureel verkeerd genest.** De punten "Tarieventabel uit §4.2", "Verwijderen: WPT-blok", "Toevoegen: Babolat" en "Sfeerbeelden onderaan" staan nu binnen de opsomming van het VIP-daluren lidmaatschap. Het zijn pagina-eisen, geen eigenschappen van het lidmaatschap. | Fase 2 |
+| T14 | **Kruisverwijzingen wijzen naar het verkeerde punt.** §4.2 en §6.1 verwijzen voor de onbekende clinic-gegevens naar "O19", maar O19 is de foto van Martin en Bennet. De clinic-onbekenden zijn O20. | Fase 3 |
+| T15 | §6.4 verwijst naar "(O3)"; O3 is gesloten, bedoeld is O3b. | — |
+| T16 | De restlijst meldt aan de eigenaren "alle **47** pagina's krijgen een doorverwijzing". `_redirects` telt 50 regels, waarvan enkele wildcards. Het getal 47 is niet controleerbaar tegen dit bestand. | — |
+| T17 | `--oranje-hover` tegen `--blauw` is 1,49:1 — nog lager dan de 1,88:1 van `--oranje`. De witte ring uit regel 3 dekt dit af, maar `box-shadow` verdwijnt in Windows-hoogcontrastmodus. Overweeg een echte `border` in plaats van `box-shadow`. | Fase 1 |
+
+## Blokkerend besluit
+
+| # | Punt | Blokkeert |
+|---|---|---|
+| T18 | **Woordvolgorde van de bedrijfsnaam.** Gekozen: "Indoor Padel Centrum van Duren". CLAUDE.md §3 regel 102 verbiedt die volgorde expliciet, en KvK ("Van Duren indoor padel centrum BV"), Facebook, de Playtomic-slug en vier directories zetten "Van Duren" vóóraan. In de code raakt dit één bestand (`bedrijf.json`, dankzij de harde regel van §4.1); daarbuiten raakt het elke externe vermelding. Bevestiging nodig vóór `bedrijf.json`. | `bedrijf.json` |
 
 ## Openstaand bij Bennet & Martin
 
-Zie `wat-we-nog-nodig-hebben.md` voor de volledige vragenlijst. Kort:
-
 | # | Punt | Blokkeert |
 |---|---|---|
-| O10 | Portretrecht foto's en video; herkenbaar kind in beeld, toestemming ouder verplicht. | Fase 1 |
-| O14 | Rechten en makerschap `Van_Duren_Versie_1a.mp4`. Technische specs kunnen wij zelf meten. | Fase 1 |
-| O15 | Wat is het VIP-daluren lidmaatschap: prijs, tijden, hoe word je lid. | Fase 2 |
-| O6b | Definitieve sponsorlijst + logo's in vectorformaat; `Martin Glas` bevestigen. | Fase 4 |
-| O16 | Facebook- en Instagram-URL's. | Fase 5 |
+| O10 | Portretrecht minderjarige in `4776981e….MP4` — clip gaat er sowieso uit. Bevestigen; geldt ook voor foto's met herkenbare kinderen. | Fase 1 |
+| O19 | Foto van Martin en Bennet samen, in de hal. Enige resterende blokkade voor fase 1. | Fase 1 |
+| O20 | Clinics: minimum/maximum aantal personen, duur, en of € 29,00 p.p. ook voor kinderfeestjes geldt. | Fase 3 |
+| O21 | `/mogelijkheden/` adverteert € 20 baanhuur en € 15 proefles tegenover € 28 en € 100 op de tarievenpagina's. Bevestigen dat de tarievenpagina's leidend zijn. | Fase 2 |
+| O6b | Sponsorlijst met vectorlogo's; is `Martin Glas` een sponsor? | Fase 4 |
 | O3b | Blijft het telefoonnummer 06-19154409? | — |
-| — | Foto van Martin en Bennet samen, in de hal. | Fase 1 |
-| — | Aantal trainers, en of hun namen op de site mogen. | Fase 2 |
-| — | Horeca-opties, kinderfeestjes (leeftijd, aantal), min/max groepsgrootte clinic. | Fase 3 |
-| — | Op welk mailadres komen de aanvragen binnen. | Fase 2 |
+| O22 | Wie beheert het Google-bedrijfsprofiel? | Fase 5 |
 
 ## Openstaand bij Mitch
 
 | # | Punt | Blokkeert |
 |---|---|---|
-| O11 | Privacyverklaring en algemene voorwaarden. | Fase 5 |
-| — | Netlify-project, build hook en het EU-datagebied voor formulieren. | Fase 0 |
+| O11 | Bestaande privacyverklaring, algemene voorwaarden en reserveringsvoorwaarden bijwerken (2021/2022, gaan deels over de vervallen webshop). | Fase 5 |
+| — | Netlify-project, build hook, EU-regio voor formulierdata. De Netlify-koppeling is in deze sessie niet verbonden (502). | Fase 0 |
 | — | Google Sheet voor de agenda + gepubliceerde CSV-URL. | Fase 3 |
-| — | Toegang tot het Google-bedrijfsprofiel voor de NAP-controle. | Fase 5 |

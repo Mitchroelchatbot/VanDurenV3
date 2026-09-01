@@ -1,0 +1,93 @@
+# =========================================================================
+# Van Duren Indoor Padel Centrum — 301-redirects
+# Netlify _redirects formaat: <oud pad>  <nieuw pad>  <status>
+#
+# Bron: sitemap_index.xml van indoorpadelcentrum.nl, opgehaald 1 sep 2026.
+# 43 pagina's + 4 blogberichten geïnventariseerd. Dit is een echte lijst,
+# geen aanname — elk pad hieronder bestaat vandaag en levert een 404 op
+# zodra de nieuwe site live gaat als hij hier niet in staat.
+#
+# Controleer na livegang elke regel handmatig (DoD §9).
+# =========================================================================
+
+# --- Baanhuur -----------------------------------------------------------
+/tarieven                                   /banen                    301
+/tarieven-baanhuur                          /banen                    301
+/padel-baanhuur                             /banen                    301
+/padel-volwassenen-piekuren                 /banen                    301
+/padel-volwassenen-daluren                  /banen                    301
+/vip-daluren                                /banen#vip                301
+/booking                                    /banen                    301
+/playtomic                                  /banen                    301
+/mogelijkheden                              /banen                    301
+
+# --- Lessen -------------------------------------------------------------
+/padel-lessen                               /lessen                   301
+/tarieven-lessen                            /lessen                   301
+/padel-jeugd-tot-en-met-14-jaar             /lessen                   301
+/ook-voor-de-jeugd                          /lessen                   301
+
+# --- Clinics ------------------------------------------------------------
+/bedrijfsclinics                            /clinics                  301
+/bedankt-voor-je-aanvraag-bedrijfsclinic    /clinics/bedankt          301
+/jose-calderon-clinic                       /clinics                  301
+/formulier-jose-calderon                    /clinics                  301
+/clinic-jose-calderon-voor-max-6-personen   /clinics                  301
+
+# --- Evenementen --------------------------------------------------------
+# /evenementen bestaat in de nieuwe site en blijft staan; een 301 naar
+# zichzelf is een lus. Regel bewust verwijderd.
+/agenda                                     /evenementen              301
+/competitie                                 /evenementen              301
+/p500-toernooi                              /evenementen              301
+/paella-toernooi-groot-succes               /evenementen              301
+/event/*                                    /evenementen              301
+/evenement/*                                /evenementen              301
+
+# --- Spelregels ---------------------------------------------------------
+/padel-regels                               /spelregels               301
+
+# --- Sponsoren ----------------------------------------------------------
+/partners                                   /sponsoren                301
+
+# --- Over ons & contact -------------------------------------------------
+/contact                                    /over-ons                 301
+/team                                       /over-ons                 301
+/opening                                    /over-ons                 301
+/fotosopening                               /over-ons                 301
+/officiele-opening-padelcentrum             /over-ons                 301
+
+# --- Juridisch ----------------------------------------------------------
+/privacybeleid                              /privacy                  301
+/algemene-voorwaarden                       /voorwaarden              301
+/reserveringsvoorwaarden                    /voorwaarden#reservering  301
+
+# --- Webshop: vervalt ---------------------------------------------------
+# De WooCommerce-shop bevat welgeteld één product (jeugdtraining) en wordt
+# niet opnieuw gebouwd. Zie CLAUDE.md §11-O17.
+/winkel                                     /lessen                   301
+/product/jeugdtraining                      /lessen                   301
+/product/*                                  /lessen                   301
+/winkelwagen                                /                         301
+/afrekenen                                  /                         301
+/mijn-account                               /                         301
+
+# --- Nieuwsbrief: vervalt ----------------------------------------------
+/nieuwsbrief                                /                         301
+
+# --- Restanten van WordPress-plugins -----------------------------------
+# Deze pagina's zijn nooit bedoeld geweest voor bezoekers; ze zijn door
+# een evenementen-plugin aangemaakt en staan per ongeluk in de sitemap.
+/submit-organizer-form                      /                         301
+/organizer-dashboard                        /                         301
+/event-organizers                           /                         301
+/submit-venue-form                          /                         301
+/venue-dashboard                            /                         301
+/event-venues                               /                         301
+/_                                          /                         301
+/nieuwe-website                             /                         301
+
+# --- Vangnet ------------------------------------------------------------
+# Alles wat hierboven niet genoemd is en niet bestaat, krijgt de eigen
+# 404-pagina met een zoekveld en links naar /banen en /lessen.
+/*                                          /404.html                 404
