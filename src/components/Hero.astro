@@ -8,7 +8,7 @@ const primairHref = h.primair.soort === 'playtomic' ? bedrijf.playtomic : h.prim
 ---
 <section class="hero op-blauw">
   {h.video && (
-    <video class="hero__video" autoplay muted loop playsinline poster={h.poster ? `${h.poster.basis}-1920.webp` : undefined}>
+    <video class="hero__video" autoplay muted loop playsinline poster={h.poster ? `${h.poster.basis}-1434.webp` : undefined}>
       <source src={h.video.webm} type="video/webm" />
       <source src={h.video.mp4} type="video/mp4" />
     </video>
@@ -16,10 +16,10 @@ const primairHref = h.primair.soort === 'playtomic' ? bedrijf.playtomic : h.prim
   {!h.video && h.poster && (
     <picture>
       <source type="image/avif" sizes="100vw"
-              srcset={`${h.poster.basis}-960.avif 960w, ${h.poster.basis}-1920.avif 1920w`} />
+              srcset={`${h.poster.basis}-960.avif 960w, ${h.poster.basis}-1434.avif 1434w`} />
       <source type="image/webp" sizes="100vw"
-              srcset={`${h.poster.basis}-960.webp 960w, ${h.poster.basis}-1920.webp 1920w`} />
-      <img class="hero__video" src={`${h.poster.basis}-1920.webp`} alt={h.posterAlt}
+              srcset={`${h.poster.basis}-960.webp 960w, ${h.poster.basis}-1434.webp 1434w`} />
+      <img class="hero__video" src={`${h.poster.basis}-1434.webp`} alt={h.posterAlt}
            width={h.poster.breedte} height={h.poster.hoogte} fetchpriority="high" decoding="sync" />
     </picture>
   )}
@@ -40,27 +40,40 @@ const primairHref = h.primair.soort === 'playtomic' ? bedrijf.playtomic : h.prim
     position: absolute; inset: 0; z-index: -2;
     width: 100%; height: 100%; object-fit: cover;
   }
-  /* Leesbaarheidslaag: zonder deze laag is de tekstcontrast op bewegend
-     beeld niet gegarandeerd. Met beeld donkerder, zonder beeld effen blauw. */
+  /* Leesbaarheidslaag. Richtingsgevoelig: zwaar aan de kant waar de tekst
+     staat, licht aan de andere kant, zodat de foto herkenbaar blijft. Bij
+     0.92 dekking is de ondergrond feitelijk --blauw-diep, en wit haalt daar
+     13,59:1. Zonder beeld valt de laag weg en blijft het effen blauw. */
   .hero::after {
     content: ''; position: absolute; inset: 0; z-index: -1;
-    background: linear-gradient(180deg, rgb(20 42 100 / 0.55), rgb(20 42 100 / 0.8));
+    background:
+      linear-gradient(90deg, rgb(20 42 100 / 0.92) 0%, rgb(20 42 100 / 0.86) 38%,
+                              rgb(20 42 100 / 0.55) 68%, rgb(20 42 100 / 0.42) 100%),
+      linear-gradient(180deg, rgb(20 42 100 / 0.35), rgb(20 42 100 / 0.55));
+  }
+  @media (max-width: 899px) {
+    /* Op smalle schermen loopt de tekst over de volle breedte, dus daar een
+       gelijkmatige laag in plaats van een zijdelingse. */
+    .hero::after {
+      background: linear-gradient(180deg, rgb(20 42 100 / 0.78), rgb(20 42 100 / 0.88));
+    }
   }
   .hero:not(:has(.hero__video))::after { background: none; }
 
-  .hero__binnen { padding-block: clamp(72px, 14vw, 152px); max-width: var(--max-midden); }
+  .hero__binnen { padding-block: clamp(72px, 14vw, 152px); }
+  .hero__kop, .hero__onderkop, .hero__acties { max-width: 40rem; }
   .hero__kop { margin-bottom: 0.4em; }
   .hero__onderkop {
     font-size: clamp(1.05rem, 2.2vw, 1.3rem);
-    max-width: 52ch;
     margin-bottom: 2rem;
     opacity: 0.95;
   }
   .hero__acties { display: flex; flex-wrap: wrap; gap: 0.9rem; }
 
   @media (max-width: 767px) {
-    /* §5.2: onder 768px geen video laden, daar de poster of het effen vlak. */
-    .hero__video { display: none; }
+    /* §5.2: onder 768px geen video, maar wél de poster. Alleen het
+       video-element verbergen, niet de afbeelding die dezelfde klasse deelt. */
+    .hero video.hero__video { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
     .hero video.hero__video { display: none; }

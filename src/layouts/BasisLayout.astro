@@ -9,7 +9,7 @@ import SchemaOrg from '../components/SchemaOrg.astro';
 import nav from '../content/nl/navigatie.json';
 import paginas from '../content/nl/paginas.json';
 
-const { pad, waSjabloon, meta: metaProp } = Astro.props;
+const { pad, waSjabloon, meta: metaProp, posterPreload } = Astro.props;
 const meta = metaProp ?? paginas[pad];
 const canoniek = new URL(pad, Astro.site).href;
 ---
@@ -22,6 +22,12 @@ const canoniek = new URL(pad, Astro.site).href;
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    {posterPreload && (
+      <link rel="preload" as="image" type="image/avif"
+            href={`${posterPreload}-960.avif`}
+            imagesrcset={`${posterPreload}-960.avif 960w, ${posterPreload}-1434.avif 1434w`}
+            imagesizes="100vw" fetchpriority="high" />
+    )}
     <link rel="preload" href="/fonts/lexend-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/fonts/fonts.css" />

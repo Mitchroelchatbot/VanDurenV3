@@ -4,11 +4,12 @@ import Hero from '../components/Hero.astro';
 import PersoonlijkBlok from '../components/PersoonlijkBlok.astro';
 import Beeldblok from '../components/Beeldblok.astro';
 import paginas from '../content/nl/paginas.json';
+import home from '../content/nl/homepage.json';
 
 const pad = '/';
 const meta = paginas[pad];
 ---
-<BasisLayout pad={pad} waSjabloon={meta.wa}>
+<BasisLayout pad={pad} waSjabloon={meta.wa} posterPreload={home.hero.poster?.basis}>
   <Hero />
   <PersoonlijkBlok />
   <Beeldblok />

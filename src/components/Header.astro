@@ -40,7 +40,7 @@ const { hoofdmenu, labels } = nav;
   .kop__binnen {
     display: flex;
     align-items: center;
-    gap: var(--gutter);
+    gap: clamp(12px, 1.6vw, 24px);
     min-height: 76px;
     flex-wrap: wrap;
   }
@@ -60,8 +60,8 @@ const { hoofdmenu, labels } = nav;
     opacity: 0.92;
   }
 
-  .kop__nav ul { display: flex; gap: 1.25rem; list-style: none; margin: 0; padding: 0; }
-  .kop__nav a { text-decoration: none; font-size: 0.95rem; padding-block: 0.4em; }
+  .kop__nav ul { display: flex; gap: clamp(0.7rem, 1.1vw, 1.15rem); list-style: none; margin: 0; padding: 0; }
+  .kop__nav a { text-decoration: none; font-size: 0.92rem; padding-block: 0.4em; white-space: nowrap; }
   .kop__nav a:hover { text-decoration: underline; }
   .kop__nav a[aria-current='page'] { text-decoration: underline; text-underline-offset: 0.35em; }
 
@@ -72,10 +72,10 @@ const { hoofdmenu, labels } = nav;
   /* Zonder JavaScript blijft de knop gewoon staan; alleen wanneer het
      script draait wordt hij tijdelijk verborgen. Geen flits bij het laden
      omdat .js al in de <head> op <html> gezet wordt. */
-  :global(html.js) .kop__cta[data-na-scroll] { visibility: hidden; }
-  :global(html.js) .kop__cta[data-na-scroll][data-zichtbaar='true'] { visibility: visible; }
+  :global(html.js) .kop__cta[data-na-scroll] { display: none; }
+  :global(html.js) .kop__cta[data-na-scroll][data-zichtbaar='true'] { display: inline-flex; }
 
-  @media (max-width: 1100px) {
+  @media (max-width: 1240px) {
     .kop__binnen { min-height: 64px; }
     .kop__schakelaar { display: block; order: 3; }
     .kop__cta { order: 2; }
