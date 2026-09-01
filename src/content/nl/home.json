@@ -1,0 +1,72 @@
+{
+  "_bron": "Opzet naar het voorbeeld van padelboxtel.nl (tegelgrid met foto's die naar subpagina's linken). Feiten uit CLAUDE.md §3.1 en de oude site. Zie de _regel-velden.",
+
+  "metaTitle": "Van Duren Indoor Padel Centrum — Padelbaan huren in Son en Breugel",
+  "metaDescription": "Vier indoor padelbanen in Son en Breugel, zeven dagen per week open. Boek direct online via Playtomic, of vraag een les, clinic of contractbaan aan.",
+
+  "hero": {
+    "kop": "Padelbaan huren in Son en Breugel",
+    "tekst": "Vier indoor banen, zeven dagen per week open. Boek direct online, zonder te bellen of te mailen.",
+    "primair": { "label": "Boek een baan", "type": "playtomic" },
+    "secundair": { "label": "Bekijk het lesaanbod", "href": "/lessen" },
+    "video": null,
+    "poster": "TODO: pad naar posterframe uit Van_Duren_Versie_1a.mp4",
+    "_regel": "Overlay op de foto: maximaal 35% blauw, en alleen achter de tekst (gradient links → transparant rechts). Nu ligt er een egale blauwe waas over het hele beeld en verliest de foto zijn kleur. Padel Boxtel laat de foto ademen — dat is waarom die site 'mooier' oogt."
+  },
+
+  "familie": {
+    "kop": "Van Martin en Bennet zelf",
+    "alinea1": "Van Duren Indoor Padel Centrum is het bedrijf van Martin en Bennet van Duren. Geen keten, geen hoofdkantoor: de mensen die je bij binnenkomst ziet, zijn de mensen van wie de hal is. Speel je hier vaker, dan kennen we je bij naam.",
+    "alinea2": "We spelen met Babolat, en onze gediplomeerde trainers helpen je verder zodra je dat wilt — van een eerste proefles tot een vaste contractbaan.",
+    "foto": null,
+    "fotoAlt": "Martin en Bennet van Duren in de hal",
+    "_regel": "Herhaal hier NIET 'vier banen, zeven dagen per week' — dat staat al in de hero, twee schermen hoger. Render de foto alleen als 'foto' gevuld is (OPEN.md O19). Gebruik 'vader en zoon' pas als de eigenaren dat bevestigen; het staat op het prototype maar niet op de live site.",
+    "_variantKop": "Alternatieve kop als 'Van Martin en Bennet zelf' te informeel is: 'Een familiebedrijf in Son en Breugel'."
+  },
+
+  "tegels": {
+    "kop": "Wat wil je doen?",
+    "_regel": "Dit vervangt de losse fotogalerij 'In de hal'. Elke tegel is één foto, één label, één regel, en de hele tegel is klikbaar. Vier tegels op desktop naast elkaar, op mobiel twee-bij-twee. Foto's krijgen op hover een lichte zoom; verder geen effecten. Dit is het patroon van padelboxtel.nl ('Padel les · Club Games · Community'), maar dan met onze vier omzetpagina's.",
+    "items": [
+      {
+        "label": "Baan huren",
+        "regel": "Los, met VIP-daluren of als contractbaan",
+        "href": "/banen",
+        "foto": "doorkijk-banen",
+        "fotoAlt": "Doorkijk over de vier indoor padelbanen"
+      },
+      {
+        "label": "Lessen",
+        "regel": "Proefles, privéles of groepsles",
+        "href": "/lessen",
+        "foto": "spelers-bij-net",
+        "fotoAlt": "Twee spelers aan het net tijdens een les"
+      },
+      {
+        "label": "Clinics en bedrijfsuitjes",
+        "regel": "Vanaf € 29 per persoon, inclusief trainer",
+        "href": "/clinics",
+        "foto": "spelers-achterste-banen",
+        "fotoAlt": "Groep spelers op de achterste banen"
+      },
+      {
+        "label": "Evenementen",
+        "regel": "Toernooien en clinics in de agenda",
+        "href": "/evenementen",
+        "foto": "hal-overzicht",
+        "fotoAlt": "Overzicht van de hal met spelers op alle banen"
+      }
+    ]
+  },
+
+  "herhaalCta": {
+    "kop": "Zin om te spelen?",
+    "tekst": "Kies een baan en een tijd. Je betaalt direct online en krijgt meteen een bevestiging.",
+    "primair": { "label": "Boek een baan", "type": "playtomic" },
+    "_regel": "Dit blok komt ná de tegels en vóór de footer. De regel 'één oranje knop per scherm' geldt per scherm, niet per pagina — op een homepage van vier schermen mag de primaire actie drie keer voorkomen: hero, hier, en in de header. Padel Boxtel doet het ook drie keer."
+  },
+
+  "galerij": {
+    "_regel": "De losse fotogalerij mag blijven, maar dan onderaan, kleiner, en zonder kop — als sfeer, niet als sectie. Of schrappen. Zes foto's zonder functie tussen twee secties in is precies wat de pagina nu traag laat voelen."
+  }
+}
