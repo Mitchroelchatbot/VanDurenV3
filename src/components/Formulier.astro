@@ -1,13 +1,22 @@
 ---
 import nav from '../content/nl/navigatie.json';
 
-// Eén doorlopend formulier: alle vragen onder elkaar, geen stappen.
-// Alleen het e-mailadres is verplicht; al het andere is optioneel en mag
-// leeg verstuurd worden. Werkt zonder JavaScript.
+// Basis: één doorlopend formulier dat zonder JavaScript werkt. Voorwaardelijke
+// vragen worden zonder JS via CSS :has() verborgen; met JS wordt het formulier
+// een gesprek: één vraag tegelijk, antwoorden als knoppen, eerdere antwoorden
+// als bubbels. Zelfde velden, zelfde name-attributen, zelfde Netlify-form.
 const { naam, titel, intro, stappen, bevestiging, aantalGrens } = Astro.props;
 const L = nav.formulierLabels;
 const grensVraag = stappen.find((st) => st.type === 'aantal')?.nr;
 const isEmail = (v) => /mail/i.test(v);
+const esc = (s) => String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+const vraagVan = (nr) => stappen.find((s) => String(s.nr) === String(nr))?.vraag ?? '';
+
+// CSS die zonder JavaScript de voorwaardelijke vragen verbergt.
+const conditieCss = stappen
+  .filter((st) => st.toonBij)
+  .map((st) => `form[name="${esc(naam)}"]:not(:has(input[name="${esc(vraagVan(st.toonBij.stap))}"][value="${esc(st.toonBij.waarde)}"]:checked)) fieldset[data-nr="${esc(st.nr)}"]{display:none}`)
+  .join('\n');
 ---
 <form
   class="form"
@@ -17,8 +26,11 @@ const isEmail = (v) => /mail/i.test(v);
   data-netlify="true"
   netlify-honeypot={L.honeypotVeld}
   data-form
-  data-leeg-tekst={L.nietIngevuld}
+  data-labels={JSON.stringify(L)}
+  data-bevestiging-titel={bevestiging.titel}
+  data-bevestiging-tekst={bevestiging.tekst}
 >
+  {conditieCss && <style is:inline set:html={conditieCss} />}
   <input type="hidden" name="form-name" value={naam} />
   <p class="form__honeypot">
     <label>{L.honeypotLabel} <input name={L.honeypotVeld} tabindex="-1" autocomplete="off" /></label>
@@ -27,43 +39,41 @@ const isEmail = (v) => /mail/i.test(v);
   {titel && <h2 class="form__titel">{titel}</h2>}
   {intro && <p class="form__intro">{intro}</p>}
 
+  <div data-basis>
   {stappen.map((st) => (
-    <fieldset class="form__vraag">
+    <fieldset class="form__vraag"
+      data-nr={String(st.nr)}
+      data-type={st.type}
+      data-vraag={st.vraag}
+      data-toon-bij-stap={st.toonBij ? String(st.toonBij.stap) : undefined}
+      data-toon-bij-waarde={st.toonBij ? st.toonBij.waarde : undefined}
+      data-chips={st.chips ? JSON.stringify(st.chips) : undefined}
+    >
       <legend class="form__legenda">{st.vraag}</legend>
       {st.toelichting && <p class="form__toelichting">{st.toelichting}</p>}
 
       {st.type === 'keuze' && (
         <div class="chips">
-          {/* Verborgen, standaard aangevinkte optie: radio's binnen één naam
-              sluiten elkaar uit, dus zodra de bezoeker kiest verdwijnt deze
-              vanzelf. Zo staat elke onbeantwoorde vraag toch in de mail,
-              ook zonder JavaScript. */}
-          <input type="radio" name={st.vraag} value={L.nietIngevuld} checked hidden />
+          <input type="radio" name={st.vraag} value={L.nietIngevuld} checked hidden data-standaard />
           {st.opties.map((o) => (
-            <label class="chip">
-              <input type="radio" name={st.vraag} value={o} /><span>{o}</span>
-            </label>
+            <label class="chip"><input type="radio" name={st.vraag} value={o} /><span>{o}</span></label>
           ))}
         </div>
       )}
 
       {st.type === 'meerkeuze' && (
         <div class="chips">
-          <input type="checkbox" name={st.vraag} value={L.nietIngevuld} checked hidden data-leeg-vink />
+          <input type="checkbox" name={st.vraag} value={L.nietIngevuld} checked hidden data-standaard data-leeg-vink />
           {st.opties.map((o) => (
-            <label class="chip">
-              <input type="checkbox" name={st.vraag} value={o} data-echte-keuze /><span>{o}</span>
-            </label>
+            <label class="chip"><input type="checkbox" name={st.vraag} value={o} data-echte-keuze /><span>{o}</span></label>
           ))}
         </div>
       )}
 
       {st.type === 'aantal' && (
         <>
-          {/* De legenda staat er visueel boven, maar telt niet als
-              toegankelijke naam voor een invoerveld: vandaar aria-label. */}
-          <input class="form__invoer form__invoer--kort" type="number" inputmode="numeric" min="1"
-                 name={st.vraag} aria-label={st.vraag} data-leeg-invullen
+          <input class="form__invoer form__invoer--kort" type="text" inputmode="numeric" pattern="[0-9]*|.*"
+                 name={st.vraag} aria-label={st.vraag} data-leeg-invullen data-aantal
                  data-zacht-min={aantalGrens && st.nr === grensVraag ? String(aantalGrens.zachtMin) : undefined}
                  data-zacht-max={aantalGrens && st.nr === grensVraag ? String(aantalGrens.zachtMax) : undefined} />
           {aantalGrens && st.nr === grensVraag && (
@@ -76,16 +86,14 @@ const isEmail = (v) => /mail/i.test(v);
         <div class="form__paar">
           <label class="form__veld">
             <span>{L.datum}</span>
-            <input class="form__invoer" type="date" name={`${st.vraag} — ${L.datum}`} data-leeg-invullen />
+            <input class="form__invoer" type="date" name={`${st.vraag} — ${L.datum}`} data-leeg-invullen data-datum />
           </label>
           <div class="form__veld">
             <span>{L.dagdeel}</span>
-            <div class="chips">
-              <input type="radio" name={`${st.vraag} — ${L.dagdeel}`} value={L.nietIngevuld} checked hidden />
+            <div class="chips" data-dagdeel>
+              <input type="radio" name={`${st.vraag} — ${L.dagdeel}`} value={L.nietIngevuld} checked hidden data-standaard />
               {st.opties.map((o) => (
-                <label class="chip">
-                  <input type="radio" name={`${st.vraag} — ${L.dagdeel}`} value={o} /><span>{o}</span>
-                </label>
+                <label class="chip"><input type="radio" name={`${st.vraag} — ${L.dagdeel}`} value={o} /><span>{o}</span></label>
               ))}
             </div>
           </div>
@@ -95,15 +103,14 @@ const isEmail = (v) => /mail/i.test(v);
       {st.type === 'keuze-plus-tekst' && (
         <>
           <div class="chips">
-            <input type="radio" name={st.vraag} value={L.nietIngevuld} checked hidden />
+            <input type="radio" name={st.vraag} value={L.nietIngevuld} checked hidden data-standaard />
             {st.opties.map((o) => (
               <label class="chip">
-                <input type="radio" name={st.vraag} value={o}
-                       data-opent-tekstveld={o === st.tekstveldBij ? 'true' : undefined} /><span>{o}</span>
+                <input type="radio" name={st.vraag} value={o} data-opent-tekstveld={o === st.tekstveldBij ? 'true' : undefined} /><span>{o}</span>
               </label>
             ))}
           </div>
-          <label class="form__veld" data-tekstveld>
+          <label class="form__veld" data-tekstveld data-uitgesteld>
             <span>{st.tekstveldLabel}</span>
             <input class="form__invoer" type="text" name={st.tekstveldLabel} data-leeg-invullen />
           </label>
@@ -113,35 +120,30 @@ const isEmail = (v) => /mail/i.test(v);
       {st.type === 'ja-nee-plus-velden' && (
         <>
           <div class="chips">
-            <input type="radio" name={st.vraag} value={L.nietIngevuld} checked hidden />
+            <input type="radio" name={st.vraag} value={L.nietIngevuld} checked hidden data-standaard />
             {L.jaNee.map((o) => (
               <label class="chip">
-                <input type="radio" name={st.vraag} value={o}
-                       data-opent-velden={o === L.jaNee[0] ? 'true' : undefined} /><span>{o}</span>
+                <input type="radio" name={st.vraag} value={o} data-opent-velden={o === L.jaNee[0] ? 'true' : undefined} /><span>{o}</span>
               </label>
             ))}
           </div>
-          <div data-extra-velden>
+          <div data-extra-velden data-uitgesteld>
             {st.velden.map((v) => (
-              <label class="form__veld">
-                <span>{v}</span>
-                <input class="form__invoer" type="text" name={v} data-leeg-invullen />
-              </label>
+              <label class="form__veld"><span>{v}</span><input class="form__invoer" type="text" name={v} data-leeg-invullen /></label>
             ))}
           </div>
         </>
       )}
 
       {st.type === 'contact' && (
-        <>
+        <div data-contact>
           {st.velden.map((v) => (
             <label class="form__veld">
               <span>{v}{!isEmail(v) && <em class="form__optioneel">{L.optioneel}</em>}</span>
               <input class="form__invoer"
                      type={isEmail(v) ? 'email' : /tel/i.test(v) ? 'tel' : 'text'}
                      autocomplete={isEmail(v) ? 'email' : /tel/i.test(v) ? 'tel' : 'name'}
-                     name={v}
-                     required={isEmail(v) || undefined}
+                     name={v} required={isEmail(v) || undefined}
                      data-email={isEmail(v) ? 'true' : undefined}
                      data-leeg-invullen={!isEmail(v) || undefined} />
             </label>
@@ -153,16 +155,25 @@ const isEmail = (v) => /mail/i.test(v);
                         placeholder={st.extra.placeholder ?? undefined}></textarea>
             </label>
           )}
-        </>
+        </div>
       )}
     </fieldset>
   ))}
+  </div>
 
-  <div class="form__afsluiting">
+  {/* Na de basisvelden, zodat de contactvelden in de inzending ná de vragen
+      komen: Netlify toont de velden in DOM-volgorde. */}
+  <div class="gesprek" data-gesprek hidden>
+    <p class="gesprek__voortgang" data-voortgang></p>
+    <div class="gesprek__bubbels" data-bubbels></div>
+    <div class="gesprek__huidig" data-huidig aria-live="polite"></div>
+  </div>
+
+  <div class="form__afsluiting" data-afsluiting>
     <button class="knop knop--primair" type="submit" data-versturen>{L.versturen}</button>
     <p class="form__hint">{L.hint}</p>
   </div>
-  <p class="form__bevestiging">{bevestiging.tekst}</p>
+  <p class="form__bevestiging" data-bevestiging-regel>{bevestiging.tekst}</p>
 </form>
 
 <style>
@@ -175,20 +186,18 @@ const isEmail = (v) => /mail/i.test(v);
   .form__legenda { font-family: var(--font-kop); font-weight: 600; font-size: 1.1rem; padding: 0; margin-bottom: 0.7rem; }
   .form__toelichting { font-size: 0.95rem; color: var(--grijs-500); margin-top: -0.35rem; }
 
-  /* Chips: grote tikbare knoppen, geen dropdowns. */
   .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
   .chip { position: relative; display: inline-flex; }
   .chip input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
-  .chip span {
-    display: inline-flex; align-items: center;
-    min-height: 44px; padding: 0.55em 1.1em;
+  .chip span, .chip--knop {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0.55em 1.1em;
     border: 2px solid var(--grijs-500); border-radius: 999px;
-    background: var(--wit); color: var(--inkt);
-    font-size: 0.95rem; line-height: 1.2;
+    background: var(--wit); color: var(--inkt); font: inherit; font-size: 0.95rem; line-height: 1.2; cursor: pointer;
   }
-  .chip:hover span { border-color: var(--blauw); }
-  .chip input:checked + span { background: var(--blauw); border-color: var(--blauw); color: var(--wit); }
-  .chip input:focus-visible + span { outline: 3px solid var(--focus-donker); outline-offset: 2px; }
+  .chip:hover span, .chip--knop:hover { border-color: var(--blauw); }
+  .chip input:checked + span, .chip--knop[aria-pressed='true'] { background: var(--blauw); border-color: var(--blauw); color: var(--wit); }
+  .chip input:focus-visible + span, .chip--knop:focus-visible { outline: 3px solid var(--focus-donker); outline-offset: 2px; }
+  .chip--stil { border-style: dashed; color: var(--grijs-500); }
 
   .form__veld { display: block; margin-top: 1rem; }
   .form__veld > span { display: block; font-size: 0.9rem; margin-bottom: 0.3rem; }
@@ -206,59 +215,243 @@ const isEmail = (v) => /mail/i.test(v);
   .form__hint { font-size: 0.85rem; color: var(--grijs-500); margin: 0.6rem 0 0; }
   .form__bevestiging { font-size: 0.9rem; color: var(--grijs-500); margin-top: 1rem; }
   [data-versturen][disabled] { opacity: 0.55; cursor: not-allowed; }
+
+  /* --- Gesprekslaag (alleen met JavaScript) --- */
+  .gesprek__voortgang { font-size: 0.85rem; color: var(--grijs-500); margin: 0 0 1rem; }
+  .gesprek__bubbels { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; }
+  .bubbel {
+    display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+    width: 100%; text-align: left; padding: 0.5rem 0.25rem;
+    background: none; border: 0; border-bottom: 1px solid var(--grijs-100); cursor: pointer; font: inherit;
+  }
+  .bubbel:hover { background: var(--grijs-100); }
+  .bubbel:focus-visible { outline: 3px solid var(--focus-donker); outline-offset: 2px; }
+  .bubbel__vraag { font-size: 0.85rem; color: var(--grijs-500); flex: 1 1 12rem; }
+  .bubbel__antwoord {
+    display: inline-flex; align-items: center; min-height: 36px; padding: 0.35em 0.9em;
+    border-radius: 999px; background: var(--blauw); color: var(--wit); font-size: 0.9rem;
+  }
+  .gesprek__huidig .form__vraag { margin-bottom: 1rem; }
+  .gesprek__huidig .form__legenda { font-size: 1.25rem; }
+  .gesprek__huidig:focus { outline: none; }
+  .gesprek__mini { display: flex; gap: 0.5rem; align-items: center; margin-top: 0.6rem; }
+  .gesprek__mini .form__invoer { max-width: 9rem; }
+  .gesprek__fout { color: var(--oranje); font-size: 0.9rem; margin-top: 0.6rem; }
+  .samenvatting__kop { margin-bottom: 0.5rem; }
 </style>
 
 <script>
   document.querySelectorAll('form[data-form]').forEach((form) => {
+    const L = JSON.parse(form.dataset.labels || '{}');
+    const basis = form.querySelector('[data-basis]');
+    const gesprek = form.querySelector('[data-gesprek]');
+    const bubbelsEl = form.querySelector('[data-bubbels]');
+    const huidigEl = form.querySelector('[data-huidig]');
+    const voortgangEl = form.querySelector('[data-voortgang]');
+    const afsluiting = form.querySelector('[data-afsluiting]');
     const knop = form.querySelector('[data-versturen]');
     const email = form.querySelector('[data-email]');
-    const leeg = form.dataset.leegTekst || '';
+    const stappen = [...form.querySelectorAll('.form__vraag')].map((el) => ({
+      el, nr: el.dataset.nr, type: el.dataset.type, vraag: el.dataset.vraag,
+      toonBij: el.dataset.toonBijStap ? { stap: el.dataset.toonBijStap, waarde: el.dataset.toonBijWaarde } : null,
+      chips: el.dataset.chips ? JSON.parse(el.dataset.chips) : null,
+    }));
+    const antwoorden = []; // { stap, tekst, waarde }
 
-    // De knop is pas actief zodra er een geldig e-mailadres staat. Zonder
-    // JavaScript blijft hij gewoon actief en vangt de browservalidatie het af.
+    // ---------- gedeeld: knop pas actief bij geldig e-mailadres ----------
     const toets = () => { if (knop && email) knop.disabled = !email.checkValidity() || email.value.trim() === ''; };
     if (knop && email) { toets(); email.addEventListener('input', toets); }
 
-    // Voorwaardelijke subvelden binnen één vraag.
-    const stel = () => {
-      form.querySelectorAll('[data-tekstveld]').forEach((el) => {
-        const v = el.closest('fieldset');
-        el.hidden = !v.querySelector('[data-opent-tekstveld]:checked');
-      });
-      form.querySelectorAll('[data-extra-velden]').forEach((el) => {
-        const v = el.closest('fieldset');
-        el.hidden = !v.querySelector('[data-opent-velden]:checked');
-      });
+    // ---------- gedeeld: voorwaardelijke subvelden in de basisweergave ----------
+    const stelSubvelden = () => {
+      form.querySelectorAll('[data-tekstveld]').forEach((el) => { el.hidden = !el.closest('fieldset').querySelector('[data-opent-tekstveld]:checked'); });
+      form.querySelectorAll('[data-extra-velden]').forEach((el) => { el.hidden = !el.closest('fieldset').querySelector('[data-opent-velden]:checked'); });
     };
-    stel();
     form.addEventListener('change', (e) => {
-      stel();
-      // Zodra er een echte keuze is aangevinkt, gaat het lege-vinkje eruit.
+      stelSubvelden();
       const t = e.target;
       if (t.matches('[data-echte-keuze]')) {
-        const v = t.closest('fieldset');
-        const leegVink = v.querySelector('[data-leeg-vink]');
-        if (leegVink) leegVink.checked = !v.querySelector('[data-echte-keuze]:checked');
+        const v = t.closest('fieldset'); const leeg = v.querySelector('[data-leeg-vink]');
+        if (leeg) leeg.checked = !v.querySelector('[data-echte-keuze]:checked');
       }
     });
 
-    // Lege velden krijgen bij versturen de markering mee, zodat Bennet in de
-    // mail elke vraag ziet staan, ook de onbeantwoorde. Een number- of
-    // date-invoer weigert een tekstwaarde, dus daar gaat de markering mee via
-    // een verborgen tekstveld met dezelfde naam en wordt het lege veld zelf
-    // uitgeschakeld (uitgeschakelde velden worden niet meegestuurd).
-    form.addEventListener('submit', () => {
+    // ---------- gedeeld: lege velden markeren bij versturen ----------
+    const markeerLeeg = () => {
       form.querySelectorAll('[data-leeg-invullen]').forEach((el) => {
         if (el.disabled || el.value.trim() !== '') return;
         const tekstachtig = el.tagName === 'TEXTAREA' || ['text', 'tel', 'email', ''].includes(el.type);
-        if (tekstachtig) { el.value = leeg; return; }
-        const vervanger = document.createElement('input');
-        vervanger.type = 'hidden';
-        vervanger.name = el.name;
-        vervanger.value = leeg;
-        el.disabled = true;
-        form.appendChild(vervanger);
+        if (tekstachtig) { el.value = L.nietIngevuld; return; }
+        const v = document.createElement('input'); v.type = 'hidden'; v.name = el.name; v.value = L.nietIngevuld;
+        el.disabled = true; form.appendChild(v);
       });
+    };
+
+    // ---------- gesprek ----------
+    const antwoordOp = (nr) => antwoorden.find((a) => a.stap.nr === String(nr));
+    const gesteld = (st) => !st.toonBij || (antwoordOp(st.toonBij.stap)?.waarde === st.toonBij.waarde);
+    const gesteldeStappen = () => stappen.filter(gesteld);
+    const volgende = () => gesteldeStappen().find((st) => !antwoordOp(st.nr));
+
+    function zetRadio(st, waarde) {
+      let inp = st.el.querySelector(`input[type="radio"][value="${CSS.escape(waarde)}"]`);
+      if (!inp) { inp = document.createElement('input'); inp.type = 'radio'; inp.hidden = true;
+        inp.name = st.el.querySelector('input[type="radio"]').name; inp.value = waarde; st.el.querySelector('.chips').appendChild(inp); }
+      inp.checked = true;
+    }
+    function wisStap(st) {
+      st.el.querySelectorAll('input[type="radio"]').forEach((i) => { i.checked = i.hasAttribute('data-standaard'); });
+      st.el.querySelectorAll('input[type="checkbox"]').forEach((i) => { i.checked = i.hasAttribute('data-standaard'); });
+      st.el.querySelectorAll('input[type="text"], input[type="date"], input[type="tel"], textarea').forEach((i) => { i.value = ''; i.disabled = false; });
+    }
+
+    function chipKnop(tekst, klasse = '') {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'chip--knop ' + klasse; b.textContent = tekst; return b;
+    }
+    function chipsRij(opties, bijKeuze, { weetNiet = true, stil = [] } = {}) {
+      const rij = document.createElement('div'); rij.className = 'chips';
+      opties.forEach((o) => { const b = chipKnop(o); b.addEventListener('click', () => bijKeuze(o, b)); rij.appendChild(b); });
+      stil.forEach(([tekst, fn]) => { const b = chipKnop(tekst, 'chip--stil'); b.addEventListener('click', () => fn(b)); rij.appendChild(b); });
+      if (weetNiet) { const b = chipKnop(L.weetNogNiet, 'chip--stil'); b.addEventListener('click', () => bijKeuze(L.nogNietBekend, b, L.weetNogNiet)); rij.appendChild(b); }
+      return rij;
+    }
+    function miniInvoer(type, bevestig) {
+      const wrap = document.createElement('div'); wrap.className = 'gesprek__mini';
+      const inp = document.createElement('input'); inp.className = 'form__invoer'; inp.type = type;
+      if (type === 'text') { inp.inputMode = 'numeric'; }
+      const ok = chipKnop(L.verder); ok.addEventListener('click', () => { if (inp.value.trim()) bevestig(inp.value.trim()); });
+      inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); ok.click(); } });
+      wrap.append(inp, ok); setTimeout(() => inp.focus(), 0); return wrap;
+    }
+
+    function beantwoord(st, tekst, waarde) {
+      antwoorden.push({ stap: st, tekst, waarde });
+      // alles ná deze stap dat al beantwoord was, is niet meer geldig
+      teken();
+    }
+
+    function toonVraag(st) {
+      huidigEl.innerHTML = '';
+      const kop = document.createElement('p'); kop.className = 'form__legenda'; kop.textContent = st.vraag; kop.tabIndex = -1;
+      huidigEl.appendChild(kop);
+      const toel = st.el.querySelector('.form__toelichting'); if (toel) huidigEl.appendChild(toel.cloneNode(true));
+      const opties = [...st.el.querySelectorAll('.chips > .chip input')].map((i) => i.value);
+
+      if (st.type === 'keuze' || st.type === 'keuze-plus-tekst' || st.type === 'ja-nee-plus-velden') {
+        huidigEl.appendChild(chipsRij(opties, (o, _b, label) => { zetRadio(st, o); beantwoord(st, label || o, o); }));
+      } else if (st.type === 'meerkeuze') {
+        const gekozen = new Set();
+        const rij = chipsRij(opties, (o, b) => { gekozen.has(o) ? gekozen.delete(o) : gekozen.add(o); b.setAttribute('aria-pressed', String(gekozen.has(o))); verder.disabled = gekozen.size === 0; },
+          { weetNiet: false });
+        const verder = chipKnop(L.verder); verder.disabled = true;
+        verder.addEventListener('click', () => {
+          st.el.querySelectorAll('[data-echte-keuze]').forEach((i) => { i.checked = gekozen.has(i.value); });
+          st.el.querySelector('[data-leeg-vink]').checked = false;
+          beantwoord(st, [...gekozen].join(', '), [...gekozen].join(', '));
+        });
+        const weet = chipKnop(L.weetNogNiet, 'chip--stil');
+        weet.addEventListener('click', () => { const i = document.createElement('input'); i.type = 'checkbox'; i.hidden = true; i.checked = true;
+          i.name = st.el.querySelector('[data-leeg-vink]').name; i.value = L.nogNietBekend; st.el.querySelector('.chips').appendChild(i);
+          st.el.querySelector('[data-leeg-vink]').checked = false; beantwoord(st, L.weetNogNiet, L.nogNietBekend); });
+        rij.append(weet, verder); huidigEl.appendChild(rij);
+      } else if (st.type === 'aantal') {
+        const veld = st.el.querySelector('[data-aantal]');
+        const rij = chipsRij(st.chips || [], (o) => { veld.value = o; beantwoord(st, o, o); },
+          { stil: [[L.anders, (b) => { rij.after(miniInvoer('text', (v) => { veld.value = v; beantwoord(st, v, v); })); b.disabled = true; }]] });
+        huidigEl.appendChild(rij);
+      } else if (st.type === 'datum-dagdeel') {
+        const datumVeld = st.el.querySelector('[data-datum]');
+        const dagdeelOpties = [...st.el.querySelectorAll('[data-dagdeel] .chip input')].map((i) => i.value);
+        let wanneer = null;
+        const vraagDagdeel = () => {
+          huidigEl.querySelectorAll('.chips, .gesprek__mini').forEach((e) => e.remove());
+          const sub = document.createElement('p'); sub.className = 'form__toelichting'; sub.textContent = L.dagdeel; huidigEl.appendChild(sub);
+          huidigEl.appendChild(chipsRij(dagdeelOpties, (o, _b, label) => {
+            const dg = st.el.querySelector('[data-dagdeel]');
+            let inp = dg.querySelector(`input[value="${CSS.escape(o)}"]`);
+            if (!inp) { inp = document.createElement('input'); inp.type = 'radio'; inp.hidden = true; inp.name = dg.querySelector('input').name; inp.value = o; dg.appendChild(inp); }
+            inp.checked = true;
+            beantwoord(st, `${wanneer} · ${label || o}`, wanneer);
+          }));
+        };
+        const zetWanneer = (v, label) => { datumVeld.type = 'text'; datumVeld.value = v; wanneer = label || v; vraagDagdeel(); };
+        const rij = chipsRij(L.wanneerChips, (o) => zetWanneer(o), {
+          stil: [[L.kiesDatum, (b) => { b.disabled = true; rij.after(miniInvoer('date', (v) => zetWanneer(v))); }]],
+        });
+        // "Weet ik nog niet" voor de datum
+        const weet = rij.querySelector('.chip--stil:last-child'); weet.onclick = () => zetWanneer(L.nogNietBekend, L.weetNogNiet);
+        huidigEl.appendChild(rij);
+      } else if (st.type === 'contact') {
+        // Laatste stap: de echte tekstvelden, plus uitgestelde subvelden van eerdere antwoorden.
+        const blok = st.el.querySelector('[data-contact]'); blok.hidden = false;
+        antwoorden.forEach((a) => a.stap.el.querySelectorAll('[data-uitgesteld]').forEach((u) => {
+          const open = u.matches('[data-tekstveld]') ? a.stap.el.querySelector('[data-opent-tekstveld]:checked') : a.stap.el.querySelector('[data-opent-velden]:checked');
+          if (open) { u.hidden = false; huidigEl.appendChild(u); }
+        }));
+        huidigEl.appendChild(blok);
+        afsluiting.hidden = false; toets();
+      }
+      kop.focus({ preventScroll: true });
+      huidigEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+
+    function teken() {
+      // bubbels
+      bubbelsEl.innerHTML = '';
+      antwoorden.forEach((a, i) => {
+        const b = document.createElement('button'); b.type = 'button'; b.className = 'bubbel';
+        b.setAttribute('aria-label', `${L.aanpassen}: ${a.stap.vraag}`);
+        b.innerHTML = `<span class="bubbel__vraag"></span><span class="bubbel__antwoord"></span>`;
+        b.firstChild.textContent = a.stap.vraag; b.lastChild.textContent = a.tekst;
+        b.addEventListener('click', () => {
+          antwoorden.splice(i).forEach((x) => wisStap(x.stap));
+          // ook stappen die daardoor niet meer gesteld worden, wissen
+          stappen.forEach((st) => { if (!gesteld(st)) wisStap(st); });
+          afsluiting.hidden = true; teken();
+        });
+        bubbelsEl.appendChild(b);
+      });
+      // voortgang: alleen wat daadwerkelijk gesteld wordt
+      const lijst = gesteldeStappen();
+      const n = Math.min(antwoorden.length + 1, lijst.length);
+      voortgangEl.textContent = L.voortgang.replace('{n}', n).replace('{van}', lijst.length);
+      const st = volgende();
+      if (st) toonVraag(st);
+    }
+
+    // ---------- versturen ----------
+    form.addEventListener('submit', (e) => {
+      // niet-gestelde voorwaardelijke vragen als "overgeslagen" meesturen
+      if (!gesprek.hidden) stappen.forEach((st) => {
+        if (gesteld(st)) return;
+        st.el.querySelectorAll('input[type="radio"][data-standaard], input[type="checkbox"][data-standaard]').forEach((i) => { i.value = L.overgeslagen; i.checked = true; });
+        st.el.querySelectorAll('[data-leeg-invullen]').forEach((i) => { i.value = L.overgeslagen; i.disabled = false; if (i.type === 'date') i.type = 'text'; });
+        st.el.querySelectorAll('[data-echte-keuze]').forEach((i) => { i.checked = false; });
+      });
+      markeerLeeg();
+      if (gesprek.hidden || !window.fetch) return; // gewone POST
+      e.preventDefault();
+      knop.disabled = true; knop.textContent = L.bezig;
+      const body = new URLSearchParams(new FormData(form)).toString();
+      fetch(form.getAttribute('action') || '/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body })
+        .then((r) => { if (!r.ok) throw new Error(String(r.status)); toonSamenvatting(); })
+        .catch(() => { form.submit(); });
     });
+
+    function toonSamenvatting() {
+      const kop = document.createElement('h3'); kop.className = 'samenvatting__kop'; kop.textContent = form.dataset.bevestigingTitel;
+      const lijst = document.createElement('div'); lijst.className = 'gesprek__bubbels';
+      antwoorden.forEach((a) => { const r = document.createElement('div'); r.className = 'bubbel'; r.innerHTML = `<span class="bubbel__vraag"></span><span class="bubbel__antwoord"></span>`;
+        r.firstChild.textContent = a.stap.vraag; r.lastChild.textContent = a.tekst; lijst.appendChild(r); });
+      const tekst = document.createElement('p'); tekst.textContent = form.dataset.bevestigingTekst;
+      form.querySelectorAll(':scope > *:not(style)').forEach((el) => { el.hidden = true; });
+      const s = document.createElement('div'); s.append(kop, lijst, tekst); form.appendChild(s);
+      kop.tabIndex = -1; kop.focus();
+    }
+
+    // ---------- start ----------
+    basis.hidden = true; afsluiting.hidden = true; form.querySelector('[data-bevestiging-regel]').hidden = true;
+    gesprek.hidden = false;
+    teken();
   });
 </script>

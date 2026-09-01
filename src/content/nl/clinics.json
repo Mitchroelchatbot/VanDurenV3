@@ -59,7 +59,14 @@
       {
         "nr": 2,
         "vraag": "Met hoeveel personen komen jullie?",
-        "type": "aantal"
+        "type": "aantal",
+        "chips": [
+          "4–8",
+          "9–16",
+          "17–24",
+          "25–48",
+          "Meer"
+        ]
       },
       {
         "nr": "2a",
@@ -83,7 +90,13 @@
         "toonBij": {
           "stap": 1,
           "waarde": "Kinderfeestje"
-        }
+        },
+        "chips": [
+          "1",
+          "2",
+          "3",
+          "Meer"
+        ]
       },
       {
         "nr": 3,

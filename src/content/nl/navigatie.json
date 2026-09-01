@@ -77,6 +77,24 @@
     "optioneel": "optioneel",
     "honeypotVeld": "bot-veld",
     "honeypotLabel": "Laat dit veld leeg",
-    "emailVeld": "E-mail"
+    "emailVeld": "E-mail",
+    "weetNogNiet": "Weet ik nog niet",
+    "nogNietBekend": "— nog niet bekend —",
+    "overgeslagen": "— overgeslagen —",
+    "anders": "Anders",
+    "meer": "Meer",
+    "verder": "Verder",
+    "kiesDatum": "Kies een datum",
+    "wanneerChips": [
+      "Deze maand",
+      "Volgende maand",
+      "Later",
+      "Flexibel"
+    ],
+    "voortgang": "{n} van {van}",
+    "aanpassen": "Aanpassen",
+    "samenvatting": "Je antwoorden",
+    "bezig": "Versturen…",
+    "mislukt": "Versturen lukte niet. Probeer het opnieuw."
   }
 }

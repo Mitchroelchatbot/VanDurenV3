@@ -1,10 +1,8 @@
 {
   "_bron": "Prijzen komen uit tarieven.json. Pagina-opzet volgens CLAUDE.md §7.2 en §6.2.",
-
   "titel": "Padelbaan huren",
   "metaTitle": "Padelbaan huren — Van Duren Indoor Padel Centrum",
   "metaDescription": "Vier indoor padelbanen in Son en Breugel. Losse boeking via Playtomic, VIP-daluren lidmaatschap of een vaste contractbaan.",
-
   "opties": [
     {
       "id": "losse-boeking",
@@ -16,7 +14,10 @@
         "€ 36 per uur in de piekuren",
         "Baan 1 en 2 ook per 1,5 uur"
       ],
-      "cta": { "label": "Boek een baan", "type": "playtomic" }
+      "cta": {
+        "label": "Boek een baan",
+        "type": "playtomic"
+      }
     },
     {
       "id": "vip-daluren",
@@ -28,7 +29,11 @@
         "Meer dan 150 speelmomenten",
         "Maximaal één week vooruit reserveren"
       ],
-      "cta": { "label": "Meer over VIP-daluren", "type": "anker", "anker": "#vip" }
+      "cta": {
+        "label": "Meer over VIP-daluren",
+        "type": "anker",
+        "anker": "#vip"
+      }
     },
     {
       "id": "contractbaan",
@@ -40,16 +45,18 @@
         "Daluren of piekuren",
         "1 uur of 1,5 uur"
       ],
-      "cta": { "label": "Contractbaan aanvragen", "type": "anker", "anker": "#contractbaan" }
+      "cta": {
+        "label": "Contractbaan aanvragen",
+        "type": "anker",
+        "anker": "#contractbaan"
+      }
     }
   ],
-
   "babolat": {
     "titel": "In samenwerking met Babolat",
     "tekst": "We spelen met materiaal van Babolat. Rackets en ballen liggen klaar; je eigen racket meenemen mag altijd.",
     "_todo": "De eigenaren vroegen om een blok over de samenwerking met Babolat. Bovenstaande tekst is het minimum dat uit bestaande bronnen te onderbouwen is. Wil je er meer over vertellen (sinds wanneer, wat houdt het partnership in), vraag dat dan aan Bennet. Niets bijverzinnen."
   },
-
   "contractbaanWizard": {
     "titel": "Contractbaan aanvragen",
     "intro": "Zes vragen, daarna weten we genoeg om je een voorstel te sturen. Je hoeft niet te mailen.",
@@ -59,13 +66,26 @@
         "nr": 1,
         "vraag": "Welke dag of dagen heb je in gedachten?",
         "type": "meerkeuze",
-        "opties": ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag", "Flexibel"]
+        "opties": [
+          "Maandag",
+          "Dinsdag",
+          "Woensdag",
+          "Donderdag",
+          "Vrijdag",
+          "Zaterdag",
+          "Zondag",
+          "Flexibel"
+        ]
       },
       {
         "nr": 2,
         "vraag": "Welk tijdslot?",
         "type": "keuze-plus-tekst",
-        "opties": ["Daluren (vanaf 09:00)", "Piekuren (ma–vr 18:30 – 22:30)", "Een specifiek tijdstip"],
+        "opties": [
+          "Daluren (vanaf 09:00)",
+          "Piekuren (ma–vr 18:30 – 22:30)",
+          "Een specifiek tijdstip"
+        ],
         "tekstveldBij": "Een specifiek tijdstip",
         "tekstveldLabel": "Welk tijdstip?"
       },
@@ -73,26 +93,46 @@
         "nr": 3,
         "vraag": "Een uur of anderhalf uur?",
         "type": "keuze",
-        "opties": ["1 uur", "1,5 uur"],
+        "opties": [
+          "1 uur",
+          "1,5 uur"
+        ],
         "toelichting": "Een contract van 1,5 uur loopt op baan 1 of 2."
       },
       {
         "nr": 4,
         "vraag": "Voor hoe lang?",
         "type": "keuze",
-        "opties": ["6 maanden (20–26 keer)", "12 maanden (45–52 keer)"]
+        "opties": [
+          "6 maanden (20–26 keer)",
+          "12 maanden (45–52 keer)"
+        ]
       },
       {
         "nr": 5,
         "vraag": "Met hoeveel vaste spelers?",
-        "type": "aantal"
+        "type": "aantal",
+        "chips": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "Meer"
+        ]
       },
       {
         "nr": 6,
         "vraag": "Hoe kunnen we je bereiken?",
         "type": "contact",
-        "velden": ["Naam", "E-mail", "Telefoon"],
-        "extra": { "label": "Opmerking", "type": "tekstvak" }
+        "velden": [
+          "Naam",
+          "E-mail",
+          "Telefoon"
+        ],
+        "extra": {
+          "label": "Opmerking",
+          "type": "tekstvak"
+        }
       }
     ],
     "bevestiging": {
@@ -100,7 +140,6 @@
       "tekst": "Je krijgt een bevestiging per mail met alles wat je hebt ingevuld. We komen binnen één werkdag bij je terug."
     }
   },
-
   "_verwijderd": [
     "Het uitlegblok over WPT-banen ('Internationale WPT-kwaliteit, indoor…') — letterlijke wens eigenaren: mag weg.",
     "De statistiekenbalk '4 Indoor banen · WPT · 7 dagen · 90 min' — idem."
