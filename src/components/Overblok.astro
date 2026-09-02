@@ -1,25 +1,21 @@
 ---
 import home from '../content/nl/home.json';
 
-// Opzet volgt home.json > over > _regel:
-// foto (alleen als gevuld, O19) -> kop -> accentstreep -> intro -> lijst -> één
-// secundaire knop. Kop en intro gecentreerd, de lijst links: tokens.css regel 4
-// rekent lijsten expliciet tot "alles met structuur".
+// Opzet volgt home.json > over > _regel: foto (alleen als gevuld, O19) -> kop
+// -> accentstreep -> intro -> lijst -> één secundaire knop. Het hele blok staat
+// links; het is een lijst, en tokens.css regel 4 rekent lijsten tot "alles met
+// structuur". Vandaar .sectie-body op de sectie en geen .sectie-kop hier.
 const o = home.over;
 ---
-<section class="sectie over">
+<section class="sectie over sectie-body">
   <div class="omhulsel omhulsel--midden">
     {o.foto && (
       <img class="over__foto" src={o.foto} alt={o.fotoAlt} width="1024" height="640" loading="lazy" />
     )}
-    <div class="sectie-kop">
-      <h2>{o.kop}</h2>
-      <span class="over__streep" aria-hidden="true"></span>
-    </div>
-    <div class="intro-kort">
-      <p>{o.intro}</p>
-    </div>
-    <ul class="sectie-body over__punten">
+    <h2 class="over__kop">{o.kop}</h2>
+    <span class="over__streep" aria-hidden="true"></span>
+    <p class="over__intro">{o.intro}</p>
+    <ul class="over__punten">
       {o.punten.map((p) => (
         <li class="over__punt">
           <span class="over__label">{p.label}</span>
@@ -47,15 +43,18 @@ const o = home.over;
      en geen tekstdrager. */
   .over__streep {
     display: block;
-    width: 56px;
+    width: 60px;
     height: 4px;
     border-radius: 2px;
     background: var(--blauw);
-    margin: 0.85rem auto 0;
+    margin: 0.85rem 0 0;
   }
 
-  .intro-kort { margin-top: clamp(1rem, 2.5vw, 1.5rem); }
-  .intro-kort p { margin-bottom: 0; }
+  .over__kop { margin-bottom: 0; }
+  .over__intro {
+    margin: clamp(1rem, 2.5vw, 1.5rem) 0 0;
+    max-width: 60ch;
+  }
 
   .over__punten {
     list-style: none;
@@ -105,8 +104,5 @@ const o = home.over;
     font-weight: 500;
   }
 
-  .over__actie {
-    margin: clamp(2rem, 5vw, 2.75rem) 0 0;
-    text-align: center;
-  }
+  .over__actie { margin: clamp(2rem, 5vw, 2.75rem) 0 0; }
 </style>
