@@ -340,20 +340,26 @@ const conditieCss = stappen
       if (st.type === 'keuze' || st.type === 'keuze-plus-tekst' || st.type === 'ja-nee-plus-velden') {
         huidigEl.appendChild(chipsRij(opties, (o, _b, label) => { zetRadio(st, o); beantwoord(st, label || o, o); }));
       } else if (st.type === 'meerkeuze') {
-        const gekozen = new Set();
-        const rij = chipsRij(opties, (o, b) => { gekozen.has(o) ? gekozen.delete(o) : gekozen.add(o); b.setAttribute('aria-pressed', String(gekozen.has(o))); verder.disabled = gekozen.size === 0; },
-          { weetNiet: false });
-        const verder = chipKnop(L.verder); verder.disabled = true;
-        verder.addEventListener('click', () => {
-          st.el.querySelectorAll('[data-echte-keuze]').forEach((i) => { i.checked = gekozen.has(i.value); });
-          st.el.querySelector('[data-leeg-vink]').checked = false;
-          beantwoord(st, [...gekozen].join(', '), [...gekozen].join(', '));
-        });
+        // Eén tik is een antwoord en gaat door. Wie meer dagen wil, tikt op de
+        // bubbel: de vraag opent dan opnieuw met de eerdere keuze nog aan, en
+        // elke extra tik voegt toe en gaat weer door. Geen aparte verder-knop.
+        const echte = [...st.el.querySelectorAll('[data-echte-keuze]')];
+        const gekozen = new Set(echte.filter((i) => i.checked).map((i) => i.value));
+        const rij = chipsRij(opties, (o) => {
+          gekozen.has(o) ? gekozen.delete(o) : gekozen.add(o);
+          echte.forEach((i) => { i.checked = gekozen.has(i.value); });
+          st.el.querySelector('[data-leeg-vink]').checked = gekozen.size === 0;
+          if (gekozen.size === 0) { toonVraag(st); return; }
+          const lijst = echte.filter((i) => i.checked).map((i) => i.value);
+          beantwoord(st, lijst.join(', '), lijst.join(', '));
+        }, { weetNiet: false });
+        rij.querySelectorAll('.chip--knop').forEach((b) => { if (gekozen.has(b.textContent)) b.setAttribute('aria-pressed', 'true'); });
         const weet = chipKnop(L.weetNogNiet, 'chip--stil');
         weet.addEventListener('click', () => { const i = document.createElement('input'); i.type = 'checkbox'; i.hidden = true; i.checked = true;
           i.name = st.el.querySelector('[data-leeg-vink]').name; i.value = L.nogNietBekend; st.el.querySelector('.chips').appendChild(i);
+          echte.forEach((x) => { x.checked = false; });
           st.el.querySelector('[data-leeg-vink]').checked = false; beantwoord(st, L.weetNogNiet, L.nogNietBekend); });
-        rij.append(weet, verder); huidigEl.appendChild(rij);
+        rij.appendChild(weet); huidigEl.appendChild(rij);
       } else if (st.type === 'aantal') {
         const veld = st.el.querySelector('[data-aantal]');
         const rij = chipsRij(st.chips || [], (o) => { veld.value = o; beantwoord(st, o, o); },
@@ -404,7 +410,7 @@ const conditieCss = stappen
         b.innerHTML = `<span class="bubbel__vraag"></span><span class="bubbel__antwoord"></span>`;
         b.firstChild.textContent = a.stap.vraag; b.lastChild.textContent = a.tekst;
         b.addEventListener('click', () => {
-          antwoorden.splice(i).forEach((x) => wisStap(x.stap));
+          antwoorden.splice(i).forEach((x, j) => { if (!(j === 0 && x.stap.type === 'meerkeuze')) wisStap(x.stap); });
           // ook stappen die daardoor niet meer gesteld worden, wissen
           stappen.forEach((st) => { if (!gesteld(st)) wisStap(st); });
           afsluiting.hidden = true; teken();
