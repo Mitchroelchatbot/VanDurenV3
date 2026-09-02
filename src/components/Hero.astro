@@ -12,12 +12,14 @@ const video = beeld.video ?? h.video;
 const secundair = { label: h.secundair.label, href: h.secundair.href };
 ---
 <section class="hero op-blauw">
+  {/* §5.2: achtergrondloop, nooit geluid. De <picture> eronder is de poster:
+      géén poster-attribuut, want dat laat de browser dat bestand nog een keer
+      ophalen, ook op mobiel waar de video verborgen is, en dat vertraagt de
+      LCP. preload=none: de video mag de LCP niet zijn. Onder 768px en bij
+      prefers-reduced-motion wordt hij niet geladen (script onderaan). */}
   {video && (
-    /* §5.2: achtergrondloop, nooit geluid, poster zodat er nooit een leeg vlak
-       staat. preload=none: de video mag de LCP niet zijn, de poster wel. Onder
-       768px en bij prefers-reduced-motion wordt de video niet geladen (script). */
     <video class="hero__video" muted loop playsinline preload="none" aria-hidden="true"
-           poster={`${poster.basis}-1434.webp`} width={video.breedte} height={video.hoogte} data-hero-video>
+           width={video.breedte} height={video.hoogte} data-hero-video>
       <source data-src={video.webm} type="video/webm" />
       <source data-src={video.mp4} type="video/mp4" />
     </video>
