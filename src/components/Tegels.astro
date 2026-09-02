@@ -21,8 +21,15 @@ const items = t.items
                   sizes="(min-width: 900px) 33vw, 100vw" />
           </span>
           <span class="tegel__tekst">
-            <span class="tegel__label">{it.label}</span>
-            <span class="tegel__regel">{it.regel}</span>
+            <span class="tegel__woorden">
+              <span class="tegel__label">{it.label}</span>
+              <span class="tegel__regel">{it.regel}</span>
+            </span>
+            <svg class="tegel__pijl" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"
+                 fill="none" stroke="currentColor" stroke-width="2.5"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h13M12 5l7 7-7 7" />
+            </svg>
           </span>
         </a>
       ))}
@@ -45,11 +52,7 @@ const items = t.items
   .tegel__beeld :global(picture) { display: block; height: 100%; }
   .tegel__beeld :global(img) {
     width: 100%; height: 100%; object-fit: cover; display: block;
-    transition: transform 240ms ease-out;
   }
-  /* Alleen de foto schaalt op hover, de tekst niet: die staat buiten
-     .tegel__beeld en heeft dus geen transform. */
-  .tegel:hover .tegel__beeld :global(img) { transform: scale(1.04); }
 
   /* Scrim over de onderste helft, zodat wit altijd leesbaar blijft. */
   .tegel::after {
@@ -61,12 +64,37 @@ const items = t.items
   }
   .tegel__tekst {
     position: absolute; z-index: 1; left: 0; right: 0; bottom: 0;
-    display: flex; flex-direction: column; gap: 0.15rem;
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem;
     padding: clamp(0.9rem, 2.5vw, 1.25rem);
   }
+  .tegel__woorden { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+  /* De pijl staat altijd zichtbaar; hij schuift alleen op. Niets wordt op
+     opacity 0 geparkeerd, want dan is de tegel zonder muis onvolledig. */
+  .tegel__pijl { flex: 0 0 auto; color: var(--wit); }
   .tegel__label { font-family: var(--font-kop); font-weight: 700; font-size: 1.15rem; color: var(--wit); }
   .tegel__regel { font-size: 0.92rem; color: var(--wit); opacity: 0.85; }
 
   .tegel:focus-visible { outline: 3px solid var(--wit); outline-offset: 2px; }
-  @media (prefers-reduced-motion: reduce) { .tegel__beeld :global(img) { transition: none; } }
+
+  /* Beweging alleen als de bezoeker daar geen bezwaar tegen heeft. Buiten deze
+     query staat de tegel stil in zijn rusttoestand; er wordt niets verborgen. */
+  @media (prefers-reduced-motion: no-preference) {
+    .tegel__beeld :global(img) { transition: transform 400ms ease-out; }
+    .tegel::after { transition: background 400ms ease-out; }
+    .tegel__pijl { transition: transform 400ms ease-out; }
+
+    .tegel:hover .tegel__beeld :global(img),
+    .tegel:focus-visible .tegel__beeld :global(img) { transform: scale(1.06); }
+
+    .tegel:hover::after,
+    .tegel:focus-visible::after {
+      background: linear-gradient(to top,
+        rgba(20, 22, 28, 0.86) 0%,
+        rgba(20, 22, 28, 0.55) 40%,
+        rgba(20, 22, 28, 0.08) 70%);
+    }
+
+    .tegel:hover .tegel__pijl,
+    .tegel:focus-visible .tegel__pijl { transform: translateX(6px); }
+  }
 </style>

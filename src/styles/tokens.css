@@ -96,6 +96,19 @@
   color: var(--wit);
 }
 
+/* Beweging op de primaire knop: kleur in 150 ms en 1 px omhoog met schaduw.
+   Alleen als de bezoeker beweging niet heeft afgewezen. De kleurwissel zelf
+   staat hierboven en werkt dus altijd, ook zonder animatie. */
+@media (prefers-reduced-motion: no-preference) {
+  .knop--primair { transition: background 150ms ease-out, transform 150ms ease-out, box-shadow 150ms ease-out; }
+  .knop--primair:hover,
+  .knop--primair:focus-visible { transform: translateY(-1px); box-shadow: 0 4px 12px rgb(20 22 28 / 0.28); }
+  /* Op blauw draagt de knop al een witte ring voor het randcontrast (regel 2);
+     die blijft staan naast de schaduw. */
+  .op-blauw .knop--primair:hover,
+  .op-blauw .knop--primair:focus-visible { box-shadow: 0 0 0 2px var(--wit), 0 4px 12px rgb(20 22 28 / 0.28); }
+}
+
 /* 2. Een oranje knop op een blauw vlak heeft géén randcontrast:
       --oranje tegen --blauw is 1.88:1, ruim onder de 3:1 die nodig is om
       de knopvorm herkenbaar te maken. Op blauw krijgt de knop daarom een
