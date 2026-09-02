@@ -7,16 +7,22 @@ const h = home.hero;
 // home.json geeft voor 'poster' een TODO-string; het echte posterbestand
 // staat in het beeldmanifest. Een string die geen pad is rendert nooit.
 const poster = beeld.poster;
+// Video uit het beeldmanifest; home.json houdt hero.video op null tot het bestand er is.
+const video = beeld.video ?? h.video;
 const secundair = { label: h.secundair.label, href: h.secundair.href };
 ---
 <section class="hero op-blauw">
-  {h.video && (
-    <video class="hero__video" autoplay muted loop playsinline poster={`${poster.basis}-1434.webp`}>
-      <source src={h.video.webm} type="video/webm" />
-      <source src={h.video.mp4} type="video/mp4" />
+  {video && (
+    /* §5.2: achtergrondloop, nooit geluid, poster zodat er nooit een leeg vlak
+       staat. preload=none: de video mag de LCP niet zijn, de poster wel. Onder
+       768px en bij prefers-reduced-motion wordt de video niet geladen (script). */
+    <video class="hero__video" muted loop playsinline preload="none" aria-hidden="true"
+           poster={`${poster.basis}-1434.webp`} width={video.breedte} height={video.hoogte} data-hero-video>
+      <source data-src={video.webm} type="video/webm" />
+      <source data-src={video.mp4} type="video/mp4" />
     </video>
   )}
-  {!h.video && poster && (
+  {poster && (
     <picture>
       <source type="image/avif" sizes="100vw"
               srcset={`${poster.basis}-960.avif 960w, ${poster.basis}-1434.avif 1434w`} />
@@ -80,9 +86,30 @@ const secundair = { label: h.secundair.label, href: h.secundair.href };
   .hero__onderkop { font-size: clamp(1.05rem, 2.2vw, 1.3rem); margin-bottom: 2rem; opacity: 0.95; }
   .hero__acties { display: flex; flex-wrap: wrap; gap: 0.9rem; }
 
+  /* De poster ligt altijd onder de video; de video ligt erbovenop zodra hij
+     speelt. Zo is de poster de LCP en verschijnt de video zonder sprong. */
+  .hero picture .hero__video { z-index: -3; }
+  .hero video.hero__video { z-index: -2; opacity: 0; transition: opacity 400ms ease-out; }
+  .hero video.hero__video[data-speelt] { opacity: 1; }
   @media (max-width: 767px) {
     /* §5.2: geen video onder 768 px, wél de poster. */
     .hero video.hero__video { display: none; }
   }
   @media (prefers-reduced-motion: reduce) { .hero video.hero__video { display: none; } }
 </style>
+
+<script>
+  // Video pas laden als hij ook echt getoond wordt: niet onder 768px, niet bij
+  // prefers-reduced-motion, en niet vóór de poster geschilderd is.
+  const v = document.querySelector('[data-hero-video]');
+  const mag = () => window.matchMedia('(min-width: 768px)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (v && mag()) {
+    const laad = () => {
+      v.querySelectorAll('source[data-src]').forEach((s) => { s.src = s.dataset.src; s.removeAttribute('data-src'); });
+      v.load();
+      v.addEventListener('playing', () => v.setAttribute('data-speelt', ''), { once: true });
+      v.play().catch(() => {});
+    };
+    'requestIdleCallback' in window ? requestIdleCallback(laad, { timeout: 1500 }) : setTimeout(laad, 300);
+  }
+</script>
