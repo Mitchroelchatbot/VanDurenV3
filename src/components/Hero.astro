@@ -1,38 +1,28 @@
 ---
 import Cta from './Cta.astro';
 import home from '../content/nl/home.json';
-import beeld from '../content/nl/home-beeld.json';
 
 const h = home.hero;
-// home.json geeft voor 'poster' een TODO-string; het echte posterbestand
-// staat in het beeldmanifest. Een string die geen pad is rendert nooit.
-const poster = beeld.poster;
-// Video uit het beeldmanifest; home.json houdt hero.video op null tot het bestand er is.
-const video = beeld.video ?? h.video;
+const poster = h.poster;
+const video = h.video;
 const secundair = { label: h.secundair.label, href: h.secundair.href };
+// De <video> krijgt statisch géén src: dan haalt de browser onder 768px en bij
+// prefers-reduced-motion niets op, ook niet de metadata. Het script kiest de
+// bron per breedte en zet hem pas dan. preload="metadata" geldt vanaf dat moment.
 ---
 <section class="hero op-blauw">
-  {/* §5.2: achtergrondloop, nooit geluid. De <picture> eronder is de poster:
-      géén poster-attribuut, want dat laat de browser dat bestand nog een keer
-      ophalen, ook op mobiel waar de video verborgen is, en dat vertraagt de
-      LCP. preload=none: de video mag de LCP niet zijn. Onder 768px en bij
-      prefers-reduced-motion wordt hij niet geladen (script onderaan). */}
-  {video && (
-    <video class="hero__video" muted loop playsinline preload="none" aria-hidden="true"
-           width={video.breedte} height={video.hoogte} data-hero-video>
-      <source data-src={video.webm} type="video/webm" />
-      <source data-src={video.mp4} type="video/mp4" />
-    </video>
-  )}
   {poster && (
     <picture>
-      <source type="image/avif" sizes="100vw"
-              srcset={`${poster.basis}-640.avif 640w, ${poster.basis}-1024.avif 1024w`} />
       <source type="image/webp" sizes="100vw"
-              srcset={`${poster.basis}-640.webp 640w, ${poster.basis}-1024.webp 1024w`} />
-      <img class="hero__video" src={poster.jpg} alt={poster.alt}
-           width={poster.breedte} height={poster.hoogte} fetchpriority="high" decoding="sync" />
+              srcset={`${poster.webp_1024} 1024w, ${poster.webp_1920} 1920w`} />
+      <img class="hero__laag hero__poster" src={poster.jpg_1920} alt={poster.alt}
+           width="1920" height="1080" fetchpriority="high" decoding="sync" />
     </picture>
+  )}
+  {video && (
+    <video class="hero__laag hero__video" muted loop playsinline preload="metadata" aria-hidden="true"
+           width="1600" height="900" data-hero-video
+           data-src-1600={video.mp4_1600} data-src-960={video.mp4_960}></video>
   )}
 
   <div class="omhulsel hero__binnen">
@@ -47,43 +37,43 @@ const secundair = { label: h.secundair.label, href: h.secundair.href };
 
 <style>
   .hero { position: relative; overflow: hidden; isolation: isolate; }
-  .hero__video { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
+  .hero__laag { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
-  /* Ken burns op de poster: 1.00 naar 1.06 over 20 s, heen en terug, oneindig.
-     Alleen de poster beweegt; de video heeft zijn eigen beeld. Op desktop ligt
-     de video hier overheen zodra hij geladen is. */
+  /* Lagen, van onder naar boven: poster (-3), video (-2), blauwe laag (-1),
+     tekst. De poster is de LCP; de video ligt erover en fadet in zodra
+     'canplay' vuurt. Zonder video blijft de poster gewoon staan. */
+  .hero__poster { z-index: -3; }
+  .hero__video  { z-index: -2; opacity: 0; }
+  .hero__video[data-kan-spelen] { opacity: 1; }
   @media (prefers-reduced-motion: no-preference) {
-    .hero picture img.hero__video { animation: hero-kenburns 20s ease-in-out infinite alternate; }
+    .hero__video { transition: opacity 500ms ease-out; }
   }
-  @keyframes hero-kenburns {
-    from { transform: scale(1); }
-    to   { transform: scale(1.06); }
+  /* Onder 768px en bij prefers-reduced-motion: geen video, alleen de poster.
+     Het script laadt hem dan ook niet; dit is de tweede grendel. */
+  @media (max-width: 767px), (prefers-reduced-motion: reduce) {
+    .hero__video { display: none; }
   }
 
-  /* Overlay maximaal 35 % blauw. De tekst staat sinds het uitlijningsbesluit
-     gecentreerd, dus de laag is dat ook: het donkerst in het midden achter de
-     tekst en transparant naar beide randen, zodat de foto zijn kleur houdt.
-     Zonder beeld valt de laag weg en blijft het effen blauw. */
+  /* Overlay maximaal 35 % blauw. De tekst staat gecentreerd, dus de laag ook:
+     het donkerst in het midden achter de tekst en transparant naar beide
+     randen, zodat het beeld zijn kleur houdt. */
   .hero::after {
     content: ''; position: absolute; inset: 0; z-index: -1;
     background: linear-gradient(90deg,
       rgb(20 42 100 / 0.05) 0%, rgb(20 42 100 / 0.35) 24%,
       rgb(20 42 100 / 0.35) 76%, rgb(20 42 100 / 0.05) 100%);
   }
-  .hero:not(:has(.hero__video))::after { background: none; }
+  .hero:not(:has(.hero__laag))::after { background: none; }
   @media (max-width: 899px) {
-    /* Smal scherm: tekst over de volle breedte, dus een egale laag van 35 %. */
     .hero::after { background: rgb(20 42 100 / 0.35); }
-    .hero__video { object-position: 50% 88%; }
+    .hero__laag { object-position: 50% 88%; }
   }
 
   .hero__binnen { position: relative; padding-block: clamp(72px, 14vw, 152px); }
-  /* Achter de tekst wordt de foto lokaal donkerder gemaakt met een
-     helderheidsfilter, niet met een kleurlaag: de tint blijft, alleen de
-     lichte glaswanden en lampen achter de letters dempen. Dit is wat de
-     35 %-laag alleen niet kan garanderen; zonder ondersteuning van
-     backdrop-filter blijft de 35 %-laag over. Symmetrisch, want de tekst
-     staat gecentreerd. */
+  /* Achter de tekst wordt het beeld lokaal donkerder gemaakt met een
+     helderheidsfilter, niet met een kleurlaag: de tint blijft, alleen lichte
+     glaswanden en lampen achter de letters dempen. Symmetrisch, want de tekst
+     staat gecentreerd. Waarde gemeten op letterniveau over de hele videolus. */
   .hero__binnen::before {
     content: ''; position: absolute; inset: 0; z-index: -1;
     left: 50%; transform: translateX(-50%);
@@ -96,36 +86,32 @@ const secundair = { label: h.secundair.label, href: h.secundair.href };
     .hero__binnen::before { width: 100vw; -webkit-mask-image: none; mask-image: none; }
   }
   /* Centrering komt uit tokens.css regel 4 via de klasse .hero. */
-  .hero__kop { max-width: 20ch; margin-inline: auto; }
-  .hero__kop { margin-bottom: 0.4em; }
+  .hero__kop { max-width: 20ch; margin-inline: auto; margin-bottom: 0.4em; }
   .hero__onderkop { font-size: clamp(1.05rem, 2.2vw, 1.3rem); margin-bottom: 2rem; opacity: 0.95; }
-  .hero__acties { justify-content: center; }
-  .hero__acties { display: flex; flex-wrap: wrap; gap: 0.9rem; }
-
-  /* De poster ligt altijd onder de video; de video ligt erbovenop zodra hij
-     speelt. Zo is de poster de LCP en verschijnt de video zonder sprong. */
-  .hero picture .hero__video { z-index: -3; }
-  .hero video.hero__video { z-index: -2; opacity: 0; transition: opacity 400ms ease-out; }
-  .hero video.hero__video[data-speelt] { opacity: 1; }
-  @media (max-width: 767px) {
-    /* §5.2: geen video onder 768 px, wél de poster. */
-    .hero video.hero__video { display: none; }
-  }
-  @media (prefers-reduced-motion: reduce) { .hero video.hero__video { display: none; } }
+  .hero__acties { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; }
 </style>
 
 <script>
-  // Video pas laden als hij ook echt getoond wordt: niet onder 768px, niet bij
-  // prefers-reduced-motion, en niet vóór de poster geschilderd is.
+  // Bron per breedte: hero-1600 boven 1024px, hero-960 van 768 tot 1024px,
+  // niets daaronder en niets bij prefers-reduced-motion. De src wordt pas
+  // gezet nadat de poster geschilderd is, zodat de video nooit de LCP is.
   const v = document.querySelector('[data-hero-video]');
-  const mag = () => window.matchMedia('(min-width: 768px)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (v && mag()) {
-    const laad = () => {
-      v.querySelectorAll('source[data-src]').forEach((s) => { s.src = s.dataset.src; s.removeAttribute('data-src'); });
-      v.load();
-      v.addEventListener('playing', () => v.setAttribute('data-speelt', ''), { once: true });
+  const rm = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const kies = () => {
+    const w = window.innerWidth;
+    if (rm.matches || w < 768) return null;
+    // getAttribute, geen dataset: 'data-src-1600' wordt dataset['src-1600'],
+    // want een streepje vóór een cijfer wordt niet weggehaald.
+    return v.getAttribute(w > 1024 ? 'data-src-1600' : 'data-src-960');
+  };
+  if (v) {
+    const start = () => {
+      const src = kies();
+      if (!src) return;
+      v.addEventListener('canplay', () => v.setAttribute('data-kan-spelen', ''), { once: true });
+      v.src = src;
       v.play().catch(() => {});
     };
-    'requestIdleCallback' in window ? requestIdleCallback(laad, { timeout: 1500 }) : setTimeout(laad, 300);
+    'requestIdleCallback' in window ? requestIdleCallback(start, { timeout: 1500 }) : setTimeout(start, 300);
   }
 </script>

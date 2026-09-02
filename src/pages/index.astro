@@ -6,12 +6,11 @@ import Tegels from '../components/Tegels.astro';
 import HerhaalCta from '../components/HerhaalCta.astro';
 import Beeldstrook from '../components/Beeldstrook.astro';
 import home from '../content/nl/home.json';
-import beeld from '../content/nl/home-beeld.json';
 
 const pad = '/';
 const meta = { titel: home.metaTitle, beschrijving: home.metaDescription };
 ---
-<BasisLayout pad={pad} meta={meta} posterPreload={beeld.poster.basis}>
+<BasisLayout pad={pad} meta={meta} posterPreload={home.hero.poster}>
   <Hero />
   <Overblok />
   <Beeldstrook />

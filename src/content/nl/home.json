@@ -13,13 +13,23 @@
       "label": "Bekijk het lesaanbod",
       "href": "/lessen"
     },
-    "video": null,
-    "poster": "TODO: pad naar posterframe uit Van_Duren_Versie_1a.mp4",
+    "video": {
+      "mp4_1600": "/beeld/hero-1600.mp4",
+      "mp4_960": "/beeld/hero-960.mp4",
+      "duur": "20,3 s",
+      "_regel": "Achtergrondloop: muted autoplay loop playsinline preload=\"metadata\". Serveer hero-1600.mp4 boven 1024px, hero-960.mp4 daartussen, en NIETS onder 768px — daar alleen de poster. Uit bij prefers-reduced-motion. De video mag nooit de LCP zijn: zet de poster als <img> met fetchpriority=\"high\" eronder en laat de video daaroverheen faden zodra hij kan spelen."
+    },
+    "poster": {
+      "webp_1920": "/beeld/hero-poster-1920.webp",
+      "jpg_1920": "/beeld/hero-poster-1920.jpg",
+      "webp_1024": "/beeld/hero-poster-1024.webp",
+      "alt": "Spelers op een van de vier indoor padelbanen van Van Duren"
+    },
     "_regel": "Overlay op de foto: maximaal 35% blauw, en alleen achter de tekst (gradient links → transparant rechts). Nu ligt er een egale blauwe waas over het hele beeld en verliest de foto zijn kleur. Padel Boxtel laat de foto ademen — dat is waarom die site 'mooier' oogt."
   },
   "over": {
-    "kop": "Padel bij Martin en Bennet, in Son en Breugel",
-    "intro": "Van Duren Indoor Padel Centrum is een familiebedrijf — geen keten, geen hoofdkantoor. Speel je hier vaker, dan kennen we je bij naam.",
+    "kop": "Bij ons speel je bij Martin en Bennet",
+    "intro": "Van Duren Indoor Padel Centrum is een familiebedrijf. Geen keten, geen hoofdkantoor: wie je bij binnenkomst ziet, is wie de hal runt. Speel je hier vaker, dan kennen we je bij naam.",
     "punten": [
       {
         "label": "Vier indoor banen, zeven dagen per week",
@@ -57,8 +67,45 @@
     },
     "foto": null,
     "fotoAlt": "Martin en Bennet van Duren in de hal",
-    "_regel": "Opzet naar padelboxtel.nl: kop als stelling, korte accentstreep in --blauw eronder, dan de punten als lijst met een blauwe driehoek/chevron als marker (niet oranje — oranje is alleen de primaire knop), label vet in --font-kop, tekst eronder in --font-tekst, optionele link in --blauw. Sluit af met één knop, secundaire stijl (blauw), want de oranje 'Boek een baan' komt verderop in het herhaal-CTA-blok. LINKS uitgelijnd: dit is een lijst. Alleen de foto (zodra die er is) mag boven de kop staan. Elk punt is een geverifieerd feit uit bedrijf.json / tarieven.json — voeg niets toe dat daar niet in staat.",
-    "_niet": "Geen 'gezellig', geen 'mooiste hal van Nederland', geen 'WPT-banen', geen aantallen die niet in tarieven.json of bedrijf.json staan. Geen punt over evenementen zolang de agenda leeg is."
+    "_regel": "Opzet naar padelboxtel.nl: kop als stelling, korte accentstreep in --blauw, intro, dan de punten als lijst met blauwe chevron-marker, label vet in --font-kop. Sluit af met de ondertekening in --grijs-500, klein, cursief — als een handtekening onder een brief. Daarna de secundaire knop. LINKS uitgelijnd: het is een lijst. Beeld: op desktop staat links een gestapelde compositie van drie foto's (hoofdfoto groot, twee kleinere overlappend eronder/ernaast), rechts de tekst. Op mobiel alleen de hoofdfoto boven de kop. Render een foto alleen als 'foto' niet null is; ontbreekt de hoofdfoto, gebruik dan de eerste steunfoto als hoofdfoto en toon er twee in plaats van drie.",
+    "_niet": "Geen 'uniek', 'persoonlijk', 'perfecte plek', 'voor alle niveaus', 'gezellig', 'mooiste hal van Nederland', 'de wereld van padel'. Geen 'of je nu ... of ...'-constructie. Elk punt is een controleerbaar feit uit bedrijf.json of tarieven.json.",
+    "ondertekening": "Martin en Bennet van Duren",
+    "fotos": [
+      {
+        "foto": null,
+        "alt": "Martin en Bennet van Duren in de hal",
+        "rol": "hoofd"
+      },
+      {
+        "foto": "spelers-bij-net",
+        "alt": "Twee spelers aan het net",
+        "rol": "steun"
+      },
+      {
+        "foto": "racket-bal",
+        "alt": "Close-up van racket en bal",
+        "rol": "steun"
+      }
+    ]
+  },
+  "beeldstrook": {
+    "_regel": "Volle breedte, één rij foto's die langzaam naar links schuift (marquee, ~60s per ronde, verdubbelde lijst zodat hij naadloos doorloopt). Hoogte 180px mobiel / 260px desktop, foto's object-fit: cover met 8px radius en 12px tussenruimte. Pauzeert op hover en focus. Bij prefers-reduced-motion: geen beweging, gewoon een horizontaal scrollbare rij. Geen kop, geen tekst, geen knoppen — dit is sfeer en het vult de pagina met beeld dat je al hebt. Plaats tussen het over-blok en de tegels. Puur decoratief: alt=\"\" en aria-hidden op de rij, zodat een schermlezer er niet doorheen hoeft.",
+    "fotos": [
+      "hal-overzicht",
+      "doorkijk-banen",
+      "spelers-achterste-banen",
+      "racket-bal",
+      "bord-academy",
+      "lege-baan-glas",
+      "strook-overzicht",
+      "strook-netpaal",
+      "strook-rally-bord",
+      "strook-baan-drie",
+      "strook-lange-slag",
+      "strook-hal-breed"
+    ],
+    "_todo": "Aangevuld tot twaalf op 2 september 2026: de zes bovenstaande plus zes composities uit het bronmateriaal in 02 — Design & Branding (strook-*).",
+    "toegankelijkLabel": "Fotostrook van de hal. Zet de tab-toets hierop om het schuiven te pauzeren."
   },
   "tegels": {
     "kop": "Wat wil je doen?",
@@ -96,8 +143,12 @@
     },
     "_regel": "Dit blok komt ná de tegels en vóór de footer. De regel 'één oranje knop per scherm' geldt per scherm, niet per pagina — op een homepage van vier schermen mag de primaire actie drie keer voorkomen: hero, hier, en in de header. Padel Boxtel doet het ook drie keer."
   },
-  "galerij": {
-    "_regel": "De losse fotogalerij mag blijven, maar dan onderaan, kleiner, en zonder kop — als sfeer, niet als sectie. Of schrappen. Zes foto's zonder functie tussen twee secties in is precies wat de pagina nu traag laat voelen."
+  "_motion": {
+    "_regel": "Beweging mag, maar dienend. Drie plekken, verder niets. Alles respecteert prefers-reduced-motion: dan staat alles stil en blijft alles zichtbaar. Nooit een element parkeren op opacity 0 dat pas verschijnt bij scrollen — wat gelezen moet worden, staat er meteen.",
+    "tegels": "Hover en focus: de foto schaalt 1.06 in 400ms ease-out binnen de tegel (overflow hidden), de scrim wordt iets donkerder, en de pijl achter het label schuift 6px naar rechts. Het label zelf beweegt niet.",
+    "knopPrimair": "Hover: achtergrond naar --oranje-hover in 150ms, en 1px omhoog met een zachte schaduw. Active: terug naar 0. Geen schaal, geen glow.",
+    "hero": "De video is de beweging: hero-1600.mp4 als achtergrondloop, 20,3 seconden, zonder geluid. Geen ken burns meer nodig. Onder 768px en bij prefers-reduced-motion: alleen de posterfoto, stil.",
+    "_niet": "Geen tellers die omhoog lopen, geen elementen die van links en rechts in beeld vliegen, geen parallax op tekst, geen typemachine-effect, geen confetti na het versturen van een formulier."
   },
   "_uitlijning": "Besluit 2 sep 2026: 'gemengd'. Hero en sectiekoppen gecentreerd, korte intro's ook. Alinea's, tegels, tabellen, formulieren en chips links. Zie tokens.css regel 4."
 }

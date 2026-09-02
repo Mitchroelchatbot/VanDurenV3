@@ -1,17 +1,5 @@
 {
-  "_bron": "Beeldmanifest voor de homepage. De sleutels zijn die uit home.json (tegels[].foto). Bronfoto's uit 'Fotos van Bennet', verwerkt naar AVIF en WebP; nooit opgeschaald. Tekst staat in home.json, niet hier.",
-  "poster": {
-    "basis": "/beeld/hal/hero-poster-voorlopig",
-    "maten": [
-      640,
-      1024
-    ],
-    "jpg": "/beeld/hal/hero-poster-voorlopig-1024.jpg",
-    "breedte": 1024,
-    "hoogte": 576,
-    "alt": "Overzicht van de blauwe padelbanen met oranje omloop in de hal van Van Duren Indoor Padel Centrum, met spelers op meerdere banen.",
-    "_bron": "Aangeleverd 2 september 2026 als hero-poster-voorlopig-1024.webp met .jpg als terugval. De 640-maat en de avif-varianten zijn afgeleiden van diezelfde opname (§5.2: twee maten, avif en webp); er is niet opgeschaald. De .jpg is de terugval in de <img>."
-  },
+  "_bron": "Register van foto's: basis-pad, beschikbare breedtes en afmetingen. De hero-poster en -video staan sinds 2 september 2026 in home.json onder hero.poster en hero.video; de beeldstrook-lijst onder beeldstrook.fotos.",
   "fotos": {
     "hal-overzicht": {
       "basis": "/beeld/hal/hal-overzicht",
@@ -130,32 +118,36 @@
       ],
       "breedte": 1024,
       "hoogte": 576
+    },
+    "racket-bal": {
+      "basis": "/beeld/hal/rackets",
+      "maten": [
+        640,
+        744
+      ],
+      "breedte": 744,
+      "hoogte": 496,
+      "_alias": "Zelfde bestanden als \"rackets\"; home.json noemt hem zo."
+    },
+    "bord-academy": {
+      "basis": "/beeld/hal/hal-bord",
+      "maten": [
+        640,
+        1280
+      ],
+      "breedte": 1280,
+      "hoogte": 960,
+      "_alias": "Zelfde bestanden als \"hal-bord\"; home.json noemt hem zo."
+    },
+    "lege-baan-glas": {
+      "basis": "/beeld/hal/hal-baan",
+      "maten": [
+        640,
+        1280
+      ],
+      "breedte": 1280,
+      "hoogte": 853,
+      "_alias": "Zelfde bestanden als \"hal-baan\"; home.json noemt hem zo."
     }
-  },
-  "video": {
-    "mp4": "/video/hero.mp4",
-    "webm": "/video/hero.webm",
-    "breedte": 1024,
-    "hoogte": 576,
-    "duur": 3.44,
-    "_bron": "Eén overzichtsshot uit c7181cd4….mov, 3,60 tot 5,30 s. Dat is het hele doorlopende shot; daarna wisselt de montage van camerastandpunt. Heen en terug aan elkaar gezet tot een naadloze lus van 3,44 s, zodat er geen sprong zit op het aansluitpunt. mp4 CRF 24, webm VP9 CRF 34, zonder geluid. Bron is 1024x576 en is niet opgeschaald (§5.2)."
-  },
-  "beeldstrook": {
-    "_regel": "Decoratieve marquee tussen over en tegels. De rij is aria-hidden en alle alt-teksten zijn leeg: dit beeld draagt geen informatie die niet elders staat. Twaalf foto's, in de bouw verdubbeld voor een naadloze lus.",
-    "toegankelijkLabel": "Fotostrook van de hal. Zet de tab-toets hierop om het schuiven te pauzeren.",
-    "fotos": [
-      "doorkijk-banen",
-      "strook-overzicht",
-      "spelers-bij-net",
-      "strook-netpaal",
-      "hal-baan",
-      "strook-rally-bord",
-      "spelers-achterste-banen",
-      "strook-baan-drie",
-      "hal-bord",
-      "strook-lange-slag",
-      "rackets",
-      "strook-hal-breed"
-    ]
   }
 }

@@ -1,11 +1,13 @@
 ---
 import Foto from './Foto.astro';
 import beeld from '../content/nl/home-beeld.json';
+import home from '../content/nl/home.json';
 
 // Decoratieve marquee over de volle breedte, tussen het over-blok en de tegels.
 // De lijst wordt verdubbeld zodat de lus naadloos rondgaat: zodra de eerste
 // helft volledig langs is, staat de tweede helft op exact dezelfde plek.
-const bronnen = (beeld.beeldstrook?.fotos ?? []).map((n) => beeld.fotos[n]).filter(Boolean);
+const strook = home.beeldstrook;
+const bronnen = (strook?.fotos ?? []).map((n) => beeld.fotos[n]).filter(Boolean);
 const rij = [...bronnen, ...bronnen];
 
 // De rij is aria-hidden met lege alt-teksten: dit beeld draagt geen informatie
@@ -17,7 +19,7 @@ const rij = [...bronnen, ...bronnen];
 // met het toetsenbord te bedienen zijn.
 ---
 {bronnen.length > 0 && (
-  <div class="beeldstrook" tabindex="0" role="group" aria-label={beeld.beeldstrook.toegankelijkLabel}>
+  <div class="beeldstrook" tabindex="0" role="group" aria-label={strook.toegankelijkLabel}>
     <div class="beeldstrook__rij" aria-hidden="true">
       {rij.map((b, i) => (
         <div class="beeldstrook__item">
