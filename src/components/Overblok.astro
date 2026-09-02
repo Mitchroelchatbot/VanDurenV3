@@ -1,15 +1,48 @@
 ---
 import home from '../content/nl/home.json';
 
-// Opzet volgt home.json > over > _regel: foto (alleen als gevuld, O19) -> kop
-// -> accentstreep -> intro -> lijst -> één secundaire knop. Het hele blok staat
-// links; het is een lijst, en tokens.css regel 4 rekent lijsten tot "alles met
+// Opzet volgt home.json > over > _regel: foto's -> kop -> accentstreep -> intro
+// -> lijst -> ondertekening -> één secundaire knop. Het hele blok staat links;
+// het is een lijst, en tokens.css regel 4 rekent lijsten tot "alles met
 // structuur". Vandaar .sectie-body op de sectie en geen .sectie-kop hier.
+import Foto from './Foto.astro';
+import beeld from '../content/nl/home-beeld.json';
+
 const o = home.over;
+
+// over.fotos[]: rollen "hoofd" en "steun". Regels uit de opdracht:
+//  - een item met foto: null rendert niet;
+//  - ontbreekt de hoofdfoto, dan wordt de eerste steunfoto de hoofdfoto en
+//    blijven er twee over voor de compositie.
+// Zolang over.fotos nog niet in home.json staat valt alles hier terug op leeg
+// en rendert er geen enkele foto: de oude over.foto blijft dan werken.
+const ruw = (o.fotos ?? []).filter((f) => f && f.foto).map((f) => ({ ...f, bron: beeld.fotos[f.foto] })).filter((f) => f.bron);
+let hoofd = ruw.find((f) => f.rol === 'hoofd') ?? null;
+let steun = ruw.filter((f) => f !== hoofd);
+if (!hoofd && steun.length) { hoofd = steun[0]; steun = steun.slice(1); }
+steun = steun.slice(0, 2);
+const heeftFotos = Boolean(hoofd);
 ---
 <section class="sectie over sectie-body">
-  <div class="omhulsel omhulsel--midden">
-    {o.foto && (
+  <div class="omhulsel omhulsel--midden over__raster" data-met-fotos={heeftFotos ? 'true' : 'false'}>
+    {heeftFotos && (
+      <div class="over__beeld">
+        <div class="over__hoofd">
+          <Foto basis={hoofd.bron.basis} maten={hoofd.bron.maten} alt={hoofd.alt ?? ''}
+                breedte={hoofd.bron.breedte} hoogte={hoofd.bron.hoogte}
+                sizes="(min-width: 900px) 46vw, 100vw" />
+        </div>
+        {steun.map((f, i) => (
+          <div class={`over__steun over__steun--${i + 1}`}>
+            <Foto basis={f.bron.basis} maten={f.bron.maten} alt={f.alt ?? ''}
+                  breedte={f.bron.breedte} hoogte={f.bron.hoogte}
+                  sizes="(min-width: 900px) 22vw, 50vw" />
+          </div>
+        ))}
+      </div>
+    )}
+    <div class="over__tekst">
+    {!heeftFotos && o.foto && (
       <img class="over__foto" src={o.foto} alt={o.fotoAlt} width="1024" height="640" loading="lazy" />
     )}
     <h2 class="over__kop">{o.kop}</h2>
@@ -24,9 +57,11 @@ const o = home.over;
         </li>
       ))}
     </ul>
+    {o.ondertekening && <p class="over__ondertekening">{o.ondertekening}</p>}
     <p class="over__actie">
       <a class="knop knop--secundair" href={o.cta.href}>{o.cta.label}</a>
     </p>
+    </div>
   </div>
 </section>
 
@@ -37,6 +72,55 @@ const o = home.over;
     height: auto;
     border-radius: var(--radius);
     margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  /* Mobiel: alleen de hoofdfoto, boven de kop. De steunfoto's staan er niet,
+     want twee overlappende beeldjes van 40 % breed zijn op 390 px onleesbaar. */
+  .over__beeld { position: relative; margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
+  .over__hoofd { border-radius: var(--radius); overflow: hidden; }
+  .over__steun { display: none; }
+  /* picture moet zelf de hoogte van zijn houder pakken, anders valt de img
+     terug op zijn eigen verhouding en vult hij het aspect-ratio-vlak niet. */
+  .over__beeld :global(picture) { display: block; width: 100%; height: 100%; }
+  .over__beeld :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .over__hoofd { aspect-ratio: 16 / 9; }
+
+  @media (min-width: 900px) {
+    /* Twee kolommen: links de gestapelde compositie, rechts de tekst. */
+    .over__raster[data-met-fotos='true'] {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: start;
+    }
+    .over__raster[data-met-fotos='true'] .over__beeld { margin-bottom: 0; }
+    /* Met foto's is de tekstkolom maar half zo breed; de punten passen daar
+       niet meer in twee kolommen. */
+    .over__raster[data-met-fotos='true'] .over__punten { grid-template-columns: 1fr; }
+
+    /* De hoofdfoto groot, twee kleinere eroverheen. Extra ruimte onder en
+       rechts zodat de overlappende beeldjes binnen de kolom blijven. */
+    .over__beeld { padding: 0 2.5rem 3.5rem 0; }
+    .over__hoofd { aspect-ratio: 4 / 3; }
+    .over__steun {
+      display: block;
+      position: absolute;
+      border-radius: var(--radius-klein);
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgb(20 22 28 / 0.22);
+      outline: 4px solid var(--wit);
+    }
+    .over__steun--1 { width: 46%; aspect-ratio: 4 / 3; right: 0; bottom: 1rem; }
+    .over__steun--2 { width: 34%; aspect-ratio: 1 / 1; left: 8%; bottom: 0; }
+  }
+
+  /* Ondertekening: klein, cursief, in --grijs-500. Staat onder de punten en
+     boven de knop. */
+  .over__ondertekening {
+    margin: clamp(1.25rem, 3vw, 1.75rem) 0 0;
+    font-size: 0.92rem;
+    font-style: italic;
+    color: var(--grijs-500);
   }
 
   /* Korte accentstreep in --blauw onder de kop. Decoratief, dus aria-hidden
