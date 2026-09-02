@@ -46,7 +46,7 @@
      TYPOGRAFIE — zelf gehost, geen Google Fonts
      --------------------------------------------------------------------- */
 
-  --font-kop:       'Lexend', system-ui, sans-serif;
+  --font-kop:       'Sora', system-ui, sans-serif;    /* besluit 2 sep 2026, letterproef optie B */
   --font-tekst:     'Inter', system-ui, sans-serif;
 
   /* ---------------------------------------------------------------------
@@ -113,5 +113,18 @@
   outline-color: var(--focus-licht);
 }
 
-/* 4. Het lime uit het prototype bestaat niet meer. Staat hier als
+/* 4. Uitlijning: "gemengd". Hero, sectiekoppen en korte intro's (max. drie
+      regels) staan gecentreerd. Alles met structuur staat links: alinea's,
+      lijsten, tabellen, formuliervragen en chips. Centreren van een tabel of
+      een rij chips is verboden — dat valt visueel uit elkaar. */
+.hero, .sectie-kop, .intro-kort, .bevestiging { text-align: center; }
+.hero p, .intro-kort p { margin-inline: auto; max-width: 60ch; }
+.sectie-body, .formulier, .chips, table, .prijs-tabel { text-align: left; }
+
+/* 5. Sora is breder dan Inter maar smaller dan Lexend. Kopgroottes:
+      hero 30px mobiel / 48px desktop, sectiekop 24/34, formuliervraag 19/22.
+      Groter maakt de vraag "Hoeveel volwassen begeleiders komen mee?" weer
+      tweeregelig op 390px. Gemeten in de letterproef. */
+
+/* 6. Het lime uit het prototype bestaat niet meer. Staat hier als
       vangnet: komt #c3f400 ergens terug, dan valt het meteen op. */
