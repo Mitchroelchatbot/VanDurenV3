@@ -1,14 +1,16 @@
 {
   "_bron": "Beeldmanifest voor de homepage. De sleutels zijn die uit home.json (tegels[].foto). Bronfoto's uit 'Fotos van Bennet', verwerkt naar AVIF en WebP; nooit opgeschaald. Tekst staat in home.json, niet hier.",
   "poster": {
-    "basis": "/beeld/hal/hero-poster",
+    "basis": "/beeld/hal/hero-poster-voorlopig",
     "maten": [
-      960,
-      1434
+      640,
+      1024
     ],
-    "breedte": 1434,
-    "hoogte": 807,
-    "alt": "De hal van Van Duren Indoor Padel Centrum met blauwe indoor padelbanen en oranje omloop."
+    "jpg": "/beeld/hal/hero-poster-voorlopig-1024.jpg",
+    "breedte": 1024,
+    "hoogte": 576,
+    "alt": "Overzicht van de blauwe padelbanen met oranje omloop in de hal van Van Duren Indoor Padel Centrum, met spelers op meerdere banen.",
+    "_bron": "Aangeleverd 2 september 2026 als hero-poster-voorlopig-1024.webp met .jpg als terugval. De 640-maat en de avif-varianten zijn afgeleiden van diezelfde opname (§5.2: twee maten, avif en webp); er is niet opgeschaald. De .jpg is de terugval in de <img>."
   },
   "fotos": {
     "hal-overzicht": {
@@ -110,7 +112,7 @@
     "webm": "/video/hero.webm",
     "breedte": 1024,
     "hoogte": 576,
-    "duur": 20,
-    "_bron": "Aangeleverd 2 september 2026 als 1024x576 h264 .mov, 20 s, zonder geluid gecodeerd naar mp4 (CRF 24) en webm (VP9 CRF 34). Bron is 1024x576: niet opgeschaald naar 1920x1080, want dat maakt het beeld zacht (§5.2)."
+    "duur": 3.44,
+    "_bron": "Eén overzichtsshot uit c7181cd4….mov, 3,60 tot 5,30 s. Dat is het hele doorlopende shot; daarna wisselt de montage van camerastandpunt. Heen en terug aan elkaar gezet tot een naadloze lus van 3,44 s, zodat er geen sprong zit op het aansluitpunt. mp4 CRF 24, webm VP9 CRF 34, zonder geluid. Bron is 1024x576 en is niet opgeschaald (§5.2)."
   }
 }

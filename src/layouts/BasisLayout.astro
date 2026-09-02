@@ -24,8 +24,8 @@ const canoniek = new URL(pad, Astro.site).href;
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     {posterPreload && (
       <link rel="preload" as="image" type="image/avif"
-            href={`${posterPreload}-960.avif`}
-            imagesrcset={`${posterPreload}-960.avif 960w, ${posterPreload}-1434.avif 1434w`}
+            href={`${posterPreload}-640.avif`}
+            imagesrcset={`${posterPreload}-640.avif 640w, ${posterPreload}-1024.avif 1024w`}
             imagesizes="100vw" fetchpriority="high" />
     )}
     <link rel="preload" href="/fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin />
