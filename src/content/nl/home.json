@@ -17,25 +17,59 @@
     "poster": "TODO: pad naar posterframe uit Van_Duren_Versie_1a.mp4",
     "_regel": "Overlay op de foto: maximaal 35% blauw, en alleen achter de tekst (gradient links → transparant rechts). Nu ligt er een egale blauwe waas over het hele beeld en verliest de foto zijn kleur. Padel Boxtel laat de foto ademen — dat is waarom die site 'mooier' oogt."
   },
-  "familie": {
-    "kop": "Van Martin en Bennet zelf",
-    "alinea1": "Van Duren Indoor Padel Centrum is het bedrijf van Martin en Bennet van Duren. Geen keten, geen hoofdkantoor: de mensen die je bij binnenkomst ziet, zijn de mensen van wie de hal is. Speel je hier vaker, dan kennen we je bij naam.",
-    "alinea2": "We spelen met Babolat, en onze gediplomeerde trainers helpen je verder zodra je dat wilt — van een eerste proefles tot een vaste contractbaan.",
+  "over": {
+    "kop": "Padel bij Martin en Bennet, in Son en Breugel",
+    "intro": "Van Duren Indoor Padel Centrum is een familiebedrijf — geen keten, geen hoofdkantoor. Speel je hier vaker, dan kennen we je bij naam.",
+    "punten": [
+      {
+        "label": "Vier indoor banen, zeven dagen per week",
+        "tekst": "Doordeweeks open tot 23:00, in het weekend tot 17:00."
+      },
+      {
+        "label": "Lessen voor ieder niveau",
+        "tekst": "Proefles, privéles of groepsles met onze gediplomeerde trainers.",
+        "link": {
+          "label": "Bekijk het lesaanbod",
+          "href": "/lessen"
+        }
+      },
+      {
+        "label": "Vaste baan of VIP-daluren",
+        "tekst": "Een contractbaan voor 6 of 12 maanden, of drie keer per week spelen voor € 249,99 per jaar.",
+        "link": {
+          "label": "Bekijk de opties",
+          "href": "/banen"
+        }
+      },
+      {
+        "label": "Eigen horeca",
+        "tekst": "Even blijven hangen na je potje, of een borrel of lunch bij je clinic."
+      },
+      {
+        "label": "In samenwerking met Babolat",
+        "tekst": "Rackets en ballen liggen klaar. Eigen racket meenemen mag."
+      }
+    ],
+    "cta": {
+      "label": "Meer over ons",
+      "href": "/over-ons",
+      "stijl": "secundair"
+    },
     "foto": null,
     "fotoAlt": "Martin en Bennet van Duren in de hal",
-    "_regel": "Herhaal hier NIET 'vier banen, zeven dagen per week' — dat staat al in de hero, twee schermen hoger. Render de foto alleen als 'foto' gevuld is (OPEN.md O19). Gebruik 'vader en zoon' pas als de eigenaren dat bevestigen; het staat op het prototype maar niet op de live site.",
-    "_variantKop": "Alternatieve kop als 'Van Martin en Bennet zelf' te informeel is: 'Een familiebedrijf in Son en Breugel'."
+    "_regel": "Opzet naar padelboxtel.nl: kop als stelling, korte accentstreep in --blauw eronder, dan de punten als lijst met een blauwe driehoek/chevron als marker (niet oranje — oranje is alleen de primaire knop), label vet in --font-kop, tekst eronder in --font-tekst, optionele link in --blauw. Sluit af met één knop, secundaire stijl (blauw), want de oranje 'Boek een baan' komt verderop in het herhaal-CTA-blok. LINKS uitgelijnd: dit is een lijst. Alleen de foto (zodra die er is) mag boven de kop staan. Elk punt is een geverifieerd feit uit bedrijf.json / tarieven.json — voeg niets toe dat daar niet in staat.",
+    "_niet": "Geen 'gezellig', geen 'mooiste hal van Nederland', geen 'WPT-banen', geen aantallen die niet in tarieven.json of bedrijf.json staan. Geen punt over evenementen zolang de agenda leeg is."
   },
   "tegels": {
     "kop": "Wat wil je doen?",
-    "_regel": "Dit vervangt de losse fotogalerij 'In de hal'. Elke tegel is één foto, één label, één regel, en de hele tegel is klikbaar. Vier tegels op desktop naast elkaar, op mobiel twee-bij-twee. Foto's krijgen op hover een lichte zoom; verder geen effecten. Dit is het patroon van padelboxtel.nl ('Padel les · Club Games · Community'), maar dan met onze vier omzetpagina's. Evenementen is als tegel verwijderd: die pagina is leeg zolang er niets gepland staat, en dat is geen bestemming om vanaf de homepage heen te sturen. Evenementen blijft wel in het hoofdmenu. Tegel 1 gebruikte 'doorkijk-banen', maar dat is vrijwel dezelfde compositie als 'spelers-bij-net' bij Lessen: allebei de symmetrische doorkijk met het bord in het midden. Gemeten paarsverschil 28 tegenover ~50 voor de andere paren. Tegel 1 gebruikt daarom 'hal-overzicht'; 'doorkijk-banen' blijft in de galerijstrook staan.",
+    "_regel": "Drie tegels: Baan huren, Lessen, Clinics. Elke tegel is één foto met het label en de regel ín de foto (onderin, wit, met scrim), en de hele tegel is één link. Drie naast elkaar op desktop, gestapeld op mobiel. Geen vierde tegel naar Evenementen zolang die pagina leeg is. Foto's: drie duidelijk verschillende composities.",
     "items": [
       {
         "label": "Baan huren",
         "regel": "Los, met VIP-daluren of als contractbaan",
         "href": "/banen",
-        "foto": "hal-overzicht",
-        "fotoAlt": "Overzicht van de indoor padelbanen in de hal."
+        "foto": "doorkijk-banen",
+        "fotoAlt": "Doorkijk over de vier indoor padelbanen"
       },
       {
         "label": "Lessen",
@@ -64,5 +98,6 @@
   },
   "galerij": {
     "_regel": "De losse fotogalerij mag blijven, maar dan onderaan, kleiner, en zonder kop — als sfeer, niet als sectie. Of schrappen. Zes foto's zonder functie tussen twee secties in is precies wat de pagina nu traag laat voelen."
-  }
+  },
+  "_uitlijning": "Besluit 2 sep 2026: 'gemengd'. Hero en sectiekoppen gecentreerd, korte intro's ook. Alinea's, tegels, tabellen, formulieren en chips links. Zie tokens.css regel 4."
 }

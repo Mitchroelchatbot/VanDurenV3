@@ -1,0 +1,112 @@
+---
+import home from '../content/nl/home.json';
+
+// Opzet volgt home.json > over > _regel:
+// foto (alleen als gevuld, O19) -> kop -> accentstreep -> intro -> lijst -> één
+// secundaire knop. Kop en intro gecentreerd, de lijst links: tokens.css regel 4
+// rekent lijsten expliciet tot "alles met structuur".
+const o = home.over;
+---
+<section class="sectie over">
+  <div class="omhulsel omhulsel--midden">
+    {o.foto && (
+      <img class="over__foto" src={o.foto} alt={o.fotoAlt} width="1024" height="640" loading="lazy" />
+    )}
+    <div class="sectie-kop">
+      <h2>{o.kop}</h2>
+      <span class="over__streep" aria-hidden="true"></span>
+    </div>
+    <div class="intro-kort">
+      <p>{o.intro}</p>
+    </div>
+    <ul class="sectie-body over__punten">
+      {o.punten.map((p) => (
+        <li class="over__punt">
+          <span class="over__label">{p.label}</span>
+          <span class="over__tekst">{p.tekst}</span>
+          {p.link && <a class="over__link" href={p.link.href}>{p.link.label}</a>}
+        </li>
+      ))}
+    </ul>
+    <p class="over__actie">
+      <a class="knop knop--secundair" href={o.cta.href}>{o.cta.label}</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .over__foto {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  /* Korte accentstreep in --blauw onder de kop. Decoratief, dus aria-hidden
+     en geen tekstdrager. */
+  .over__streep {
+    display: block;
+    width: 56px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--blauw);
+    margin: 0.85rem auto 0;
+  }
+
+  .intro-kort { margin-top: clamp(1rem, 2.5vw, 1.5rem); }
+  .intro-kort p { margin-bottom: 0; }
+
+  .over__punten {
+    list-style: none;
+    margin: clamp(2rem, 5vw, 3rem) 0 0;
+    padding: 0;
+    display: grid;
+    gap: clamp(1.1rem, 2.5vw, 1.5rem);
+  }
+  @media (min-width: 820px) {
+    .over__punten { grid-template-columns: 1fr 1fr; column-gap: clamp(2rem, 4vw, 3rem); }
+  }
+
+  /* Blauwe chevron als marker. Oranje is voorbehouden aan de primaire knop. */
+  .over__punt {
+    position: relative;
+    padding-left: 1.75rem;
+  }
+  .over__punt::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.45em;
+    width: 7px;
+    height: 7px;
+    border-right: 2px solid var(--blauw);
+    border-top: 2px solid var(--blauw);
+    transform: rotate(45deg);
+  }
+
+  .over__label {
+    display: block;
+    font-family: var(--font-kop);
+    font-weight: 600;
+    color: var(--inkt);
+    line-height: 1.35;
+  }
+  .over__tekst {
+    display: block;
+    font-family: var(--font-tekst);
+    color: var(--grijs-500);
+    margin-top: 0.2rem;
+  }
+  .over__link {
+    display: inline-block;
+    margin-top: 0.35rem;
+    color: var(--blauw);
+    font-weight: 500;
+  }
+
+  .over__actie {
+    margin: clamp(2rem, 5vw, 2.75rem) 0 0;
+    text-align: center;
+  }
+</style>
