@@ -76,36 +76,61 @@
       ],
       "breedte": 744,
       "hoogte": 496
+    },
+    "strook-overzicht": {
+      "basis": "/beeld/hal/strook-overzicht",
+      "maten": [
+        640,
+        1024
+      ],
+      "breedte": 1024,
+      "hoogte": 576
+    },
+    "strook-rally-bord": {
+      "basis": "/beeld/hal/strook-rally-bord",
+      "maten": [
+        640,
+        1024
+      ],
+      "breedte": 1024,
+      "hoogte": 576
+    },
+    "strook-netpaal": {
+      "basis": "/beeld/hal/strook-netpaal",
+      "maten": [
+        640,
+        1024
+      ],
+      "breedte": 1024,
+      "hoogte": 576
+    },
+    "strook-baan-drie": {
+      "basis": "/beeld/hal/strook-baan-drie",
+      "maten": [
+        640,
+        1024
+      ],
+      "breedte": 1024,
+      "hoogte": 576
+    },
+    "strook-lange-slag": {
+      "basis": "/beeld/hal/strook-lange-slag",
+      "maten": [
+        640,
+        1024
+      ],
+      "breedte": 1024,
+      "hoogte": 576
+    },
+    "strook-hal-breed": {
+      "basis": "/beeld/hal/strook-hal-breed",
+      "maten": [
+        640,
+        1024
+      ],
+      "breedte": 1024,
+      "hoogte": 576
     }
-  },
-  "galerij": {
-    "_regel": "Kleine strook onderaan zonder kop (home.json galerij._regel). Alt-teksten beschrijven wat er te zien is, zonder het lesprogramma bij naam te noemen (§3).",
-    "items": [
-      {
-        "foto": "doorkijk-banen",
-        "alt": "Doorkijk over de banen vanaf de kopse kant van de hal."
-      },
-      {
-        "foto": "spelers-achterste-banen",
-        "alt": "Spelers op een van de achterste banen, gezien vanaf de zijkant."
-      },
-      {
-        "foto": "spelers-bij-net",
-        "alt": "Twee spelers in een partij bij het net."
-      },
-      {
-        "foto": "hal-baan",
-        "alt": "Lege baan met de glazen achterwand en het reclamebord van de club erboven."
-      },
-      {
-        "foto": "hal-bord",
-        "alt": "Het bord van de club boven de lesbaan."
-      },
-      {
-        "foto": "rackets",
-        "alt": "Drie Babolat padelrackets op de blauwe ondergrond van een baan."
-      }
-    ]
   },
   "video": {
     "mp4": "/video/hero.mp4",
@@ -114,5 +139,23 @@
     "hoogte": 576,
     "duur": 3.44,
     "_bron": "Eén overzichtsshot uit c7181cd4….mov, 3,60 tot 5,30 s. Dat is het hele doorlopende shot; daarna wisselt de montage van camerastandpunt. Heen en terug aan elkaar gezet tot een naadloze lus van 3,44 s, zodat er geen sprong zit op het aansluitpunt. mp4 CRF 24, webm VP9 CRF 34, zonder geluid. Bron is 1024x576 en is niet opgeschaald (§5.2)."
+  },
+  "beeldstrook": {
+    "_regel": "Decoratieve marquee tussen over en tegels. De rij is aria-hidden en alle alt-teksten zijn leeg: dit beeld draagt geen informatie die niet elders staat. Twaalf foto's, in de bouw verdubbeld voor een naadloze lus.",
+    "toegankelijkLabel": "Fotostrook van de hal. Zet de tab-toets hierop om het schuiven te pauzeren.",
+    "fotos": [
+      "doorkijk-banen",
+      "strook-overzicht",
+      "spelers-bij-net",
+      "strook-netpaal",
+      "hal-baan",
+      "strook-rally-bord",
+      "spelers-achterste-banen",
+      "strook-baan-drie",
+      "hal-bord",
+      "strook-lange-slag",
+      "rackets",
+      "strook-hal-breed"
+    ]
   }
 }

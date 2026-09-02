@@ -4,7 +4,7 @@ import Hero from '../components/Hero.astro';
 import Overblok from '../components/Overblok.astro';
 import Tegels from '../components/Tegels.astro';
 import HerhaalCta from '../components/HerhaalCta.astro';
-import Galerijstrook from '../components/Galerijstrook.astro';
+import Beeldstrook from '../components/Beeldstrook.astro';
 import home from '../content/nl/home.json';
 import beeld from '../content/nl/home-beeld.json';
 
@@ -14,7 +14,7 @@ const meta = { titel: home.metaTitle, beschrijving: home.metaDescription };
 <BasisLayout pad={pad} meta={meta} posterPreload={beeld.poster.basis}>
   <Hero />
   <Overblok />
+  <Beeldstrook />
   <Tegels />
   <HerhaalCta />
-  <Galerijstrook />
 </BasisLayout>

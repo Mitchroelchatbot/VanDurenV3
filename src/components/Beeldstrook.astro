@@ -1,0 +1,101 @@
+---
+import Foto from './Foto.astro';
+import beeld from '../content/nl/home-beeld.json';
+
+// Decoratieve marquee over de volle breedte, tussen het over-blok en de tegels.
+// De lijst wordt verdubbeld zodat de lus naadloos rondgaat: zodra de eerste
+// helft volledig langs is, staat de tweede helft op exact dezelfde plek.
+const bronnen = (beeld.beeldstrook?.fotos ?? []).map((n) => beeld.fotos[n]).filter(Boolean);
+const rij = [...bronnen, ...bronnen];
+
+// De rij is aria-hidden met lege alt-teksten: dit beeld draagt geen informatie
+// die niet elders op de pagina staat. De omhulling zelf is wél bereikbaar met
+// de tab-toets. Dat is nodig om twee redenen: een lus die vanzelf begint en
+// langer dan vijf seconden duurt moet te pauzeren zijn (WCAG 2.2.2), en
+// :focus-within op een aria-hidden rij zonder focusbare inhoud vuurt nooit.
+// Bij prefers-reduced-motion is het een schuifbare strook, en die moet sowieso
+// met het toetsenbord te bedienen zijn.
+---
+{bronnen.length > 0 && (
+  <div class="beeldstrook" tabindex="0" role="group" aria-label={beeld.beeldstrook.toegankelijkLabel}>
+    <div class="beeldstrook__rij" aria-hidden="true">
+      {rij.map((b, i) => (
+        <div class="beeldstrook__item">
+          <Foto basis={b.basis} maten={b.maten} alt="" breedte={b.breedte} hoogte={b.hoogte}
+                sizes="(min-width: 768px) 380px, 260px" />
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+<style>
+  .beeldstrook { overflow: hidden; margin-block: var(--sectie-gap); }
+  .beeldstrook:focus-visible { outline: 3px solid var(--blauw); outline-offset: 2px; }
+
+  .beeldstrook__rij {
+    display: flex;
+    gap: 12px;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .beeldstrook__item {
+    flex: 0 0 auto;
+    height: 180px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  @media (min-width: 768px) {
+    .beeldstrook__item { height: 260px; }
+  }
+
+  .beeldstrook__item :global(picture) { display: block; height: 100%; }
+  .beeldstrook__item :global(img) {
+    display: block;
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+  }
+
+  /* De animatie schuift precies de helft van de rij op. Omdat de lijst
+     verdubbeld is, valt de tweede helft dan exact op de startpositie. */
+  @media (prefers-reduced-motion: no-preference) {
+    .beeldstrook__rij {
+      animation: beeldstrook-schuif 60s linear infinite;
+    }
+    .beeldstrook:hover .beeldstrook__rij,
+    .beeldstrook:focus .beeldstrook__rij,
+    .beeldstrook:focus-within .beeldstrook__rij,
+    .beeldstrook[data-rust] .beeldstrook__rij {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes beeldstrook-schuif {
+    from { transform: translateX(0); }
+    /* 6px = de halve gap die na de laatste foto van de eerste helft staat */
+    to   { transform: translateX(calc(-50% - 6px)); }
+  }
+
+  /* Zonder animatie is het een gewone horizontale strook die je zelf
+     kunt schuiven; de dubbele lijst is dan overbodig maar onschuldig. */
+  @media (prefers-reduced-motion: reduce) {
+    .beeldstrook { overflow-x: auto; }
+  }
+</style>
+
+<script>
+  // Een lus die oneindig doorloopt kost ook compositorwerk als hij buiten beeld
+  // staat. Buiten het scherm zetten we hem stil; dat scheelt accu op mobiel.
+  // Via een attribuut en niet via style, anders wint de inline-stijl van de
+  // pauzeregels voor hover en focus.
+  const strook = document.querySelector('.beeldstrook');
+  if (strook && 'IntersectionObserver' in window) {
+    strook.setAttribute('data-rust', '');
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) strook.removeAttribute('data-rust');
+      else strook.setAttribute('data-rust', '');
+    }, { rootMargin: '200px 0px' }).observe(strook);
+  }
+</script>
