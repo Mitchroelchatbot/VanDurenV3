@@ -49,43 +49,46 @@ const secundair = { label: h.secundair.label, href: h.secundair.href };
   .hero { position: relative; overflow: hidden; isolation: isolate; }
   .hero__video { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
 
-  /* Overlay maximaal 35 % blauw, alleen achter de tekst: links het donkerst,
-     rechts transparant, zodat de foto zijn kleur houdt (home.json hero._regel).
+  /* Overlay maximaal 35 % blauw. De tekst staat sinds het uitlijningsbesluit
+     gecentreerd, dus de laag is dat ook: het donkerst in het midden achter de
+     tekst en transparant naar beide randen, zodat de foto zijn kleur houdt.
      Zonder beeld valt de laag weg en blijft het effen blauw. */
   .hero::after {
     content: ''; position: absolute; inset: 0; z-index: -1;
     background: linear-gradient(90deg,
-      rgb(20 42 100 / 0.35) 0%, rgb(20 42 100 / 0.35) 34%,
-      rgb(20 42 100 / 0.14) 62%, rgb(20 42 100 / 0) 100%);
+      rgb(20 42 100 / 0.05) 0%, rgb(20 42 100 / 0.35) 24%,
+      rgb(20 42 100 / 0.35) 76%, rgb(20 42 100 / 0.05) 100%);
   }
   .hero:not(:has(.hero__video))::after { background: none; }
   @media (max-width: 899px) {
-    /* Smal scherm: tekst over de volle breedte, dus een egale laag van 35 %.
-       De uitsnede toont het onderste deel van de foto (de banen) zodat de
-       plafondlampen niet achter de kop staan; de laag zelf blijft 35 %. */
+    /* Smal scherm: tekst over de volle breedte, dus een egale laag van 35 %. */
     .hero::after { background: rgb(20 42 100 / 0.35); }
     .hero__video { object-position: 50% 88%; }
   }
 
   .hero__binnen { position: relative; padding-block: clamp(72px, 14vw, 152px); }
-  /* Achter de tekstkolom wordt de foto lokaal donkerder gemaakt met een
+  /* Achter de tekst wordt de foto lokaal donkerder gemaakt met een
      helderheidsfilter, niet met een kleurlaag: de tint blijft, alleen de
      lichte glaswanden en lampen achter de letters dempen. Dit is wat de
      35 %-laag alleen niet kan garanderen; zonder ondersteuning van
-     backdrop-filter blijft de 35 %-laag over. */
+     backdrop-filter blijft de 35 %-laag over. Symmetrisch, want de tekst
+     staat gecentreerd. */
   .hero__binnen::before {
     content: ''; position: absolute; inset: 0; z-index: -1;
-    left: calc(var(--marge-rand) * -1); width: min(100vw, 56rem);
+    left: 50%; transform: translateX(-50%);
+    width: min(100vw, 62rem);
     -webkit-backdrop-filter: brightness(0.58); backdrop-filter: brightness(0.58);
-    -webkit-mask-image: linear-gradient(90deg, #000 72%, transparent);
-    mask-image: linear-gradient(90deg, #000 72%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
   }
   @media (max-width: 899px) {
     .hero__binnen::before { width: 100vw; -webkit-mask-image: none; mask-image: none; }
   }
-  .hero__kop, .hero__onderkop, .hero__acties { max-width: 40rem; }
+  /* Centrering komt uit tokens.css regel 4 via de klasse .hero. */
+  .hero__kop { max-width: 20ch; margin-inline: auto; }
   .hero__kop { margin-bottom: 0.4em; }
   .hero__onderkop { font-size: clamp(1.05rem, 2.2vw, 1.3rem); margin-bottom: 2rem; opacity: 0.95; }
+  .hero__acties { justify-content: center; }
   .hero__acties { display: flex; flex-wrap: wrap; gap: 0.9rem; }
 
   /* De poster ligt altijd onder de video; de video ligt erbovenop zodra hij

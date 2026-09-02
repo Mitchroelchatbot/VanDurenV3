@@ -35,7 +35,7 @@ const w = banen.contractbaanWizard;
 
   <section class="sectie" id="vip">
     <div class="omhulsel omhulsel--midden">
-      <h2>{tarieven.vipDaluren.titel}</h2>
+      <h2 class="sectie-kop">{tarieven.vipDaluren.titel}</h2>
       <p class="vip__prijs">{tarieven.vipDaluren.prijs}
         <span class="vip__per">{tarieven.vipDaluren.prijsPer}</span></p>
       <ul class="vip__punten">{tarieven.vipDaluren.punten.map((p) => (<li>{p}</li>))}</ul>
@@ -46,7 +46,7 @@ const w = banen.contractbaanWizard;
 
   <section class="sectie sectie--licht">
     <div class="omhulsel">
-      <h2>{banen.babolat.titel}</h2>
+      <h2 class="sectie-kop">{banen.babolat.titel}</h2>
       <p class="omhulsel--smal babolat__tekst">{banen.babolat.tekst}</p>
     </div>
   </section>

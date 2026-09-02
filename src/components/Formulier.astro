@@ -19,7 +19,7 @@ const conditieCss = stappen
   .join('\n');
 ---
 <form
-  class="form"
+  class="form formulier sectie-body"
   name={naam}
   method="POST"
   action="/bedankt"
@@ -183,7 +183,8 @@ const conditieCss = stappen
   .form__intro { color: var(--grijs-500); }
 
   .form__vraag { border: 0; padding: 0; margin: 0 0 2rem; }
-  .form__legenda { font-family: var(--font-kop); font-weight: 600; font-size: 1.1rem; padding: 0; margin-bottom: 0.7rem; }
+  /* Formuliervraag 19/22 uit tokens.css regel 5. */
+  .form__legenda { font-family: var(--font-kop); font-weight: 600; font-size: clamp(19px, 1.6vw, 22px); padding: 0; margin-bottom: 0.7rem; }
   .form__toelichting { font-size: 0.95rem; color: var(--grijs-500); margin-top: -0.35rem; }
 
   .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
@@ -221,7 +222,7 @@ const conditieCss = stappen
   .gesprek__bubbels { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; }
   .bubbel {
     display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
-    width: 100%; text-align: left; padding: 0.5rem 0.25rem;
+    width: 100%; padding: 0.5rem 0.25rem;
     background: none; border: 0; border-bottom: 1px solid var(--grijs-100); cursor: pointer; font: inherit;
   }
   .bubbel:hover { background: var(--grijs-100); }
@@ -232,7 +233,6 @@ const conditieCss = stappen
     border-radius: 999px; background: var(--blauw); color: var(--wit); font-size: 0.9rem;
   }
   .gesprek__huidig .form__vraag { margin-bottom: 1rem; }
-  .gesprek__huidig .form__legenda { font-size: 1.25rem; }
   .gesprek__huidig:focus { outline: none; }
   .gesprek__mini { display: flex; gap: 0.5rem; align-items: center; margin-top: 0.6rem; }
   .gesprek__mini .form__invoer { max-width: 9rem; }

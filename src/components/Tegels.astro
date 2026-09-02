@@ -11,7 +11,7 @@ const items = t.items
 ---
 <section class="sectie tegels">
   <div class="omhulsel">
-    <h2>{t.kop}</h2>
+    <h2 class="sectie-kop">{t.kop}</h2>
     <div class="tegels__raster">
       {items.map((it) => (
         <a class="tegel" href={it.href}>
@@ -31,7 +31,7 @@ const items = t.items
 </section>
 
 <style>
-  .tegels__raster { display: grid; gap: var(--gutter); grid-template-columns: 1fr; }
+  .tegels__raster { display: grid; gap: var(--gutter); grid-template-columns: 1fr; text-align: left; }
   @media (min-width: 900px) { .tegels__raster { grid-template-columns: repeat(3, 1fr); } }
 
   .tegel {

@@ -18,14 +18,14 @@ const meta = { titel: spelregels.metaTitle, beschrijving: spelregels.metaDescrip
 
   <section class="sectie" id="faq">
     <div class="omhulsel omhulsel--midden">
-      <h2>{spelregels.ankers[0].label}</h2>
+      <h2 class="sectie-kop">{spelregels.ankers[0].label}</h2>
       <Accordeon items={spelregels.faq} />
     </div>
   </section>
 
   <section class="sectie sectie--licht" id="padelregels">
     <div class="omhulsel omhulsel--midden">
-      <h2>{spelregels.padelregels.titel}</h2>
+      <h2 class="sectie-kop">{spelregels.padelregels.titel}</h2>
       <p class="regels__intro">{spelregels.padelregels.intro}</p>
       {spelregels.padelregels.secties.map((s) => (
         <div class="regels__sectie">

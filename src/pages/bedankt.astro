@@ -7,7 +7,7 @@ const meta = { titel: bedankt.metaTitle, beschrijving: bedankt.metaDescription }
 ---
 <BasisLayout pad={pad} meta={meta}>
   <section class="sectie">
-    <div class="omhulsel omhulsel--smal">
+    <div class="omhulsel omhulsel--smal bevestiging">
       <h1>{bedankt.titel}</h1>
       <p>{bedankt.tekst}</p>
       <ul class="bedankt__links">
@@ -18,5 +18,5 @@ const meta = { titel: bedankt.metaTitle, beschrijving: bedankt.metaDescription }
 </BasisLayout>
 
 <style>
-  .bedankt__links { list-style: none; padding: 0; display: grid; gap: 0.5rem; }
+  .bedankt__links { list-style: none; padding: 0; display: grid; gap: 0.5rem; justify-items: center; }
 </style>

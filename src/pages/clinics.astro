@@ -28,7 +28,7 @@ const kaarten = clinics.kaarten.filter((k) => k.actief && k.omschrijving);
 
   <section class="sectie sectie--licht">
     <div class="omhulsel omhulsel--midden">
-      <h2>{clinics.inbegrepen.titel}</h2>
+      <h2 class="sectie-kop">{clinics.inbegrepen.titel}</h2>
       <p class="clinics__vanaf">{clinics.inbegrepen.vanafPrijs}</p>
       <ul class="clinics__punten">{clinics.inbegrepen.punten.map((p) => (<li>{p}</li>))}</ul>
       <p>{clinics.inbegrepen.optioneel}</p>
