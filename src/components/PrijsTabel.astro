@@ -33,13 +33,23 @@ const { titel, intro, kolommen, rijen, voetnoot, cta } = Astro.props;
 
 <style>
   .prijstabel__kop { font-size: 1.35rem; }
-  /* Brede tabellen scrollen in hun eigen kader, de pagina zelf nooit. */
+  /* De tabel past op elke breedte: de labelkolom mag afbreken, de
+     prijskolommen zijn smal en rechts uitgelijnd. Het kader scrolt alleen
+     als een browser er echt niet uitkomt, de pagina zelf nooit. */
   .prijstabel__rol { overflow-x: auto; margin-block: 1rem; }
-  table { border-collapse: collapse; width: 100%; min-width: 30rem; }
-  th, td { text-align: left; padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--grijs-100); }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--grijs-100); vertical-align: top; }
   thead th { font-family: var(--font-kop); font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--grijs-500); }
   tbody th { font-weight: 600; }
+  td, thead th:not(:first-child) { text-align: right; white-space: nowrap; }
   td { font-variant-numeric: tabular-nums; }
+  @media (max-width: 480px) {
+    th, td { padding: 0.6rem 0.4rem; }
+    /* De kopcellen mogen hier wél afbreken ("12 maanden" / "(45–52×)");
+       specificiteit gelijk aan de nowrap-regel hierboven, en later, dus wint. */
+    thead th, thead th:not(:first-child) { font-size: 0.72rem; letter-spacing: 0.02em; white-space: normal; }
+    tbody th { font-size: 0.95rem; }
+  }
   .prijstabel__toelichting { display: block; font-weight: 400; font-size: 0.85rem; color: var(--grijs-500); }
   .prijstabel__voetnoot { font-size: 0.9rem; color: var(--grijs-500); }
 </style>
