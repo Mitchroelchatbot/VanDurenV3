@@ -266,6 +266,14 @@ const conditieCss = stappen
     }));
     const antwoorden = []; // { stap, tekst, waarde }
 
+    // Bij het opbouwen van het formulier wordt GEEN focus gezet. Zou dat wel
+    // gebeuren, dan trekt de browser die vraag in beeld en opent /banen niet op
+    // de h1 maar halverwege de pagina. Focus verplaatst alleen na een handeling
+    // van de bezoeker: een antwoord, of een klik op een eerdere bubbel.
+    let eersteRender = true;
+    const zacht = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const naarBeeld = (el) => el.scrollIntoView({ block: 'nearest', behavior: zacht ? 'smooth' : 'auto' });
+
     // ---------- gedeeld: knop pas actief bij geldig e-mailadres ----------
     const toets = () => { if (knop && email) knop.disabled = !email.checkValidity() || email.value.trim() === ''; };
     if (knop && email) { toets(); email.addEventListener('input', toets); }
@@ -329,7 +337,7 @@ const conditieCss = stappen
       if (type === 'text') { inp.inputMode = 'numeric'; }
       const ok = chipKnop(L.verder); ok.addEventListener('click', () => { if (inp.value.trim()) bevestig(inp.value.trim()); });
       inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); ok.click(); } });
-      wrap.append(inp, ok); setTimeout(() => inp.focus(), 0); return wrap;
+      wrap.append(inp, ok); setTimeout(() => inp.focus({ preventScroll: true }), 0); return wrap;
     }
 
     function beantwoord(st, tekst, waarde) {
@@ -405,8 +413,7 @@ const conditieCss = stappen
         huidigEl.appendChild(blok);
         afsluiting.hidden = false; toets();
       }
-      kop.focus({ preventScroll: true });
-      huidigEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      if (!eersteRender) { kop.focus({ preventScroll: true }); naarBeeld(huidigEl); }
     }
 
     function teken() {
@@ -461,12 +468,13 @@ const conditieCss = stappen
       const tekst = maak('p'); tekst.textContent = form.dataset.bevestigingTekst;
       form.querySelectorAll(':scope > *:not(style)').forEach((el) => { el.hidden = true; });
       const s = maak('div'); s.append(kop, lijst, tekst); form.appendChild(s);
-      kop.tabIndex = -1; kop.focus();
+      kop.tabIndex = -1; kop.focus({ preventScroll: true }); naarBeeld(kop);
     }
 
     // ---------- start ----------
     basis.hidden = true; afsluiting.hidden = true; form.querySelector('[data-bevestiging-regel]').hidden = true;
     gesprek.hidden = false;
     teken();
+    eersteRender = false;
   });
 </script>
