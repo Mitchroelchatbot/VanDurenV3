@@ -243,6 +243,14 @@ const conditieCss = stappen
 <script>
   document.querySelectorAll('form[data-form]').forEach((form) => {
     const L = JSON.parse(form.dataset.labels || '{}');
+
+    // Astro schrijft componentstijlen met een data-astro-cid-attribuut. Alles
+    // wat dit script aanmaakt heeft dat attribuut niet en blijft dus
+    // ongestyled. Daarom kopiëren we het van het formulier naar elk nieuw
+    // element; anders zijn de chips kale buttons.
+    const cid = [...form.attributes].map((a) => a.name).find((n) => n.startsWith('data-astro-cid'));
+    const maak = (tag) => { const el = document.createElement(tag); if (cid) el.setAttribute(cid, ''); return el; };
+    const scope = (el) => { if (cid) { el.setAttribute(cid, ''); el.querySelectorAll('*').forEach((k) => k.setAttribute(cid, '')); } return el; };
     const basis = form.querySelector('[data-basis]');
     const gesprek = form.querySelector('[data-gesprek]');
     const bubbelsEl = form.querySelector('[data-bubbels]');
@@ -282,7 +290,7 @@ const conditieCss = stappen
         if (el.disabled || el.value.trim() !== '') return;
         const tekstachtig = el.tagName === 'TEXTAREA' || ['text', 'tel', 'email', ''].includes(el.type);
         if (tekstachtig) { el.value = L.nietIngevuld; return; }
-        const v = document.createElement('input'); v.type = 'hidden'; v.name = el.name; v.value = L.nietIngevuld;
+        const v = maak('input'); v.type = 'hidden'; v.name = el.name; v.value = L.nietIngevuld;
         el.disabled = true; form.appendChild(v);
       });
     };
@@ -295,7 +303,7 @@ const conditieCss = stappen
 
     function zetRadio(st, waarde) {
       let inp = st.el.querySelector(`input[type="radio"][value="${CSS.escape(waarde)}"]`);
-      if (!inp) { inp = document.createElement('input'); inp.type = 'radio'; inp.hidden = true;
+      if (!inp) { inp = maak('input'); inp.type = 'radio'; inp.hidden = true;
         inp.name = st.el.querySelector('input[type="radio"]').name; inp.value = waarde; st.el.querySelector('.chips').appendChild(inp); }
       inp.checked = true;
     }
@@ -306,18 +314,18 @@ const conditieCss = stappen
     }
 
     function chipKnop(tekst, klasse = '') {
-      const b = document.createElement('button'); b.type = 'button'; b.className = 'chip--knop ' + klasse; b.textContent = tekst; return b;
+      const b = maak('button'); b.type = 'button'; b.className = 'chip--knop ' + klasse; b.textContent = tekst; return b;
     }
     function chipsRij(opties, bijKeuze, { weetNiet = true, stil = [] } = {}) {
-      const rij = document.createElement('div'); rij.className = 'chips';
+      const rij = maak('div'); rij.className = 'chips';
       opties.forEach((o) => { const b = chipKnop(o); b.addEventListener('click', () => bijKeuze(o, b)); rij.appendChild(b); });
       stil.forEach(([tekst, fn]) => { const b = chipKnop(tekst, 'chip--stil'); b.addEventListener('click', () => fn(b)); rij.appendChild(b); });
       if (weetNiet) { const b = chipKnop(L.weetNogNiet, 'chip--stil'); b.addEventListener('click', () => bijKeuze(L.nogNietBekend, b, L.weetNogNiet)); rij.appendChild(b); }
       return rij;
     }
     function miniInvoer(type, bevestig) {
-      const wrap = document.createElement('div'); wrap.className = 'gesprek__mini';
-      const inp = document.createElement('input'); inp.className = 'form__invoer'; inp.type = type;
+      const wrap = maak('div'); wrap.className = 'gesprek__mini';
+      const inp = maak('input'); inp.className = 'form__invoer'; inp.type = type;
       if (type === 'text') { inp.inputMode = 'numeric'; }
       const ok = chipKnop(L.verder); ok.addEventListener('click', () => { if (inp.value.trim()) bevestig(inp.value.trim()); });
       inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); ok.click(); } });
@@ -332,7 +340,7 @@ const conditieCss = stappen
 
     function toonVraag(st) {
       huidigEl.innerHTML = '';
-      const kop = document.createElement('p'); kop.className = 'form__legenda'; kop.textContent = st.vraag; kop.tabIndex = -1;
+      const kop = maak('p'); kop.className = 'form__legenda'; kop.textContent = st.vraag; kop.tabIndex = -1;
       huidigEl.appendChild(kop);
       const toel = st.el.querySelector('.form__toelichting'); if (toel) huidigEl.appendChild(toel.cloneNode(true));
       const opties = [...st.el.querySelectorAll('.chips > .chip input')].map((i) => i.value);
@@ -355,7 +363,7 @@ const conditieCss = stappen
         }, { weetNiet: false });
         rij.querySelectorAll('.chip--knop').forEach((b) => { if (gekozen.has(b.textContent)) b.setAttribute('aria-pressed', 'true'); });
         const weet = chipKnop(L.weetNogNiet, 'chip--stil');
-        weet.addEventListener('click', () => { const i = document.createElement('input'); i.type = 'checkbox'; i.hidden = true; i.checked = true;
+        weet.addEventListener('click', () => { const i = maak('input'); i.type = 'checkbox'; i.hidden = true; i.checked = true;
           i.name = st.el.querySelector('[data-leeg-vink]').name; i.value = L.nogNietBekend; st.el.querySelector('.chips').appendChild(i);
           echte.forEach((x) => { x.checked = false; });
           st.el.querySelector('[data-leeg-vink]').checked = false; beantwoord(st, L.weetNogNiet, L.nogNietBekend); });
@@ -371,11 +379,11 @@ const conditieCss = stappen
         let wanneer = null;
         const vraagDagdeel = () => {
           huidigEl.querySelectorAll('.chips, .gesprek__mini').forEach((e) => e.remove());
-          const sub = document.createElement('p'); sub.className = 'form__toelichting'; sub.textContent = L.dagdeel; huidigEl.appendChild(sub);
+          const sub = maak('p'); sub.className = 'form__toelichting'; sub.textContent = L.dagdeel; huidigEl.appendChild(sub);
           huidigEl.appendChild(chipsRij(dagdeelOpties, (o, _b, label) => {
             const dg = st.el.querySelector('[data-dagdeel]');
             let inp = dg.querySelector(`input[value="${CSS.escape(o)}"]`);
-            if (!inp) { inp = document.createElement('input'); inp.type = 'radio'; inp.hidden = true; inp.name = dg.querySelector('input').name; inp.value = o; dg.appendChild(inp); }
+            if (!inp) { inp = maak('input'); inp.type = 'radio'; inp.hidden = true; inp.name = dg.querySelector('input').name; inp.value = o; dg.appendChild(inp); }
             inp.checked = true;
             beantwoord(st, `${wanneer} · ${label || o}`, wanneer);
           }));
@@ -405,9 +413,10 @@ const conditieCss = stappen
       // bubbels
       bubbelsEl.innerHTML = '';
       antwoorden.forEach((a, i) => {
-        const b = document.createElement('button'); b.type = 'button'; b.className = 'bubbel';
+        const b = maak('button'); b.type = 'button'; b.className = 'bubbel';
         b.setAttribute('aria-label', `${L.aanpassen}: ${a.stap.vraag}`);
         b.innerHTML = `<span class="bubbel__vraag"></span><span class="bubbel__antwoord"></span>`;
+        scope(b);
         b.firstChild.textContent = a.stap.vraag; b.lastChild.textContent = a.tekst;
         b.addEventListener('click', () => {
           antwoorden.splice(i).forEach((x, j) => { if (!(j === 0 && x.stap.type === 'meerkeuze')) wisStap(x.stap); });
@@ -445,13 +454,13 @@ const conditieCss = stappen
     });
 
     function toonSamenvatting() {
-      const kop = document.createElement('h3'); kop.className = 'samenvatting__kop'; kop.textContent = form.dataset.bevestigingTitel;
-      const lijst = document.createElement('div'); lijst.className = 'gesprek__bubbels';
-      antwoorden.forEach((a) => { const r = document.createElement('div'); r.className = 'bubbel'; r.innerHTML = `<span class="bubbel__vraag"></span><span class="bubbel__antwoord"></span>`;
-        r.firstChild.textContent = a.stap.vraag; r.lastChild.textContent = a.tekst; lijst.appendChild(r); });
-      const tekst = document.createElement('p'); tekst.textContent = form.dataset.bevestigingTekst;
+      const kop = maak('h3'); kop.className = 'samenvatting__kop'; kop.textContent = form.dataset.bevestigingTitel;
+      const lijst = maak('div'); lijst.className = 'gesprek__bubbels';
+      antwoorden.forEach((a) => { const r = maak('div'); r.className = 'bubbel'; r.innerHTML = `<span class="bubbel__vraag"></span><span class="bubbel__antwoord"></span>`;
+        scope(r); r.firstChild.textContent = a.stap.vraag; r.lastChild.textContent = a.tekst; lijst.appendChild(r); });
+      const tekst = maak('p'); tekst.textContent = form.dataset.bevestigingTekst;
       form.querySelectorAll(':scope > *:not(style)').forEach((el) => { el.hidden = true; });
-      const s = document.createElement('div'); s.append(kop, lijst, tekst); form.appendChild(s);
+      const s = maak('div'); s.append(kop, lijst, tekst); form.appendChild(s);
       kop.tabIndex = -1; kop.focus();
     }
 
