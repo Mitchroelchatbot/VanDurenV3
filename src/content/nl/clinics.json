@@ -85,7 +85,8 @@
       },
       {
         "nr": "2b",
-        "vraag": "Hoeveel volwassen begeleiders komen mee?",
+        "vraag": "Hoeveel begeleiders komen mee?",
+        "toelichting": "Volwassenen die bij het feestje blijven.",
         "type": "aantal",
         "toonBij": {
           "stap": 1,

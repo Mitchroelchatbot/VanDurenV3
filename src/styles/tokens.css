@@ -123,8 +123,13 @@
 
 /* 5. Sora is breder dan Inter maar smaller dan Lexend. Kopgroottes:
       hero 30px mobiel / 48px desktop, sectiekop 24/34, formuliervraag 19/22.
-      Groter maakt de vraag "Hoeveel volwassen begeleiders komen mee?" weer
-      tweeregelig op 390px. Gemeten in de letterproef. */
+      Correctie 2 sep 2026: de proef ging uit van "Hoeveel volwassen
+      begeleiders komen mee?". Die vraag past op 390px bij geen enkele
+      leesbare grootte — hij meet 435px in Sora 600 op 19px en 367px op
+      16px, tegen een tekstkolom van 350px. De grootte was dus niet de
+      oorzaak; de vraag was te lang. De vraag is ingekort tot "Hoeveel
+      begeleiders komen mee?" (329px op 19px, 381px op 22px desktop) en
+      "volwassen" staat nu in de toelichting eronder. 19/22 blijft. */
 
 /* 6. Het lime uit het prototype bestaat niet meer. Staat hier als
       vangnet: komt #c3f400 ergens terug, dan valt het meteen op. */
