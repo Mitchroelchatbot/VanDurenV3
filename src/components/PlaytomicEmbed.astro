@@ -1,0 +1,94 @@
+---
+import banen from '../content/nl/banen.json';
+
+// White-label boekingskalender van Playtomic in een iframe.
+// Het iframe komt pas in de DOM als de sectie in beeld scrolt (IntersectionObserver)
+// of als de bezoeker op de knop tikt. Zonder JavaScript rendert <noscript> hem direct.
+// Onder het iframe staat ALTIJD de directe link naar Playtomic: als het vlak leeg
+// blijft (O26) is er nog steeds een werkende weg naar de boeking.
+const p = banen.playtomic;
+
+if (p && !p.websiteUrlGeregeld) {
+  console.warn(
+    '\n[banen] Playtomic-embed: verwacht een LEEG vlak tot de website-URL in Playtomic Manager\n' +
+    '        op het nieuwe domein staat (OPEN.md O26). De fallbacklink eronder werkt wel.\n'
+  );
+}
+---
+{p && (
+  <section class="sectie sectie--licht" id="boeken">
+    <div class="omhulsel omhulsel--midden">
+      {p.kop && <h2 class="sectie-kop">{p.kop}</h2>}
+      {p.intro && <p class="intro-kort">{p.intro}</p>}
+
+      <div class="playtomic" data-playtomic data-src={p.url} data-title={p.iframeTitel}>
+        {/* Zichtbaar tot het iframe geladen is; daarna verborgen door het script. */}
+        <div class="playtomic__wacht" data-playtomic-wacht>
+          <button type="button" class="knop knop--secundair" data-playtomic-knop>{p.laadLabel}</button>
+        </div>
+        <noscript>
+          <iframe src={p.url} title={p.iframeTitel} loading="lazy"
+                  class="playtomic__frame" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </noscript>
+      </div>
+
+      <p class="playtomic__fallback">
+        <a href={p.url} rel="noopener" target="_blank">{p.fallbackLabel}</a>
+      </p>
+    </div>
+  </section>
+)}
+
+<style>
+  .playtomic {
+    position: relative;
+    width: 100%;
+    min-height: 700px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--wit);
+    border: 1px solid rgb(20 22 28 / 0.08);
+  }
+  @media (min-width: 768px) { .playtomic { min-height: 820px; } }
+
+  .playtomic :global(.playtomic__frame) {
+    display: block;
+    width: 100%;
+    min-height: inherit;
+    height: 820px;
+    border: 0;
+  }
+
+  .playtomic__wacht {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+  }
+  .playtomic[data-geladen] .playtomic__wacht { display: none; }
+
+  .playtomic__fallback { margin-top: 1rem; text-align: left; }
+  .playtomic__fallback a { color: var(--blauw); font-weight: 500; }
+</style>
+
+<script>
+  const wrap = document.querySelector('[data-playtomic]');
+  if (wrap) {
+    const laad = () => {
+      if (wrap.hasAttribute('data-geladen')) return;
+      const f = document.createElement('iframe');
+      f.src = wrap.dataset.src;
+      f.title = wrap.dataset.title;
+      f.className = 'playtomic__frame';
+      f.setAttribute('allow', 'payment');
+      f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      wrap.appendChild(f);
+      wrap.setAttribute('data-geladen', '');
+    };
+    wrap.querySelector('[data-playtomic-knop]')?.addEventListener('click', laad);
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((es) => {
+        if (es.some((e) => e.isIntersecting)) { laad(); io.disconnect(); }
+      }, { rootMargin: '300px 0px' });
+      io.observe(wrap);
+    }
+  }
+</script>

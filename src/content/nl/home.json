@@ -134,6 +134,10 @@
       }
     ]
   },
+  "zoWerktHet": {
+    "bron": "banen",
+    "_regel": "Verwijst naar banen.zoWerktHet: één bron, twee plekken. Rendert niets zolang die bron leeg is."
+  },
   "herhaalCta": {
     "kop": "Zin om te spelen?",
     "tekst": "Kies een baan en een tijd. Je betaalt direct online en krijgt meteen een bevestiging.",

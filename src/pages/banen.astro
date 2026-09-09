@@ -4,6 +4,8 @@ import Kaart from '../components/Kaart.astro';
 import PrijsTabel from '../components/PrijsTabel.astro';
 import Formulier from '../components/Formulier.astro';
 import Cta from '../components/Cta.astro';
+import PlaytomicEmbed from '../components/PlaytomicEmbed.astro';
+import ZoWerktHet from '../components/ZoWerktHet.astro';
 import banen from '../content/nl/banen.json';
 import tarieven from '../content/nl/tarieven.json';
 
@@ -25,7 +27,10 @@ const w = banen.contractbaanWizard;
     </div>
   </section>
 
-  <section class="sectie sectie--licht">
+  <PlaytomicEmbed />
+  <ZoWerktHet bron="banen" />
+
+  <section class="sectie">
     <div class="omhulsel">
       <PrijsTabel titel={tarieven.baanhuur.titel} intro={tarieven.baanhuur.intro}
                   kolommen={tarieven.baanhuur.kolommen} rijen={tarieven.baanhuur.rijen}

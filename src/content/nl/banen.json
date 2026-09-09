@@ -52,6 +52,18 @@
       }
     }
   ],
+  "playtomic": {
+    "url": "https://playtomic.io/wl/a52205f6-6954-4d82-bda0-b2040fc82dc4",
+    "kop": null,
+    "intro": null,
+    "iframeTitel": "Boekingskalender van Playtomic",
+    "laadLabel": "Laad de boekingskalender",
+    "fallbackLabel": "Kalender niet zichtbaar? Boek rechtstreeks op Playtomic",
+    "websiteUrlGeregeld": false,
+    "_regel": "White-label kalender in een iframe. Lazy: pas laden bij scrollen of op klik. Altijd de directe link eronder. Werkt pas als de website-URL in Playtomic Manager op het nieuwe domein staat; tot dan een leeg vlak (O26). Zet websiteUrlGeregeld op true zodra dat klopt; dan verdwijnt de build-warning.",
+    "_todo": "STAND-IN van 9 september 2026: de aangeleverde banen.json met dit blok stond niet in Drive. url komt uit de opdracht; de labels zijn functioneel, geen marketingtekst. kop en intro bewust null: niet verzonnen. Vervang dit blok byte-exact door het aangeleverde zodra het er is."
+  },
+  "zoWerktHet": null,
   "babolat": {
     "titel": "In samenwerking met Babolat",
     "tekst": "We spelen met materiaal van Babolat. Rackets en ballen liggen klaar; je eigen racket meenemen mag altijd.",

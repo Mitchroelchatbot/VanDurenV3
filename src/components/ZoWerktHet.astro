@@ -1,0 +1,82 @@
+---
+import Foto from './Foto.astro';
+import beeld from '../content/nl/home-beeld.json';
+import banen from '../content/nl/banen.json';
+
+// Vijf genummerde stappen: hoe een baan huren werkt. Eén bron (banen.zoWerktHet),
+// twee plekken (/banen en de homepage via home.zoWerktHet -> { bron: "banen" }).
+//
+// Niet verwarren met het blok dat CLAUDE.md §12 verbiedt. Dat was het oude
+// "Zo werkt het" op de clinicspagina, dat het MAILPROCES uitlegde (stap 1: mail
+// ons, stap 2: wij mailen terug ...). Dit blok legt uit hoe je zelf online boekt
+// en bestaat juist om mailverkeer te voorkomen. Zie banen.zoWerktHet._niet_verwarren_met.
+//
+// Rendert niets zolang banen.zoWerktHet ontbreekt: de stappen zijn content en
+// worden niet verzonnen (§0.3). Zie OPEN.md.
+const { bron = 'banen' } = Astro.props;
+const z = bron === 'banen' ? banen.zoWerktHet : null;
+const foto = z?.foto ? beeld.fotos[z.foto] : null;
+const stappen = z?.stappen ?? [];
+---
+{z && stappen.length > 0 && (
+  <section class="sectie zwh sectie-body" id="zo-werkt-het">
+    <div class="omhulsel omhulsel--midden zwh__raster" data-met-foto={foto ? 'true' : 'false'}>
+      <div class="zwh__tekst">
+        <h2 class="zwh__kop">{z.kop}</h2>
+        {z.intro && <p class="zwh__intro">{z.intro}</p>}
+        <ol class="zwh__stappen">
+          {stappen.map((s) => (
+            <li class="zwh__stap">
+              <span class="zwh__titel">{s.titel}</span>
+              {s.tekst && <span class="zwh__uitleg">{s.tekst}</span>}
+            </li>
+          ))}
+        </ol>
+      </div>
+      {foto && (
+        <div class="zwh__foto">
+          <Foto basis={foto.basis} maten={foto.maten} alt={z.fotoAlt ?? ''}
+                breedte={foto.breedte} hoogte={foto.hoogte} sizes="(min-width: 900px) 42vw, 100vw" />
+        </div>
+      )}
+    </div>
+  </section>
+)}
+
+<style>
+  .zwh__kop { margin-bottom: 0.5rem; }
+  .zwh__intro { max-width: 60ch; margin: 0 0 clamp(1.25rem, 3vw, 2rem); }
+
+  /* Genummerde lijst met de nummers als blauwe schijf; links uitgelijnd
+     (tokens.css regel 4: lijsten staan links). */
+  .zwh__stappen {
+    list-style: none; counter-reset: stap;
+    margin: 0; padding: 0;
+    display: grid; gap: clamp(1rem, 2.5vw, 1.4rem);
+  }
+  .zwh__stap {
+    counter-increment: stap;
+    position: relative; padding-left: 3rem;
+  }
+  .zwh__stap::before {
+    content: counter(stap);
+    position: absolute; left: 0; top: 0;
+    width: 2rem; height: 2rem; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--blauw); color: var(--wit);
+    font-family: var(--font-kop); font-weight: 700; font-size: 0.95rem;
+  }
+  .zwh__titel { display: block; font-family: var(--font-kop); font-weight: 600; color: var(--inkt); line-height: 1.35; padding-top: 0.2rem; }
+  .zwh__uitleg { display: block; color: var(--grijs-500); margin-top: 0.2rem; }
+
+  .zwh__foto { margin-top: clamp(1.5rem, 4vw, 2.5rem); border-radius: var(--radius); overflow: hidden; }
+  .zwh__foto :global(img) { display: block; width: 100%; height: auto; }
+
+  @media (min-width: 900px) {
+    .zwh__raster[data-met-foto='true'] {
+      display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: clamp(2rem, 5vw, 4rem); align-items: center;
+    }
+    .zwh__raster[data-met-foto='true'] .zwh__foto { margin-top: 0; }
+  }
+</style>

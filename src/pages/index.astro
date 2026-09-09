@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro';
 import Overblok from '../components/Overblok.astro';
 import Tegels from '../components/Tegels.astro';
 import HerhaalCta from '../components/HerhaalCta.astro';
+import ZoWerktHet from '../components/ZoWerktHet.astro';
 import Beeldstrook from '../components/Beeldstrook.astro';
 import home from '../content/nl/home.json';
 
@@ -15,5 +16,6 @@ const meta = { titel: home.metaTitle, beschrijving: home.metaDescription };
   <Overblok />
   <Beeldstrook />
   <Tegels />
+  {home.zoWerktHet && <ZoWerktHet bron={home.zoWerktHet.bron} />}
   <HerhaalCta />
 </BasisLayout>
