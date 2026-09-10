@@ -490,15 +490,24 @@ losse `/faq` en `/regels` (worden `/spelregels`).
 
 ### 7.1 Home
 
-Moet bevatten, in deze volgorde:
+**Besluit 10 september 2026 (Mitch):** de homepage volgt de sectievolgorde van
+padelboxtel.nl. Alleen de structuur; geen enkele regel tekst wordt daarvandaan
+overgenomen, ook niet als placeholder. De volgorde staat als `_sectievolgorde`
+in `home.json` en `index.astro` rendert in die volgorde.
 
-1. Hero met **video** en één duidelijke primaire actie: **Boek een baan**.
-2. Direct daaronder, even prominent: **Bekijk het lesaanbod**.
-3. Kort, persoonlijk stuk over de club en over Martin & Bennet — met foto van
-   henzelf, niet met een stockachtig sfeerbeeld. Dit is het onderscheidende
-   element ten opzichte van Padel Boxtel: een familiebedrijf.
-4. Beeldblok met foto's uit de hal.
-5. Subtiele sponsorbalk onderaan (zie §7.9).
+| # | Sectie (`home.json`) | Inhoud | Vervangt |
+|---|---|---|---|
+| 1 | `hero` | Video met poster als LCP, één primaire actie **Boek een baan**, daarnaast **Bekijk het lesaanbod** | — |
+| 2 | `welkom` | Smalle band, gecentreerd, twee knoppen, geen foto | `herhaalCta` |
+| 3 | `kernpunten` | Tekst links, staande foto rechts op volle sectiehoogte (4K staand frame, 2160×3840); mobiel foto boven. Ondertekening klein en cursief onder de punten, boven de knop | `over` |
+| 4 | `zoWerktHet` | Verwijst naar `banen.zoWerktHet`: één bron, twee plekken | — |
+| 5 | `mogelijkheden` | Drie kaarten met elk een **eigen** knoplabel | `tegels` |
+| 6 | `informatie` | Alle waarden uit `bedrijf.json`; parkeeradres visueel apart met de waarschuwing dat het een ander adres is dan de hal | — |
+| 7 | `socialStrook` | Eigen marquee plus link naar het Instagram-profiel. **Geen** Instagram-embed | `beeldstrook` |
+
+Ontbreekt de content voor een sectie, dan rendert die sectie niet: `<!-- TODO -->`
+plus een regel in `docs/OPEN.md`. De sponsorbalk uit §7.9 blijft onderaan, boven
+de footer, en verschijnt pas als `sponsoren.json` gevuld is.
 
 Weg: alles wat naar de nieuwsbrief verwijst.
 
