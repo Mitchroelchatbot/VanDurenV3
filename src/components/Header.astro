@@ -4,9 +4,10 @@ import nav from '../content/nl/navigatie.json';
 
 const { pad } = Astro.props;
 const { hoofdmenu, labels } = nav;
-// §5.1: één oranje knop per scherm. Op de homepage staat de primaire actie
-// al in de hero, dus de kop-CTA verschijnt pas zodra de hero uit beeld is.
-const ctaNaScroll = pad === '/';
+// De kop-CTA staat op elke pagina en elke breedte. Sinds 10 september heeft de
+// hero geen knoppen meer, dus dit is boven de vouw de enige weg naar de
+// boeking; verbergen was precies de klacht van de eigenaren. Onder 560px
+// wordt het zichtbare label korter; de toegankelijke naam volgt het zichtbare label.
 ---
 <header class="kop op-blauw">
   <div class="omhulsel kop__binnen">
@@ -28,8 +29,13 @@ const ctaNaScroll = pad === '/';
       </ul>
     </nav>
 
-    <a class="knop knop--primair kop__cta" href={bedrijf.playtomic} rel="noopener"
-       data-na-scroll={ctaNaScroll ? 'true' : undefined}>{labels.boekEenBaan}</a>
+    {/* Twee labels, één zichtbaar per breedte via display. Geen aria-label:
+        de toegankelijke naam moet de zichtbare tekst bevatten (WCAG 2.5.3), en
+        display:none haalt het verborgen label ook uit de toegankelijkheidsboom. */}
+    <a class="knop knop--primair kop__cta" href={bedrijf.playtomic} rel="noopener">
+      <span class="kop__cta-lang">{labels.boekEenBaan}</span>
+      <span class="kop__cta-kort">{labels.boeken}</span>
+    </a>
   </div>
 </header>
 
@@ -62,10 +68,9 @@ const ctaNaScroll = pad === '/';
   .kop__streepjes { display: grid; gap: 5px; }
   .kop__streepjes i { display: block; width: 26px; height: 2px; background: var(--wit); }
 
-  /* Zonder JavaScript blijft de knop gewoon staan. display in plaats van
-     visibility, anders houdt hij zijn ruimte en valt de header uit elkaar. */
-  :global(html.js) .kop__cta[data-na-scroll] { display: none; }
-  :global(html.js) .kop__cta[data-na-scroll][data-zichtbaar='true'] { display: inline-flex; }
+  /* Altijd aanraakbaar: minimaal 44px hoog op elke breedte. */
+  .kop__cta { min-height: 44px; display: inline-flex; align-items: center; }
+  .kop__cta-kort { display: none; }
 
   /* Onder 560px moeten wordmerk, CTA en hamburger samen op één rij passen,
      anders valt de header uit elkaar en wordt hij twee rijen hoog. */
@@ -73,7 +78,10 @@ const ctaNaScroll = pad === '/';
     .kop__binnen { gap: 10px; }
     .wordmerk__groot { font-size: 1.2rem; }
     .wordmerk__klein { font-size: 0.62rem; letter-spacing: 0.1em; }
-    .kop__cta { padding: 0.5em 0.8em; font-size: 0.85rem; min-height: 44px; }
+    /* Kort label, maar de knop blijft staan en blijft 44px hoog. */
+    .kop__cta { padding: 0.5em 0.9em; font-size: 0.9rem; }
+    .kop__cta-lang { display: none; }
+    .kop__cta-kort { display: inline; }
     .kop__schakelaar { padding: 8px 4px; }
   }
 
@@ -83,7 +91,7 @@ const ctaNaScroll = pad === '/';
     .kop__binnen { gap: 8px; }
     .wordmerk__groot { font-size: 1.05rem; }
     .wordmerk__klein { font-size: 0.55rem; letter-spacing: 0.08em; }
-    .kop__cta { padding: 0.45em 0.7em; font-size: 0.8rem; }
+    .kop__cta { padding: 0.45em 0.8em; font-size: 0.85rem; }
     .kop__schakelaar { padding: 6px 2px; }
   }
 
@@ -92,7 +100,7 @@ const ctaNaScroll = pad === '/';
      "Van Duren" staan; de volledige naam staat in de footer en in de title. */
   @media (max-width: 340px) {
     .wordmerk__klein { display: none; }
-    .kop__cta { padding: 0.45em 0.6em; font-size: 0.78rem; }
+    .kop__cta { padding: 0.45em 0.7em; font-size: 0.82rem; }
   }
 
   @media (max-width: 1240px) {
@@ -107,20 +115,14 @@ const ctaNaScroll = pad === '/';
 </style>
 
 <script>
-  const cta = document.querySelector('.kop__cta[data-na-scroll]');
-  const hero = document.querySelector('.hero');
-  if (cta && hero && 'IntersectionObserver' in window) {
-    new IntersectionObserver(([e]) => cta.setAttribute('data-zichtbaar', String(!e.isIntersecting)),
-      { rootMargin: '-72px 0px 0px 0px' }).observe(hero);
-  } else if (cta) {
-    cta.setAttribute('data-zichtbaar', 'true');
-  }
-
   const knop = document.querySelector('.kop__schakelaar');
   const menu = document.getElementById('hoofdnav');
-  knop?.addEventListener('click', () => {
-    const open = knop.getAttribute('aria-expanded') === 'true';
-    knop.setAttribute('aria-expanded', String(!open));
-    menu?.setAttribute('data-open', String(!open));
-  });
+  const zet = (open) => {
+    knop?.setAttribute('aria-expanded', String(open));
+    menu?.setAttribute('data-open', String(open));
+  };
+  knop?.addEventListener('click', () => zet(knop.getAttribute('aria-expanded') !== 'true'));
+  // Sluiten bij elke klik op een link in het menu, ook bij een in-page anker
+  // (href met #): die herlaadt de pagina niet, dus het menu bleef openstaan.
+  menu?.addEventListener('click', (e) => { if (e.target.closest('a[href]')) zet(false); });
 </script>
