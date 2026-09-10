@@ -4,18 +4,22 @@ import home from '../content/nl/home.json';
 import beeld from '../content/nl/home-beeld.json';
 
 // Tekst links, staande foto rechts op volle sectiehoogte; mobiel de foto boven
-// de tekst. Ondertekening klein en cursief onder de punten, boven de knop.
-// Het blok staat links: het is een lijst (tokens.css regel 4).
-// Zonder foto (kernpunten.foto null, zie _todo) één kolom.
+// de tekst, maximaal 60vh. Ondertekening klein en cursief onder de punten,
+// boven de knop. Het blok staat links: het is een lijst (tokens.css regel 4).
+//
+// kernpunten.fotos[]: de foto met keuze "primair" wordt getoond; "alternatief"
+// is reserve en rendert niet. Hij rendert alleen als het bestand in het
+// beeldregister staat én er een alt-tekst is (§5.2). Anders één kolom.
 const k = home.kernpunten;
-const foto = k?.foto ? beeld.fotos[k.foto] : null;
+const keus = (k?.fotos ?? []).find((f) => f.keuze === 'primair' && f.foto && typeof f.alt === 'string');
+const foto = keus ? beeld.fotos[keus.foto] : null;
 ---
 {k && (
   <section class="sectie kern sectie-body">
     <div class="omhulsel omhulsel--midden kern__raster" data-met-foto={foto ? 'true' : 'false'}>
       {foto && (
         <div class="kern__foto">
-          <Foto basis={foto.basis} maten={foto.maten} alt={k.fotoAlt ?? ''}
+          <Foto basis={foto.basis} maten={foto.maten} alt={keus.alt}
                 breedte={foto.breedte} hoogte={foto.hoogte} sizes="(min-width: 900px) 40vw, 100vw" />
         </div>
       )}
@@ -55,9 +59,10 @@ const foto = k?.foto ? beeld.fotos[k.foto] : null;
   .kern__ondertekening { margin: clamp(1.25rem, 3vw, 1.75rem) 0 0; font-size: 0.92rem; font-style: italic; color: var(--grijs-500); }
   .kern__actie { margin: clamp(1.5rem, 4vw, 2.25rem) 0 0; }
 
-  /* Mobiel: foto boven de tekst. */
-  .kern__foto { border-radius: var(--radius); overflow: hidden; margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
+  /* Mobiel: foto boven de tekst, nooit hoger dan 60vh. */
+  .kern__foto { border-radius: var(--radius); overflow: hidden; margin-bottom: clamp(1.5rem, 4vw, 2.5rem); max-height: 60vh; }
   .kern__foto :global(picture), .kern__foto :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .kern__foto :global(img) { max-height: 60vh; }
 
   @media (min-width: 900px) {
     /* Twee kolommen; de foto rechts en zo hoog als de tekstkolom. */
@@ -65,7 +70,9 @@ const foto = k?.foto ? beeld.fotos[k.foto] : null;
       display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
       gap: clamp(2rem, 5vw, 4rem); align-items: stretch;
     }
-    .kern__raster[data-met-foto='true'] .kern__foto { order: 2; margin-bottom: 0; min-height: 100%; }
+    /* Desktop: rechts van de tekst, zo hoog als de sectie (align-items: stretch). */
+    .kern__raster[data-met-foto='true'] .kern__foto { order: 2; margin-bottom: 0; max-height: none; height: 100%; }
+    .kern__raster[data-met-foto='true'] .kern__foto :global(img) { max-height: none; }
     .kern__raster[data-met-foto='true'] .kern__tekst { order: 1; }
   }
 </style>

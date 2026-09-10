@@ -1,11 +1,9 @@
 ---
-import Cta from './Cta.astro';
 import home from '../content/nl/home.json';
 
 const h = home.hero;
 const poster = h.poster;
 const video = h.video;
-const secundair = { label: h.secundair.label, href: h.secundair.href };
 // De <video> krijgt statisch géén src: dan haalt de browser onder 768px en bij
 // prefers-reduced-motion niets op, ook niet de metadata. Het script kiest de
 // bron per breedte en zet hem pas dan. preload="metadata" geldt vanaf dat moment.
@@ -28,10 +26,6 @@ const secundair = { label: h.secundair.label, href: h.secundair.href };
   <div class="omhulsel hero__binnen">
     <h1 class="hero__kop">{h.kop}</h1>
     <p class="hero__onderkop">{h.tekst}</p>
-    <div class="hero__acties">
-      <Cta cta={h.primair} soort="primair" />
-      <Cta cta={secundair} soort="secundair" />
-    </div>
   </div>
 </section>
 
@@ -87,8 +81,8 @@ const secundair = { label: h.secundair.label, href: h.secundair.href };
   }
   /* Centrering komt uit tokens.css regel 4 via de klasse .hero. */
   .hero__kop { max-width: 20ch; margin-inline: auto; margin-bottom: 0.4em; }
-  .hero__onderkop { font-size: clamp(1.05rem, 2.2vw, 1.3rem); margin-bottom: 2rem; opacity: 0.95; }
-  .hero__acties { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; }
+  /* Sinds 10 september geen knoppen in de hero: die staan in de welkomstband. */
+  .hero__onderkop { font-size: clamp(1.05rem, 2.2vw, 1.3rem); margin-bottom: 0; opacity: 0.95; }
 </style>
 
 <script>

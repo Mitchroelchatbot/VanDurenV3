@@ -14,14 +14,6 @@
   "hero": {
     "kop": "Padelbaan huren in Son en Breugel",
     "tekst": "Vier indoor banen, zeven dagen per week open. Boek direct online, zonder te bellen of te mailen.",
-    "primair": {
-      "label": "Boek een baan",
-      "type": "playtomic"
-    },
-    "secundair": {
-      "label": "Bekijk het lesaanbod",
-      "href": "/lessen"
-    },
     "video": {
       "mp4_1600": "/beeld/hero-1600.mp4",
       "mp4_960": "/beeld/hero-960.mp4",
@@ -34,7 +26,7 @@
       "webp_1024": "/beeld/hero-poster-1024.webp",
       "alt": "Spelers op een van de vier indoor padelbanen van Van Duren"
     },
-    "_regel": "Overlay op de foto: maximaal 35% blauw, en alleen achter de tekst (gradient links → transparant rechts). Nu ligt er een egale blauwe waas over het hele beeld en verliest de foto zijn kleur. Padel Boxtel laat de foto ademen — dat is waarom die site 'mooier' oogt."
+    "_regel": "Overlay op de foto: maximaal 35% blauw, en alleen achter de tekst (gradient links → transparant rechts). Nu ligt er een egale blauwe waas over het hele beeld en verliest de foto zijn kleur. Padel Boxtel laat de foto ademen — dat is waarom die site 'mooier' oogt. Sinds 10 september: geen knoppen in de hero; alleen de h1 en één regel. De twee knoppen staan uitsluitend in welkom."
   },
   "welkom": {
     "kop": "Zin om te spelen?",
@@ -88,11 +80,21 @@
       "href": "/over-ons",
       "stijl": "secundair"
     },
-    "foto": null,
-    "fotoAlt": "Martin en Bennet van Duren in de hal",
-    "_regel": "Tekst links, staande foto rechts op volle sectiehoogte (4K staand frame, 2160x3840). Mobiel: foto boven de tekst. Ondertekening klein en cursief onder de punten, boven de knop. Vervangt 'over'.",
-    "_todo": "foto is null: er is geen staand 4K-frame beschikbaar. hero-1600.mp4 is 1600x900; een staande uitsnede daaruit is 506 px breed en zou op desktop opgeschaald moeten worden (§5.2 verbiedt dat). Van_Duren_Versie_1a.mp4 (254 MB, vermoedelijk 4K) komt niet door de Drive-koppeling (F11). Zie OPEN.md O27. Zonder foto rendert het blok in één kolom.",
-    "_niet": "Geen 'uniek', 'persoonlijk', 'perfecte plek', 'voor alle niveaus', 'gezellig', 'mooiste hal van Nederland', 'de wereld van padel'. Geen 'of je nu ... of ...'-constructie. Elk punt is een controleerbaar feit uit bedrijf.json of tarieven.json."
+    "fotos": [
+      {
+        "keuze": "primair",
+        "foto": "kernpunten-coach",
+        "alt": null
+      },
+      {
+        "keuze": "alternatief",
+        "foto": "kernpunten-hal",
+        "alt": null
+      }
+    ],
+    "_regel": "Tekst links, staande foto rechts op volle sectiehoogte; mobiel de foto boven de tekst, maximaal 60vh. fotos[]: render de foto met keuze 'primair'; 'alternatief' is reserve en rendert niet. srcset 1080w en 720w, object-fit cover, width en height uit het bestand (via home-beeld.json) tegen layout shift.",
+    "_niet": "Geen 'uniek', 'persoonlijk', 'perfecte plek', 'voor alle niveaus', 'gezellig', 'mooiste hal van Nederland', 'de wereld van padel'. Geen 'of je nu ... of ...'-constructie. Elk punt is een controleerbaar feit uit bedrijf.json of tarieven.json.",
+    "_todo": "10 september: de bestanden kernpunten-coach en kernpunten-hal (staand, 2160x3840 bron, geleverd als 1080 en 720 breed) zaten niet in de uploadmap en niet in Drive (OPEN.md F23). alt is null: niet verzonnen. De foto rendert pas als het bestand in home-beeld.json staat én alt een tekst is (§5.2: elke foto een beschrijvende alt)."
   },
   "zoWerktHet": {
     "bron": "banen",
