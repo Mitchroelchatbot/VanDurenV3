@@ -2,16 +2,24 @@
 import Cta from './Cta.astro';
 import home from '../content/nl/home.json';
 
-const h = home.herhaalCta;
+// Smalle band, gecentreerd, twee knoppen, geen foto (home.welkom._regel).
+const w = home.welkom;
 ---
-<section class="sectie herhaal op-blauw intro-kort">
-  <div class="omhulsel omhulsel--midden herhaal__binnen">
-    <h2>{h.kop}</h2>
-    <p class="herhaal__tekst">{h.tekst}</p>
-    <Cta cta={h.primair} soort="primair" />
-  </div>
-</section>
+{w && (
+  <section class="sectie welkom op-blauw intro-kort">
+    <div class="omhulsel omhulsel--smal">
+      <h2>{w.kop}</h2>
+      <p class="welkom__tekst">{w.tekst}</p>
+      <div class="welkom__acties">
+        <Cta cta={w.primair} soort="primair" />
+        <Cta cta={w.secundair} soort="secundair" />
+      </div>
+    </div>
+  </section>
+)}
 
 <style>
-  .herhaal__tekst { margin-bottom: 1.75rem; }
+  .welkom { padding-block: clamp(40px, 6vw, 64px); }
+  .welkom__tekst { margin-bottom: 1.5rem; }
+  .welkom__acties { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; }
 </style>

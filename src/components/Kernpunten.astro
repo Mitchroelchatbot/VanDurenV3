@@ -1,192 +1,71 @@
 ---
-import home from '../content/nl/home.json';
-
-// Opzet volgt home.json > over > _regel: foto's -> kop -> accentstreep -> intro
-// -> lijst -> ondertekening -> één secundaire knop. Het hele blok staat links;
-// het is een lijst, en tokens.css regel 4 rekent lijsten tot "alles met
-// structuur". Vandaar .sectie-body op de sectie en geen .sectie-kop hier.
 import Foto from './Foto.astro';
+import home from '../content/nl/home.json';
 import beeld from '../content/nl/home-beeld.json';
 
-const o = home.over;
-
-// over.fotos[]: rollen "hoofd" en "steun". Regels uit de opdracht:
-//  - een item met foto: null rendert niet;
-//  - ontbreekt de hoofdfoto, dan wordt de eerste steunfoto de hoofdfoto en
-//    blijven er twee over voor de compositie.
-// Zolang over.fotos nog niet in home.json staat valt alles hier terug op leeg
-// en rendert er geen enkele foto: de oude over.foto blijft dan werken.
-const ruw = (o.fotos ?? []).filter((f) => f && f.foto).map((f) => ({ ...f, bron: beeld.fotos[f.foto] })).filter((f) => f.bron);
-let hoofd = ruw.find((f) => f.rol === 'hoofd') ?? null;
-let steun = ruw.filter((f) => f !== hoofd);
-if (!hoofd && steun.length) { hoofd = steun[0]; steun = steun.slice(1); }
-steun = steun.slice(0, 2);
-const heeftFotos = Boolean(hoofd);
+// Tekst links, staande foto rechts op volle sectiehoogte; mobiel de foto boven
+// de tekst. Ondertekening klein en cursief onder de punten, boven de knop.
+// Het blok staat links: het is een lijst (tokens.css regel 4).
+// Zonder foto (kernpunten.foto null, zie _todo) één kolom.
+const k = home.kernpunten;
+const foto = k?.foto ? beeld.fotos[k.foto] : null;
 ---
-<section class="sectie over sectie-body">
-  <div class="omhulsel omhulsel--midden over__raster" data-met-fotos={heeftFotos ? 'true' : 'false'}>
-    {heeftFotos && (
-      <div class="over__beeld">
-        <div class="over__hoofd">
-          <Foto basis={hoofd.bron.basis} maten={hoofd.bron.maten} alt={hoofd.alt ?? ''}
-                breedte={hoofd.bron.breedte} hoogte={hoofd.bron.hoogte}
-                sizes="(min-width: 900px) 46vw, 100vw" />
+{k && (
+  <section class="sectie kern sectie-body">
+    <div class="omhulsel omhulsel--midden kern__raster" data-met-foto={foto ? 'true' : 'false'}>
+      {foto && (
+        <div class="kern__foto">
+          <Foto basis={foto.basis} maten={foto.maten} alt={k.fotoAlt ?? ''}
+                breedte={foto.breedte} hoogte={foto.hoogte} sizes="(min-width: 900px) 40vw, 100vw" />
         </div>
-        {steun.map((f, i) => (
-          <div class={`over__steun over__steun--${i + 1}`}>
-            <Foto basis={f.bron.basis} maten={f.bron.maten} alt={f.alt ?? ''}
-                  breedte={f.bron.breedte} hoogte={f.bron.hoogte}
-                  sizes="(min-width: 900px) 22vw, 50vw" />
-          </div>
-        ))}
+      )}
+      <div class="kern__tekst">
+        <h2 class="kern__kop">{k.kop}</h2>
+        <span class="kern__streep" aria-hidden="true"></span>
+        <p class="kern__intro">{k.intro}</p>
+        <ul class="kern__punten">
+          {k.punten.map((p) => (
+            <li class="kern__punt">
+              <span class="kern__label">{p.label}</span>
+              <span class="kern__uitleg">{p.tekst}</span>
+              {p.link && <a class="kern__link" href={p.link.href}>{p.link.label}</a>}
+            </li>
+          ))}
+        </ul>
+        {k.ondertekening && <p class="kern__ondertekening">{k.ondertekening}</p>}
+        <p class="kern__actie"><a class="knop knop--secundair" href={k.cta.href}>{k.cta.label}</a></p>
       </div>
-    )}
-    <div class="over__tekst">
-    {!heeftFotos && o.foto && (
-      <img class="over__foto" src={o.foto} alt={o.fotoAlt} width="1024" height="640" loading="lazy" />
-    )}
-    <h2 class="over__kop">{o.kop}</h2>
-    <span class="over__streep" aria-hidden="true"></span>
-    <p class="over__intro">{o.intro}</p>
-    <ul class="over__punten">
-      {o.punten.map((p) => (
-        <li class="over__punt">
-          <span class="over__label">{p.label}</span>
-          <span class="over__tekst">{p.tekst}</span>
-          {p.link && <a class="over__link" href={p.link.href}>{p.link.label}</a>}
-        </li>
-      ))}
-    </ul>
-    {o.ondertekening && <p class="over__ondertekening">{o.ondertekening}</p>}
-    <p class="over__actie">
-      <a class="knop knop--secundair" href={o.cta.href}>{o.cta.label}</a>
-    </p>
     </div>
-  </div>
-</section>
+  </section>
+)}
 
 <style>
-  .over__foto {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: var(--radius);
-    margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  .kern__kop { margin-bottom: 0; }
+  .kern__streep { display: block; width: 60px; height: 4px; border-radius: 2px; background: var(--blauw); margin: 0.85rem 0 0; }
+  .kern__intro { margin: clamp(1rem, 2.5vw, 1.5rem) 0 0; max-width: 60ch; }
+  .kern__punten { list-style: none; margin: clamp(2rem, 5vw, 3rem) 0 0; padding: 0; display: grid; gap: clamp(1.1rem, 2.5vw, 1.5rem); }
+  .kern__punt { position: relative; padding-left: 1.75rem; }
+  .kern__punt::before {
+    content: ''; position: absolute; left: 0; top: 0.45em; width: 7px; height: 7px;
+    border-right: 2px solid var(--blauw); border-top: 2px solid var(--blauw); transform: rotate(45deg);
   }
+  .kern__label { display: block; font-family: var(--font-kop); font-weight: 600; color: var(--inkt); line-height: 1.35; }
+  .kern__uitleg { display: block; font-family: var(--font-tekst); color: var(--grijs-500); margin-top: 0.2rem; }
+  .kern__link { display: inline-block; margin-top: 0.35rem; color: var(--blauw); font-weight: 500; }
+  .kern__ondertekening { margin: clamp(1.25rem, 3vw, 1.75rem) 0 0; font-size: 0.92rem; font-style: italic; color: var(--grijs-500); }
+  .kern__actie { margin: clamp(1.5rem, 4vw, 2.25rem) 0 0; }
 
-  /* Mobiel: alleen de hoofdfoto, boven de kop. De steunfoto's staan er niet,
-     want twee overlappende beeldjes van 40 % breed zijn op 390 px onleesbaar. */
-  .over__beeld { position: relative; margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
-  .over__hoofd { border-radius: var(--radius); overflow: hidden; }
-  .over__steun { display: none; }
-  /* picture moet zelf de hoogte van zijn houder pakken, anders valt de img
-     terug op zijn eigen verhouding en vult hij het aspect-ratio-vlak niet. */
-  .over__beeld :global(picture) { display: block; width: 100%; height: 100%; }
-  .over__beeld :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
-  .over__hoofd { aspect-ratio: 16 / 9; }
+  /* Mobiel: foto boven de tekst. */
+  .kern__foto { border-radius: var(--radius); overflow: hidden; margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
+  .kern__foto :global(picture), .kern__foto :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
 
   @media (min-width: 900px) {
-    /* Twee kolommen: links de gestapelde compositie, rechts de tekst. */
-    .over__raster[data-met-fotos='true'] {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: clamp(2rem, 5vw, 4rem);
-      align-items: start;
+    /* Twee kolommen; de foto rechts en zo hoog als de tekstkolom. */
+    .kern__raster[data-met-foto='true'] {
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+      gap: clamp(2rem, 5vw, 4rem); align-items: stretch;
     }
-    .over__raster[data-met-fotos='true'] .over__beeld { margin-bottom: 0; }
-    /* Met foto's is de tekstkolom maar half zo breed; de punten passen daar
-       niet meer in twee kolommen. */
-    .over__raster[data-met-fotos='true'] .over__punten { grid-template-columns: 1fr; }
-
-    /* De hoofdfoto groot, twee kleinere eroverheen. Extra ruimte onder en
-       rechts zodat de overlappende beeldjes binnen de kolom blijven. */
-    .over__beeld { padding: 0 2.5rem 3.5rem 0; }
-    .over__hoofd { aspect-ratio: 4 / 3; }
-    .over__steun {
-      display: block;
-      position: absolute;
-      border-radius: var(--radius-klein);
-      overflow: hidden;
-      box-shadow: 0 6px 20px rgb(20 22 28 / 0.22);
-      outline: 4px solid var(--wit);
-    }
-    .over__steun--1 { width: 46%; aspect-ratio: 4 / 3; right: 0; bottom: 1rem; }
-    .over__steun--2 { width: 34%; aspect-ratio: 1 / 1; left: 8%; bottom: 0; }
+    .kern__raster[data-met-foto='true'] .kern__foto { order: 2; margin-bottom: 0; min-height: 100%; }
+    .kern__raster[data-met-foto='true'] .kern__tekst { order: 1; }
   }
-
-  /* Ondertekening: klein, cursief, in --grijs-500. Staat onder de punten en
-     boven de knop. */
-  .over__ondertekening {
-    margin: clamp(1.25rem, 3vw, 1.75rem) 0 0;
-    font-size: 0.92rem;
-    font-style: italic;
-    color: var(--grijs-500);
-  }
-
-  /* Korte accentstreep in --blauw onder de kop. Decoratief, dus aria-hidden
-     en geen tekstdrager. */
-  .over__streep {
-    display: block;
-    width: 60px;
-    height: 4px;
-    border-radius: 2px;
-    background: var(--blauw);
-    margin: 0.85rem 0 0;
-  }
-
-  .over__kop { margin-bottom: 0; }
-  .over__intro {
-    margin: clamp(1rem, 2.5vw, 1.5rem) 0 0;
-    max-width: 60ch;
-  }
-
-  .over__punten {
-    list-style: none;
-    margin: clamp(2rem, 5vw, 3rem) 0 0;
-    padding: 0;
-    display: grid;
-    gap: clamp(1.1rem, 2.5vw, 1.5rem);
-  }
-  @media (min-width: 820px) {
-    .over__punten { grid-template-columns: 1fr 1fr; column-gap: clamp(2rem, 4vw, 3rem); }
-  }
-
-  /* Blauwe chevron als marker. Oranje is voorbehouden aan de primaire knop. */
-  .over__punt {
-    position: relative;
-    padding-left: 1.75rem;
-  }
-  .over__punt::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.45em;
-    width: 7px;
-    height: 7px;
-    border-right: 2px solid var(--blauw);
-    border-top: 2px solid var(--blauw);
-    transform: rotate(45deg);
-  }
-
-  .over__label {
-    display: block;
-    font-family: var(--font-kop);
-    font-weight: 600;
-    color: var(--inkt);
-    line-height: 1.35;
-  }
-  .over__tekst {
-    display: block;
-    font-family: var(--font-tekst);
-    color: var(--grijs-500);
-    margin-top: 0.2rem;
-  }
-  .over__link {
-    display: inline-block;
-    margin-top: 0.35rem;
-    color: var(--blauw);
-    font-weight: 500;
-  }
-
-  .over__actie { margin: clamp(2rem, 5vw, 2.75rem) 0 0; }
 </style>

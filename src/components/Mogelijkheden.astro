@@ -3,8 +3,9 @@ import Foto from './Foto.astro';
 import home from '../content/nl/home.json';
 import beeld from '../content/nl/home-beeld.json';
 
-// De hele tegel is de foto; label en regel staan eroverheen.
-const t = home.tegels;
+// Drie kaarten (home.mogelijkheden). De hele kaart is één link; label, regel en
+// een visuele knop met eigen label staan over de foto.
+const t = home.mogelijkheden;
 const items = t.items
   .map((it) => ({ ...it, bron: beeld.fotos[it.foto] }))
   .filter((it) => it.bron);
@@ -24,6 +25,7 @@ const items = t.items
             <span class="tegel__woorden">
               <span class="tegel__label">{it.label}</span>
               <span class="tegel__regel">{it.regel}</span>
+              {it.ctaLabel && <span class="knop knop--secundair tegel__knop">{it.ctaLabel}</span>}
             </span>
             <svg class="tegel__pijl" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"
                  fill="none" stroke="currentColor" stroke-width="2.5"
@@ -71,6 +73,11 @@ const items = t.items
   /* De pijl staat altijd zichtbaar; hij schuift alleen op. Niets wordt op
      opacity 0 geparkeerd, want dan is de tegel zonder muis onvolledig. */
   .tegel__pijl { flex: 0 0 auto; color: var(--wit); }
+  /* Visuele knop in de kaart. Secundair (witte rand): de oranje header-knop staat
+     al op elk scherm en §5.1 wil één oranje knop per scherm. Op de donkere scrim
+     werkt de .op-blauw-variant: witte rand, witte tekst. */
+  .tegel__knop { margin-top: 0.7rem; align-self: flex-start; color: var(--wit); border-color: var(--wit); background: transparent; }
+  .tegel:hover .tegel__knop, .tegel:focus-visible .tegel__knop { background: var(--wit); color: var(--blauw); }
   .tegel__label { font-family: var(--font-kop); font-weight: 700; font-size: 1.15rem; color: var(--wit); }
   .tegel__regel { font-size: 0.92rem; color: var(--wit); opacity: 0.85; }
 

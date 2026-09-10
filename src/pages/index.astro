@@ -1,21 +1,29 @@
 ---
 import BasisLayout from '../layouts/BasisLayout.astro';
 import Hero from '../components/Hero.astro';
-import Overblok from '../components/Overblok.astro';
-import Tegels from '../components/Tegels.astro';
-import HerhaalCta from '../components/HerhaalCta.astro';
+import Welkom from '../components/Welkom.astro';
+import Kernpunten from '../components/Kernpunten.astro';
 import ZoWerktHet from '../components/ZoWerktHet.astro';
-import Beeldstrook from '../components/Beeldstrook.astro';
+import Mogelijkheden from '../components/Mogelijkheden.astro';
+import Informatie from '../components/Informatie.astro';
+import SocialStrook from '../components/SocialStrook.astro';
 import home from '../content/nl/home.json';
 
 const pad = '/';
 const meta = { titel: home.metaTitle, beschrijving: home.metaDescription };
+
+// De sectievolgorde staat in home.json (_sectievolgorde, CLAUDE.md §7.1).
+// Een sectie zonder inhoud rendert zichzelf niet; een naam die hier niet
+// bekend is wordt bij de build gemeld en overgeslagen.
+const secties = { hero: Hero, welkom: Welkom, kernpunten: Kernpunten, zoWerktHet: ZoWerktHet,
+                  mogelijkheden: Mogelijkheden, informatie: Informatie, socialStrook: SocialStrook };
+const volgorde = home._sectievolgorde ?? Object.keys(secties);
+volgorde.filter((n) => !secties[n]).forEach((n) => console.warn(`[home] onbekende sectie in _sectievolgorde: "${n}"`));
 ---
 <BasisLayout pad={pad} meta={meta} posterPreload={home.hero.poster}>
-  <Hero />
-  <Overblok />
-  <Beeldstrook />
-  <Tegels />
-  {home.zoWerktHet && <ZoWerktHet bron={home.zoWerktHet.bron} />}
-  <HerhaalCta />
+  {volgorde.map((naam) => {
+    const S = secties[naam]; if (!S) return null;
+    if (naam === 'zoWerktHet') return home.zoWerktHet ? <S bron={home.zoWerktHet.bron} /> : null;
+    return <S />;
+  })}
 </BasisLayout>

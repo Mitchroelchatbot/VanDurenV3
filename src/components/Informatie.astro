@@ -1,0 +1,52 @@
+---
+import bedrijf from '../content/nl/bedrijf.json';
+import nav from '../content/nl/navigatie.json';
+
+// Praktische informatie op de homepage. Alle waarden uit bedrijf.json, de koppen
+// uit navigatie.labels: dezelfde bronnen als de footer, dus één plek om te
+// wijzigen. Het parkeeradres staat visueel apart, met de toelichting uit
+// bedrijf.json als waarschuwing dat het een ander adres is dan de hal.
+// Het e-mailadres staat als tekst, niet als link (§9: die link alleen op /over-ons). Links uitgelijnd: structuur.
+const l = nav.labels;
+---
+<section class="sectie sectie--licht info sectie-body">
+  <div class="omhulsel info__raster">
+    <div class="info__blok">
+      <h2 class="info__kop">{l.bezoekadres}</h2>
+      <address class="info__regel">{bedrijf.bezoekadres.straat}<br />{bedrijf.bezoekadres.postcode} {bedrijf.bezoekadres.plaats}</address>
+    </div>
+    <div class="info__blok info__blok--parkeren">
+      <h2 class="info__kop">{l.parkeeradres}</h2>
+      <address class="info__regel">{bedrijf.parkeeradres.straat}<br />{bedrijf.parkeeradres.postcode} {bedrijf.parkeeradres.plaats}</address>
+      <p class="info__let-op">{bedrijf.parkeeradres.toelichting}</p>
+    </div>
+    <div class="info__blok">
+      <h2 class="info__kop">{l.openingstijden}</h2>
+      <dl class="info__tijden">
+        {bedrijf.openingstijdenTekst.map((r) => (<><dt>{r.label}</dt><dd>{r.tijd}</dd></>))}
+      </dl>
+    </div>
+    <div class="info__blok">
+      <h2 class="info__kop">{l.contact}</h2>
+      <p class="info__regel">
+        <a href={`tel:${bedrijf.telefoonE164}`}>{bedrijf.telefoon}</a><br />
+        <span>{bedrijf.email}</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .info__raster { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .info__kop { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grijs-500); margin: 0 0 0.5rem; }
+  .info__regel { font-style: normal; margin: 0; }
+  .info__tijden { margin: 0; display: grid; grid-template-columns: auto auto; column-gap: 1rem; row-gap: 0.25rem; }
+  .info__tijden dt { color: var(--inkt); }
+  .info__tijden dd { margin: 0; color: var(--grijs-500); white-space: nowrap; }
+
+  /* Parkeren: ander adres dan de hal, dus visueel apart. Blauwe rand, geen
+     oranje: oranje is de primaire actie. */
+  .info__blok--parkeren { padding: 1rem 1.1rem; border-radius: var(--radius); background: var(--wit); border-left: 4px solid var(--blauw); }
+  .info__let-op { margin: 0.6rem 0 0; font-weight: 600; color: var(--blauw); }
+  .info__let-op::before { content: '!'; display: inline-grid; place-items: center; width: 1.2rem; height: 1.2rem; margin-right: 0.45rem; border-radius: 50%; background: var(--blauw); color: var(--wit); font-size: 0.8rem; vertical-align: 0.05em; }
+</style>

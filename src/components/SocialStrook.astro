@@ -2,11 +2,14 @@
 import Foto from './Foto.astro';
 import beeld from '../content/nl/home-beeld.json';
 import home from '../content/nl/home.json';
+import bedrijf from '../content/nl/bedrijf.json';
+import nav from '../content/nl/navigatie.json';
 
 // Decoratieve marquee over de volle breedte, tussen het over-blok en de tegels.
 // De lijst wordt verdubbeld zodat de lus naadloos rondgaat: zodra de eerste
 // helft volledig langs is, staat de tweede helft op exact dezelfde plek.
-const strook = home.beeldstrook;
+const strook = home.socialStrook;
+const labels = nav.labels;
 const bronnen = (strook?.fotos ?? []).map((n) => beeld.fotos[n]).filter(Boolean);
 const rij = [...bronnen, ...bronnen];
 
@@ -28,12 +31,20 @@ const rij = [...bronnen, ...bronnen];
         </div>
       ))}
     </div>
+    {/* Eigen marquee, geen Instagram-embed; wel de link naar het profiel. */}
+    <p class="beeldstrook__link">
+      <span class="beeldstrook__volg">{labels.volgOns}</span>
+      <a href={bedrijf.instagram} rel="noopener">{labels.sociaal.instagram}</a>
+    </p>
   </div>
 )}
 
 <style>
   .beeldstrook { overflow: hidden; margin-block: var(--sectie-gap); }
   .beeldstrook:focus-visible { outline: 3px solid var(--blauw); outline-offset: 2px; }
+  .beeldstrook__link { margin: 1rem var(--marge-rand) 0; text-align: left; }
+  .beeldstrook__volg { color: var(--grijs-500); margin-right: 0.5rem; }
+  .beeldstrook__link a { color: var(--blauw); font-weight: 500; }
 
   .beeldstrook__rij {
     display: flex;
