@@ -1,11 +1,16 @@
 # Build-instellingen, versiebeheerd in de repo (CLAUDE.md §4.4).
-# Zodra het Netlify-project aan deze GitHub-repo gekoppeld is, bouwt elke
-# push naar de branch hiermee. Een API-deploy vanuit een werkmap omzeilt dit
-# bestand én de _redirects; dat is precies wat er nu gebeurt.
+# Netlify bouwt elke push naar de branch hiermee; gecontroleerd op 10 september
+# 2026: deploy 6aa2a784… op vandurenv4 draagt commit e29696e en verwerkte de
+# 50 regels uit _redirects.
 
 [build]
   command = "npm run build"
   publish = "dist"
+  # Twee Netlify-projecten hangen aan dezelfde repo en branch. Alleen
+  # vandurenv4 mag bouwen. Exit 0 laat Netlify de build overslaan; het project
+  # vandurenv3 (hernoemd naar vandurenv3-uitgeschakeld) krijgt zo geen nieuwe
+  # deploys meer. Definitief verwijderen kan alleen in de Netlify-UI (OPEN.md).
+  ignore = "case \"$SITE_NAME\" in vandurenv3*) exit 0;; esac; exit 1"
 
 [build.environment]
   NODE_VERSION = "22"
