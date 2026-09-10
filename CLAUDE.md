@@ -316,6 +316,11 @@ goed bedoeld advies in dit document:**
 
 - Oranje is uitsluitend voor de primaire actie ("Boek een baan"). Eén oranje knop
   per scherm — anders werkt hij niet meer.
+  **Uitzondering, 10 september 2026:** de kop-CTA blijft op elke pagina en elke
+  breedte zichtbaar, ook onder 560px (daar met het korte label "Boeken", minimaal
+  44px hoog). Dat is de belangrijkste knop van de site en de kleinste telefoons zijn
+  de spontane boekers. Gevolg: op de homepage kan bij het laden de oranje kop-CTA
+  samen met de oranje knop van `welkom` in beeld staan. Bewust aanvaard.
 - **Het palet klopt met de hal.** In het videomateriaal is te zien dat de banen
   blauw zijn met een oranje/terracotta omloop. Blauw + oranje is niet alleen het
   logo, het is letterlijk wat de bezoeker ziet als hij binnenloopt.
@@ -497,7 +502,7 @@ in `home.json` en `index.astro` rendert in die volgorde.
 
 | # | Sectie (`home.json`) | Inhoud | Vervangt |
 |---|---|---|---|
-| 1 | `hero` | Video met poster als LCP, één primaire actie **Boek een baan**, daarnaast **Bekijk het lesaanbod** | — |
+| 1 | `hero` | Video met poster als LCP, alleen de h1 en één regel eronder. **Geen knoppen** (besluit 10 september): met knoppen in hero én welkom stonden dezelfde twee knoppen twee keer binnen anderhalf scherm. De knoppen staan uitsluitend in `welkom` | — |
 | 2 | `welkom` | Smalle band, gecentreerd, twee knoppen, geen foto | `herhaalCta` |
 | 3 | `kernpunten` | Tekst links, staande foto rechts op volle sectiehoogte (4K staand frame, 2160×3840); mobiel foto boven. Ondertekening klein en cursief onder de punten, boven de knop | `over` |
 | 4 | `zoWerktHet` | Verwijst naar `banen.zoWerktHet`: één bron, twee plekken | — |
