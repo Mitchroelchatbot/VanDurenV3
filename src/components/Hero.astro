@@ -1,10 +1,19 @@
 ---
 import home from '../content/nl/home.json';
 import Cta from './Cta.astro';
+import { bestaat } from '../lib/beeld.js';
 
 const h = home.hero;
 const poster = h.poster;
 const video = h.video;
+// Staande varianten (15 september 2026): onder 768px is de hero een staande
+// box; een liggende poster wordt daar met object-fit: cover 3,6× opgeblazen.
+// De staande bestanden renderen alleen als het veld én het bestand bestaan;
+// ontbreken ze, dan valt alles terug op de liggende posters zoals voorheen.
+const staand1080 = poster?.webp_staand_1080 && bestaat(poster.webp_staand_1080) ? poster.webp_staand_1080 : null;
+const staand720 = poster?.webp_staand_720 && bestaat(poster.webp_staand_720) ? poster.webp_staand_720 : null;
+const videoStaand1080 = video?.mp4_staand_1080 && bestaat(video.mp4_staand_1080) ? video.mp4_staand_1080 : null;
+const videoStaand720 = video?.mp4_staand_720 && bestaat(video.mp4_staand_720) ? video.mp4_staand_720 : null;
 // De <video> krijgt statisch géén src: dan haalt de browser onder 768px en bij
 // prefers-reduced-motion niets op, ook niet de metadata. Het script kiest de
 // bron per breedte en zet hem pas dan. preload="metadata" geldt vanaf dat moment.
@@ -12,6 +21,14 @@ const video = h.video;
 <section class="hero op-beeld">
   {poster && (
     <picture>
+      {/* Andere beeldverhouding, dus een media query en geen srcset op breedte:
+          720 breed tot 430px, 1080 breed tot 767px, daarboven de liggende posters. */}
+      {(staand720 || staand1080) && (
+        <source type="image/webp" media="(max-width: 430px)" srcset={staand720 ?? staand1080} />
+      )}
+      {staand1080 && (
+        <source type="image/webp" media="(max-width: 767px)" srcset={staand1080} />
+      )}
       <source type="image/webp" sizes="100vw"
               srcset={`${poster.webp_1024} 1024w, ${poster.webp_1920} 1920w`} />
       <img class="hero__laag hero__poster" src={poster.jpg_1920} alt={poster.alt}
@@ -19,9 +36,10 @@ const video = h.video;
     </picture>
   )}
   {video && (
-    <video class="hero__laag hero__video" muted loop playsinline preload="metadata" aria-hidden="true"
+    <video class="hero__laag hero__video" muted loop playsinline preload="none" aria-hidden="true"
            width="1600" height="900" data-hero-video
-           data-src-1600={video.mp4_1600} data-src-960={video.mp4_960}></video>
+           data-src-1600={video.mp4_1600} data-src-960={video.mp4_960}
+           data-src-staand-1080={videoStaand1080 ?? undefined} data-src-staand-720={videoStaand720 ?? undefined}></video>
   )}
 
   <div class="omhulsel hero__binnen">
@@ -55,11 +73,13 @@ const video = h.video;
   .hero__video  { z-index: -3; opacity: 0; }
   .hero__video[data-kan-spelen] { opacity: 1; }
   @media (prefers-reduced-motion: no-preference) {
-    .hero__video { transition: opacity 500ms ease-out; }
+    .hero__video { transition: opacity 400ms ease-out; }
   }
-  @media (max-width: 767px), (prefers-reduced-motion: reduce) {
-    .hero__video { display: none; }
-  }
+  /* Bij prefers-reduced-motion nooit video. Onder 768px alleen de staande
+     variant, en alleen onder de voorwaarden in het script (het verbod uit §5.2
+     is op 15 september 2026 vervangen door die voorwaarden). */
+  @media (prefers-reduced-motion: reduce) { .hero__video { display: none; } }
+  @media (max-width: 767px) { .hero__video:not([data-src-staand-1080]) { display: none; } }
 
   /* Scrim (hero._regel, gemeten): minimaal rgba(20,22,28,0.70) achter tekst en
      knoppen, als bottom-up gradient over de onderste ~70 %, plus 0.15 vlak over
@@ -92,17 +112,23 @@ const video = h.video;
 </style>
 
 <script>
-  // Bron per breedte: hero-1600 boven 1024px, hero-960 van 768 tot 1024px,
-  // niets daaronder en niets bij prefers-reduced-motion. De src wordt pas
+  // Bron per breedte: hero-1600 boven 1024px, hero-960 van 768 tot 1024px.
+  // Onder 768px de staande variant (720 tot 430px, anders 1080), maar alleen
+  // als alle vier waar zijn: de poster is geschilderd, saveData staat uit, de
+  // verbinding is 4g, en prefers-reduced-motion staat uit. Ontbreekt
+  // navigator.connection (Safari), dan wel laden. De src wordt altijd pas
   // gezet nadat de poster geschilderd is, zodat de video nooit de LCP is.
   const v = document.querySelector('[data-hero-video]');
+  const poster = document.querySelector('.hero__poster');
   const rm = window.matchMedia('(prefers-reduced-motion: reduce)');
   const kies = () => {
     const w = window.innerWidth;
-    if (rm.matches || w < 768) return null;
-    // getAttribute, geen dataset: 'data-src-1600' wordt dataset['src-1600'],
-    // want een streepje vóór een cijfer wordt niet weggehaald.
-    return v.getAttribute(w > 1024 ? 'data-src-1600' : 'data-src-960');
+    if (rm.matches) return null;
+    if (w >= 768) return v.getAttribute(w > 1024 ? 'data-src-1600' : 'data-src-960');
+    const c = navigator.connection;
+    if (c && (c.saveData || c.effectiveType !== '4g')) return null;
+    // getAttribute, geen dataset: een streepje vóór een cijfer blijft in de sleutel staan.
+    return (w <= 430 && v.getAttribute('data-src-staand-720')) || v.getAttribute('data-src-staand-1080');
   };
   if (v) {
     const start = () => {
@@ -112,6 +138,9 @@ const video = h.video;
       v.src = src;
       v.play().catch(() => {});
     };
-    'requestIdleCallback' in window ? requestIdleCallback(start, { timeout: 1500 }) : setTimeout(start, 300);
+    const idle = () => ('requestIdleCallback' in window ? requestIdleCallback(start, { timeout: 1500 }) : setTimeout(start, 300));
+    // Eerst de poster laten schilderen: decode() lost op zodra hij getekend kan worden.
+    const geschilderd = poster && 'decode' in poster ? poster.decode().catch(() => {}) : Promise.resolve();
+    geschilderd.then(() => requestAnimationFrame(() => requestAnimationFrame(idle)));
   }
 </script>
