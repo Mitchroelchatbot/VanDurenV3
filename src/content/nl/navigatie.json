@@ -29,10 +29,6 @@
       "label": "Spelregels & FAQ"
     },
     {
-      "pad": "/sponsoren",
-      "label": "Sponsoren"
-    },
-    {
       "pad": "/over-ons",
       "label": "Over ons & contact"
     }
@@ -101,5 +97,12 @@
     "samenvatting": "Je antwoorden",
     "bezig": "Versturen…",
     "mislukt": "Versturen lukte niet. Probeer het opnieuw."
-  }
+  },
+  "voetLinks": [
+    {
+      "pad": "/sponsoren",
+      "label": "Sponsoren"
+    }
+  ],
+  "_voetLinks": "O31 (15 september 2026): /sponsoren uit het hoofdmenu; gewone tekstlink in de footer, altijd zichtbaar (de logobalk is voorwaardelijk, §7.7)."
 }

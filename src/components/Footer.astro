@@ -10,6 +10,11 @@ const jaar = new Date().getFullYear();
     <div>
       <p class="voet__merk">{bedrijf.naam}</p>
       <p class="voet__regel">{labels.kvk} {bedrijf.kvk} · {labels.btw} {bedrijf.btw}</p>
+      {nav.voetLinks?.length > 0 && (
+        <ul class="voet__links">
+          {nav.voetLinks.map((l) => (<li><a href={l.pad}>{l.label}</a></li>))}
+        </ul>
+      )}
     </div>
 
     <div>
@@ -54,6 +59,7 @@ const jaar = new Date().getFullYear();
 </footer>
 
 <style>
+  .voet__links { list-style: none; padding: 0; margin: 0.75rem 0 0; display: flex; gap: 1rem; flex-wrap: wrap; }
   .voet { padding-top: 3.5rem; }
   .voet__raster { display: grid; gap: 2rem var(--gutter); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
   .voet__merk { font-family: var(--font-kop); font-weight: 700; font-size: 1.15rem; margin-bottom: 0.35rem; }
