@@ -33,8 +33,8 @@ const rij = [...bronnen, ...bronnen];
     </div>
     {/* Eigen marquee, geen Instagram-embed; wel de link naar het profiel. */}
     <p class="beeldstrook__link">
-      <span class="beeldstrook__volg">{labels.volgOns}</span>
-      <a href={bedrijf.instagram} rel="noopener">{labels.sociaal.instagram}</a>
+      <span class="beeldstrook__volg">{strook.kop ?? labels.volgOns}</span>
+      <a href={strook.href ?? bedrijf.instagram} rel="noopener">{strook.handle ?? labels.sociaal.instagram}</a>
     </p>
   </div>
 )}

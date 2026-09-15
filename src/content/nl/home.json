@@ -1,5 +1,7 @@
 {
-  "_bron": "Herzien 10 september 2026: sectievolgorde naar het voorbeeld van padelboxtel.nl (CLAUDE.md §7.1). Geen enkele regel tekst is van padelboxtel.nl overgenomen. Alle teksten hieronder stonden al in dit bestand of in bedrijf.json, banen.json, lessen.json, clinics.json en navigatie.json. Het aangeleverde herziene home.json stond op 10 september niet in Drive; dit is de opbouw naar de opdracht (OPEN.md F22).",
+  "_bron": "Sectievolgorde en blokindeling gespiegeld van padelboxtel.nl (uitgelezen 10 september 2026), op verzoek van Bennet. Alle kleuren, foto's, teksten en cijfers zijn van Van Duren zelf. Zie CLAUDE.md §7.1 en §12.",
+  "metaTitle": "Van Duren Indoor Padel Centrum — Padelbaan huren in Son en Breugel",
+  "metaDescription": "Vier indoor padelbanen in Son en Breugel, zeven dagen per week open. Boek direct online via Playtomic, of vraag een les, clinic of contractbaan aan.",
   "_sectievolgorde": [
     "hero",
     "welkom",
@@ -9,8 +11,6 @@
     "informatie",
     "socialStrook"
   ],
-  "metaTitle": "Van Duren Indoor Padel Centrum — Padelbaan huren in Son en Breugel",
-  "metaDescription": "Vier indoor padelbanen in Son en Breugel, zeven dagen per week open. Boek direct online via Playtomic, of vraag een les, clinic of contractbaan aan.",
   "hero": {
     "kop": "Padelbaan huren in Son en Breugel",
     "tekst": "Vier indoor banen, zeven dagen per week open. Boek direct online, zonder te bellen of te mailen.",
@@ -26,24 +26,28 @@
       "webp_1024": "/beeld/hero-poster-1024.webp",
       "alt": "Spelers op een van de vier indoor padelbanen van Van Duren"
     },
-    "_regel": "Overlay op de foto: maximaal 35% blauw, en alleen achter de tekst (gradient links → transparant rechts). Nu ligt er een egale blauwe waas over het hele beeld en verliest de foto zijn kleur. Padel Boxtel laat de foto ademen — dat is waarom die site 'mooier' oogt. Sinds 10 september: geen knoppen in de hero; alleen de h1 en één regel. De twee knoppen staan uitsluitend in welkom."
+    "_regel": "Boxtel opent met een volle-breedte carrousel zónder tekst eroverheen. Wij hebben de 4K-video. In de hero staat ALLEEN de h1 en één regel eronder — GEEN knoppen. Die zitten in de welkomstband eronder, precies zoals bij Boxtel. De permanente 'Boek een baan' in de sticky header vangt de bezoeker die meteen wil boeken. Overlay maximaal 35%, alleen achter de tekst als gradient. Hoogte ~70vh desktop, ~60vh mobiel."
   },
   "welkom": {
-    "kop": "Zin om te spelen?",
-    "tekst": "Kies een baan en een tijd. Je betaalt direct online en krijgt meteen een bevestiging.",
-    "primair": {
-      "label": "Boek een baan",
-      "type": "playtomic"
-    },
-    "secundair": {
-      "label": "Bekijk het lesaanbod",
-      "href": "/lessen"
-    },
-    "_regel": "Smalle band, gecentreerd, twee knoppen, geen foto. Vervangt herhaalCta. Kop en tekst zijn die van het oude herhaal-CTA-blok; de knoppen zijn die van de hero."
+    "kop": "Welkom bij Van Duren Indoor Padel Centrum",
+    "tekst": "Vier indoor banen in Son en Breugel, zeven dagen per week open.",
+    "knoppen": [
+      {
+        "label": "Boek een baan",
+        "type": "playtomic",
+        "stijl": "primair"
+      },
+      {
+        "label": "Bekijk het lesaanbod",
+        "href": "/lessen",
+        "stijl": "secundair"
+      }
+    ],
+    "_regel": "Boxtel-sectie 2 en de ENIGE plek op de homepage waar deze twee knoppen staan. De hero heeft ze niet meer — anders staan 'Boek een baan' en 'Bekijk het lesaanbod' twee keer binnen anderhalf scherm. Smalle band, gecentreerd, geen foto, veel witruimte."
   },
   "kernpunten": {
-    "kop": "Bij ons speel je bij Martin en Bennet",
-    "intro": "Van Duren Indoor Padel Centrum is een familiebedrijf. Geen keten, geen hoofdkantoor: wie je bij binnenkomst ziet, is wie de hal runt. Speel je hier vaker, dan kennen we je bij naam.",
+    "kop": "Padel bij Martin en Bennet, in Son en Breugel",
+    "intro": "Van Duren Indoor Padel Centrum is een familiebedrijf. Geen keten, geen hoofdkantoor: wie je bij binnenkomst ziet, is wie de hal runt.",
     "punten": [
       {
         "label": "Vier indoor banen, zeven dagen per week",
@@ -80,61 +84,91 @@
       "href": "/over-ons",
       "stijl": "secundair"
     },
+    "_regel": "Boxtel-sectie 3: kop als stelling, accentstreep, opsomming met markers, RECHTS ERNAAST één staande foto op volle sectiehoogte (Boxtel gebruikt daar 1406×2500). Gebruik de foto met keuze 'primair'; 'alternatief' is de reserve. Beide zijn 1080×1920 met een 720-variant via srcset, object-fit: cover. Op mobiel: foto boven de tekst, maximaal 60vh hoog. Links uitgelijnd, want het is een lijst. Dit vervangt de eerdere aanname dat er geen staand beeld zou zijn — die frames bestaan wél, ze waren alleen nooit in de repo beland.",
     "fotos": [
       {
-        "keuze": "primair",
-        "foto": "kernpunten-coach",
-        "alt": null
+        "webp_1080": "/beeld/kernpunten-duo-1080.webp",
+        "webp_720": "/beeld/kernpunten-duo-720.webp",
+        "breedte": 1080,
+        "hoogte": 1920,
+        "alt": "Martin en Bennet van Duren geven elkaar een hand aan het net van hun eigen baan",
+        "keuze": "primair"
       },
       {
-        "keuze": "alternatief",
-        "foto": "kernpunten-hal",
-        "alt": null
+        "webp_1080": "/beeld/kernpunten-duo-alt-1080.webp",
+        "webp_720": "/beeld/kernpunten-duo-alt-720.webp",
+        "breedte": 1080,
+        "hoogte": 1920,
+        "alt": "Martin en Bennet van Duren lachend tegenover elkaar aan het net",
+        "keuze": "alternatief"
+      },
+      {
+        "webp_1080": "/beeld/kernpunten-coach-1080.webp",
+        "webp_720": "/beeld/kernpunten-coach-720.webp",
+        "breedte": 1080,
+        "hoogte": 1920,
+        "alt": "Trainer van Van Duren speelt een bal op de baan",
+        "keuze": "reserve"
       }
     ],
-    "_regel": "Tekst links, staande foto rechts op volle sectiehoogte; mobiel de foto boven de tekst, maximaal 60vh. fotos[]: render de foto met keuze 'primair'; 'alternatief' is reserve en rendert niet. srcset 1080w en 720w, object-fit cover, width en height uit het bestand (via home-beeld.json) tegen layout shift.",
-    "_niet": "Geen 'uniek', 'persoonlijk', 'perfecte plek', 'voor alle niveaus', 'gezellig', 'mooiste hal van Nederland', 'de wereld van padel'. Geen 'of je nu ... of ...'-constructie. Elk punt is een controleerbaar feit uit bedrijf.json of tarieven.json.",
-    "_todo": "10 september: de bestanden kernpunten-coach en kernpunten-hal (staand, 2160x3840 bron, geleverd als 1080 en 720 breed) zaten niet in de uploadmap en niet in Drive (OPEN.md F23). alt is null: niet verzonnen. De foto rendert pas als het bestand in home-beeld.json staat én alt een tekst is (§5.2: elke foto een beschrijvende alt)."
+    "_gesloten": "O19 gesloten op 15 september 2026. De foto van Martin en Bennet samen bestond al: IMG_6772 uit de sessie van 28 oktober 2025, gecropt naar 9:16. IMG_6771 is de reserve. Op beide staat de netband 'Padel Academy van Duren — powered by Babolat' in beeld; de eigenaren accepteren dat bewust (zie CLAUDE.md §3, uitzondering op de grep-regel: die geldt voor tekst in de code, niet voor wat er fysiek in de hal hangt)."
   },
   "zoWerktHet": {
-    "bron": "banen",
-    "_regel": "Verwijst naar banen.zoWerktHet: één bron, twee plekken. Rendert niets zolang die bron leeg is."
+    "bron": "banen.json → zoWerktHet",
+    "_regel": "Boxtel-sectie 4, en de belangrijkste om te spiegelen: genummerde stappen met een foto ernaast en één primaire knop eronder. Zelfde inhoud als /banen, één bron. De ontbrekende stap over rackethuur is O27."
   },
   "mogelijkheden": {
-    "kop": "Wat wil je doen?",
-    "items": [
+    "kop": "Meer mogelijkheden",
+    "kaarten": [
       {
         "label": "Baan huren",
         "regel": "Los, met VIP-daluren of als contractbaan",
+        "knop": "Bekijk de opties",
         "href": "/banen",
         "foto": "doorkijk-banen",
-        "fotoAlt": "Doorkijk over de vier indoor padelbanen",
-        "ctaLabel": "Boek een baan"
+        "fotoAlt": "Doorkijk over de vier indoor padelbanen"
       },
       {
         "label": "Lessen",
         "regel": "Proefles, privéles of groepsles",
+        "knop": "Bekijk het lesaanbod",
         "href": "/lessen",
         "foto": "spelers-bij-net",
-        "fotoAlt": "Twee spelers aan het net tijdens een les",
-        "ctaLabel": "Bekijk het lesaanbod"
+        "fotoAlt": "Twee spelers aan het net tijdens een les"
       },
       {
         "label": "Clinics en bedrijfsuitjes",
         "regel": "Vanaf € 29 per persoon, inclusief trainer",
+        "knop": "Vraag een clinic aan",
         "href": "/clinics",
         "foto": "spelers-achterste-banen",
-        "fotoAlt": "Groep spelers op de achterste banen",
-        "ctaLabel": "Aanvraag starten"
+        "fotoAlt": "Groep spelers op de achterste banen"
       }
     ],
-    "_regel": "Drie kaarten, elke kaart een eigen knoplabel. Vervangt 'tegels'. De labels zijn bestaande, geverifieerde CTA-labels van de doelpagina's: banen.opties[0].cta.label, hero.secundair.label, clinics.kaartCta. De hele kaart is één link; de 'knop' is visueel (span), want een knop in een link is ongeldige HTML. Alle drie secundair: de oranje header-knop staat al op elk scherm (§5.1: één oranje knop per scherm).",
-    "_todo": null
+    "_regel": "Boxtel-sectie 5: fotokaarten met de tekst ín het beeld en per kaart een eigen knoptekst — niet drie keer dezelfde. Foto vult de kaart, scrim onderin, label en regel in wit, knoplabel eronder. Hele kaart is één link. Drie naast elkaar op desktop, gestapeld op mobiel. Boxtel heeft er vier; onze vierde zou naar /evenementen gaan en die pagina is leeg — dus drie."
   },
   "informatie": {
-    "_regel": "Alle waarden komen bij het renderen uit bedrijf.json, de koppen uit navigatie.labels (zelfde bron als de footer). Parkeeradres visueel apart, met bedrijf.parkeeradres.toelichting als waarschuwing dat het een ander adres is dan de hal. Het e-mailadres als tekst, niet als link (§9: die link alleen op /over-ons)."
+    "kop": "Informatie Van Duren Indoor Padel Centrum",
+    "bron": "bedrijf.json",
+    "toont": [
+      "bezoekadres",
+      "parkeeradres",
+      "openingstijden",
+      "telefoon",
+      "email"
+    ],
+    "cta": {
+      "label": "Contact",
+      "href": "/over-ons",
+      "stijl": "secundair"
+    },
+    "kaart": true,
+    "_regel": "Boxtel-sectie 6: één informatieblok met adres, parkeren, openingstijden en een kaart, met een Contact-knop. Alle waarden komen uit bedrijf.json — niets hier hardcoderen. Zet het parkeeradres visueel apart met een waarschuwingsregel: het is een ander adres dan de hal."
   },
   "socialStrook": {
+    "kop": "Volg ons op Instagram",
+    "handle": "@vandurenindoorpadelcentrum",
+    "href": "https://www.instagram.com/vandurenindoorpadelcentrum/",
     "fotos": [
       "hal-overzicht",
       "doorkijk-banen",
@@ -149,8 +183,9 @@
       "strook-lange-slag",
       "strook-hal-breed"
     ],
+    "_regel": "Boxtel-sectie 7 is een Instagram-embed. NIET overnemen als embed: die laadt Meta-scripts en zet cookies, en §8 verbiedt trackingcookies zonder toestemming. In plaats daarvan: onze eigen bewegende beeldstrook met de 4K-frames uit de feed, met daarboven de kop en daaronder een link naar het profiel. Zelfde functie, zelfde plek, geen cookiebanner. Marquee ~60s, pauzeert op hover en focus, stil bij prefers-reduced-motion. Foto's decoratief: alt=\"\" en aria-hidden op de rij.",
     "toegankelijkLabel": "Fotostrook van de hal. Zet de tab-toets hierop om het schuiven te pauzeren.",
-    "_regel": "Vervangt beeldstrook. Eigen marquee, geen Instagram-embed. Eronder de link naar het profiel: kop navigatie.labels.volgOns, linktekst navigatie.labels.sociaal.instagram, href bedrijf.instagram."
+    "_hersteld": "15 september 2026, §11.1: de aangeleverde versie had zes foto's en geen toegankelijkLabel. Teruggezet uit de repo: strook-overzicht, strook-netpaal, strook-rally-bord, strook-baan-drie, strook-lange-slag, strook-hal-breed (op 10 september toegevoegd uit het geverifieerde beeldmateriaal, de _todo 'vul aan tot 10–12' was daarmee al gedaan) en het label dat de marquee bereikbaar maakt met de tab-toets (WCAG 2.2.2)."
   },
   "_motion": {
     "_regel": "Beweging mag, maar dienend. Drie plekken, verder niets. Alles respecteert prefers-reduced-motion: dan staat alles stil en blijft alles zichtbaar. Nooit een element parkeren op opacity 0 dat pas verschijnt bij scrollen — wat gelezen moet worden, staat er meteen.",
@@ -159,5 +194,6 @@
     "hero": "De video is de beweging: hero-1600.mp4 als achtergrondloop, 20,3 seconden, zonder geluid. Geen ken burns meer nodig. Onder 768px en bij prefers-reduced-motion: alleen de posterfoto, stil.",
     "_niet": "Geen tellers die omhoog lopen, geen elementen die van links en rechts in beeld vliegen, geen parallax op tekst, geen typemachine-effect, geen confetti na het versturen van een formulier."
   },
-  "_uitlijning": "Besluit 2 sep 2026: 'gemengd'. Hero en sectiekoppen gecentreerd, korte intro's ook. Alinea's, tegels, tabellen, formulieren en chips links. Zie tokens.css regel 4."
+  "_uitlijning": "Besluit 2 sep 2026: 'gemengd'. Hero en sectiekoppen gecentreerd, korte intro's ook. Alinea's, tegels, tabellen, formulieren en chips links. Zie tokens.css regel 4.",
+  "_vervallen": "De secties 'over', 'beeldstrook', 'tegels' en 'herhaalCta' uit de vorige versie zijn opgegaan in respectievelijk 'kernpunten', 'socialStrook', 'mogelijkheden' en 'welkom'. Verwijder ze uit de componenten."
 }

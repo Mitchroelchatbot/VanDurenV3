@@ -1,7 +1,6 @@
 ---
-import Foto from './Foto.astro';
 import home from '../content/nl/home.json';
-import beeld from '../content/nl/home-beeld.json';
+import { bestaat } from '../lib/beeld.js';
 
 // Tekst links, staande foto rechts op volle sectiehoogte; mobiel de foto boven
 // de tekst, maximaal 60vh. Ondertekening klein en cursief onder de punten,
@@ -10,17 +9,21 @@ import beeld from '../content/nl/home-beeld.json';
 // kernpunten.fotos[]: de foto met keuze "primair" wordt getoond; "alternatief"
 // is reserve en rendert niet. Hij rendert alleen als het bestand in het
 // beeldregister staat én er een alt-tekst is (§5.2). Anders één kolom.
+// fotos[]: { webp_1080, webp_720, breedte, hoogte, alt, keuze }. Alleen 'primair'
+// rendert, en alleen als het bestand in public/beeld staat en er een alt is.
 const k = home.kernpunten;
-const keus = (k?.fotos ?? []).find((f) => f.keuze === 'primair' && f.foto && typeof f.alt === 'string');
-const foto = keus ? beeld.fotos[keus.foto] : null;
+const keus = (k?.fotos ?? []).find((f) => f.keuze === 'primair' && typeof f.alt === 'string');
+const foto = keus && bestaat(keus.webp_1080) ? keus : null;
 ---
 {k && (
   <section class="sectie kern sectie-body">
     <div class="omhulsel omhulsel--midden kern__raster" data-met-foto={foto ? 'true' : 'false'}>
       {foto && (
         <div class="kern__foto">
-          <Foto basis={foto.basis} maten={foto.maten} alt={keus.alt}
-                breedte={foto.breedte} hoogte={foto.hoogte} sizes="(min-width: 900px) 40vw, 100vw" />
+          <img src={foto.webp_1080}
+               srcset={[bestaat(foto.webp_720) ? `${foto.webp_720} 720w` : null, `${foto.webp_1080} 1080w`].filter(Boolean).join(', ')}
+               sizes="(min-width: 900px) 40vw, 100vw" alt={foto.alt}
+               width={foto.breedte} height={foto.hoogte} loading="lazy" decoding="async" />
         </div>
       )}
       <div class="kern__tekst">

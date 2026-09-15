@@ -11,8 +11,7 @@ const w = home.welkom;
       <h2>{w.kop}</h2>
       <p class="welkom__tekst">{w.tekst}</p>
       <div class="welkom__acties">
-        <Cta cta={w.primair} soort="primair" />
-        <Cta cta={w.secundair} soort="secundair" />
+        {w.knoppen.map((k) => (<Cta cta={k} soort={k.stijl ?? 'secundair'} />))}
       </div>
     </div>
   </section>

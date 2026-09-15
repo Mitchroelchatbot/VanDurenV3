@@ -1,13 +1,10 @@
 {
   "_bron": "indoorpadelcentrum.nl/tarieven-lessen/ — geverifieerd 1 september 2026. Routing volgens CLAUDE.md §6.3 en B8.",
-
   "titel": "Padel Academy van Duren",
   "ondertitel": "Padellessen in Son en Breugel",
   "metaTitle": "Padel Academy van Duren — Padellessen in Son en Breugel",
   "metaDescription": "Proefles, privéles of groepsles bij Van Duren Indoor Padel Centrum in Son en Breugel. Inclusief baanhuur, materiaal en trainer.",
-
   "intro": "Beter leren spelen doe je bij de Padel Academy van Duren. Onze gediplomeerde trainers werken met beginners die de basis willen leren en met gevorderden die hun spel scherper willen krijgen.",
-
   "lesvormen": [
     {
       "id": "proefles",
@@ -26,7 +23,15 @@
       "formulier": "les",
       "playtomicUrl": null,
       "cta": "Plan een proefles",
-      "video": null
+      "video": {
+        "mp4_720": "/beeld/les-techniek-1-720.mp4",
+        "poster_720": "/beeld/les-techniek-1-poster-720.webp",
+        "breedte": 720,
+        "hoogte": 1280,
+        "duur": "8 s",
+        "geluid": false,
+        "alt": "Bennet van Duren slaat ballen op een van de indoor banen, met het bord Padel Academy van Duren op de achtergrond"
+      }
     },
     {
       "id": "priveles",
@@ -45,7 +50,15 @@
       "formulier": "les",
       "playtomicUrl": null,
       "cta": "Privéles aanvragen",
-      "video": null
+      "video": {
+        "mp4_720": "/beeld/les-techniek-2-720.mp4",
+        "poster_720": "/beeld/les-techniek-2-poster-720.webp",
+        "breedte": 720,
+        "hoogte": 1280,
+        "duur": "8 s",
+        "geluid": false,
+        "alt": "Bennet van Duren slaat ballen op een van de indoor banen, met het bord Padel Academy van Duren op de achtergrond"
+      }
     },
     {
       "id": "groepsles",
@@ -64,10 +77,17 @@
       "formulier": null,
       "playtomicUrl": "https://playtomic.io/van-duren-indoor-padel-centrum/a52205f6-6954-4d82-bda0-b2040fc82dc4",
       "cta": "Bekijk beschikbare groepslessen",
-      "video": null
+      "video": {
+        "mp4_720": "/beeld/les-techniek-3-720.mp4",
+        "poster_720": "/beeld/les-techniek-3-poster-720.webp",
+        "breedte": 720,
+        "hoogte": 1280,
+        "duur": "8 s",
+        "geluid": false,
+        "alt": "Bennet van Duren slaat ballen op een van de indoor banen, met het bord Padel Academy van Duren op de achtergrond"
+      }
     }
   ],
-
   "praktischeBalk": {
     "titel": "Goed om te weten",
     "punten": [
@@ -85,12 +105,266 @@
       }
     ]
   },
-
   "trainers": {
     "tekst": "De lessen worden gegeven door onze gediplomeerde trainers.",
     "_regel": "Geen namen, geen foto's, geen trainerskaartjes. Akkoord eigenaren, CLAUDE.md §11. Noem hier NOOIT dat Martin en Bennet alle lessen geven, en gebruik het woord 'Madrid' niet."
   },
-
-  "_todo_video": "Op de Instagram van Van Duren staan technische reels (portret 9:16) die hier bij de lesvormen horen. De bronbestanden ontbreken — zie OPEN.md O23. Laat het veld 'video' null en render geen leeg videovlak.",
-  "_todo_jeugd": "De oude site heeft een apart jeugdaanbod (/padel-jeugd-tot-en-met-14-jaar, menu-item 'Jeugd', webshopproduct 'jeugdtraining'). Dat ontbreekt hier volledig. Zie OPEN.md O25."
+  "_todo_video": "Gesloten op 15 september 2026 — met een kanttekening. De clips komen uit de sessie van 28 oktober 2025 (720x1280, 30 fps, 3,2 Mbit, geluid verwijderd). Ze tonen ALLEMAAL EEN PERSOON ALLEEN die ballen slaat; er bestaat geen beeld van een trainer MET een leerling, en dus niets dat een proefles, een prive-les of een groepsles daadwerkelijk laat zien. De koppeling clip->lesvorm is daarom willekeurig en puur sfeer. Zet de video als stille achtergrondloop in de lesvormkaart, nooit als 'zo ziet je les eruit'. Vervangen zodra de opnamedag uit de wenslijst is geweest.",
+  "_todo_jeugd": "Gesloten 15 september 2026: /jeugd bestaat, gebouwd uit jeugd.json (O25).",
+  "formulier": {
+    "_regel": "Conversational form: één vraag tegelijk, antwoorden zijn knoppen, beantwoorde vragen blijven als bubbels staan. Zelfde opzet als clinics.json. Alleen e-mail verplicht. Elke inhoudelijke vraag heeft de knop 'Weet ik nog niet'. Vragen met 'toonBij' verschijnen alleen als de conditie klopt — nooit een vraag stellen die niet bij het vorige antwoord past.",
+    "ontvanger": "vanduren@indoorpadelcentrum.nl",
+    "intro": {
+      "kop": "Proefles of privéles plannen",
+      "tekst": "Zes korte vragen, dan weten we genoeg om een voorstel te sturen.",
+      "groepslesHint": "Zoek je een groepsles? Die boek je direct via Playtomic.",
+      "groepslesUrl": "https://playtomic.io/van-duren-indoor-padel-centrum/a52205f6-6954-4d82-bda0-b2040fc82dc4"
+    },
+    "vragen": [
+      {
+        "id": "lesvorm",
+        "vraag": "Welke les wil je?",
+        "type": "keuze",
+        "opties": [
+          {
+            "waarde": "proefles",
+            "label": "Proefles",
+            "sub": "€ 100 · 60 min · 1 tot 4 personen · eenmalig"
+          },
+          {
+            "waarde": "priveles",
+            "label": "Privéles",
+            "sub": "€ 90 · 60 min · 1-op-1 · reeks van 5, 8 of 10"
+          },
+          {
+            "waarde": "onbekend",
+            "label": "Weet ik nog niet",
+            "sub": "Dan adviseren we je"
+          }
+        ]
+      },
+      {
+        "id": "voorWie",
+        "vraag": "Voor wie is de les?",
+        "type": "keuze",
+        "opties": [
+          {
+            "waarde": "mezelf",
+            "label": "Mezelf"
+          },
+          {
+            "waarde": "kind",
+            "label": "Mijn kind"
+          },
+          {
+            "waarde": "samen",
+            "label": "Ik en iemand anders",
+            "toonBij": {
+              "lesvorm": [
+                "proefles",
+                "onbekend"
+              ]
+            }
+          },
+          {
+            "waarde": "groepje",
+            "label": "Een groepje",
+            "toonBij": {
+              "lesvorm": [
+                "proefles",
+                "onbekend"
+              ]
+            }
+          }
+        ],
+        "_regel": "Bij privéles alleen 'Mezelf' en 'Mijn kind' tonen — privéles is 1-op-1."
+      },
+      {
+        "id": "leeftijdKind",
+        "vraag": "Hoe oud is je kind?",
+        "type": "keuze",
+        "opties": [
+          {
+            "waarde": "t/m 8",
+            "label": "t/m 8 jaar"
+          },
+          {
+            "waarde": "9-12",
+            "label": "9 t/m 12 jaar"
+          },
+          {
+            "waarde": "13-16",
+            "label": "13 t/m 16 jaar"
+          }
+        ],
+        "toonBij": {
+          "voorWie": [
+            "kind"
+          ]
+        }
+      },
+      {
+        "id": "aantal",
+        "vraag": "Met hoeveel personen?",
+        "type": "keuze",
+        "opties": [
+          {
+            "waarde": "2",
+            "label": "2"
+          },
+          {
+            "waarde": "3",
+            "label": "3"
+          },
+          {
+            "waarde": "4",
+            "label": "4"
+          }
+        ],
+        "toonBij": {
+          "voorWie": [
+            "samen",
+            "groepje"
+          ]
+        },
+        "_regel": "Proefles is maximaal 4 personen. Geen vrij invoerveld — drie knoppen."
+      },
+      {
+        "id": "niveau",
+        "vraag": "Hoeveel ervaring is er?",
+        "type": "keuze",
+        "opties": [
+          {
+            "waarde": "nooit",
+            "label": "Nog nooit gespeeld"
+          },
+          {
+            "waarde": "beginner",
+            "label": "Een paar keer gespeeld"
+          },
+          {
+            "waarde": "gevorderd",
+            "label": "Speel regelmatig"
+          }
+        ]
+      },
+      {
+        "id": "doel",
+        "vraag": "Waar wil je vooral aan werken?",
+        "type": "keuze",
+        "opties": [
+          {
+            "waarde": "basis",
+            "label": "De basis leren"
+          },
+          {
+            "waarde": "techniek",
+            "label": "Techniek verbeteren"
+          },
+          {
+            "waarde": "tactiek",
+            "label": "Tactiek en wedstrijden"
+          },
+          {
+            "waarde": "plezier",
+            "label": "Gewoon lekker spelen"
+          }
+        ],
+        "skip": "Weet ik nog niet"
+      },
+      {
+        "id": "beschikbaarheid",
+        "vraag": "Wanneer kun je meestal?",
+        "type": "meerkeuze",
+        "opties": [
+          {
+            "waarde": "doordeweeks-overdag",
+            "label": "Doordeweeks overdag"
+          },
+          {
+            "waarde": "doordeweeks-avond",
+            "label": "Doordeweeks 's avonds"
+          },
+          {
+            "waarde": "weekend",
+            "label": "In het weekend"
+          },
+          {
+            "waarde": "flexibel",
+            "label": "Flexibel"
+          }
+        ],
+        "_regel": "Meerdere antwoorden mogelijk. Toon een knop 'Verder' zodra er minstens één gekozen is."
+      },
+      {
+        "id": "start",
+        "vraag": "Wanneer wil je beginnen?",
+        "type": "keuze",
+        "opties": [
+          {
+            "waarde": "asap",
+            "label": "Zo snel mogelijk"
+          },
+          {
+            "waarde": "deze-maand",
+            "label": "Deze maand"
+          },
+          {
+            "waarde": "later",
+            "label": "Later"
+          }
+        ],
+        "skip": "Weet ik nog niet"
+      },
+      {
+        "id": "contact",
+        "vraag": "Waar mogen we het voorstel heen sturen?",
+        "type": "contact",
+        "velden": [
+          {
+            "naam": "email",
+            "label": "E-mail",
+            "verplicht": true,
+            "type": "email"
+          },
+          {
+            "naam": "naam",
+            "label": "Naam",
+            "verplicht": false
+          },
+          {
+            "naam": "telefoon",
+            "label": "Telefoon",
+            "verplicht": false,
+            "type": "tel",
+            "hint": "Handig als we snel willen schakelen"
+          },
+          {
+            "naam": "opmerking",
+            "label": "Nog iets wat we moeten weten?",
+            "verplicht": false,
+            "type": "tekstvak"
+          }
+        ],
+        "verzendKnop": "Verstuur aanvraag"
+      }
+    ],
+    "bevestiging": {
+      "kop": "Je aanvraag is binnen",
+      "tekst": "We kijken naar de beschikbaarheid van de trainers en mailen je binnen één werkdag een voorstel met datum en tijd.",
+      "_regel": "Toon daaronder de samenvatting als bubbels. Geen mailadres van het centrum in beeld."
+    }
+  },
+  "_video_regel": "muted autoplay loop playsinline preload=\"none\", poster altijd zichtbaar tot de video kan spelen. Onder 768px en bij prefers-reduced-motion: alleen de poster. De video is nooit de LCP.",
+  "beeld": {
+    "_regel": "Beeldvelden 15 september 2026 (STAP 2). Elk veld rendert alleen als public/beeld/<naam>-<breedte>.webp bestaat; ontbreekt het bestand, dan staat er niets. Alt-teksten letterlijk zoals aangeleverd door Mitch.",
+    "header": {
+      "naam": "lessen-header",
+      "alt": "Trainer van Van Duren slaat een bal tijdens een training"
+    },
+    "trainer": {
+      "naam": "lessen-trainer",
+      "alt": "Trainer van Van Duren met racket aan het net"
+    }
+  }
 }

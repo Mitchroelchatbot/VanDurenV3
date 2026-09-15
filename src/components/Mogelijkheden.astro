@@ -6,7 +6,7 @@ import beeld from '../content/nl/home-beeld.json';
 // Drie kaarten (home.mogelijkheden). De hele kaart is één link; label, regel en
 // een visuele knop met eigen label staan over de foto.
 const t = home.mogelijkheden;
-const items = t.items
+const items = t.kaarten
   .map((it) => ({ ...it, bron: beeld.fotos[it.foto] }))
   .filter((it) => it.bron);
 ---
@@ -25,7 +25,7 @@ const items = t.items
             <span class="tegel__woorden">
               <span class="tegel__label">{it.label}</span>
               <span class="tegel__regel">{it.regel}</span>
-              {it.ctaLabel && <span class="knop knop--secundair tegel__knop">{it.ctaLabel}</span>}
+              {it.knop && <span class="knop knop--secundair tegel__knop">{it.knop}</span>}
             </span>
             <svg class="tegel__pijl" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"
                  fill="none" stroke="currentColor" stroke-width="2.5"
