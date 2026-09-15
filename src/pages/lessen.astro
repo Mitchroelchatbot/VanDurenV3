@@ -1,28 +1,36 @@
 ---
 import BasisLayout from '../layouts/BasisLayout.astro';
 import Kaart from '../components/Kaart.astro';
+import Beeld from '../components/Beeld.astro';
 import Formulier from '../components/Formulier.astro';
 import lessen from '../content/nl/lessen.json';
-import lesformulier from '../content/nl/lesformulier.json';
+import nav from '../content/nl/navigatie.json';
+import { stappenUit } from '../lib/vragen.js';
 
 const pad = '/lessen';
 const meta = { titel: lessen.metaTitle, beschrijving: lessen.metaDescription };
-const f = lesformulier;
+const f = lessen.formulier;
+const stappen = stappenUit(f.vragen);
+const bevestiging = { titel: f.bevestiging.kop, tekst: f.bevestiging.tekst };
+const beeld = lessen.beeld ?? {};
 ---
 <BasisLayout pad={pad} meta={meta} wa="lessen">
   <section class="sectie">
     <div class="omhulsel">
       <h1>{lessen.titel}</h1>
       <p class="lessen__ondertitel">{lessen.ondertitel}</p>
+      {beeld.header && (
+        <Beeld naam={beeld.header.naam} alt={beeld.header.alt} klasse="lessen__header" sizes="(min-width: 1280px) 1200px, 100vw" />
+      )}
       <p class="lessen__intro">{lessen.intro}</p>
 
       <div class="raster-drie">
         {lessen.lesvormen.map((l) => (
           <Kaart eyebrow={l.eyebrow} label={l.label} omschrijving={l.omschrijving}
-                 prijs={l.prijs} prijsPer={l.prijsPer} punten={l.kenmerken}
+                 prijs={l.prijs} prijsPer={l.prijsPer} punten={l.kenmerken} video={l.video}
                  cta={l.route === 'playtomic'
                       ? { label: l.cta, type: 'playtomic' }
-                      : { label: l.cta, type: 'anker', anker: `#${l.formulier}` }}
+                      : { label: l.cta, type: 'formulier', formulier: l.formulier, start: l.label }}
                  ctaSoort={l.route === 'playtomic' ? 'primair' : 'secundair'} />
         ))}
       </div>
@@ -40,15 +48,19 @@ const f = lesformulier;
     </div>
   </section>
 
-  <section class="sectie" id="les">
+  <section class="sectie">
     <div class="omhulsel">
-      <Formulier naam="les" titel={f.titel} intro={f.intro} stappen={f.stappen}
-              bevestiging={f.bevestiging} />
+      <Formulier naam="les" id="les" titel={f.intro.kop} intro={f.intro.tekst}
+                 stappen={stappen} bevestiging={bevestiging} />
+      {f.intro.groepslesHint && (
+        <p class="lessen__groepsles">{f.intro.groepslesHint} <a href={f.intro.groepslesUrl} rel="noopener" target="_blank">{nav.labels.sociaal.playtomic}</a></p>
+      )}
     </div>
   </section>
 
   <section class="sectie sectie--licht">
-    <div class="omhulsel omhulsel--smal">
+    <div class="omhulsel omhulsel--smal lessen__trainers">
+      {beeld.trainer && <Beeld naam={beeld.trainer.naam} alt={beeld.trainer.alt} klasse="lessen__trainer" sizes="(min-width: 900px) 720px, 100vw" />}
       <p class="trainers">{lessen.trainers.tekst}</p>
     </div>
   </section>
@@ -57,9 +69,13 @@ const f = lesformulier;
 <style>
   .raster-drie { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); margin-top: 2rem; }
   .lessen__ondertitel { font-family: var(--font-kop); font-size: 1.2rem; color: var(--grijs-500); margin-top: -0.5rem; }
+  .lessen__header { display: block; width: 100%; height: auto; border-radius: var(--radius); margin: 1.5rem 0; }
   .lessen__intro { max-width: 60ch; }
   .praktisch { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 0; }
   .praktisch__item dt { font-family: var(--font-kop); font-weight: 600; margin-bottom: 0.25rem; }
   .praktisch__item dd { margin: 0; font-size: 0.95rem; }
+  .lessen__groepsles { max-width: var(--max-smal); margin-top: 1.5rem; font-size: 0.95rem; color: var(--grijs-500); }
+  .lessen__trainers { display: grid; gap: var(--gutter); align-items: center; }
+  .lessen__trainer { display: block; width: 100%; height: auto; border-radius: var(--radius); }
   .trainers { margin: 0; color: var(--grijs-500); }
 </style>

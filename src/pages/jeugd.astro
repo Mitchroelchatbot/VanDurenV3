@@ -4,39 +4,14 @@ import Kaart from '../components/Kaart.astro';
 import Cta from '../components/Cta.astro';
 import Formulier from '../components/Formulier.astro';
 import jeugd from '../content/nl/jeugd.json';
-import nav from '../content/nl/navigatie.json';
+import { stappenUit } from '../lib/vragen.js';
 
 const pad = '/jeugd';
 const meta = { titel: jeugd.metaTitle, beschrijving: jeugd.metaDescription };
 const f = jeugd.formulier;
 const FORMULIER_ID = jeugd.cta.formulier;
 
-// jeugd.json beschrijft de vragen in zijn eigen vorm (id, waarde/label-opties,
-// vervolgTekstBij, velden als objecten). Hier worden ze vertaald naar de
-// stappen die Formulier.astro kent. De ingestuurde waarde is altijd het
-// leesbare label; de codes (6-8, 15plus, …) komen niet in de mail.
-const labelVan = (vr, waarde) => vr.opties.find((o) => o.waarde === waarde)?.label ?? waarde;
-// De doorverwijzing bij "15 jaar of ouder" (formulier.vragen[1]._regel): de
-// subregel uit de content plus een link naar de lessenpagina, met het
-// navigatielabel als linktekst. Het formulier gaat gewoon door.
-const doorverwijzing = nav.hoofdmenu.find((m) => m.pad === '/lessen');
-const stappen = f.vragen.map((vr, i) => {
-  const st = { nr: i + 1, vraag: vr.vraag, type: vr.type, toelichting: vr.toelichting };
-  if (vr.type === 'tekst') Object.assign(st, { label: vr.label, hint: vr.hint });
-  if (vr.opties) st.opties = vr.opties.map((o) => ({
-    waarde: o.label, sub: o.sub,
-    link: o.waarde === '15plus' && o.sub ? doorverwijzing : undefined,
-  }));
-  if (vr.vervolgTekstBij) Object.assign(st, {
-    type: 'keuze-plus-tekst', vervolgDirect: true,
-    tekstveldBij: vr.vervolgTekstBij.map((w) => labelVan(vr, w)),
-    tekstveldLabel: vr.vervolgLabel,
-  });
-  // beschikbaarheid._regel vraagt om een Verder-knop zodra er één gekozen is.
-  if (vr.type === 'meerkeuze') st.verderKnop = true;
-  if (vr.type === 'contact') Object.assign(st, { velden: vr.velden, verzendKnop: vr.verzendKnop });
-  return st;
-});
+const stappen = stappenUit(f.vragen);
 const bevestiging = { titel: f.bevestiging.kop, tekst: f.bevestiging.tekst };
 // Geen beeld op deze pagina: zie jeugd.beeld._todo (O10, O29).
 ---

@@ -1,14 +1,16 @@
 ---
 import Cta from './Cta.astro';
+import KaartVideo from './KaartVideo.astro';
 
 // prijsSub is de tweede prijsregel (bijv. de prijs per les naast de reeksprijs).
 // Wordt hij meegegeven, dan staat hij er altijd; de content bepaalt dat.
-const { eyebrow, label, omschrijving, punten, prijs, prijsPer, prijsSub, cta,
+const { eyebrow, label, omschrijving, punten, prijs, prijsPer, prijsSub, cta, video,
         ctaSoort = 'secundair', niveau = 2 } = Astro.props;
 // Kopniveau volgt de pagina, zodat de koppenstructuur niet overslaat.
 const Kop = `h${niveau}`;
 ---
 <article class="kaart sectie-body">
+  {video && <KaartVideo video={video} />}
   {eyebrow && <p class="kaart__eyebrow">{eyebrow}</p>}
   <Kop class="kaart__kop">{label}</Kop>
   {prijs && (

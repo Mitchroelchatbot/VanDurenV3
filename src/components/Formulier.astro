@@ -16,9 +16,14 @@ const isEmail = (v) => /mail/i.test(v);
 const esc = (s) => String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 const vraagVan = (nr) => stappen.find((s) => String(s.nr) === String(nr))?.vraag ?? '';
 
-// Opties zijn een string ("Bedrijf") of een object { waarde, sub, link }.
+// Opties zijn een string ("Bedrijf") of een object { waarde, sub, noot, toonBij }.
+// - sub: tweede regel op de chip (prijs, toelichting)
+// - noot: { tekst, link: { href, label } } — verschijnt onder het antwoord
+//   (doorverwijzing), het formulier gaat gewoon door
+// - toonBij: { stap, waarde|waarden[] } — optie alleen als een eerder antwoord past
 // De ingestuurde waarde is altijd de leesbare tekst, nooit een code.
 const optie = (o) => (typeof o === 'string' ? { waarde: o } : o);
+const waarden = (tb) => [].concat(tb?.waarden ?? tb?.waarde ?? []);
 const opties = (st) => (st.opties ?? []).map(optie);
 const opentTekstveld = (st, w) => [].concat(st.tekstveldBij ?? []).includes(w);
 // Contactvelden zijn een string ("Naam", "E-mail") of een object
@@ -34,11 +39,14 @@ const ankers = id && eerste?.type === 'keuze' ? opties(eerste).map((o) => `${id}
 
 // CSS die zonder JavaScript de voorwaardelijke vragen verbergt, en de
 // doorverwijsregel bij een optie pas toont als die optie gekozen is.
+const geenVan = (tb) => waarden(tb).map((w) => `:not(:has(input[name="${esc(vraagVan(tb.stap))}"][value="${esc(w)}"]:checked))`).join('');
 const conditieCss = [
   ...stappen
     .filter((st) => st.toonBij)
-    .map((st) => `form[name="${esc(naam)}"]:not(:has(input[name="${esc(vraagVan(st.toonBij.stap))}"][value="${esc(st.toonBij.waarde)}"]:checked)) fieldset[data-nr="${esc(st.nr)}"]{display:none}`),
-  ...stappen.flatMap((st) => opties(st).filter((o) => o.link).map((o) =>
+    .map((st) => `form[name="${esc(naam)}"]${geenVan(st.toonBij)} fieldset[data-nr="${esc(st.nr)}"]{display:none}`),
+  ...stappen.flatMap((st) => opties(st).filter((o) => o.toonBij).map((o) =>
+    `form[name="${esc(naam)}"]${geenVan(o.toonBij)} fieldset[data-nr="${esc(st.nr)}"] [data-optie="${esc(o.waarde)}"]{display:none}`)),
+  ...stappen.flatMap((st) => opties(st).filter((o) => o.noot).map((o) =>
     `form[name="${esc(naam)}"] fieldset[data-nr="${esc(st.nr)}"]:not(:has(input[value="${esc(o.waarde)}"]:checked)) [data-noot-bij="${esc(o.waarde)}"]{display:none}`)),
 ].join('\n');
 ---
@@ -73,7 +81,7 @@ const conditieCss = [
       data-type={st.type}
       data-vraag={st.vraag}
       data-toon-bij-stap={st.toonBij ? String(st.toonBij.stap) : undefined}
-      data-toon-bij-waarde={st.toonBij ? st.toonBij.waarde : undefined}
+      data-toon-bij-waarde={st.toonBij ? JSON.stringify(waarden(st.toonBij)) : undefined}
       data-chips={st.chips ? JSON.stringify(st.chips) : undefined}
       data-label={st.label}
       data-vervolg-direct={st.vervolgDirect ? 'true' : undefined}
@@ -96,14 +104,17 @@ const conditieCss = [
           <div class="chips">
             <input type="radio" name={st.vraag} value={L.nietIngevuld} checked hidden data-standaard />
             {opties(st).map((o) => (
-              <label class={`chip${o.sub ? ' chip--met-sub' : ''}`}>
-                <input type="radio" name={st.vraag} value={o.waarde} data-sub={o.sub} data-link={o.link?.pad} data-link-label={o.link?.label} />
+              <label class={`chip${o.sub ? ' chip--met-sub' : ''}`} data-optie={o.waarde}>
+                <input type="radio" name={st.vraag} value={o.waarde} data-sub={o.sub}
+                       data-noot={o.noot ? JSON.stringify(o.noot) : undefined}
+                       data-optie-stap={o.toonBij ? String(o.toonBij.stap) : undefined}
+                       data-optie-waarden={o.toonBij ? JSON.stringify(waarden(o.toonBij)) : undefined} />
                 <span>{o.waarde}{o.sub && <small class="chip__sub">{o.sub}</small>}</span>
               </label>
             ))}
           </div>
-          {opties(st).filter((o) => o.link).map((o) => (
-            <p class="form__noot" data-noot-bij={o.waarde}>{o.sub} <a href={o.link.pad}>{o.link.label}</a></p>
+          {opties(st).filter((o) => o.noot).map((o) => (
+            <p class="form__noot" data-noot-bij={o.waarde}>{o.noot.tekst} {o.noot.link && <a href={o.noot.link.href}>{o.noot.link.label}</a>}</p>
           ))}
         </>
       )}
@@ -329,7 +340,7 @@ const conditieCss = [
     const email = form.querySelector('[data-email]');
     const stappen = [...form.querySelectorAll('.form__vraag')].map((el) => ({
       el, nr: el.dataset.nr, type: el.dataset.type, vraag: el.dataset.vraag,
-      toonBij: el.dataset.toonBijStap ? { stap: el.dataset.toonBijStap, waarde: el.dataset.toonBijWaarde } : null,
+      toonBij: el.dataset.toonBijStap ? { stap: el.dataset.toonBijStap, waarden: JSON.parse(el.dataset.toonBijWaarde) } : null,
       chips: el.dataset.chips ? JSON.parse(el.dataset.chips) : null,
       label: el.dataset.label || el.dataset.vraag,
       vervolgDirect: el.dataset.vervolgDirect === 'true',
@@ -376,7 +387,9 @@ const conditieCss = [
 
     // ---------- gesprek ----------
     const antwoordOp = (nr) => antwoorden.find((a) => a.stap.nr === String(nr));
-    const gesteld = (st) => !st.toonBij || (antwoordOp(st.toonBij.stap)?.waarde === st.toonBij.waarde);
+    const gesteld = (st) => !st.toonBij || st.toonBij.waarden.includes(antwoordOp(st.toonBij.stap)?.waarde);
+    // Optie met eigen conditie (data-optie-stap): alleen als het eerdere antwoord in de lijst staat.
+    const optieMag = (i) => !i.dataset.optieStap || JSON.parse(i.dataset.optieWaarden).includes(antwoordOp(i.dataset.optieStap)?.waarde);
     const gesteldeStappen = () => stappen.filter(gesteld);
     const volgende = () => gesteldeStappen().find((st) => !antwoordOp(st.nr));
 
@@ -400,7 +413,7 @@ const conditieCss = [
       return b;
     }
     // Opties uit de statische inputs: waarde plus eventuele tweede regel.
-    const optiesVan = (el, selector) => [...el.querySelectorAll(selector)].map((i) => ({ waarde: i.value, sub: i.dataset.sub || '' }));
+    const optiesVan = (el, selector) => [...el.querySelectorAll(selector)].filter(optieMag).map((i) => ({ waarde: i.value, sub: i.dataset.sub || '' }));
     function chipsRij(opties, bijKeuze, { weetNiet = true, stil = [] } = {}) {
       const rij = maak('div'); rij.className = 'chips';
       opties.forEach((o) => { const w = typeof o === 'string' ? o : o.waarde; const b = chipKnop(w, '', typeof o === 'string' ? '' : o.sub);
@@ -546,7 +559,7 @@ const conditieCss = [
         b.innerHTML = `<span class="bubbel__vraag"></span><span class="bubbel__antwoord"></span>`;
         scope(b);
         b.firstChild.textContent = a.stap.vraag; b.lastChild.textContent = a.tekst;
-        const gekozenInput = a.stap.el.querySelector(`input[value="${CSS.escape(a.waarde)}"][data-link]`);
+        const gekozenInput = a.stap.el.querySelector(`input[value="${CSS.escape(a.waarde)}"][data-noot]`);
         b.addEventListener('click', () => {
           antwoorden.splice(i).forEach((x, j) => { if (!(j === 0 && x.stap.type === 'meerkeuze')) wisStap(x.stap); });
           // ook stappen die daardoor niet meer gesteld worden, wissen
@@ -557,10 +570,11 @@ const conditieCss = [
         if (gekozenInput) {
           // Doorverwijzing (bijv. "15 jaar of ouder" → lessen): de regel uit de
           // content, met de link. Het formulier gaat gewoon door.
+          const noot = JSON.parse(gekozenInput.dataset.noot);
           const n = maak('p'); n.className = 'gesprek__noot';
-          n.textContent = (gekozenInput.dataset.sub || '') + ' ';
-          const l = maak('a'); l.href = gekozenInput.dataset.link; l.textContent = gekozenInput.dataset.linkLabel || gekozenInput.dataset.link;
-          n.appendChild(l); bubbelsEl.appendChild(n);
+          n.textContent = (noot.tekst || '') + ' ';
+          if (noot.link) { const l = maak('a'); l.href = noot.link.href; l.textContent = noot.link.label; n.appendChild(l); }
+          bubbelsEl.appendChild(n);
         }
       });
       // voortgang: alleen wat daadwerkelijk gesteld wordt

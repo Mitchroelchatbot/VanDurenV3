@@ -1,0 +1,41 @@
+---
+import { bestaat } from '../lib/beeld.js';
+
+// Stille staande achtergrondloop in een lesvormkaart (lessen._video_regel):
+// poster altijd zichtbaar, video pas geladen boven 768px en zonder
+// prefers-reduced-motion. Nooit de LCP (preload none, opacity-fade).
+// Rendert niets als poster of mp4 ontbreekt: geen leeg videovlak (§7.3).
+const { video } = Astro.props;
+const ok = video && bestaat(video.poster_720) && bestaat(video.mp4_720) && typeof video.alt === 'string';
+---
+{ok && (
+  <div class="kv" data-kaartvideo>
+    <img class="kv__poster" src={video.poster_720} alt={video.alt}
+         width={video.breedte} height={video.hoogte} loading="lazy" decoding="async" />
+    <video class="kv__video" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"
+           width={video.breedte} height={video.hoogte} data-src={video.mp4_720}></video>
+  </div>
+)}
+
+<style>
+  .kv { position: relative; aspect-ratio: 9 / 16; max-height: 22rem; overflow: hidden; border-radius: var(--radius-klein); background: var(--grijs-100); margin: 0 0 1rem; }
+  .kv__poster, .kv__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .kv__video { opacity: 0; transition: opacity 400ms ease; }
+  .kv__video[data-speelt] { opacity: 1; }
+</style>
+
+<script>
+  const mag = window.matchMedia('(min-width: 768px)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (mag) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        const v = e.target;
+        if (e.isIntersecting) {
+          if (!v.src) { v.src = v.dataset.src; v.addEventListener('canplay', () => { v.setAttribute('data-speelt', ''); }, { once: true }); }
+          v.play().catch(() => {});
+        } else { v.pause(); }
+      });
+    }, { rootMargin: '100px' });
+    document.querySelectorAll('[data-kaartvideo] video').forEach((v) => io.observe(v));
+  }
+</script>
