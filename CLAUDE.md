@@ -586,6 +586,7 @@ helemaal achteraan.**
 /                    Home
 /banen               Baanhuur
 /lessen              Lessen        (= "Padel Academy van Duren")
+/jeugd               Jeugd         (navigatielabel "Jeugd"; O25, 15 september 2026)
 /clinics             Clinics & bedrijven
 /evenementen         Evenementen
 /spelregels          FAQ + padelregels (samengevoegd!)
