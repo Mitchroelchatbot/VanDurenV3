@@ -180,5 +180,7 @@
     }
   },
   "_verwijderd": "Het blok 'Zo werkt het' (stap 1 mail je wensen, 2 voorstel, 3 reserveren, 4 spelen) van de oude site komt NIET terug. Dat legt het mailproces uit dat we juist afschaffen. Geen mailto op deze pagina.",
+  "kaartCta": "Aanvraag starten",
+  "_kaartCta": "Knoplabel van de Bedrijf-kaart (en van elke kaart zonder eigen cta). Stond in de versie van 1 september en was in die van 15 september weggevallen; teruggezet op 15 september 2026 omdat de Bedrijf-kaart anders geen knop heeft. De knop opent het formulier met stap 1 alvast op het kaartlabel gezet.",
   "_kaartregel": "Render alleen kaarten met actief=true. Dat zijn er nu twee: Bedrijf en Kinderfeestje. Vriendengroep blijft op false tot er tekst is — een kaart met actief=false bestaat niet in de HTML: geen grijs vlak, geen 'binnenkort', geen placeholder. Met twee kaarten geen gat laten vallen in een grid van drie: gebruik een tweekoloms grid tot de derde kaart er is."
 }

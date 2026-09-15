@@ -8,7 +8,13 @@ const pad = '/clinics';
 const meta = { titel: clinics.metaTitle, beschrijving: clinics.metaDescription };
 const w = clinics.wizard;
 // Kaarten zonder omschrijving of met actief:false renderen niet (§0.3).
+// Een kaart met eigen cta (Kinderfeestje) opent het formulier met stap 1
+// alvast beantwoord; zonder eigen cta krijgt hij de algemene kaartknop en
+// dezelfde voorselectie op zijn eigen label. `prijsregel` wordt bewust
+// nergens gerenderd zolang hij null is (O30): geen prijs, geen streepje.
+const FORMULIER_ID = 'aanvraag';
 const kaarten = clinics.kaarten.filter((k) => k.actief && k.omschrijving);
+const ctaVan = (k) => ({ type: 'formulier', formulier: FORMULIER_ID, start: k.label, label: clinics.kaartCta, ...(k.cta ?? {}) });
 ---
 <BasisLayout pad={pad} meta={meta} wa="clinics">
   <section class="sectie">
@@ -16,10 +22,10 @@ const kaarten = clinics.kaarten.filter((k) => k.actief && k.omschrijving);
       <h1>{clinics.titel}</h1>
       <p class="clinics__intro">{clinics.intro}</p>
       {kaarten.length > 0 && (
-        <div class="raster-drie">
+        <div class="raster" data-aantal={String(kaarten.length)}>
           {kaarten.map((k) => (
-            <Kaart label={k.label} omschrijving={k.omschrijving}
-                   cta={{ label: clinics.kaartCta, type: 'anker', anker: '#aanvraag' }} />
+            <Kaart label={k.label} omschrijving={k.omschrijving} prijs={k.prijsregel ?? undefined}
+                   cta={ctaVan(k)} />
           ))}
         </div>
       )}
@@ -35,16 +41,18 @@ const kaarten = clinics.kaarten.filter((k) => k.actief && k.omschrijving);
     </div>
   </section>
 
-  <section class="sectie" id="aanvraag">
+  <section class="sectie">
     <div class="omhulsel">
-      <Formulier naam="clinic" titel={clinics.titel} intro={clinics.intro}
+      <Formulier naam="clinic" id={FORMULIER_ID} titel={clinics.titel} intro={clinics.intro}
               stappen={w.stappen} bevestiging={w.bevestiging} aantalGrens={w.aantalGrens} />
     </div>
   </section>
 </BasisLayout>
 
 <style>
-  .raster-drie { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); margin-top: 2rem; }
+  /* Zoveel kolommen als er kaarten zijn (nu twee, drie zodra Vriendengroep
+     tekst heeft): geen leeg vak, geen gat. */
+  .raster { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); margin-top: 2rem; }
   .clinics__intro { max-width: 60ch; }
   .clinics__vanaf { font-family: var(--font-kop); font-weight: 700; font-size: 1.9rem; color: var(--blauw); margin-bottom: 0.6rem; }
   .clinics__punten { padding-left: 1.2rem; display: grid; gap: 0.35rem; margin-bottom: 1.25rem; }
