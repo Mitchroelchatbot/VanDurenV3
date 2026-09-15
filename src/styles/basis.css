@@ -55,6 +55,10 @@ img, video { max-width: 100%; height: auto; display: block; }
 .op-blauw { background: var(--blauw); color: var(--wit); }
 .op-blauw h1, .op-blauw h2, .op-blauw h3 { color: var(--wit); }
 .op-blauw a { color: var(--wit); }
+/* .op-beeld: witte tekst op een foto met scrim; de achtergrond komt van het beeld zelf. */
+.op-beeld { color: var(--wit); }
+.op-beeld h1, .op-beeld h2, .op-beeld h3 { color: var(--wit); }
+.op-beeld a { color: var(--wit); }
 
 /* --- Knoppen ----------------------------------------------------------- */
 
@@ -79,13 +83,15 @@ img, video { max-width: 100%; height: auto; display: block; }
   border: 2px solid var(--blauw);
 }
 .knop--secundair:hover { background: var(--blauw); color: var(--wit); }
-.op-blauw .knop--secundair {
+.op-blauw .knop--secundair, .op-beeld .knop--secundair {
   color: var(--wit); border-color: var(--wit);
   /* Op een foto steunt een randknop op wat er toevallig achter staat.
      Een lichte eigen vulling garandeert het contrast van het label. */
   background: rgb(20 42 100 / 0.7);   /* 5,4:1 met wit, zelfs over een witte foto */
 }
-.op-blauw .knop--secundair:hover { background: var(--wit); color: var(--blauw); }
+/* Op beeld ligt de gemeten scrim (≥ 0,70) al onder de knop: transparante vulling, witte rand van 2px (hero._regel_knoppen). */
+.op-beeld .knop--secundair { background: transparent; }
+.op-blauw .knop--secundair:hover, .op-beeld .knop--secundair:hover { background: var(--wit); color: var(--blauw); }
 
 /* --- Toegankelijkheid --------------------------------------------------- */
 

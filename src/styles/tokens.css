@@ -105,15 +105,18 @@
   .knop--primair:focus-visible { transform: translateY(-1px); box-shadow: 0 4px 12px rgb(20 22 28 / 0.28); }
   /* Op blauw draagt de knop al een witte ring voor het randcontrast (regel 2);
      die blijft staan naast de schaduw. */
-  .op-blauw .knop--primair:hover,
-  .op-blauw .knop--primair:focus-visible { box-shadow: 0 0 0 2px var(--wit), 0 4px 12px rgb(20 22 28 / 0.28); }
+  .op-blauw .knop--primair:hover, .op-beeld .knop--primair:hover,
+  .op-blauw .knop--primair:focus-visible, .op-beeld .knop--primair:focus-visible { box-shadow: 0 0 0 2px var(--wit), 0 4px 12px rgb(20 22 28 / 0.28); }
 }
 
 /* 2. Een oranje knop op een blauw vlak heeft géén randcontrast:
       --oranje tegen --blauw is 1.88:1, ruim onder de 3:1 die nodig is om
       de knopvorm herkenbaar te maken. Op blauw krijgt de knop daarom een
       witte ring (wit/blauw 9.89:1, wit/oranje 5.27:1 — beide ruim goed). */
-.op-blauw .knop--primair {
+/* .op-beeld (15 september 2026): tekst en knoppen op een foto met scrim. Gemeten
+   randcontrast van de oranje knop tegen die achtergrond: 1,1–1,3:1, dus dezelfde
+   ring als op blauw. Het label (wit op oranje, 5,27:1) is op zichzelf goed. */
+.op-blauw .knop--primair, .op-beeld .knop--primair {
   box-shadow: 0 0 0 2px var(--wit);
 }
 
@@ -122,7 +125,8 @@
   outline: var(--focus-dikte) solid var(--focus-donker);
   outline-offset: var(--focus-offset);
 }
-.op-blauw :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+.op-blauw :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible,
+.op-beeld :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
   outline-color: var(--focus-licht);
 }
 

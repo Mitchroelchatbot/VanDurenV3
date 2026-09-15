@@ -1,5 +1,6 @@
 ---
 import home from '../content/nl/home.json';
+import Cta from './Cta.astro';
 
 const h = home.hero;
 const poster = h.poster;
@@ -8,7 +9,7 @@ const video = h.video;
 // prefers-reduced-motion niets op, ook niet de metadata. Het script kiest de
 // bron per breedte en zet hem pas dan. preload="metadata" geldt vanaf dat moment.
 ---
-<section class="hero op-blauw">
+<section class="hero op-beeld">
   {poster && (
     <picture>
       <source type="image/webp" sizes="100vw"
@@ -26,63 +27,68 @@ const video = h.video;
   <div class="omhulsel hero__binnen">
     <h1 class="hero__kop">{h.kop}</h1>
     <p class="hero__onderkop">{h.tekst}</p>
+    {h.knoppen?.length > 0 && (
+      <div class="hero__acties" data-hero-acties>
+        {h.knoppen.map((k) => (<Cta cta={k} soort={k.stijl ?? 'secundair'} />))}
+      </div>
+    )}
   </div>
 </section>
 
 <style>
-  .hero { position: relative; overflow: hidden; isolation: isolate; }
-  .hero__laag { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  /* Hoogte: nooit 100vh (hero._regel_hoogte). Mobiel 82vh zodat h1, regel en
+     beide knoppen boven de vouw staan en een strook van kernpunten zichtbaar
+     blijft; desktop ~70vh. Fallback op vh voor browsers zonder svh. */
+  .hero {
+    position: relative; overflow: hidden; isolation: isolate;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    min-height: 82vh; min-height: 82svh;
+    background: var(--blauw-diep);
+  }
+  @media (min-width: 900px) { .hero { min-height: 70vh; min-height: 70svh; } }
+  .hero__laag { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
 
-  /* Lagen, van onder naar boven: poster (-3), video (-2), blauwe laag (-1),
-     tekst. De poster is de LCP; de video ligt erover en fadet in zodra
-     'canplay' vuurt. Zonder video blijft de poster gewoon staan. */
-  .hero__poster { z-index: -3; }
-  .hero__video  { z-index: -2; opacity: 0; }
+  /* Lagen, van onder naar boven: poster (-4), video (-3), vlakke verdonkering
+     0.15 (-2), scrim (-1), tekst. De poster is de LCP; de video ligt erover en
+     fadet in zodra 'canplay' vuurt. */
+  .hero__poster { z-index: -4; }
+  .hero__video  { z-index: -3; opacity: 0; }
   .hero__video[data-kan-spelen] { opacity: 1; }
   @media (prefers-reduced-motion: no-preference) {
     .hero__video { transition: opacity 500ms ease-out; }
   }
-  /* Onder 768px en bij prefers-reduced-motion: geen video, alleen de poster.
-     Het script laadt hem dan ook niet; dit is de tweede grendel. */
   @media (max-width: 767px), (prefers-reduced-motion: reduce) {
     .hero__video { display: none; }
   }
 
-  /* Overlay maximaal 35 % blauw. De tekst staat gecentreerd, dus de laag ook:
-     het donkerst in het midden achter de tekst en transparant naar beide
-     randen, zodat het beeld zijn kleur houdt. */
+  /* Scrim (hero._regel, gemeten): minimaal rgba(20,22,28,0.70) achter tekst en
+     knoppen, als bottom-up gradient over de onderste ~70 %, plus 0.15 vlak over
+     het geheel. De inhoud staat onderin, binnen de zone van 0.70. */
+  .hero::before {
+    content: ''; position: absolute; inset: 0; z-index: -2;
+    background: rgb(20 22 28 / 0.15);
+  }
   .hero::after {
     content: ''; position: absolute; inset: 0; z-index: -1;
-    background: linear-gradient(90deg,
-      rgb(20 42 100 / 0.05) 0%, rgb(20 42 100 / 0.35) 24%,
-      rgb(20 42 100 / 0.35) 76%, rgb(20 42 100 / 0.05) 100%);
-  }
-  .hero:not(:has(.hero__laag))::after { background: none; }
-  @media (max-width: 899px) {
-    .hero::after { background: rgb(20 42 100 / 0.35); }
-    .hero__laag { object-position: 50% 88%; }
+    background: linear-gradient(to top,
+      rgb(20 22 28 / 0.70) 0%, rgb(20 22 28 / 0.70) 52%,
+      rgb(20 22 28 / 0.35) 62%, rgb(20 22 28 / 0) 72%);
   }
 
-  .hero__binnen { position: relative; padding-block: clamp(72px, 14vw, 152px); }
-  /* Achter de tekst wordt het beeld lokaal donkerder gemaakt met een
-     helderheidsfilter, niet met een kleurlaag: de tint blijft, alleen lichte
-     glaswanden en lampen achter de letters dempen. Symmetrisch, want de tekst
-     staat gecentreerd. Waarde gemeten op letterniveau over de hele videolus. */
-  .hero__binnen::before {
-    content: ''; position: absolute; inset: 0; z-index: -1;
-    left: 50%; transform: translateX(-50%);
-    width: min(100vw, 62rem);
-    -webkit-backdrop-filter: brightness(0.5); backdrop-filter: brightness(0.5);
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
-  }
-  @media (max-width: 899px) {
-    .hero__binnen::before { width: 100vw; -webkit-mask-image: none; mask-image: none; }
-  }
+  .hero__binnen { position: relative; padding-block: clamp(2rem, 6vh, 4rem) clamp(2.5rem, 7vh, 4.5rem); }
   /* Centrering komt uit tokens.css regel 4 via de klasse .hero. */
   .hero__kop { max-width: 20ch; margin-inline: auto; margin-bottom: 0.4em; }
-  /* Sinds 10 september geen knoppen in de hero: die staan in de welkomstband. */
-  .hero__onderkop { font-size: clamp(1.05rem, 2.2vw, 1.3rem); margin-bottom: 0; opacity: 0.95; }
+  .hero__onderkop { font-size: clamp(1.05rem, 2.2vw, 1.3rem); margin: 0 auto 1.5rem; max-width: 40ch; }
+
+  /* Knoppen (hero._regel_knoppen): minimaal 48 px hoog, 16 px ertussen; op
+     mobiel volle breedte. De ring op de primaire knop komt uit tokens.css
+     (.op-beeld), de witte rand van de secundaire uit basis.css. */
+  .hero__acties { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+  .hero__acties :global(.knop) { min-height: 48px; }
+  @media (max-width: 559px) {
+    .hero__acties { flex-direction: column; align-items: stretch; }
+    .hero__acties :global(.knop) { width: 100%; }
+  }
 </style>
 
 <script>
