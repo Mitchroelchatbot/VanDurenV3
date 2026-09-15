@@ -1,14 +1,14 @@
 ---
-import Foto from './Foto.astro';
 import home from '../content/nl/home.json';
-import beeld from '../content/nl/home-beeld.json';
+import { bestaat } from '../lib/beeld.js';
 
 // Drie kaarten (home.mogelijkheden). De hele kaart is één link; label, regel en
 // een visuele knop met eigen label staan over de foto.
 const t = home.mogelijkheden;
-const items = t.kaarten
-  .map((it) => ({ ...it, bron: beeld.fotos[it.foto] }))
-  .filter((it) => it.bron);
+// kaarten[].foto = { webp_1536, webp_768, breedte, hoogte, alt }. Een kaart
+// rendert alleen als het bestand bestaat en er een alt is (§5.2).
+const items = t.kaarten.filter((it) => it.foto && bestaat(it.foto.webp_1536) && typeof it.foto.alt === 'string');
+const srcset = (f) => [bestaat(f.webp_768) ? `${f.webp_768} 768w` : null, `${f.webp_1536} 1536w`].filter(Boolean).join(', ');
 ---
 <section class="sectie tegels">
   <div class="omhulsel">
@@ -17,9 +17,8 @@ const items = t.kaarten
       {items.map((it) => (
         <a class="tegel" href={it.href}>
           <span class="tegel__beeld">
-            <Foto basis={it.bron.basis} maten={it.bron.maten} alt={it.fotoAlt}
-                  breedte={it.bron.breedte} hoogte={it.bron.hoogte}
-                  sizes="(min-width: 900px) 33vw, 100vw" />
+            <img src={it.foto.webp_1536} srcset={srcset(it.foto)} sizes="(min-width: 900px) 33vw, 100vw"
+                 alt={it.foto.alt} width={it.foto.breedte} height={it.foto.hoogte} loading="lazy" decoding="async" />
           </span>
           <span class="tegel__tekst">
             <span class="tegel__woorden">

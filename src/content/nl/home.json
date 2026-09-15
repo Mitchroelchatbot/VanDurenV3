@@ -111,7 +111,7 @@
         "keuze": "reserve"
       }
     ],
-    "_gesloten": "O19 gesloten op 15 september 2026. De foto van Martin en Bennet samen bestond al: IMG_6772 uit de sessie van 28 oktober 2025, gecropt naar 9:16. IMG_6771 is de reserve. Op beide staat de netband 'Padel Academy van Duren — powered by Babolat' in beeld; de eigenaren accepteren dat bewust (zie CLAUDE.md §3, uitzondering op de grep-regel: die geldt voor tekst in de code, niet voor wat er fysiek in de hal hangt)."
+    "_gesloten": "O19 gesloten op 15 september 2026. De foto van Martin en Bennet samen bestond al: IMG_6772 uit de sessie van 28 oktober 2025, gecropt naar 9:16. IMG_6771 is de reserve. Op beide staat de netband met de naam van het lesprogramma prominent in beeld; de eigenaren accepteren dat bewust. Zie CLAUDE.md §3 — die grep-regel geldt voor tekst in de code, niet voor wat er fysiek in de hal hangt. (Naam hier met opzet niet uitgeschreven: het commentaarveld rendert niet maar telt wel mee in de letterlijke grep uit §9.)"
   },
   "zoWerktHet": {
     "bron": "banen.json → zoWerktHet",
@@ -125,24 +125,39 @@
         "regel": "Los, met VIP-daluren of als contractbaan",
         "knop": "Bekijk de opties",
         "href": "/banen",
-        "foto": "doorkijk-banen",
-        "fotoAlt": "Doorkijk over de vier indoor padelbanen"
+        "foto": {
+          "webp_1536": "/beeld/kaart-banen-1536.webp",
+          "webp_768": "/beeld/kaart-banen-768.webp",
+          "breedte": 1536,
+          "hoogte": 864,
+          "alt": "Doorkijk over een van de indoor padelbanen van Van Duren, met het bord Van Duren op de achterwand"
+        }
       },
       {
         "label": "Lessen",
         "regel": "Proefles, privéles of groepsles",
         "knop": "Bekijk het lesaanbod",
         "href": "/lessen",
-        "foto": "spelers-bij-net",
-        "fotoAlt": "Twee spelers aan het net tijdens een les"
+        "foto": {
+          "webp_1536": "/beeld/kaart-lessen-1536.webp",
+          "webp_768": "/beeld/kaart-lessen-768.webp",
+          "breedte": 1536,
+          "hoogte": 864,
+          "alt": "Trainer van Van Duren strekt zich uit voor een smash tijdens een training"
+        }
       },
       {
         "label": "Clinics en bedrijfsuitjes",
         "regel": "Vanaf € 29 per persoon, inclusief trainer",
         "knop": "Vraag een clinic aan",
         "href": "/clinics",
-        "foto": "spelers-achterste-banen",
-        "fotoAlt": "Groep spelers op de achterste banen"
+        "foto": {
+          "webp_1536": "/beeld/kaart-clinics-1536.webp",
+          "webp_768": "/beeld/kaart-clinics-768.webp",
+          "breedte": 1536,
+          "hoogte": 864,
+          "alt": "Twee spelers in een rally op een van de indoor banen"
+        }
       }
     ],
     "_regel": "Boxtel-sectie 5: fotokaarten met de tekst ín het beeld en per kaart een eigen knoptekst — niet drie keer dezelfde. Foto vult de kaart, scrim onderin, label en regel in wit, knoplabel eronder. Hele kaart is één link. Drie naast elkaar op desktop, gestapeld op mobiel. Boxtel heeft er vier; onze vierde zou naar /evenementen gaan en die pagina is leeg — dus drie."
@@ -170,22 +185,71 @@
     "handle": "@vandurenindoorpadelcentrum",
     "href": "https://www.instagram.com/vandurenindoorpadelcentrum/",
     "fotos": [
-      "hal-overzicht",
-      "doorkijk-banen",
-      "spelers-achterste-banen",
-      "racket-bal",
-      "bord-academy",
-      "lege-baan-glas",
-      "strook-overzicht",
-      "strook-netpaal",
-      "strook-rally-bord",
-      "strook-baan-drie",
-      "strook-lange-slag",
-      "strook-hal-breed"
+      {
+        "webp_540": "/beeld/strook-01-540.webp",
+        "breedte": 540,
+        "hoogte": 960
+      },
+      {
+        "webp_540": "/beeld/strook-02-540.webp",
+        "breedte": 540,
+        "hoogte": 960
+      },
+      {
+        "webp_540": "/beeld/strook-03-540.webp",
+        "breedte": 540,
+        "hoogte": 960
+      },
+      {
+        "webp_540": "/beeld/strook-04-540.webp",
+        "breedte": 540,
+        "hoogte": 960
+      },
+      {
+        "webp_540": "/beeld/strook-05-540.webp",
+        "breedte": 540,
+        "hoogte": 960
+      },
+      {
+        "webp_540": "/beeld/strook-06-540.webp",
+        "breedte": 540,
+        "hoogte": 960
+      },
+      {
+        "webp_540": "/beeld/strook-07-540.webp",
+        "breedte": 540,
+        "hoogte": 960
+      },
+      {
+        "webp_540": "/beeld/strook-08-540.webp",
+        "breedte": 540,
+        "hoogte": 960
+      },
+      {
+        "webp_540": "/beeld/strook-09-540.webp",
+        "breedte": 540,
+        "hoogte": 960
+      },
+      {
+        "webp_540": "/beeld/strook-10-540.webp",
+        "breedte": 540,
+        "hoogte": 960
+      },
+      {
+        "webp_540": "/beeld/strook-11-540.webp",
+        "breedte": 540,
+        "hoogte": 960
+      },
+      {
+        "webp_540": "/beeld/strook-12-540.webp",
+        "breedte": 540,
+        "hoogte": 960
+      }
     ],
     "_regel": "Boxtel-sectie 7 is een Instagram-embed. NIET overnemen als embed: die laadt Meta-scripts en zet cookies, en §8 verbiedt trackingcookies zonder toestemming. In plaats daarvan: onze eigen bewegende beeldstrook met de 4K-frames uit de feed, met daarboven de kop en daaronder een link naar het profiel. Zelfde functie, zelfde plek, geen cookiebanner. Marquee ~60s, pauzeert op hover en focus, stil bij prefers-reduced-motion. Foto's decoratief: alt=\"\" en aria-hidden op de rij.",
+    "_todo": "Gevuld met twaalf eigen beelden uit de sessie van 28 oktober 2025 (28 sep 2026 verwerkt). Decoratief: alt=\"\" en aria-hidden op de rij, zoals in _regel.",
     "toegankelijkLabel": "Fotostrook van de hal. Zet de tab-toets hierop om het schuiven te pauzeren.",
-    "_hersteld": "15 september 2026, §11.1: de aangeleverde versie had zes foto's en geen toegankelijkLabel. Teruggezet uit de repo: strook-overzicht, strook-netpaal, strook-rally-bord, strook-baan-drie, strook-lange-slag, strook-hal-breed (op 10 september toegevoegd uit het geverifieerde beeldmateriaal, de _todo 'vul aan tot 10–12' was daarmee al gedaan) en het label dat de marquee bereikbaar maakt met de tab-toets (WCAG 2.2.2)."
+    "_hersteld": "§11.1, 15 september 2026 (tweede keer): toegankelijkLabel ontbrak opnieuw in de aangeleverde versie. Het is de toegankelijke naam van de marquee, die met de tab-toets te pauzeren moet zijn (WCAG 2.2.2). Neem het veld over in de bronversie."
   },
   "_motion": {
     "_regel": "Beweging mag, maar dienend. Drie plekken, verder niets. Alles respecteert prefers-reduced-motion: dan staat alles stil en blijft alles zichtbaar. Nooit een element parkeren op opacity 0 dat pas verschijnt bij scrollen — wat gelezen moet worden, staat er meteen.",
@@ -195,5 +259,6 @@
     "_niet": "Geen tellers die omhoog lopen, geen elementen die van links en rechts in beeld vliegen, geen parallax op tekst, geen typemachine-effect, geen confetti na het versturen van een formulier."
   },
   "_uitlijning": "Besluit 2 sep 2026: 'gemengd'. Hero en sectiekoppen gecentreerd, korte intro's ook. Alinea's, tegels, tabellen, formulieren en chips links. Zie tokens.css regel 4.",
-  "_vervallen": "De secties 'over', 'beeldstrook', 'tegels' en 'herhaalCta' uit de vorige versie zijn opgegaan in respectievelijk 'kernpunten', 'socialStrook', 'mogelijkheden' en 'welkom'. Verwijder ze uit de componenten."
+  "_vervallen": "De secties 'over', 'beeldstrook', 'tegels' en 'herhaalCta' uit de vorige versie zijn opgegaan in respectievelijk 'kernpunten', 'socialStrook', 'mogelijkheden' en 'welkom'. Verwijder ze uit de componenten.",
+  "_beeldbron": "Alle foto's komen uit een camerarol van 28 oktober 2025, iPhone 15 Pro. 223 stills, ALLEMAAL 1536x2048 staand — nul liggend beeld in de hele set. Elk liggend kader op deze site is dus een 16:9-uitsnede uit een portret en verliest 43% van de hoogte; gebruik ze op kaartformaat, nooit op volle breedte. 1536x2048 en 720x1280 zijn Apple's iCloud-proxyformaten: de originelen staan nog in Bennets iCloud en zijn nooit gedownload. Zie OPEN.md O28."
 }

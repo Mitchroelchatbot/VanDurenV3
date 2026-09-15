@@ -1,16 +1,16 @@
 ---
-import Foto from './Foto.astro';
-import beeld from '../content/nl/home-beeld.json';
 import home from '../content/nl/home.json';
 import bedrijf from '../content/nl/bedrijf.json';
 import nav from '../content/nl/navigatie.json';
+import { bestaat } from '../lib/beeld.js';
 
 // Decoratieve marquee over de volle breedte, tussen het over-blok en de tegels.
 // De lijst wordt verdubbeld zodat de lus naadloos rondgaat: zodra de eerste
 // helft volledig langs is, staat de tweede helft op exact dezelfde plek.
 const strook = home.socialStrook;
 const labels = nav.labels;
-const bronnen = (strook?.fotos ?? []).map((n) => beeld.fotos[n]).filter(Boolean);
+// fotos[] = { webp_540, breedte, hoogte }; alleen bestaande bestanden.
+const bronnen = (strook?.fotos ?? []).filter((f) => f?.webp_540 && bestaat(f.webp_540));
 const rij = [...bronnen, ...bronnen];
 
 // De rij is aria-hidden met lege alt-teksten: dit beeld draagt geen informatie
@@ -26,8 +26,7 @@ const rij = [...bronnen, ...bronnen];
     <div class="beeldstrook__rij" aria-hidden="true">
       {rij.map((b, i) => (
         <div class="beeldstrook__item">
-          <Foto basis={b.basis} maten={b.maten} alt="" breedte={b.breedte} hoogte={b.hoogte}
-                sizes="(min-width: 768px) 380px, 260px" />
+          <img src={b.webp_540} alt="" width={b.breedte} height={b.hoogte} loading="lazy" decoding="async" />
         </div>
       ))}
     </div>
