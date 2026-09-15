@@ -310,7 +310,12 @@
     }
   },
   "beeld": {
-    "_todo": "Er bestaat geen enkele foto of video van kinderen op deze banen, en er komt er ook geen zolang O10 niet geregeld is (portretrecht ligt bij de ouder, niet bij de club). Render op deze pagina GEEN beeldslot met een volwassene erin die een kind moet voorstellen. Tot de opnamedag: alleen een haloverzicht of helemaal geen beeld. Zie OPEN.md O10 en O29."
+    "webp_1536": "/beeld/jeugd-hal-1536.webp",
+    "webp_768": "/beeld/jeugd-hal-768.webp",
+    "breedte": 1536,
+    "hoogte": 864,
+    "alt": "Een van de indoor padelbanen van Van Duren, gezien vanaf het net",
+    "_regel": "Bewust een LEGE baan zonder mensen. Er bestaat geen beeld van kinderen op deze banen en dat mag er ook niet komen zonder schriftelijke toestemming van de ouders (O10). Zet hier dus nooit een foto van een volwassene die een kind moet voorstellen, en ook geen stockbeeld. Vervangen na de opnamedag, mits de toestemming geregeld is."
   },
   "_seo": {
     "zoekwoord": "padelles kinderen Son en Breugel",

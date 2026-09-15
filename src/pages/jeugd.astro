@@ -5,6 +5,7 @@ import Cta from '../components/Cta.astro';
 import Formulier from '../components/Formulier.astro';
 import jeugd from '../content/nl/jeugd.json';
 import { stappenUit } from '../lib/vragen.js';
+import { bestaat } from '../lib/beeld.js';
 
 const pad = '/jeugd';
 const meta = { titel: jeugd.metaTitle, beschrijving: jeugd.metaDescription };
@@ -13,12 +14,20 @@ const FORMULIER_ID = jeugd.cta.formulier;
 
 const stappen = stappenUit(f.vragen);
 const bevestiging = { titel: f.bevestiging.kop, tekst: f.bevestiging.tekst };
-// Geen beeld op deze pagina: zie jeugd.beeld._todo (O10, O29).
+// jeugd.beeld: bewust een lege baan (jeugd.beeld._regel, O10). Rendert alleen
+// als het bestand bestaat en er een alt is.
+const beeld = jeugd.beeld?.webp_1536 && typeof jeugd.beeld.alt === 'string' && bestaat(jeugd.beeld.webp_1536) ? jeugd.beeld : null;
 ---
 <BasisLayout pad={pad} meta={meta} wa="lessen">
   <section class="sectie">
     <div class="omhulsel">
       <h1>{jeugd.h1}</h1>
+      {beeld && (
+        <img class="jeugd__beeld" src={beeld.webp_1536}
+             srcset={[bestaat(beeld.webp_768) ? `${beeld.webp_768} 768w` : null, `${beeld.webp_1536} 1536w`].filter(Boolean).join(', ')}
+             sizes="(min-width: 1280px) 1200px, 100vw" alt={beeld.alt}
+             width={beeld.breedte} height={beeld.hoogte} loading="lazy" decoding="async" />
+      )}
       <p class="jeugd__intro">{jeugd.intro}</p>
 
       {/* Elke kaart toont de reeksprijs én de prijs per les (jeugd._vormen_regel). */}
@@ -75,6 +84,7 @@ const bevestiging = { titel: f.bevestiging.kop, tekst: f.bevestiging.tekst };
 </BasisLayout>
 
 <style>
+  .jeugd__beeld { display: block; width: 100%; height: auto; border-radius: var(--radius); margin: 1.5rem 0; }
   .jeugd__intro { max-width: 60ch; }
   .raster-vier { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 2rem; }
   .jeugd__actie { margin-top: 1.5rem; }
