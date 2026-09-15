@@ -5,7 +5,7 @@
 > de projectmap staat. Wijk hier niet van af zonder dat de wijziging eerst in dit
 > bestand is vastgelegd.
 >
-> Laatst bijgewerkt: 15 september 2026 (v10 — §3 verruimd naar jeugd, navigatie naar acht items, §11.1 bronwaarheid)
+> Laatst bijgewerkt: 15 september 2026 (v12 — welkomstband vervallen, hero draagt alles; §11.1 uitgebreid naar assets)
 > Opdrachtgever: Mitch Bastiaans (Mr Hostly) · Klant: Martin & Bennet van Duren
 
 ---
@@ -629,7 +629,29 @@ Daarna de sponsorbalk uit §7.9 en de footer.
 
 **Twee plekken waar bewust van Boxtel is afgeweken, en waarom:**
 
-1. **De `h1` staat in de hero, de knoppen niet.** Boxtel laat de carrousel volledig
+1. **HERZIEN OP 15 SEPTEMBER 2026 — de welkomstband is vervallen, de hero draagt alles.**
+   Op mobiel bleek de band letterlijk dezelfde zin te herhalen die 300 pixels hoger
+   in de hero stond: "Vier indoor banen, zeven dagen per week open". Twee keer
+   binnen één schermhoogte.
+
+   Dat is een correctie op de correctie van 10 september. Toen is de dubbele KNOP
+   opgelost door hem naar sectie 2 te verplaatsen, maar de dubbele ZIN bleef staan.
+   Halve diagnose. De echte oorzaak is structureel: Boxtel heeft die band nodig
+   omdat hun hero een kale carrousel zonder tekst is — daar stelt de pagina zich
+   pas in sectie 2 voor. Onze hero doet dat al, dus die band had niets nieuws te
+   zeggen en vulde zich met een herhaling.
+
+   **De homepage heeft nu zes secties, niet zeven.** De hero draagt de `h1`, één
+   regel en beide knoppen. Niet opnieuw toevoegen. "Boek een baan" staat één keer
+   in de pagina plus permanent in de sticky header; dat is chrome, geen dubbeling.
+
+   Tekst en knoppen op een foto hebben een **gemeten** scrim nodig, geen geschatte:
+   minimaal `rgba(20,22,28,0.70)`. Bij 0,60 haalt wit 4,74:1 op het helderst
+   denkbare fotogebied, bij 0,55 nog maar 4,00:1 — onder AA. De oranje knop haalt
+   op géén enkel scrimniveau 3:1 randcontrast (1,1 tot 1,3:1) en krijgt dus dezelfde
+   witte ring van 2px als op blauw. Alle regels staan in `home.json` onder `hero`.
+
+2. **De oorspronkelijke redenering, hier bewaard zodat hij niet terugkeert.** Boxtel laat de carrousel volledig
    kaal en zet kop én knoppen in sectie 2. Wij zetten alleen de `h1` over de video —
    "Padelbaan huren in Son en Breugel" is de zoekterm waarop gevonden moet worden en
    die hoort boven de vouw. De knoppen blijven in sectie 2, precies zoals bij Boxtel.
@@ -881,6 +903,7 @@ O13 (naamsplitsing akkoord → §3), O15 (VIP-daluren → §7.2),
 | O27 | **Verhuurt Van Duren losse rackets buiten de lessen om, en wat kost dat?** Padel Boxtel noemt € 3 en dat is precies zo'n vraag die anders aan de balie gesteld wordt. Hoort als stap in "Zo werkt het" (§6.5) en als FAQ-antwoord. Nu onbekend. | Fase 2 | Bennet & Martin |
 | O28 | **De originelen staan nog in iCloud.** Alle 223 foto's zijn exact 1536×2048 en alle 34 video's exact 720×1280 — dat zijn Apple's iCloud-proxyformaten, niet camerabestanden. Bennet moet in Instellingen → Foto's "Download originelen" aanzetten, wachten tot alles binnen is, en pas dan opnieuw exporteren; of downloaden via iCloud.com. Blokkeert niets, maar elk liggend kader blijft tot die tijd een uitsnede van maximaal 1536 px breed. | Fase 5 | Mitch → Bennet |
 | O29 | **Er bestaat geen beeld van klanten, lessen, clinics, horeca, entree of parkeerplaats.** Op alle 257 bestanden staan uitsluitend Martin en Bennet, altijd in een lege hal. De site verkoopt lessen, clinics en gezelligheid achteraf en heeft daar nul beeld van. Opnamedag is toegezegd. Tot die tijd: render geen beeldslot waar geen foto voor is — nooit opvullen met een hal-overzicht dat iets anders moet voorstellen. | Fase 1–4 | Bennet & Martin |
+| O32 | **`/privacy` en `/voorwaarden` bestaan niet — en dat is nu een AVG-probleem, geen losse actie meer.** Gemeten op de preview (15 september 2026): `/privacy`, `/voorwaarden` en `/reserveringsvoorwaarden` geven alle drie een 404. De redirects `/privacybeleid`, `/algemene-voorwaarden` en `/reserveringsvoorwaarden` wijzen dus naar niets. Ondertussen staan er vier formulieren live die persoonsgegevens verzamelen, waaronder **de voornaam en leeftijd van een minderjarige** op `/jeugd`. §8 eist een privacyverklaring met verwerkingsgrondslag. Dit **blokkeert livegang**, niet fase 5. Bouw de twee pagina's als routes zodra de tekst er is; tot die tijd staat er onder elk formulier geen link naar een pagina die niet bestaat. O11 is hiermee opgewaardeerd van administratie naar blokkade. | **Livegang** | Mitch |
 | O22 | **Wie beheert het Google-bedrijfsprofiel?** Het adres is bevestigd, maar er is nog geen toegang om naam, openingstijden en telefoonnummer op Google, Facebook en Playtomic gelijk te trekken met §3.1 — de losse actie uit §8. | Fase 5 | Bennet & Martin |
 
 ### 11.1 Bronwaarheid voor contentbestanden
@@ -889,6 +912,17 @@ O13 (naamsplitsing akkoord → §3), O15 (VIP-daluren → §7.2),
 aanlevert.** Op 15 september 2026 overschreef een aangeleverde `clinics.json` het
 veld `kaartCta`, waardoor de Bedrijf-kaart zijn knop verloor. Oorzaak: het
 aangeleverde bestand was gebouwd op een kopie die achterliep op de repo.
+
+**Dit geldt ook voor beeldbestanden, en daar zijn drie aparte oorzaken geweest.**
+Een kopie die achterliep (`kaartCta`), een bestand dat nooit in de repo belandde
+(`banen.zoWerktHet`), en een zip van 16,6 MB die door de 10 MB-limiet van de
+Drive-koppeling niet binnenkwam. Daaruit volgen twee harde regels:
+
+1. **Niets boven 10 MB via de koppeling.** Lever grote sets als losse bestanden of
+   als een zip onder 10 MB. Zit iets er niet in, dan is dat een leveringsfout van
+   Mitch, geen bouwfout.
+2. **Na elke levering verifiëren dat de paden een 200 geven, niet aannemen dat de
+   zip is uitgepakt.** Noem in het opleverbericht drie concrete paden en hun status.
 
 Vanaf nu geldt: krijg je een contentbestand aangeleverd, **diff het eerst tegen de
 versie in de repo** en meld elk veld dat zou verdwijnen, in plaats van blind te
