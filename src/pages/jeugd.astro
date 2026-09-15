@@ -1,0 +1,119 @@
+---
+import BasisLayout from '../layouts/BasisLayout.astro';
+import Kaart from '../components/Kaart.astro';
+import Cta from '../components/Cta.astro';
+import Formulier from '../components/Formulier.astro';
+import jeugd from '../content/nl/jeugd.json';
+import nav from '../content/nl/navigatie.json';
+
+const pad = '/jeugd';
+const meta = { titel: jeugd.metaTitle, beschrijving: jeugd.metaDescription };
+const f = jeugd.formulier;
+const FORMULIER_ID = jeugd.cta.formulier;
+
+// jeugd.json beschrijft de vragen in zijn eigen vorm (id, waarde/label-opties,
+// vervolgTekstBij, velden als objecten). Hier worden ze vertaald naar de
+// stappen die Formulier.astro kent. De ingestuurde waarde is altijd het
+// leesbare label; de codes (6-8, 15plus, …) komen niet in de mail.
+const labelVan = (vr, waarde) => vr.opties.find((o) => o.waarde === waarde)?.label ?? waarde;
+// De doorverwijzing bij "15 jaar of ouder" (formulier.vragen[1]._regel): de
+// subregel uit de content plus een link naar de lessenpagina, met het
+// navigatielabel als linktekst. Het formulier gaat gewoon door.
+const doorverwijzing = nav.hoofdmenu.find((m) => m.pad === '/lessen');
+const stappen = f.vragen.map((vr, i) => {
+  const st = { nr: i + 1, vraag: vr.vraag, type: vr.type, toelichting: vr.toelichting };
+  if (vr.type === 'tekst') Object.assign(st, { label: vr.label, hint: vr.hint });
+  if (vr.opties) st.opties = vr.opties.map((o) => ({
+    waarde: o.label, sub: o.sub,
+    link: o.waarde === '15plus' && o.sub ? doorverwijzing : undefined,
+  }));
+  if (vr.vervolgTekstBij) Object.assign(st, {
+    type: 'keuze-plus-tekst', vervolgDirect: true,
+    tekstveldBij: vr.vervolgTekstBij.map((w) => labelVan(vr, w)),
+    tekstveldLabel: vr.vervolgLabel,
+  });
+  // beschikbaarheid._regel vraagt om een Verder-knop zodra er één gekozen is.
+  if (vr.type === 'meerkeuze') st.verderKnop = true;
+  if (vr.type === 'contact') Object.assign(st, { velden: vr.velden, verzendKnop: vr.verzendKnop });
+  return st;
+});
+const bevestiging = { titel: f.bevestiging.kop, tekst: f.bevestiging.tekst };
+// Geen beeld op deze pagina: zie jeugd.beeld._todo (O10, O29).
+---
+<BasisLayout pad={pad} meta={meta} wa="lessen">
+  <section class="sectie">
+    <div class="omhulsel">
+      <h1>{jeugd.h1}</h1>
+      <p class="jeugd__intro">{jeugd.intro}</p>
+
+      {/* Elke kaart toont de reeksprijs én de prijs per les (jeugd._vormen_regel). */}
+      <div class="raster-vier">
+        {jeugd.vormen.map((v) => (
+          <Kaart eyebrow={v.eyebrow} label={v.label}
+                 prijs={v.prijs} prijsPer={v.prijsPer} prijsSub={v.prijsPerLes}
+                 punten={[v.spelers, v.reeks]} />
+        ))}
+      </div>
+      <p class="jeugd__actie"><Cta cta={jeugd.cta} soort="secundair" /></p>
+    </div>
+  </section>
+
+  <section class="sectie sectie--licht">
+    <div class="omhulsel omhulsel--midden">
+      <h2 class="sectie-kop">{jeugd.tijden.titel}</h2>
+      <div class="tabel-omloop">
+        <table class="tijden">
+          <tbody>
+            {jeugd.tijden.blokken.map((b) => (
+              <tr>
+                <th scope="row">{b.wanneer}</th>
+                <td>
+                  <ul class="tijden__slots">{b.slots.map((sl) => (<li>{sl}</li>))}</ul>
+                  {b.noot && <p class="tijden__noot">{b.noot}</p>}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="tijden__onderregel">{jeugd.tijden.onderregel}</p>
+    </div>
+  </section>
+
+  <section class="sectie">
+    <div class="omhulsel">
+      <h2 class="sectie-kop">{jeugd.praktisch.titel}</h2>
+      <dl class="praktisch">
+        {jeugd.praktisch.punten.map((p) => (
+          <div class="praktisch__item"><dt>{p.label}</dt><dd>{p.tekst}</dd></div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="sectie sectie--licht">
+    <div class="omhulsel">
+      <Formulier naam="jeugd" id={FORMULIER_ID} titel={f.intro.kop} intro={f.intro.tekst}
+                 stappen={stappen} bevestiging={bevestiging} />
+    </div>
+  </section>
+</BasisLayout>
+
+<style>
+  .jeugd__intro { max-width: 60ch; }
+  .raster-vier { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 2rem; }
+  .jeugd__actie { margin-top: 1.5rem; }
+
+  .tabel-omloop { overflow-x: auto; }
+  .tijden { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+  .tijden th, .tijden td { padding: 0.9rem 0.75rem; border-top: 1px solid var(--grijs-500); vertical-align: top; text-align: left; }
+  .tijden tr:last-child th, .tijden tr:last-child td { border-bottom: 1px solid var(--grijs-500); }
+  .tijden th { font-family: var(--font-kop); font-weight: 600; width: 38%; }
+  .tijden__slots { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; font-variant-numeric: tabular-nums; }
+  .tijden__noot { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--grijs-500); }
+  .tijden__onderregel { margin-top: 1rem; }
+
+  .praktisch { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 1.5rem 0 0; }
+  .praktisch__item dt { font-family: var(--font-kop); font-weight: 600; margin-bottom: 0.25rem; }
+  .praktisch__item dd { margin: 0; font-size: 0.95rem; }
+</style>
