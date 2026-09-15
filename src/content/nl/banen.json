@@ -63,7 +63,37 @@
     "_regel": "White-label kalender in een iframe. Lazy: pas laden bij scrollen of op klik. Altijd de directe link eronder. Werkt pas als de website-URL in Playtomic Manager op het nieuwe domein staat; tot dan een leeg vlak (O26). Zet websiteUrlGeregeld op true zodra dat klopt; dan verdwijnt de build-warning.",
     "_todo": "STAND-IN van 9 september 2026: de aangeleverde banen.json met dit blok stond niet in Drive. url komt uit de opdracht; de labels zijn functioneel, geen marketingtekst. kop en intro bewust null: niet verzonnen. Vervang dit blok byte-exact door het aangeleverde zodra het er is."
   },
-  "zoWerktHet": null,
+  "zoWerktHet": {
+    "_bron": "Aangeleverd door Mitch op 15 september 2026 (stond sinds 9 september in zijn banen.json, dat nooit in de repo belandde — F20). De rackethuur-stap ontbreekt BEWUST: O27. Eén bron, twee plekken: /banen en de homepage (home.zoWerktHet.bron).",
+    "titel": "Zo werkt het",
+    "intro": "Van reserveren tot spelen, zonder te bellen of te mailen.",
+    "stappen": [
+      {
+        "titel": "Kies je baan en tijd",
+        "tekst": "Op Playtomic zie je live welke banen vrij zijn. Daluren beginnen om 09:00, piekuren zijn doordeweeks van 18:30 tot 22:30."
+      },
+      {
+        "titel": "Reken direct online af",
+        "tekst": "Je betaalt meteen en krijgt je bevestiging per mail. Verder hoef je niets te regelen."
+      },
+      {
+        "titel": "Parkeer op de Vlielandlaan",
+        "tekst": "Let op: dat is een ander adres dan de hal. Navigeer op Vlielandlaan 12, niet op de Rooijse weg."
+      },
+      {
+        "titel": "Speel",
+        "tekst": "Baan 1 en 2 kun je per anderhalf uur boeken. Baan 3 en 4 gaan per heel uur en starten op het hele uur."
+      },
+      {
+        "titel": "Blijf nog even hangen",
+        "tekst": "We hebben eigen horeca. Even nakletsen na je potje kan gewoon."
+      }
+    ],
+    "cta": {
+      "label": "Boek een baan",
+      "type": "playtomic"
+    }
+  },
   "babolat": {
     "titel": "In samenwerking met Babolat",
     "tekst": "We spelen met materiaal van Babolat. Rackets en ballen liggen klaar; je eigen racket meenemen mag altijd.",

@@ -1,5 +1,6 @@
 ---
 import Beeld from './Beeld.astro';
+import Cta from './Cta.astro';
 import { zoekBeeld } from '../lib/beeld.js';
 import banen from '../content/nl/banen.json';
 
@@ -14,7 +15,8 @@ import banen from '../content/nl/banen.json';
 // Rendert niets zolang banen.zoWerktHet ontbreekt: de stappen zijn content en
 // worden niet verzonnen (§0.3). Zie OPEN.md.
 const { bron = 'banen' } = Astro.props;
-const z = bron === 'banen' ? banen.zoWerktHet : null;
+// home.zoWerktHet.bron is "banen.json → zoWerktHet" (leesbare verwijzing); /banen geeft 'banen'.
+const z = /^banen/.test(String(bron)) ? banen.zoWerktHet : null;
 const fb = banen.zoWerktHetBeeld;
 const foto = z && fb?.naam && typeof fb.alt === 'string' && zoekBeeld(fb.naam, [1080, 720]) ? fb : null;
 const stappen = z?.stappen ?? [];
@@ -23,7 +25,7 @@ const stappen = z?.stappen ?? [];
   <section class="sectie zwh sectie-body" id="zo-werkt-het">
     <div class="omhulsel omhulsel--midden zwh__raster" data-met-foto={foto ? 'true' : 'false'}>
       <div class="zwh__tekst">
-        <h2 class="zwh__kop">{z.kop}</h2>
+        <h2 class="zwh__kop">{z.titel ?? z.kop}</h2>
         {z.intro && <p class="zwh__intro">{z.intro}</p>}
         <ol class="zwh__stappen">
           {stappen.map((s) => (
@@ -33,6 +35,7 @@ const stappen = z?.stappen ?? [];
             </li>
           ))}
         </ol>
+        {z.cta && <p class="zwh__actie"><Cta cta={z.cta} soort={z.cta.stijl ?? 'primair'} /></p>}
       </div>
       {foto && (
         <div class="zwh__foto">
@@ -67,6 +70,7 @@ const stappen = z?.stappen ?? [];
     font-family: var(--font-kop); font-weight: 700; font-size: 0.95rem;
   }
   .zwh__titel { display: block; font-family: var(--font-kop); font-weight: 600; color: var(--inkt); line-height: 1.35; padding-top: 0.2rem; }
+  .zwh__actie { margin: clamp(1.5rem, 3vw, 2rem) 0 0; }
   .zwh__uitleg { display: block; color: var(--grijs-500); margin-top: 0.2rem; }
 
   .zwh__foto { margin-top: clamp(1.5rem, 4vw, 2.5rem); border-radius: var(--radius); overflow: hidden; }
