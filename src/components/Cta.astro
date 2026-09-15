@@ -1,5 +1,6 @@
 ---
 import bedrijf from '../content/nl/bedrijf.json';
+import { slug } from '../lib/slug.js';
 
 // Eén plek die een cta-object uit de content omzet naar een link.
 // Verschuift Playtomic later van beleid, dan is dat hier één regel.
@@ -8,7 +9,9 @@ const href =
   cta.type === 'playtomic' ? bedrijf.playtomic :
   cta.type === 'playtomic-memberships' ? bedrijf.playtomicMemberships :
   cta.type === 'anker' ? cta.anker :
-  cta.type === 'formulier' ? `#${cta.formulier}` :
+  // formulier + start: het formulier opent met de eerste vraag al beantwoord
+  // (Formulier.astro rendert per optie een anker #<id>-<slug>).
+  cta.type === 'formulier' ? `#${cta.formulier}${cta.start ? '-' + slug(cta.start) : ''}` :
   cta.href;
 // (een cta met alleen 'href' is een gewone interne link)
 const extern = href?.startsWith('http');

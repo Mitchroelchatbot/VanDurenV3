@@ -1,7 +1,9 @@
 ---
 import Cta from './Cta.astro';
 
-const { eyebrow, label, omschrijving, punten, prijs, prijsPer, cta,
+// prijsSub is de tweede prijsregel (bijv. de prijs per les naast de reeksprijs).
+// Wordt hij meegegeven, dan staat hij er altijd; de content bepaalt dat.
+const { eyebrow, label, omschrijving, punten, prijs, prijsPer, prijsSub, cta,
         ctaSoort = 'secundair', niveau = 2 } = Astro.props;
 // Kopniveau volgt de pagina, zodat de koppenstructuur niet overslaat.
 const Kop = `h${niveau}`;
@@ -12,6 +14,7 @@ const Kop = `h${niveau}`;
   {prijs && (
     <p class="kaart__prijs">{prijs}{prijsPer && <span class="kaart__prijs-per"> {prijsPer}</span>}</p>
   )}
+  {prijs && prijsSub && <p class="kaart__prijs-sub">{prijsSub}</p>}
   {omschrijving && <p class="kaart__tekst">{omschrijving}</p>}
   {punten && punten.length > 0 && (
     <ul class="kaart__punten">{punten.map((p) => (<li>{p}</li>))}</ul>
@@ -35,6 +38,7 @@ const Kop = `h${niveau}`;
   .kaart__kop { font-size: 1.35rem; margin-bottom: 0.4rem; }
   .kaart__prijs { font-family: var(--font-kop); font-weight: 700; font-size: 1.5rem; margin: 0 0 0.6rem; color: var(--blauw); }
   .kaart__prijs-per { font-family: var(--font-tekst); font-weight: 400; font-size: 0.95rem; color: var(--grijs-500); }
+  .kaart__prijs-sub { font-family: var(--font-kop); font-weight: 600; font-size: 1.05rem; color: var(--inkt); margin: -0.35rem 0 0.8rem; }
   .kaart__tekst { margin-bottom: 1rem; }
   .kaart__punten { list-style: none; padding: 0; margin: 0 0 1.25rem; display: grid; gap: 0.4rem; }
   .kaart__punten li { position: relative; padding-left: 1.4rem; font-size: 0.95rem; }
