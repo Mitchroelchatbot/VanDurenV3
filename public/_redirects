@@ -24,8 +24,8 @@
 # --- Lessen -------------------------------------------------------------
 /padel-lessen                               /lessen                   301
 /tarieven-lessen                            /lessen                   301
-/padel-jeugd-tot-en-met-14-jaar             /lessen                   301
-/ook-voor-de-jeugd                          /lessen                   301
+/padel-jeugd-tot-en-met-14-jaar             /jeugd                    301
+/ook-voor-de-jeugd                          /jeugd                    301
 
 # --- Clinics ------------------------------------------------------------
 /bedrijfsclinics                            /clinics                  301
@@ -66,7 +66,7 @@
 # De WooCommerce-shop bevat welgeteld één product (jeugdtraining) en wordt
 # niet opnieuw gebouwd. Zie CLAUDE.md §11-O17.
 /winkel                                     /lessen                   301
-/product/jeugdtraining                      /lessen                   301
+/product/jeugdtraining                      /jeugd                    301
 /product/*                                  /lessen                   301
 /winkelwagen                                /                         301
 /afrekenen                                  /                         301

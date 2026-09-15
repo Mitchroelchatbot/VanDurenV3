@@ -13,6 +13,10 @@
       "label": "Lessen"
     },
     {
+      "pad": "/jeugd",
+      "label": "Jeugd"
+    },
+    {
       "pad": "/clinics",
       "label": "Clinics & bedrijven"
     },

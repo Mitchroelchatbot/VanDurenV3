@@ -59,8 +59,13 @@ const { hoofdmenu, labels } = nav;
   .wordmerk__groot { font-family: var(--font-kop); font-weight: 700; font-size: 1.5rem; line-height: 1.05; letter-spacing: -0.02em; }
   .wordmerk__klein { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.92; }
 
-  .kop__nav ul { display: flex; gap: clamp(0.6rem, 0.95vw, 1rem); list-style: none; margin: 0; padding: 0; }
-  .kop__nav a { text-decoration: none; font-size: 0.875rem; padding-block: 0.4em; white-space: nowrap; }
+  /* Negen items sinds /jeugd (15 september). Met de vorige maten (0.875rem,
+     gap tot 1rem) brak de rij vanaf 1440px in twee regels: gemeten 1202px
+     nodig tegen 1200px ruimte. Vaste gap en iets kleiner lettertype geven
+     op 1920px ~30px over. Structurele oplossing (O25: /sponsoren naar de
+     footer) wacht op akkoord van Mitch. */
+  .kop__nav ul { display: flex; gap: 0.7rem; list-style: none; margin: 0; padding: 0; }
+  .kop__nav a { text-decoration: none; font-size: 0.85rem; padding-block: 0.4em; white-space: nowrap; }
   .kop__nav a:hover { text-decoration: underline; }
   .kop__nav a[aria-current='page'] { text-decoration: underline; text-underline-offset: 0.35em; }
 
