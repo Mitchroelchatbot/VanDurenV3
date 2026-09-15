@@ -6,12 +6,16 @@ import Formulier from '../components/Formulier.astro';
 import Cta from '../components/Cta.astro';
 import PlaytomicEmbed from '../components/PlaytomicEmbed.astro';
 import ZoWerktHet from '../components/ZoWerktHet.astro';
+import Beeld from '../components/Beeld.astro';
+import { zoekBeeld } from '../lib/beeld.js';
 import banen from '../content/nl/banen.json';
 import tarieven from '../content/nl/tarieven.json';
 
 const pad = '/banen';
 const meta = { titel: banen.metaTitle, beschrijving: banen.metaDescription };
 const w = banen.contractbaanWizard;
+// §7.2 sfeerbeelden onderaan: alleen de bestanden die bestaan; geen enkel bestand = geen sectie.
+const sfeer = (banen.sfeer?.fotos ?? []).filter((f) => typeof f.alt === 'string' && zoekBeeld(f.naam));
 ---
 <BasisLayout pad={pad} meta={meta} wa="banen">
   <section class="sectie">
@@ -65,9 +69,19 @@ const w = banen.contractbaanWizard;
               bevestiging={w.bevestiging} />
     </div>
   </section>
+
+  {sfeer.length > 0 && (
+    <section class="sectie sectie--licht">
+      <div class="omhulsel sfeer">
+        {sfeer.map((f) => (<Beeld naam={f.naam} alt={f.alt} klasse="sfeer__foto" sizes="(min-width: 900px) 50vw, 100vw" />))}
+      </div>
+    </section>
+  )}
 </BasisLayout>
 
 <style>
+  .sfeer { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .sfeer__foto { display: block; width: 100%; height: auto; border-radius: var(--radius); }
   .raster-drie { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
   .vip__prijs { font-family: var(--font-kop); font-weight: 700; font-size: 2rem; color: var(--blauw); margin-bottom: 0.2rem; }
   .vip__per { font-family: var(--font-tekst); font-weight: 400; font-size: 1rem; color: var(--grijs-500); }

@@ -2,6 +2,8 @@
 import BasisLayout from '../layouts/BasisLayout.astro';
 import Kaart from '../components/Kaart.astro';
 import Formulier from '../components/Formulier.astro';
+import Beeld from '../components/Beeld.astro';
+import { zoekBeeld } from '../lib/beeld.js';
 import clinics from '../content/nl/clinics.json';
 
 const pad = '/clinics';
@@ -14,6 +16,7 @@ const w = clinics.wizard;
 // nergens gerenderd zolang hij null is (O30): geen prijs, geen streepje.
 const FORMULIER_ID = 'aanvraag';
 const kaarten = clinics.kaarten.filter((k) => k.actief && k.omschrijving);
+const groep = (clinics.beeld?.groep ?? []).filter((f) => typeof f.alt === 'string' && zoekBeeld(f.naam));
 const ctaVan = (k) => ({ type: 'formulier', formulier: FORMULIER_ID, start: k.label, label: clinics.kaartCta, ...(k.cta ?? {}) });
 ---
 <BasisLayout pad={pad} meta={meta} wa="clinics">
@@ -27,6 +30,11 @@ const ctaVan = (k) => ({ type: 'formulier', formulier: FORMULIER_ID, start: k.la
             <Kaart label={k.label} omschrijving={k.omschrijving} prijs={k.prijsregel ?? undefined}
                    cta={ctaVan(k)} />
           ))}
+        </div>
+      )}
+      {groep.length > 0 && (
+        <div class="clinics__beeld">
+          {groep.map((f) => (<Beeld naam={f.naam} alt={f.alt} klasse="clinics__foto" sizes="(min-width: 900px) 50vw, 100vw" />))}
         </div>
       )}
     </div>
@@ -54,6 +62,8 @@ const ctaVan = (k) => ({ type: 'formulier', formulier: FORMULIER_ID, start: k.la
      tekst heeft): geen leeg vak, geen gat. */
   .raster { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); margin-top: 2rem; }
   .clinics__intro { max-width: 60ch; }
+  .clinics__beeld { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 2rem; }
+  .clinics__foto { display: block; width: 100%; height: auto; border-radius: var(--radius); }
   .clinics__vanaf { font-family: var(--font-kop); font-weight: 700; font-size: 1.9rem; color: var(--blauw); margin-bottom: 0.6rem; }
   .clinics__punten { padding-left: 1.2rem; display: grid; gap: 0.35rem; margin-bottom: 1.25rem; }
 </style>

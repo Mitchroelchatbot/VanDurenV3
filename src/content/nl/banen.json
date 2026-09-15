@@ -155,5 +155,31 @@
   "_verwijderd": [
     "Het uitlegblok over WPT-banen ('Internationale WPT-kwaliteit, indoor…') — letterlijke wens eigenaren: mag weg.",
     "De statistiekenbalk '4 Indoor banen · WPT · 7 dagen · 90 min' — idem."
-  ]
+  ],
+  "sfeer": {
+    "_regel": "§7.2 'Sfeerbeelden onderaan'. Vier 16:9-uitsnedes (1536×864 met 768w). Rendert alleen de bestanden die in public/beeld bestaan; geen enkel bestand = geen sectie.",
+    "fotos": [
+      {
+        "naam": "banen-sfeer-1",
+        "alt": "Bank langs de baan, met de terracotta omloop van de hal"
+      },
+      {
+        "naam": "banen-sfeer-2",
+        "alt": "Twee Babolat-rackets en ballen tegen het net"
+      },
+      {
+        "naam": "banen-sfeer-3",
+        "alt": "Het net van een van de indoor banen, met ballen op de baan"
+      },
+      {
+        "naam": "banen-sfeer-4",
+        "alt": "Detail van het net op een lege indoor padelbaan"
+      }
+    ]
+  },
+  "zoWerktHetBeeld": {
+    "_regel": "Foto naast 'Zo werkt het' (§6.5), staand 1080×1440 met 720w. Rendert pas als zoWerktHet gevuld is én het bestand bestaat.",
+    "naam": "banen-zowerkthet",
+    "alt": "Racket en ballen klaar tegen het net, voor aanvang van een potje"
+  }
 }

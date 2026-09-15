@@ -12,7 +12,12 @@
   "/over-ons": {
     "titel": "Over ons en contact — Van Duren Indoor Padel Centrum",
     "beschrijving": "Het verhaal van Martin en Bennet van Duren, plus adres, parkeren, openingstijden en contactgegevens.",
-    "h1": "Over ons en contact"
+    "h1": "Over ons en contact",
+    "beeld": {
+      "naam": "overons-duo",
+      "alt": "Martin en Bennet van Duren geven elkaar een high five aan het net",
+      "_regel": "Staand; met opzet een ander frame dan de homepage."
+    }
   },
   "/404": {
     "titel": "Pagina niet gevonden — Van Duren Indoor Padel Centrum",

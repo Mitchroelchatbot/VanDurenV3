@@ -1,6 +1,6 @@
 ---
-import Foto from './Foto.astro';
-import beeld from '../content/nl/home-beeld.json';
+import Beeld from './Beeld.astro';
+import { zoekBeeld } from '../lib/beeld.js';
 import banen from '../content/nl/banen.json';
 
 // Vijf genummerde stappen: hoe een baan huren werkt. Eén bron (banen.zoWerktHet),
@@ -15,7 +15,8 @@ import banen from '../content/nl/banen.json';
 // worden niet verzonnen (§0.3). Zie OPEN.md.
 const { bron = 'banen' } = Astro.props;
 const z = bron === 'banen' ? banen.zoWerktHet : null;
-const foto = z?.foto ? beeld.fotos[z.foto] : null;
+const fb = banen.zoWerktHetBeeld;
+const foto = z && fb?.naam && typeof fb.alt === 'string' && zoekBeeld(fb.naam, [1080, 720]) ? fb : null;
 const stappen = z?.stappen ?? [];
 ---
 {z && stappen.length > 0 && (
@@ -35,8 +36,7 @@ const stappen = z?.stappen ?? [];
       </div>
       {foto && (
         <div class="zwh__foto">
-          <Foto basis={foto.basis} maten={foto.maten} alt={z.fotoAlt ?? ''}
-                breedte={foto.breedte} hoogte={foto.hoogte} sizes="(min-width: 900px) 42vw, 100vw" />
+          <Beeld naam={foto.naam} alt={foto.alt} maten={[1080, 720]} sizes="(min-width: 900px) 42vw, 100vw" />
         </div>
       )}
     </div>

@@ -1,0 +1,19 @@
+---
+import { zoekBeeld } from '../lib/beeld.js';
+
+// Eén foto uit public/beeld op naam, alleen als het bestand bestaat.
+// Props: naam (verplicht), alt (verplicht, §5.2), maten (breedtes die kunnen
+// bestaan), sizes, laden, prioriteit, klasse.
+const { naam, alt, maten = [1536, 768], sizes = '(min-width: 900px) 50vw, 100vw',
+        laden = 'lazy', prioriteit = false, klasse } = Astro.props;
+const b = zoekBeeld(naam, maten);
+---
+{b && typeof alt === 'string' && (
+  <img class={klasse}
+       src={b.bronnen[b.bronnen.length - 1].pad}
+       srcset={b.bronnen.map((x) => `${x.pad} ${x.breedte}w`).join(', ')}
+       sizes={sizes} alt={alt}
+       width={b.breedte} height={b.hoogte ?? undefined}
+       loading={prioriteit ? 'eager' : laden} decoding={prioriteit ? 'sync' : 'async'}
+       fetchpriority={prioriteit ? 'high' : undefined} />
+)}

@@ -1,6 +1,7 @@
 ---
 import BasisLayout from '../layouts/BasisLayout.astro';
 import Accordeon from '../components/Accordeon.astro';
+import Beeld from '../components/Beeld.astro';
 import spelregels from '../content/nl/spelregels.json';
 
 const pad = '/spelregels';
@@ -27,6 +28,9 @@ const meta = { titel: spelregels.metaTitle, beschrijving: spelregels.metaDescrip
     <div class="omhulsel omhulsel--midden">
       <h2 class="sectie-kop">{spelregels.padelregels.titel}</h2>
       <p class="regels__intro">{spelregels.padelregels.intro}</p>
+      {spelregels.padelregels.beeld && (
+        <Beeld naam={spelregels.padelregels.beeld.naam} alt={spelregels.padelregels.beeld.alt} klasse="regels__foto" sizes="(min-width: 1024px) 1024px, 100vw" />
+      )}
       {spelregels.padelregels.secties.map((s) => (
         <div class="regels__sectie">
           <h3>{s.titel}</h3>
@@ -38,6 +42,7 @@ const meta = { titel: spelregels.metaTitle, beschrijving: spelregels.metaDescrip
 </BasisLayout>
 
 <style>
+  .regels__foto { display: block; width: 100%; height: auto; border-radius: var(--radius); margin: 1rem 0 2rem; }
   .ankers ul { display: flex; flex-wrap: wrap; gap: 0.75rem; list-style: none; padding: 0; margin: 0; }
   .ankers a {
     display: inline-block; padding: 0.5em 1em;

@@ -1,15 +1,18 @@
 {
   "_bron": "Padelregels: indoorpadelcentrum.nl/padel-regels/ — overgenomen 1 september 2026. FAQ: samengesteld uit /contact/, /tarieven/, /tarieven-lessen/, /vip-daluren/ en /bedrijfsclinics/. Alles wat niet uit die bronnen komt staat onder _todo en is NIET beantwoord.",
-
   "titel": "Spelregels en veelgestelde vragen",
   "metaTitle": "Padelregels en veelgestelde vragen — Van Duren Indoor Padel Centrum",
   "metaDescription": "De spelregels van padel en antwoord op de vragen die we het vaakst krijgen over boeken, tarieven en lessen in Son en Breugel.",
-
   "ankers": [
-    { "id": "faq", "label": "Veelgestelde vragen" },
-    { "id": "padelregels", "label": "Padelregels" }
+    {
+      "id": "faq",
+      "label": "Veelgestelde vragen"
+    },
+    {
+      "id": "padelregels",
+      "label": "Padelregels"
+    }
   ],
-
   "faq": [
     {
       "vraag": "Hoe boek ik een baan?",
@@ -56,7 +59,6 @@
       "antwoord": "Ja. Een clinic kost vanaf € 29,00 per persoon, inclusief begeleiding door onze gediplomeerde trainers, al het materiaal en toegang tot onze horeca. Lunch, borrel of hapjes zijn los bij te boeken. Via het formulier op de clinicspagina stel je je aanvraag in een paar stappen samen."
     }
   ],
-
   "_todo_faq": [
     "Annuleringsvoorwaarden: tot hoe lang van tevoren kan een boeking kosteloos worden geannuleerd? Het prototype noemde 24 uur, maar dat staat nergens op de echte site en is dus niet bevestigd. NIET publiceren voor het bevestigd is.",
     "Kledingvoorschriften: zijn zaalschoenen met niet-afgevende zool verplicht? Het prototype beweert van wel; onbevestigd.",
@@ -65,7 +67,6 @@
     "Is er een minimum leeftijd om te spelen?",
     "Kun je zonder lidmaatschap spelen? (Waarschijnlijk ja, maar niet bevestigd.)"
   ],
-
   "padelregels": {
     "titel": "De spelregels van padel",
     "intro": "Padel wordt meestal gespeeld als dubbelspel, twee tegen twee, op een baan van 10 bij 20 meter die omgeven is door glas en hekwerk.",
@@ -95,6 +96,10 @@
           "Een wedstrijd gaat om twee gewonnen sets."
         ]
       }
-    ]
+    ],
+    "beeld": {
+      "naam": "spelregels-baan",
+      "alt": "Bal op de baan, met de belijning en het net zichtbaar"
+    }
   }
 }

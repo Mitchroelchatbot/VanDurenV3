@@ -1,5 +1,6 @@
 ---
 import BasisLayout from '../layouts/BasisLayout.astro';
+import Beeld from '../components/Beeld.astro';
 import paginas from '../content/nl/paginas.json';
 
 const pad = '/over-ons';
@@ -9,6 +10,13 @@ const meta = paginas[pad];
   <section class="sectie">
     <div class="omhulsel">
       <h1>{meta.h1}</h1>
+      {meta.beeld && (
+        <Beeld naam={meta.beeld.naam} alt={meta.beeld.alt} maten={[1080, 720]} klasse="overons__foto" sizes="(min-width: 900px) 540px, 100vw" />
+      )}
     </div>
   </section>
 </BasisLayout>
+
+<style>
+  .overons__foto { display: block; max-width: 540px; width: 100%; height: auto; border-radius: var(--radius); margin-top: 1.5rem; }
+</style>
