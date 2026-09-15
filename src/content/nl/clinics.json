@@ -27,14 +27,41 @@
       "label": "Vriendengroep",
       "omschrijving": null,
       "actief": false,
-      "_todo": "Er staat op de huidige site niets over vriendengroepen. Geen tekst verzinnen — laat deze kaart de algemene omschrijving en het formulier gebruiken, of zet 'actief' pas op true als de eigenaren tekst hebben aangeleverd. Zie OPEN.md O19b."
+      "_todo": "Er staat op de huidige site niets over vriendengroepen. Geen tekst verzinnen — laat deze kaart de algemene omschrijving en het formulier gebruiken, of zet 'actief' pas op true als de eigenaren tekst hebben aangeleverd. Zie OPEN.md O19b.",
+      "_invulschema": {
+        "_regel": "Zelfde regel: actief pas op true als er echte tekst is.",
+        "omschrijving": null,
+        "prijsPerPersoon": null,
+        "minPersonen": null,
+        "duurMinuten": null
+      }
     },
     {
       "id": "kinderfeestje",
       "label": "Kinderfeestje",
-      "omschrijving": null,
-      "actief": false,
-      "_todo": "Idem. Bovendien is onbekend of de vanafprijs van € 29,00 p.p. ook voor kinderen geldt. Zie OPEN.md O20."
+      "omschrijving": "Een verjaardag vieren op de baan. Onze trainers zetten een programma neer dat past bij de leeftijd van de kinderen; racket en ballen liggen klaar. Vertel ons wat je in gedachten hebt, dan komen we met een voorstel.",
+      "actief": true,
+      "_todo": "Onbekend: prijs per kind, min/max aantal, duur, leeftijdsrange, wat inbegrepen is, of een volwassen begeleider verplicht is en of eigen traktatie mee mag. De vanafprijs van € 29,00 p.p. op de huidige site is geschreven voor bedrijven; of die ook voor kinderen geldt is nooit bevestigd. Zie OPEN.md O20. De wizardvragen 2a (leeftijd) en 2b (aantal begeleiders) uit CLAUDE.md §6.1 zijn WEL gebouwd en werken — alleen de kaart met de commerciële feiten blijft leeg.",
+      "_invulschema": {
+        "_regel": "Nog steeds onbekend, maar de kaart is niet langer afhankelijk van deze velden — hij draait nu op het formulier. Vul ze in zodra O20 beantwoord is; dan komt de prijs op de kaart en in de eerste stap van de wizard.",
+        "prijsPerKind": null,
+        "minKinderen": null,
+        "maxKinderen": null,
+        "duurMinuten": null,
+        "leeftijdVan": null,
+        "leeftijdTot": null,
+        "inbegrepen": null,
+        "begeleiderVerplicht": null,
+        "traktatieMeenemen": null
+      },
+      "cta": {
+        "label": "Vraag de mogelijkheden aan",
+        "type": "formulier",
+        "start": "kinderfeestje"
+      },
+      "prijsregel": null,
+      "_besluit": "15 september 2026, Mitch. Deze kaart gaat LIVE zonder prijs, met de knop direct naar het formulier — niet als 'binnenkort beschikbaar'. Reden: een niet-klikbare kaart levert de vraag 'wanneer dan?' op en die kan alleen in de mailbox landen, wat precies is wat dit project afschaft (§1). Een klikbare kaart levert één complete aanvraag op waar met een voorstel op geantwoord kan worden (§6.1).",
+      "_regel_prijs": "prijsregel is null en er staat GEEN prijs op de kaart. Toon dat veld dus niet — geen 'prijs op aanvraag', geen 'vanaf €…', geen streepje. De omschrijving eindigt al met de belofte van een voorstel; dat is genoeg. Zodra O20 beantwoord is, vul je prijsregel en het _invulschema en verschijnt de prijs vanzelf."
     }
   ],
   "wizard": {
@@ -59,14 +86,7 @@
       {
         "nr": 2,
         "vraag": "Met hoeveel personen komen jullie?",
-        "type": "aantal",
-        "chips": [
-          "4–8",
-          "9–16",
-          "17–24",
-          "25–48",
-          "Meer"
-        ]
+        "type": "aantal"
       },
       {
         "nr": "2a",
@@ -85,19 +105,12 @@
       },
       {
         "nr": "2b",
-        "vraag": "Hoeveel begeleiders komen mee?",
-        "toelichting": "Volwassenen die bij het feestje blijven.",
+        "vraag": "Hoeveel volwassen begeleiders komen mee?",
         "type": "aantal",
         "toonBij": {
           "stap": 1,
           "waarde": "Kinderfeestje"
-        },
-        "chips": [
-          "1",
-          "2",
-          "3",
-          "Meer"
-        ]
+        }
       },
       {
         "nr": 3,
@@ -167,5 +180,5 @@
     }
   },
   "_verwijderd": "Het blok 'Zo werkt het' (stap 1 mail je wensen, 2 voorstel, 3 reserveren, 4 spelen) van de oude site komt NIET terug. Dat legt het mailproces uit dat we juist afschaffen. Geen mailto op deze pagina.",
-  "kaartCta": "Aanvraag starten"
+  "_kaartregel": "Render alleen kaarten met actief=true. Dat zijn er nu twee: Bedrijf en Kinderfeestje. Vriendengroep blijft op false tot er tekst is — een kaart met actief=false bestaat niet in de HTML: geen grijs vlak, geen 'binnenkort', geen placeholder. Met twee kaarten geen gat laten vallen in een grid van drie: gebruik een tweekoloms grid tot de derde kaart er is."
 }

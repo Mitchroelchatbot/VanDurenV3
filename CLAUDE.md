@@ -5,7 +5,7 @@
 > de projectmap staat. Wijk hier niet van af zonder dat de wijziging eerst in dit
 > bestand is vastgelegd.
 >
-> Laatst bijgewerkt: 1 september 2026 (v3 — antwoorden eigenaren verwerkt)
+> Laatst bijgewerkt: 15 september 2026 (v8 — volledige beeldinventaris, O19 en O23 gesloten)
 > Opdrachtgever: Mitch Bastiaans (Mr Hostly) · Klant: Martin & Bennet van Duren
 
 ---
@@ -316,11 +316,6 @@ goed bedoeld advies in dit document:**
 
 - Oranje is uitsluitend voor de primaire actie ("Boek een baan"). Eén oranje knop
   per scherm — anders werkt hij niet meer.
-  **Uitzondering, 10 september 2026:** de kop-CTA blijft op elke pagina en elke
-  breedte zichtbaar, ook onder 560px (daar met het korte label "Boeken", minimaal
-  44px hoog). Dat is de belangrijkste knop van de site en de kleinste telefoons zijn
-  de spontane boekers. Gevolg: op de homepage kan bij het laden de oranje kop-CTA
-  samen met de oranje knop van `welkom` in beeld staan. Bewust aanvaard.
 - **Het palet klopt met de hal.** In het videomateriaal is te zien dat de banen
   blauw zijn met een oranje/terracotta omloop. Blauw + oranje is niet alleen het
   logo, het is letterlijk wat de bezoeker ziet als hij binnenloopt.
@@ -334,7 +329,8 @@ referentie. Beeld is hier geen decoratie maar de belangrijkste overtuiging.
 
 | Bestand | Formaat | Duur | Inzet |
 |---|---|---|---|
-| `Van_Duren_Versie_1a.mp4` | 254 MB, **liggend 16:9** | ? | **De hero.** Brede overzichtsopname van de hal met spelers. Door Bennet zelf gemaakt, gebruiksrecht geregeld. Bevestigd: dit ís de hal van Van Duren |
+| `Van_Duren_Versie_1a.mp4` | **3840×2160 (4K)**, H.264 High, 25 fps, 100 Mbit, 254 MB | 20,3 s | **De hero-master.** Gemeten 2 sep 2026. Door Bennet zelf gemaakt, gebruiksrecht geregeld. Verwerkt naar `hero-1600.mp4` (4,8 MB) en `hero-960.mp4` (2,4 MB) |
+| `test/c7181cd4….mov` | **1024×576**, H.264, 25 fps, 1,6 Mbit, 4,1 MB | 20,2 s | Gecomprimeerde export van dezelfde video (gemeten 2 sep 2026). Dertien shots in twintig seconden: overzichten van de hal met spelers, close-up racket en bal. **Te laag voor desktop** — op 1920 breed wordt hij 1,9× opgeblazen en zichtbaar zacht. Wél bruikbaar als voorlopige hero tot de master verwerkt is, en als bron voor het posterframe |
 | `Fotos van Bennet/e75c590e….MP4` | 1280×720 met rotatie −90°, dus **staand** | 25 s | Staande clip in een mobiel blok of een lesvorm-kaart. Nooit als desktop-hero |
 | `Fotos van Bennet/4776981e….MP4` | 480×864 staand, 1,6 Mbit | 27 s | **Niet gebruiken.** Te lage resolutie, én er staat een herkenbaar kind prominent in beeld — zie O10, dat is een andere vraag dan het gebruiksrecht van de eigenaren |
 
@@ -342,13 +338,68 @@ Bouw de hero-component desondanks zo dat `video` een optioneel veld is en de
 poster-afbeelding altijd werkt. De video is nu 254 MB en moet eerst door de
 verwerking hieronder; tot dat klaar is draait de pagina op de poster.
 
-**Verwerking van de hero-video (zodra goedgekeurd):**
+**Voorlopig posterframe** staat klaar: `content/beeld/hero-poster-voorlopig-1024.{jpg,webp}`
+(frame op 4,5 s: overzicht van de hal met spelers). Vervang hem door een frame uit
+de master zodra die verwerkt is.
 
-- comprimeer naar max. 6 MB, 1920×1080, H.264 `.mp4` + `.webm`;
+**Twee dingen in beeld om Bennet te laten kiezen** — geen blokkade:
+(1) op de achterwand hangt een spandoek "LA VIDA PADEL", geen Van Duren-uiting;
+als dat een evenement was dat voorbij is, is een shot zonder dat spandoek netter.
+(2) De close-up toont een racket dat er niet als Babolat uitziet. Voor een centrum
+met "powered by Babolat" op het bord is dat een detail dat de partner opvalt.
+
+**Snijden — niet doen.** De montage telt dertien shots in twintig seconden en het
+langste aaneengesloten shot duurt 2,6 seconden. Er valt dus geen rustig fragment
+uit te knippen: dat wordt een hik, geen loop. De volledige twintig seconden is de
+loop. Achter een kop met een donkere gradient eronder werkt dat, mits de kop
+stilstaat en er verder niets op de pagina beweegt.
+
+**De hero-video is verwerkt en meegeleverd** (`content/beeld/`):
+
+| Bestand | Formaat | Grootte | Inzet |
+|---|---|---|---|
+| `hero-1600.mp4` | 1600×900, CRF 31, geen audio | 4,8 MB | desktop, boven 1024px |
+| `hero-960.mp4` | 960×540, CRF 30, geen audio | 2,4 MB | tablet, 768–1024px |
+| `hero-poster-1920.{webp,jpg}` | 1920×1080 | 152 / 238 KB | poster desktop |
+| `hero-poster-1024.webp` | 1024×576 | 62 KB | poster mobiel |
+
+Het posterframe komt uit de master op 13,5 s: spelers op de baan, goede diepte,
+het "Padel Academy van Duren"-bord niet in beeld (dat zit op 11,5 s als je het
+wél wilt tonen).
+
+**Verwerking (gedaan, hier voor de reproduceerbaarheid):**
+
+- geen audio, `-an`;
 - achtergrondloop: `muted autoplay loop playsinline`, met `poster`-afbeelding zodat
   er nooit een leeg vlak staat;
 - respecteer `prefers-reduced-motion` — dan alleen de poster;
 - laad hem niet op mobiel onder 768px; daar de poster.
+
+**Fotomateriaal — gemeten 15 september 2026, de volledige camerarol.**
+
+257 bestanden van 28 oktober 2025, iPhone 15 Pro: 223 foto's en 34 video's.
+Alle foto's zijn **1536×2048 staand**, alle video's **720×1280 staand**. Nul
+liggend beeld, nul herkenbare minderjarigen, en op elk bestand staan uitsluitend
+Martin en Bennet. Zie O28 (originelen staan nog in iCloud) en O29 (wat ontbreekt).
+
+Verwerkt en klaar in `public/beeld/`:
+
+| Bestand | Formaat | Uit | Voor |
+|---|---|---|---|
+| `kernpunten-duo-{1080,720}.webp` | 1080×1920 | `IMG_6772` | kernpunten, `keuze: primair` |
+| `kernpunten-duo-alt-{1080,720}.webp` | 1080×1920 | `IMG_6771` | reserve |
+| `kaart-banen-{1536,768}.webp` | 1536×864 | `IMG_6567` | kaart "Baan huren" |
+| `kaart-lessen-{1536,768}.webp` | 1536×864 | `IMG_6676` | kaart "Lessen" |
+| `kaart-clinics-{1536,768}.webp` | 1536×864 | `IMG_6748` | kaart "Clinics" |
+| `strook-01…12-540.webp` | 540×960 | twaalf beelden | beeldstrook homepage |
+| `les-techniek-{1,2,3}-720.mp4` + posters | 720×1280, 8 s, stil | `IMG_6691/6690/6692` | lesvormkaarten |
+
+**Extra beeldmateriaal:** in `02 — Design & Branding/test/` staan opgeslagen
+Instagram-pagina's. Die bevatten géén video's, maar wel circa twintig JPG's uit de
+eigen feed, waarvan meerdere in **2160×3840** (4K, staand). Dat zijn omslagframes
+van reels en ze zijn scherp genoeg voor gebruik op de site — bruikbaar voor de
+lesvorm-kaarten en mobiele blokken. Let op: het zijn staande beelden, dus geen
+desktop-hero.
 
 **Foto's:** HEIC converteren naar WebP/AVIF. Alle foto's in twee maten
 (mobiel/desktop), `loading="lazy"` behalve de eerste boven de vouw. Elke foto krijgt
@@ -356,9 +407,25 @@ een beschrijvende `alt`-tekst. Geen "sfeerbeeld".
 
 ### 5.3 Typografie
 
-**Lexend** voor koppen, **Inter** voor lopende tekst. Zelf hosten (`.woff2` in
-`public/`), niet via Google Fonts — scheelt een cookiebanner-discussie en een
-externe request.
+**Sora** voor koppen, **Inter** voor lopende tekst. Besluit van 2 september 2026
+op basis van een letterproef op 390px: Lexend (het prototype) is zo breed dat de
+formuliervraag "Hoeveel volwassen begeleiders komen mee?" over twee regels breekt
+en de tarieventabel buiten beeld valt. Sora heeft dezelfde ronde vormen als de O
+en de D in het logo, is smaller, en leest niet als een app. Zelf hosten (`.woff2`
+in `public/`, gewichten 600 en 700), niet via Google Fonts.
+
+Kopgroottes staan in `tokens.css` (regel 5). Niet vergroten zonder de meting
+opnieuw te doen.
+
+### 5.4 Uitlijning — "gemengd"
+
+Gecentreerd: de hero (kop, subregel, knoppen), sectiekoppen, korte intro's van
+maximaal drie regels, en de bevestigingspagina na een formulier.
+
+Links: alles met structuur — alinea's, lijsten, tegels, tabellen, formuliervragen
+en chips. Een gecentreerde tabel verliest de lijn tussen label en prijs; een
+gecentreerde rij chips staat schots en scheef. Dit staat als CSS in `tokens.css`
+(regel 4), niet als advies.
 
 ---
 
@@ -464,7 +531,43 @@ beginner / gevorderd), voorkeursdagdelen, aantal personen, contactgegevens.
 Bouw de CTA per lesvorm als één veld in `lessen.json`: `playtomicUrl` óf `formulier`.
 Verschuift Playtomic later van beleid, dan is omschakelen één regel.
 
-### 6.4 WhatsApp
+### 6.4 Playtomic in de site — de boekingskalender zelf
+
+Playtomic ondersteunt officieel een **white-label embed**: je zet de echte
+boekingskalender op je eigen domein in plaats van bezoekers weg te sturen. Bron:
+`helpmanager.playtomic.com`, "How to Embed Your Club's Playtomic Booking Page
+Correctly", geraadpleegd 9 september 2026.
+
+- URL **moet** `https://playtomic.io/wl/{tenant_id}` zijn. De gewone clubURL
+  (`playtomic.io/van-duren-indoor-padel-centrum/…`) werkt niet in een iframe.
+  Voor Van Duren: `https://playtomic.io/wl/a52205f6-6954-4d82-bda0-b2040fc82dc4`.
+- **Harde voorwaarde:** in Playtomic Manager moet de website-URL van de club exact
+  gelijk zijn aan het domein waarop het iframe draait — inclusief `https` en
+  `www`. Wijkt dat af, dan laadt het iframe niet. Zie O26.
+- Bouwregels staan in `banen.json` onder `playtomic`: lazy loading via
+  IntersectionObserver, vaste min-height, en altijd een zichtbare fallbacklink
+  eronder voor wie iframes blokkeert.
+
+**De Playtomic-API is geen alternatief.** Read-only, levert boekingen en geen
+beschikbaarheid, vereist een Champion- of Master-abonnement, moet via de
+accountmanager worden aangevraagd en is beperkt tot ongeveer één aanroep per
+minuut. Bouw er geen "vrije banen vanavond"-blok op — dat kan die API niet.
+
+### 6.5 "Zo werkt het" — vijf stappen
+
+Padel Boxtel heeft een genummerd blok dat het boekingsproces uitlegt, en dat is
+het beste onderdeel van hun site: het beantwoordt precies de vragen die anders
+telefonisch gesteld worden. Inhoud staat in `banen.json` onder `zoWerktHet`,
+staat op `/banen` én op de homepage.
+
+**Verwar dit niet met het blok dat §12 verbiedt.** Daar gaat het om een "Zo werkt
+het" die een *mailproces* uitlegt ("stuur ons een mail, wij sturen een voorstel").
+Dat blok gaat er inderdaad uit op `/clinics`. Dít blok legt het zelfbedieningsproces
+uit en doet het tegenovergestelde: het haalt contactmomenten weg. Niet schrappen.
+
+De nummers zijn hier betekenisvol — het is een echte volgorde in de tijd.
+
+### 6.6 WhatsApp
 
 Zwevende WhatsApp-knop rechtsonder op elke pagina, `wa.me`-link met een
 vooringevulde tekst per pagina ("Hoi! Ik heb een vraag over een clinic…").
@@ -493,28 +596,42 @@ helemaal achteraan.**
 Vervalt: `/nieuwsbrief` (301 → `/`), losse `/team` (gaat op in `/over-ons`),
 losse `/faq` en `/regels` (worden `/spelregels`).
 
-### 7.1 Home
+### 7.1 Home — gespiegeld op padelboxtel.nl
 
-**Besluit 10 september 2026 (Mitch):** de homepage volgt de sectievolgorde van
-padelboxtel.nl. Alleen de structuur; geen enkele regel tekst wordt daarvandaan
-overgenomen, ook niet als placeholder. De volgorde staat als `_sectievolgorde`
-in `home.json` en `index.astro` rendert in die volgorde.
+**Besluit van Bennet, 10 september 2026:** de homepage volgt de sectievolgorde en
+blokindeling van padelboxtel.nl. Dit vervangt de eerdere instructie "moet wel wat
+anders zijn" — die kwam van de eigenaren en de eigenaren komen er zelf op terug.
 
-| # | Sectie (`home.json`) | Inhoud | Vervangt |
+Wat wél van Van Duren is: alle kleuren, alle foto's, de video, alle teksten en
+alle cijfers. Wat is overgenomen: welke secties er zijn, in welke volgorde, en hoe
+elk blok is opgebouwd. Zie §12 voor waar de grens ligt.
+
+**Sectievolgorde (staat als `_sectievolgorde` in `home.json`):**
+
+| # | Boxtel | Van Duren | Verschil |
 |---|---|---|---|
-| 1 | `hero` | Video met poster als LCP, alleen de h1 en één regel eronder. **Geen knoppen** (besluit 10 september): met knoppen in hero én welkom stonden dezelfde twee knoppen twee keer binnen anderhalf scherm. De knoppen staan uitsluitend in `welkom` | — |
-| 2 | `welkom` | Smalle band, gecentreerd, twee knoppen, geen foto | `herhaalCta` |
-| 3 | `kernpunten` | Tekst links, staande foto rechts op volle sectiehoogte (4K staand frame, 2160×3840); mobiel foto boven. Ondertekening klein en cursief onder de punten, boven de knop | `over` |
-| 4 | `zoWerktHet` | Verwijst naar `banen.zoWerktHet`: één bron, twee plekken | — |
-| 5 | `mogelijkheden` | Drie kaarten met elk een **eigen** knoplabel | `tegels` |
-| 6 | `informatie` | Alle waarden uit `bedrijf.json`; parkeeradres visueel apart met de waarschuwing dat het een ander adres is dan de hal | — |
-| 7 | `socialStrook` | Eigen marquee plus link naar het Instagram-profiel. **Geen** Instagram-embed | `beeldstrook` |
+| 1 | Volle-breedte carrousel, 4 foto's, geen tekst | **Hero met de 4K-video**, alleen de `h1` en één regel — **geen knoppen** | Video in plaats van carrousel. De `h1` blijft boven de vouw; de knoppen staan in sectie 2, net als bij Boxtel |
+| 2 | "Welkom bij Padel Boxtel" + 3 knoppen | **Welkomstband**, gecentreerd, twee knoppen — de enige plek waar ze staan | Boxtel heeft "Club games agenda" als derde; wij hebben dat product niet |
+| 3 | Stelling + opsomming + staande foto rechts | **Kernpunten** met dezelfde opbouw, plus ondertekening | Foto rechts op volle sectiehoogte — gebruik een staand 4K-frame (2160×3840) |
+| 4 | Vijf genummerde stappen + foto + knop | **"Zo werkt het"** uit `banen.json` | Identieke opzet. Rackethuur-stap ontbreekt nog, zie O27 |
+| 5 | Fotokaarten met eigen knoptekst per kaart | **Meer mogelijkheden**, drie kaarten | Boxtel heeft er vier; onze vierde zou naar de lege `/evenementen` gaan |
+| 6 | Informatieblok met adres, parkeren, tijden, kaart | **Informatie**, alles uit `bedrijf.json` | Parkeeradres visueel apart met waarschuwing: ander adres dan de hal |
+| 7 | Instagram-embed | **Bewegende beeldstrook** met eigen 4K-frames + link naar het profiel | Geen embed: die laadt Meta-scripts en zet cookies, in strijd met §8 |
 
-Ontbreekt de content voor een sectie, dan rendert die sectie niet: `<!-- TODO -->`
-plus een regel in `docs/OPEN.md`. De sponsorbalk uit §7.9 blijft onderaan, boven
-de footer, en verschijnt pas als `sponsoren.json` gevuld is.
+Daarna de sponsorbalk uit §7.9 en de footer.
 
-Weg: alles wat naar de nieuwsbrief verwijst.
+**Twee plekken waar bewust van Boxtel is afgeweken, en waarom:**
+
+1. **De `h1` staat in de hero, de knoppen niet.** Boxtel laat de carrousel volledig
+   kaal en zet kop én knoppen in sectie 2. Wij zetten alleen de `h1` over de video —
+   "Padelbaan huren in Son en Breugel" is de zoekterm waarop gevonden moet worden en
+   die hoort boven de vouw. De knoppen blijven in sectie 2, precies zoals bij Boxtel.
+   Ze in allebei zetten leverde "Boek een baan" twee keer binnen anderhalf scherm op;
+   dat is gecorrigeerd op 10 september 2026. De permanente knop in de sticky header
+   vangt de bezoeker die meteen wil boeken.
+2. **Geen Instagram-embed.** Zelfde plek, zelfde functie, maar met eigen beeld.
+   Een Meta-embed zet trackingcookies en dan is er een cookiebanner nodig — dat
+   kost meer conversie dan de feed oplevert.
 
 ### 7.2 Banen
 
@@ -556,9 +673,11 @@ Kop mag luiden: **Padel Academy van Duren**.
   mailadres.
 - Trainers **niet** prominent; verwerken in een rustig blok onderaan of doorlinken
   naar `/over-ons`.
-- **Lesvideo's (bajada, smash) bestaan niet.** Bouw de lesvorm-component met een
-  optioneel `video`-veld dat nu leeg blijft; geen leeg videovlak renderen. Zet op de
-  wenslijst voor een toekomstige opnamedag (O5, gesloten maar genoteerd).
+- **Lesvideo's bestaan wél — maar niet als bestand.** Op de Instagram van Van Duren
+  staan technische reels (coach in beeld, met pijl- en cirkelannotaties). Dat is
+  precies het materiaal dat de eigenaren bij de lesvormen wilden. Wat ontbreekt zijn
+  de originele bestanden: zie O23. Bouw de lesvorm-component met een optioneel
+  `video`-veld (portret 9:16) en render géén leeg videovlak zolang dat veld leeg is.
 
 ### 7.4 Clinics
 
@@ -588,8 +707,9 @@ Eén pagina, twee secties met een ankermenu bovenaan. FAQ als accordeon, met
 
 ### 7.7 Sponsoren
 
-- Babolat als hoofdpartner. `Martin Glas` staat op de baanborden en is dus een
-  echte partner — controleer dat bij Bennet voor je hem opneemt.
+- Babolat als hoofdpartner. Op de baanborden in het beeldmateriaal zijn verder
+  `Martin Glas`, `SRP Zuid BV` en `Accountants Online` te zien. Dat zijn leads, geen
+  bevestigde lijst — laat Bennet ze bevestigen voor je ze opneemt.
 - Het logogrid werkt met neutrale plaatsen `Sponsor 1` t/m `Sponsor 8` totdat de
   definitieve lijst er is. Duidelijk grijs vlak met de tekst erin, niet gestileerd
   als een echt logo.
@@ -720,16 +840,37 @@ O13 (naamsplitsing akkoord → §3), O15 (VIP-daluren → §7.2),
 | — | **Beeldmateriaal** mag gebruikt worden — met één uitzondering, zie O10. |
 | — | **Opnamedag** voor lesvideo's staat op de wenslijst voor na livegang. |
 
+**Gesloten, ronde 4 — 15 september 2026, akkoord Bennet:**
+
+| # | Besluit |
+|---|---|
+| O25 | **Jeugd komt terug als eigen pagina `/jeugd`.** Prijzen, reekslengtes en tijdslots bevestigd: € 315 / 8 wk (privé), € 112,50 / 5 wk (2), € 120 / 8 wk (3), € 112,50 / 10 wk (4). De ongelijke reekslengtes zijn BEWUST, geen typefout — daarom toont elke kaart verplicht óók de prijs per les, anders zijn de bedragen onvergelijkbaar. Leeftijd **6 tot en met 14**. Racket en ballen inbegrepen. Alle trainingsdagen gaan door. Alles staat in `jeugd.json`. Redirect `/padel-jeugd-tot-en-met-14-jaar/` aanpassen van `/lessen` naar `/jeugd`. Navigatie: `/jeugd` direct na `/lessen`; overweeg `/sponsoren` naar de footer te verplaatsen zodat het menu niet naar negen items groeit. |
+| O30 | **Kinderfeestje-kaart gaat live zónder prijs**, klikbaar, direct naar het aanvraagformulier. Niet als "binnenkort beschikbaar": een niet-klikbare kaart levert de vraag "wanneer dan?" op en die kan alleen in de mailbox landen — precies wat §1 afschaft. Prijs, min/max en duur blijven open (O20) maar blokkeren de kaart niet meer. |
+| — | **Prijzen jeugd zijn bevestigd "voor nu".** Ze staan daarom uitsluitend in `jeugd.json`; een wijziging is één regel in één bestand. |
+
+**Gesloten, ronde 3 — 15 september 2026, na het doormeten van de volledige camerarol (257 bestanden, 28 oktober 2025, iPhone 15 Pro):**
+
+| # | Besluit |
+|---|---|
+| O19 | **Gesloten.** De foto van Martin en Bennet samen bestond al: `IMG_6772` (reserve `IMG_6771`). Verwerkt tot `kernpunten-duo-{1080,720}.webp`. Fase 1 is niet langer geblokkeerd. |
+| O23 | **Gesloten, met kanttekening.** De bronclips bestaan (34 stuks, 720×1280 staand). Drie zijn verwerkt tot `les-techniek-{1,2,3}-720.mp4`. Maar: op élke clip staat één persoon alleen ballen te slaan. Er is geen beeld van lesgeven. De koppeling clip → lesvorm is dus willekeurig en puur sfeer — zet er nooit een tekst bij die suggereert dat dit een les is. |
+| — | **Netband.** Op de duo-foto staat "Padel Academy van Duren — powered by Babolat" prominent in beeld, terwijl de `h1` van de homepage "Van Duren Indoor Padel Centrum" is. De eigenaren accepteren dat bewust op 15 september 2026. De grep-regel uit §3 gaat over tekst in `src/`, niet over wat er fysiek in de hal hangt. Niet opnieuw ter discussie stellen. |
+| — | **Nul liggend beeld.** 223 van de 223 foto's zijn staand (1536×2048). Elk liggend kader op deze site is een 16:9-uitsnede van maximaal 1536 px breed. Gebruik foto's op kaartformaat, nooit volle breedte op desktop. De hero-video is het enige beeld dat de volle breedte aankan. |
+| O10 | **Schoon.** Geen herkenbare minderjarige op één van de 257 bestanden. De regel blijft staan voor nieuw materiaal. |
+
 **Nog open:**
 
 | # | Punt | Blokkeert | Wie |
 |---|---|---|---|
 | O10 | **Portretrecht van de minderjarige.** De eigenaren geven toestemming voor het beeldmateriaal, maar een clubeigenaar kán die toestemming niet geven voor het portret van andermans kind — dat kan alleen de ouder. Zolang die er niet is: `4776981e….MP4` niet publiceren. Die clip was toch al onbruikbaar (480×864 staand), dus dit kost niets. Dezelfde regel geldt voor foto's met herkenbare kinderen. | Fase 1 | Bennet & Martin |
-| O19 | **Foto van Martin en Bennet samen moet nog gemaakt worden.** Het persoonlijke blok op de homepage (§7.1, punt 3) kan niet af zonder. Dit is het enige wat fase 1 nu nog tegenhoudt. | Fase 1 | Bennet & Martin |
 | O20 | **Clinics: nog twee onbekenden.** Kinderfeestjes zijn geregeld (§6.1: derde kaart, gewoon aantal personen). Nog open: (a) minimum en maximum aantal personen, (b) hoe lang een clinic duurt. Tot die er zijn draait het aantalveld op een zachte grens van 4–48. **En:** geldt de vanafprijs van € 29,00 p.p. ook voor een kinderfeestje, of is dat een ander tarief? Er staat nu één prijs op de site en die is geschreven voor bedrijven. | Fase 3 | Bennet & Martin |
 | O21 | **Twee pagina's spreken elkaar tegen over prijzen.** `/mogelijkheden/` (2023) adverteert "baan vanaf € 20,00 per uur" en "proefles vanaf € 15,00 p.p."; `/tarieven/` en `/tarieven-lessen/` (2024/2026) zeggen € 28 daluren en € 100 per proefles. Ik ga uit van de tarievenpagina's omdat die recenter zijn — maar bevestig dat, want als € 20 nog ergens rondzwerft is dat een discussie aan de balie. | Fase 2 | Bennet & Martin |
-| O6b | Definitieve sponsorlijst met logo's in vectorformaat. Is `Martin Glas` — zichtbaar op de baanborden — een sponsor? | Fase 4 | Bennet & Martin |
+| O6b | Definitieve sponsorlijst met logo's in vectorformaat. Op de baanborden zijn `Martin Glas`, `SRP Zuid BV` en `Accountants Online` te zien — bevestigen welke daarvan echte partners zijn. | Fase 4 | Bennet & Martin |
 | O3b | **Antwoord onduidelijk.** Gevraagd: blijft het 0619154409 óf komt er een zakelijk nummer? Antwoord was "ja". Er wordt gebouwd met 0619154409; verandert dat, dan is het één regel in `bedrijf.json` plus bijwerken op Google, Playtomic en Facebook. | — | Bennet & Martin |
+| O26 | **Toegang tot Playtomic Manager.** Nodig om de website-URL van de club exact op het live domein te zetten (`https://www.indoorpadelcentrum.nl`, protocol en www consistent). Zonder die instelling laadt de embed uit §6.4 niet. Vraag ook meteen welk abonnement er loopt — Champion/Master bepaalt of de API überhaupt beschikbaar is, mocht je hem later willen. | Fase 2 | Mitch → Bennet |
+| O27 | **Verhuurt Van Duren losse rackets buiten de lessen om, en wat kost dat?** Padel Boxtel noemt € 3 en dat is precies zo'n vraag die anders aan de balie gesteld wordt. Hoort als stap in "Zo werkt het" (§6.5) en als FAQ-antwoord. Nu onbekend. | Fase 2 | Bennet & Martin |
+| O28 | **De originelen staan nog in iCloud.** Alle 223 foto's zijn exact 1536×2048 en alle 34 video's exact 720×1280 — dat zijn Apple's iCloud-proxyformaten, niet camerabestanden. Bennet moet in Instellingen → Foto's "Download originelen" aanzetten, wachten tot alles binnen is, en pas dan opnieuw exporteren; of downloaden via iCloud.com. Blokkeert niets, maar elk liggend kader blijft tot die tijd een uitsnede van maximaal 1536 px breed. | Fase 5 | Mitch → Bennet |
+| O29 | **Er bestaat geen beeld van klanten, lessen, clinics, horeca, entree of parkeerplaats.** Op alle 257 bestanden staan uitsluitend Martin en Bennet, altijd in een lege hal. De site verkoopt lessen, clinics en gezelligheid achteraf en heeft daar nul beeld van. Opnamedag is toegezegd. Tot die tijd: render geen beeldslot waar geen foto voor is — nooit opvullen met een hal-overzicht dat iets anders moet voorstellen. | Fase 1–4 | Bennet & Martin |
 | O22 | **Wie beheert het Google-bedrijfsprofiel?** Het adres is bevestigd, maar er is nog geen toegang om naam, openingstijden en telefoonnummer op Google, Facebook en Playtomic gelijk te trekken met §3.1 — de losse actie uit §8. | Fase 5 | Bennet & Martin |
 
 ## 12. Wat je juist níét doet
@@ -742,6 +883,17 @@ O13 (naamsplitsing akkoord → §3), O15 (VIP-daluren → §7.2),
 - Geen verzonnen data, namen, prijzen of logo's.
 - Geen `Van Duren Padel Academy` — de volgorde is `Padel Academy van Duren`.
 - Geen Tailwind, geen React, geen headless CMS.
-- De site niet één-op-één laten lijken op padelboxtel.nl. Die is de referentie
-  voor *structuur en beeldgebruik*, niet voor het ontwerp. Letterlijke wens:
-  "mag hierop lijken maar moet wel wat anders zijn."
+- **padelboxtel.nl mag als voorbeeld dienen — met één grens.** Bennet heeft op
+  10 september 2026 gevraagd om de opbouw dichter op Boxtel te leggen, en dat is
+  gedaan: §7.1 spiegelt hun sectievolgorde en blokindeling. Sectie-indeling,
+  volgorde en layoutpatronen overnemen is normale praktijk en mag.
+
+  Wat niet mag, en wat de opdrachtgever ook niet kan toestaan omdat het niet van
+  hem is: **hun foto's, hun teksten en hun grafische bestanden.** Elke zin op deze
+  site is zelf geschreven of komt van `indoorpadelcentrum.nl`; elke foto komt uit
+  `02 — Design & Branding`. Kopieer geen enkele regel tekst van hun site, ook niet
+  "even als placeholder" — dat is precies hoe zoiets blijft staan.
+
+  Praktische grens tijdens het bouwen: heb je een blok nodig en is er nog geen
+  Van Duren-content voor, dan render je het niet (`<!-- TODO -->` plus een regel in
+  `docs/OPEN.md`). Nooit vullen met hun woorden.

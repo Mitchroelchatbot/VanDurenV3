@@ -1,0 +1,321 @@
+{
+  "_bron": "Alle cijfers en tijdslots komen van indoorpadelcentrum.nl/padel-jeugd-tot-en-met-14-jaar/, opgehaald en twee keer gecontroleerd op 15 september 2026, en op diezelfde dag door Bennet bevestigd. Niets op deze pagina is verzonnen.",
+  "titel": "Padel voor de jeugd",
+  "ondertitel": "Trainingen van 6 tot en met 14 jaar",
+  "metaTitle": "Padelles voor kinderen in Son en Breugel — Van Duren Indoor Padel Centrum",
+  "metaDescription": "Padeltraining voor kinderen van 6 tot en met 14 jaar in Son en Breugel. In een groepje van twee, drie of vier, of individueel. Racket en ballen inbegrepen. Doordeweeks na schooltijd en op zaterdagochtend.",
+  "h1": "Padelles voor kinderen van 6 tot en met 14 jaar",
+  "intro": "Kinderen leren padel het snelst in een klein groepje van hetzelfde niveau. Bij de Padel Academy van Duren trainen ze op onze indoor banen, het hele jaar door, onder begeleiding van onze gediplomeerde trainers.",
+  "vormen": [
+    {
+      "id": "jeugd-1",
+      "label": "Individueel",
+      "eyebrow": "Privéles",
+      "spelers": "1 speler op de baan",
+      "reeks": "8 weken",
+      "prijs": "€ 315",
+      "prijsPer": "per persoon voor de hele reeks",
+      "prijsPerLes": "€ 39,38 per les",
+      "_prijsPerLes_berekening": "315 / 8"
+    },
+    {
+      "id": "jeugd-2",
+      "label": "Met z'n tweeën",
+      "eyebrow": "Duo",
+      "spelers": "2 spelers op de baan",
+      "reeks": "5 weken",
+      "prijs": "€ 112,50",
+      "prijsPer": "per persoon voor de hele reeks",
+      "prijsPerLes": "€ 22,50 per les",
+      "_prijsPerLes_berekening": "112,50 / 5"
+    },
+    {
+      "id": "jeugd-3",
+      "label": "Met z'n drieën",
+      "eyebrow": "Klein groepje",
+      "spelers": "3 spelers op de baan",
+      "reeks": "8 weken",
+      "prijs": "€ 120",
+      "prijsPer": "per persoon voor de hele reeks",
+      "prijsPerLes": "€ 15,00 per les",
+      "_prijsPerLes_berekening": "120 / 8"
+    },
+    {
+      "id": "jeugd-4",
+      "label": "Met z'n vieren",
+      "eyebrow": "Volle baan",
+      "spelers": "4 spelers op de baan",
+      "reeks": "10 weken",
+      "prijs": "€ 112,50",
+      "prijsPer": "per persoon voor de hele reeks",
+      "prijsPerLes": "€ 11,25 per les",
+      "_prijsPerLes_berekening": "112,50 / 10"
+    }
+  ],
+  "_vormen_regel": "Toon per kaart ALTIJD zowel de reeksprijs als de prijs per les. De reeksen verschillen in lengte (8, 5, 8 en 10 weken), dus zonder die tweede regel zijn de bedragen onderling onvergelijkbaar en lijkt 'met z'n tweeën' even duur als 'met z'n vieren' terwijl het dubbel zo duur is per les. Dit is precies het soort verwarring dat een mailtje oplevert.",
+  "tijden": {
+    "titel": "Wanneer er getraind wordt",
+    "blokken": [
+      {
+        "wanneer": "Maandag tot en met vrijdag",
+        "slots": [
+          "15:00 – 16:00",
+          "16:00 – 17:00"
+        ]
+      },
+      {
+        "wanneer": "Woensdag",
+        "slots": [
+          "14:00 – 15:00",
+          "15:00 – 16:00",
+          "16:00 – 17:00"
+        ],
+        "noot": "Op woensdag is er een extra vroeg blok, omdat de meeste kinderen dan al vrij zijn."
+      },
+      {
+        "wanneer": "Zaterdag",
+        "slots": [
+          "09:00 – 10:00",
+          "10:00 – 11:00",
+          "11:00 – 12:00"
+        ]
+      }
+    ],
+    "onderregel": "Elke training duurt een uur."
+  },
+  "praktisch": {
+    "titel": "Goed om te weten",
+    "punten": [
+      {
+        "label": "Materiaal",
+        "tekst": "Racket en ballen zijn inbegrepen. Een eigen racket meenemen mag."
+      },
+      {
+        "label": "Groep samenstellen",
+        "tekst": "Je geeft je voorkeursdag en -tijd door; wij kijken welke kinderen van hetzelfde niveau daarbij passen. Lukt het niet om een groep rond te krijgen, dan nemen we contact op om te kijken wat wél kan."
+      },
+      {
+        "label": "Betalen",
+        "tekst": "Trainingen worden altijd vooraf betaald, voor de hele reeks."
+      },
+      {
+        "label": "Zelf meenemen",
+        "tekst": "Sportkleding en schone zaalschoenen."
+      }
+    ]
+  },
+  "cta": {
+    "label": "Aanmelden voor jeugdtraining",
+    "type": "formulier",
+    "formulier": "jeugd"
+  },
+  "formulier": {
+    "_regel": "Zelfde conversational opzet als clinics.json en lessen.json: één vraag tegelijk, antwoorden zijn knoppen, beantwoorde vragen blijven als bubbels staan. Werkt zonder JS als gewoon formulier.",
+    "ontvanger": "vanduren@indoorpadelcentrum.nl",
+    "_avg": "Dit formulier verwerkt gegevens van een minderjarige. Vraag daarom het strikt noodzakelijke: VOORNAAM van het kind (geen achternaam), LEEFTIJD in jaren (geen geboortedatum). De contactgegevens zijn die van de ouder of verzorger — die sluit de overeenkomst, niet het kind. Zet dat ook zo in de labels. Geen geboortedatum, geen adres, geen schoolnaam.",
+    "intro": {
+      "kop": "Aanmelden voor jeugdtraining",
+      "tekst": "Zes korte vragen. Daarna zoeken we een groepje dat past en mailen we je een voorstel."
+    },
+    "vragen": [
+      {
+        "id": "voornaam",
+        "vraag": "Hoe heet je kind?",
+        "type": "tekst",
+        "label": "Voornaam",
+        "hint": "Voornaam is genoeg"
+      },
+      {
+        "id": "leeftijd",
+        "vraag": "Hoe oud is hij of zij?",
+        "type": "keuze",
+        "opties": [
+          {
+            "waarde": "6-8",
+            "label": "6 t/m 8 jaar"
+          },
+          {
+            "waarde": "9-11",
+            "label": "9 t/m 11 jaar"
+          },
+          {
+            "waarde": "12-14",
+            "label": "12 t/m 14 jaar"
+          },
+          {
+            "waarde": "15plus",
+            "label": "15 jaar of ouder",
+            "sub": "Dan kijken we naar het reguliere lesaanbod"
+          }
+        ],
+        "_regel": "Leeftijdsgrenzen bevestigd door Bennet op 15 september 2026: vanaf 6 tot en met 14 jaar. Bij '15 jaar of ouder': toon een regel dat de jeugdtraining tot en met 14 jaar loopt en link door naar /lessen. Het formulier gaat gewoon door — doorverwijzen is genoeg, afwijzen is onnodig."
+      },
+      {
+        "id": "niveau",
+        "vraag": "Heeft hij of zij al eens gepadeld?",
+        "type": "keuze",
+        "opties": [
+          {
+            "waarde": "nooit",
+            "label": "Nog nooit"
+          },
+          {
+            "waarde": "paar-keer",
+            "label": "Een paar keer"
+          },
+          {
+            "waarde": "speelt-al",
+            "label": "Speelt al regelmatig"
+          }
+        ]
+      },
+      {
+        "id": "groepsgrootte",
+        "vraag": "In wat voor groepje het liefst?",
+        "type": "keuze",
+        "opties": [
+          {
+            "waarde": "4",
+            "label": "Met z'n vieren",
+            "sub": "€ 112,50 voor 10 weken — € 11,25 per les"
+          },
+          {
+            "waarde": "3",
+            "label": "Met z'n drieën",
+            "sub": "€ 120 voor 8 weken — € 15,00 per les"
+          },
+          {
+            "waarde": "2",
+            "label": "Met z'n tweeën",
+            "sub": "€ 112,50 voor 5 weken — € 22,50 per les"
+          },
+          {
+            "waarde": "1",
+            "label": "Individueel",
+            "sub": "€ 315 voor 8 weken — € 39,38 per les"
+          },
+          {
+            "waarde": "onbekend",
+            "label": "Weet ik nog niet",
+            "sub": "Dan adviseren we je"
+          }
+        ],
+        "_regel": "Volgorde met opzet van goedkoop naar duur per les, niet van klein naar groot. De meeste ouders willen een groepje; die staat dus bovenaan."
+      },
+      {
+        "id": "samenMet",
+        "vraag": "Komt er iemand mee die je al kent?",
+        "type": "keuze",
+        "opties": [
+          {
+            "waarde": "nee",
+            "label": "Nee, deel ons maar in"
+          },
+          {
+            "waarde": "ja",
+            "label": "Ja, met een vriend of vriendin"
+          },
+          {
+            "waarde": "ja-meer",
+            "label": "Ja, we zijn al met een groepje"
+          }
+        ],
+        "vervolgTekstBij": [
+          "ja",
+          "ja-meer"
+        ],
+        "vervolgLabel": "Met wie? (voornamen zijn genoeg)",
+        "_regel": "Dit is de vraag die het meeste mailverkeer scheelt: het samenstellen van groepjes is precies waar de heen-en-weer over gaat."
+      },
+      {
+        "id": "beschikbaarheid",
+        "vraag": "Wanneer kan hij of zij?",
+        "type": "meerkeuze",
+        "opties": [
+          {
+            "waarde": "ma",
+            "label": "Maandag 15:00 – 17:00"
+          },
+          {
+            "waarde": "di",
+            "label": "Dinsdag 15:00 – 17:00"
+          },
+          {
+            "waarde": "wo",
+            "label": "Woensdag 14:00 – 17:00"
+          },
+          {
+            "waarde": "do",
+            "label": "Donderdag 15:00 – 17:00"
+          },
+          {
+            "waarde": "vr",
+            "label": "Vrijdag 15:00 – 17:00"
+          },
+          {
+            "waarde": "za",
+            "label": "Zaterdag 09:00 – 12:00"
+          }
+        ],
+        "_regel": "Meerdere antwoorden mogelijk, en moedig dat aan met een regel eronder: hoe meer momenten je aanvinkt, hoe groter de kans dat we snel een groepje rond hebben. Toon 'Verder' zodra er minstens één gekozen is."
+      },
+      {
+        "id": "contact",
+        "vraag": "Waar mogen we het voorstel heen sturen?",
+        "type": "contact",
+        "toelichting": "Gegevens van de ouder of verzorger.",
+        "velden": [
+          {
+            "naam": "email",
+            "label": "E-mail",
+            "verplicht": true,
+            "type": "email"
+          },
+          {
+            "naam": "naam",
+            "label": "Je naam",
+            "verplicht": false
+          },
+          {
+            "naam": "telefoon",
+            "label": "Telefoon",
+            "verplicht": false,
+            "type": "tel",
+            "hint": "Handig als we snel willen schakelen"
+          },
+          {
+            "naam": "opmerking",
+            "label": "Nog iets wat we moeten weten?",
+            "verplicht": false,
+            "type": "tekstvak"
+          }
+        ],
+        "verzendKnop": "Verstuur aanmelding"
+      }
+    ],
+    "bevestiging": {
+      "kop": "Je aanmelding is binnen",
+      "tekst": "We kijken welk groepje past bij het niveau en de momenten die je hebt doorgegeven, en mailen je binnen één werkdag een voorstel met dag, tijd en startdatum.",
+      "_regel": "Toon daaronder de samenvatting als bubbels. Geen mailadres van het centrum in beeld."
+    }
+  },
+  "beeld": {
+    "_todo": "Er bestaat geen enkele foto of video van kinderen op deze banen, en er komt er ook geen zolang O10 niet geregeld is (portretrecht ligt bij de ouder, niet bij de club). Render op deze pagina GEEN beeldslot met een volwassene erin die een kind moet voorstellen. Tot de opnamedag: alleen een haloverzicht of helemaal geen beeld. Zie OPEN.md O10 en O29."
+  },
+  "_seo": {
+    "zoekwoord": "padelles kinderen Son en Breugel",
+    "h1": "Padelles voor kinderen van 6 tot en met 14 jaar",
+    "_regel": "Eén h1, met het zoekwoord. De oude URL /padel-jeugd-tot-en-met-14-jaar/ 301-redirecten naar deze pagina — die staat al in public/_redirects en wees daar naar /lessen; wijzig dat naar /jeugd zodra deze pagina er is."
+  },
+  "_bevestigd": {
+    "datum": "15 september 2026",
+    "door": "Bennet van Duren, via Mitch",
+    "punten": [
+      "Prijzen kloppen — letterlijk: 'voor nu'. Zet ze dus in dit bestand en nergens anders, zodat een wijziging één regel is.",
+      "De verschillende reekslengtes (8, 5, 8 en 10 weken) zijn BEWUST. Geen typefout. Juist daarom is de regel met de prijs per les verplicht: zonder die regel zijn de reeksprijzen onderling onvergelijkbaar.",
+      "Ondergrens leeftijd: 6 jaar.",
+      "Rackets en ballen zijn inbegrepen.",
+      "Alle trainingsdagen gaan door — maandag tot en met vrijdag en zaterdag."
+    ]
+  }
+}
