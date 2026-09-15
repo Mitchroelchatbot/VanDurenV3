@@ -15,12 +15,29 @@ const href = `${bedrijf.whatsapp}?text=${encodeURIComponent(tekst)}`;
 
 <style>
   .wa {
-    position: fixed; right: clamp(14px, 4vw, 28px); bottom: clamp(14px, 4vw, 28px);
-    z-index: 60; display: grid; place-items: center;
+    position: fixed; right: clamp(14px, 4vw, 28px);
+    bottom: max(clamp(14px, 4vw, 28px), env(safe-area-inset-bottom));
+    z-index: 40; display: grid; place-items: center;
     width: 56px; height: 56px; border-radius: 50%;
     background: var(--blauw); color: var(--wit);
     box-shadow: 0 6px 20px rgb(0 0 0 / 0.28);
   }
   .wa:hover { background: var(--blauw-diep); color: var(--wit); }
+  /* Zolang de knoppen van de hero in beeld zijn wijkt de WhatsApp-knop: hij
+     overlapte op 390 px de rechterrand van "Bekijk het lesaanbod". Hij komt
+     terug zodra de hero-knoppen uit beeld zijn (script hieronder). */
+  .wa[data-wijkt] { opacity: 0; pointer-events: none; transform: translateY(8px); }
+  @media (prefers-reduced-motion: no-preference) { .wa { transition: opacity 200ms ease-out, transform 200ms ease-out; } }
   @media (min-width: 768px) { .wa { width: 50px; height: 50px; } }
 </style>
+
+<script>
+  const wa = document.querySelector('.wa');
+  const acties = document.querySelector('[data-hero-acties]');
+  if (wa && acties && 'IntersectionObserver' in window) {
+    // Zonder JS blijft de knop gewoon staan; met JS wijkt hij voor de hero-CTA's.
+    new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) wa.setAttribute('data-wijkt', ''); else wa.removeAttribute('data-wijkt'); });
+    }, { rootMargin: '0px 0px 8px 0px' }).observe(acties);
+  }
+</script>
