@@ -148,7 +148,16 @@
             "sub": "Dan kijken we naar het reguliere lesaanbod"
           }
         ],
-        "_regel": "Leeftijdsgrenzen bevestigd door Bennet op 15 september 2026: vanaf 6 tot en met 14 jaar. Bij '15 jaar of ouder': toon een regel dat de jeugdtraining tot en met 14 jaar loopt en link door naar /lessen. Het formulier gaat gewoon door — doorverwijzen is genoeg, afwijzen is onnodig."
+        "_regel": "Leeftijdsgrenzen bevestigd door Bennet op 15 september 2026: 6 tot en met 14 jaar. Kiest iemand '15 jaar of ouder', render dan het blok uit toonlichtingBij.15plus onder de bubbel: de tekst plus de link. Het formulier gaat gewoon door — doorverwijzen is genoeg, afwijzen is onnodig.",
+        "toelichtingBij": {
+          "15plus": {
+            "tekst": "De jeugdtraining loopt tot en met 14 jaar. Vanaf 15 kijken we naar het reguliere lesaanbod — maar vul dit formulier gerust af, dan denken we mee.",
+            "link": {
+              "label": "Bekijk het lesaanbod",
+              "href": "/lessen"
+            }
+          }
+        }
       },
       {
         "id": "niveau",
@@ -257,7 +266,8 @@
             "label": "Zaterdag 09:00 – 12:00"
           }
         ],
-        "_regel": "Meerdere antwoorden mogelijk, en moedig dat aan met een regel eronder: hoe meer momenten je aanvinkt, hoe groter de kans dat we snel een groepje rond hebben. Toon 'Verder' zodra er minstens één gekozen is."
+        "_regel": "Meerdere antwoorden mogelijk. Render het veld 'aanmoediging' als zichtbare regel onder de opties. Toon 'Verder' zodra er minstens één gekozen is.",
+        "aanmoediging": "Hoe meer momenten je aanvinkt, hoe sneller we een groepje rond hebben."
       },
       {
         "id": "contact",
@@ -317,5 +327,6 @@
       "Rackets en ballen zijn inbegrepen.",
       "Alle trainingsdagen gaan door — maandag tot en met vrijdag en zaterdag."
     ]
-  }
+  },
+  "_merknaamregel": "De naam 'Padel Academy van Duren' mag in de intro van deze pagina staan — /jeugd is het lesprogramma voor kinderen en valt onder dezelfde uitzondering als /lessen. CLAUDE.md §3 is daarop verruimd op 15 september 2026. Voorwaarde: de naam staat UITSLUITEND in lopende tekst. Nooit in de h1, nooit in metaTitle, nooit in het navigatielabel — die drie dragen de zoekterm 'padelles kinderen Son en Breugel' en de bedrijfsnaam."
 }

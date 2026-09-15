@@ -5,7 +5,7 @@
 > de projectmap staat. Wijk hier niet van af zonder dat de wijziging eerst in dit
 > bestand is vastgelegd.
 >
-> Laatst bijgewerkt: 15 september 2026 (v8 — volledige beeldinventaris, O19 en O23 gesloten)
+> Laatst bijgewerkt: 15 september 2026 (v10 — §3 verruimd naar jeugd, navigatie naar acht items, §11.1 bronwaarheid)
 > Opdrachtgever: Mitch Bastiaans (Mr Hostly) · Klant: Martin & Bennet van Duren
 
 ---
@@ -102,8 +102,14 @@ offeren.
   Niet "vanDuren", niet "Padel Centrum van Duren", niet "Indoorpadel Centrum".
 - Lesprogramma altijd: `Padel Academy van Duren` — in die woordvolgorde, "van" klein.
   Niet "Van Duren Padel Academy".
-- `Padel Academy` mag alleen voorkomen in `src/content/nl/lessen.*` en in de
-  navigatielabel van `/lessen`. Nergens anders in `src/`.
+- `Padel Academy` mag alleen voorkomen in `src/content/nl/lessen.*` en
+  `src/content/nl/jeugd.*`, en in het navigatielabel van `/lessen`. Nergens anders
+  in `src/`. **Verruimd op 15 september 2026:** `/jeugd` is het lesprogramma voor
+  kinderen en valt onder dezelfde uitzondering als `/lessen` — de reden voor deze
+  regel is dat de bedrijfsnaam de vindbaarheid draagt, en dat geldt daar net zo
+  goed. Harde voorwaarde: op `/jeugd` staat de naam **uitsluitend in lopende
+  tekst**. Niet in de `h1`, niet in `metaTitle`, niet in het navigatielabel — die
+  drie dragen de zoekterm en de bedrijfsnaam. Het navigatielabel is `Jeugd`.
 - Header-wordmark: **Van Duren** groot, **Indoor Padel Centrum** klein eronder.
 - `<title>` homepage: `Van Duren Indoor Padel Centrum — Padelbaan huren in Son en Breugel`
 - `<title>` lessen: `Padel Academy van Duren — Padellessen in Son en Breugel`
@@ -590,7 +596,7 @@ helemaal achteraan.**
 /clinics             Clinics & bedrijven
 /evenementen         Evenementen
 /spelregels          FAQ + padelregels (samengevoegd!)
-/sponsoren           Sponsoren
+/sponsoren           Sponsoren     (niet in het hoofdmenu; tekstlink in de footer, O31)
 /over-ons            Over ons & contact (samengevoegd, laatste item)
 ```
 
@@ -847,6 +853,9 @@ O13 (naamsplitsing akkoord → §3), O15 (VIP-daluren → §7.2),
 |---|---|
 | O25 | **Jeugd komt terug als eigen pagina `/jeugd`.** Prijzen, reekslengtes en tijdslots bevestigd: € 315 / 8 wk (privé), € 112,50 / 5 wk (2), € 120 / 8 wk (3), € 112,50 / 10 wk (4). De ongelijke reekslengtes zijn BEWUST, geen typefout — daarom toont elke kaart verplicht óók de prijs per les, anders zijn de bedragen onvergelijkbaar. Leeftijd **6 tot en met 14**. Racket en ballen inbegrepen. Alle trainingsdagen gaan door. Alles staat in `jeugd.json`. Redirect `/padel-jeugd-tot-en-met-14-jaar/` aanpassen van `/lessen` naar `/jeugd`. Navigatie: `/jeugd` direct na `/lessen`; overweeg `/sponsoren` naar de footer te verplaatsen zodat het menu niet naar negen items groeit. |
 | O30 | **Kinderfeestje-kaart gaat live zónder prijs**, klikbaar, direct naar het aanvraagformulier. Niet als "binnenkort beschikbaar": een niet-klikbare kaart levert de vraag "wanneer dan?" op en die kan alleen in de mailbox landen — precies wat §1 afschaft. Prijs, min/max en duur blijven open (O20) maar blokkeren de kaart niet meer. |
+| O31 | **`/sponsoren` gaat uit de hoofdnavigatie.** Acht items in plaats van negen; het lettergrootte-lapmiddel van 0,85rem in de desktopnavigatie kan weg. MAAR: de sponsorbalk in de footer rendert niet zolang `sponsoren.json` leeg is (§7.7), dus zonder maatregel wordt `/sponsoren` een wees zonder één inkomende link. Zet daarom een gewone tekstlink `Sponsoren` in de footer-linklijst — niet de logobalk, die is voorwaardelijk — en laat die altijd staan. |
+| — | **`Padel Academy` mag ook in `jeugd.*`** — §3 verruimd, met de voorwaarde dat de naam daar alleen in lopende tekst staat. |
+| — | **`naamLesprogramma` uit `bedrijf.json` verwijderen.** Ongebruikt veld dat de grep-regel uit §9 rood houdt zonder iets te doen. |
 | — | **Prijzen jeugd zijn bevestigd "voor nu".** Ze staan daarom uitsluitend in `jeugd.json`; een wijziging is één regel in één bestand. |
 
 **Gesloten, ronde 3 — 15 september 2026, na het doormeten van de volledige camerarol (257 bestanden, 28 oktober 2025, iPhone 15 Pro):**
@@ -873,6 +882,20 @@ O13 (naamsplitsing akkoord → §3), O15 (VIP-daluren → §7.2),
 | O28 | **De originelen staan nog in iCloud.** Alle 223 foto's zijn exact 1536×2048 en alle 34 video's exact 720×1280 — dat zijn Apple's iCloud-proxyformaten, niet camerabestanden. Bennet moet in Instellingen → Foto's "Download originelen" aanzetten, wachten tot alles binnen is, en pas dan opnieuw exporteren; of downloaden via iCloud.com. Blokkeert niets, maar elk liggend kader blijft tot die tijd een uitsnede van maximaal 1536 px breed. | Fase 5 | Mitch → Bennet |
 | O29 | **Er bestaat geen beeld van klanten, lessen, clinics, horeca, entree of parkeerplaats.** Op alle 257 bestanden staan uitsluitend Martin en Bennet, altijd in een lege hal. De site verkoopt lessen, clinics en gezelligheid achteraf en heeft daar nul beeld van. Opnamedag is toegezegd. Tot die tijd: render geen beeldslot waar geen foto voor is — nooit opvullen met een hal-overzicht dat iets anders moet voorstellen. | Fase 1–4 | Bennet & Martin |
 | O22 | **Wie beheert het Google-bedrijfsprofiel?** Het adres is bevestigd, maar er is nog geen toegang om naam, openingstijden en telefoonnummer op Google, Facebook en Playtomic gelijk te trekken met §3.1 — de losse actie uit §8. | Fase 5 | Bennet & Martin |
+
+### 11.1 Bronwaarheid voor contentbestanden
+
+**De repo is leidend voor `src/content/nl/*.json`, niet de bestanden die Mitch
+aanlevert.** Op 15 september 2026 overschreef een aangeleverde `clinics.json` het
+veld `kaartCta`, waardoor de Bedrijf-kaart zijn knop verloor. Oorzaak: het
+aangeleverde bestand was gebouwd op een kopie die achterliep op de repo.
+
+Vanaf nu geldt: krijg je een contentbestand aangeleverd, **diff het eerst tegen de
+versie in de repo** en meld elk veld dat zou verdwijnen, in plaats van blind te
+overschrijven. Ontbreekt een veld in het nieuwe bestand zonder dat de begeleidende
+instructie het noemt, dan is dat vrijwel zeker drift en geen besluit.
+
+---
 
 ## 12. Wat je juist níét doet
 
