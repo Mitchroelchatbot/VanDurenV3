@@ -1,0 +1,42 @@
+---
+import home from '../content/nl/home.json';
+import tarieven from '../content/nl/tarieven.json';
+
+// Stilstaande feitenbalk (home.feitenbalk._regel): vijf kale feiten, blauw met
+// witte tekst, geen links, geen beweging. De prijs wordt uit tarieven.json
+// gelezen via `prijsUit` (pad in dot/bracket-notatie), zodat een tariefwijziging
+// één plek is.
+const f = home.feitenbalk;
+const lees = (pad) => pad.replace(/^tarieven\./, '').split(/[.\[\]]+/).filter(Boolean)
+  .reduce((o, k) => (o == null ? o : o[k]), tarieven);
+const feiten = (f?.feiten ?? []).map((x) => {
+  if (x.tekst) return x.tekst;
+  const prijs = x.prijsUit ? lees(x.prijsUit) : null;
+  return prijs && x.sjabloon ? x.sjabloon.replace('{prijs}', prijs) : null;
+}).filter(Boolean);
+---
+{feiten.length > 0 && (
+  <section class="feiten op-blauw">
+    <ul class="omhulsel feiten__lijst">
+      {feiten.map((t, i) => (
+        <li class="feiten__item">
+          {i > 0 && <span class="feiten__ruit" aria-hidden="true">{f.scheidingsteken}</span>}
+          <span>{t}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<style>
+  .feiten { padding-block: 0.9rem; }
+  .feiten__lijst {
+    list-style: none; margin: 0;
+    display: flex; flex-wrap: wrap; justify-content: center;
+    column-gap: 0; row-gap: 0.5rem;
+    font-family: var(--font-kop); font-weight: 600; font-size: clamp(0.9rem, 1.1vw, 1rem);
+    letter-spacing: 0.01em;
+  }
+  .feiten__item { display: inline-flex; align-items: center; white-space: nowrap; }
+  .feiten__ruit { font-size: 0.55em; margin-inline: clamp(0.8rem, 1.6vw, 1.4rem); opacity: 0.8; }
+</style>
