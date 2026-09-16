@@ -627,14 +627,14 @@ elk blok is opgebouwd. Zie §12 voor waar de grens ligt.
 
 Daarna de sponsorbalk uit §7.9 en de footer.
 
-**Wijziging 16 september 2026 (Mitch, veldinstructie volgens §11.1):** de volgorde is
-`hero → kernpunten → feitenbalk → mogelijkheden → zoWerktHet → informatie → socialStrook`.
-"Zo werkt het" staat onder "Meer mogelijkheden": kernpunten is oriëntatie, mogelijkheden
-het menu, zoWerktHet de handleiding. Nieuw blok **feitenbalk** direct onder de hero-sectie:
-een stilstaande blauwe band met vijf kale feiten gescheiden door een ruit (de prijs uit
-`tarieven.json`), niet klikbaar, geen animatie, nooit oranje. Geen lopende balk: de
-kernpunten passen niet in een ticker, bewegend plus klikbaar geeft verkeerde taps,
-bewegende content langer dan 5 s eist een pauzeknop, en de socialStrook is al een marquee.
+**Wijziging 16 september 2026 (Mitch, veldinstructie volgens §11.1, tweede ronde):** de volgorde is
+`hero → feitenbalk → mogelijkheden → kernpunten → zoWerktHet → informatie → socialStrook`.
+Nieuw blok **feitenbalk** direct onder de hero: een stilstaande blauwe band met zes kale
+feiten gescheiden door een ruit (de prijs uit `tarieven.json`), niet klikbaar, geen animatie,
+nooit oranje. Altijd één regel: past het niet, dan scrolt de lijst horizontaal — nooit
+wrappen, nooit vanzelf bewegen. Geen lopende balk: bewegend plus klikbaar geeft verkeerde
+taps, bewegende content langer dan 5 s eist een pauzeknop, en de socialStrook is al een
+marquee. De kop van sectie 5 is `Mogelijkheden` (zonder "Meer").
 
 **Twee plekken waar bewust van Boxtel is afgeweken, en waarom:**
 
