@@ -4,9 +4,9 @@
   "metaDescription": "Vier indoor padelbanen in Son en Breugel, zeven dagen per week open. Boek direct online via Playtomic, of vraag een les, clinic of contractbaan aan.",
   "_sectievolgorde": [
     "hero",
-    "kernpunten",
     "feitenbalk",
     "mogelijkheden",
+    "kernpunten",
     "zoWerktHet",
     "informatie",
     "socialStrook"
@@ -119,7 +119,7 @@
     "_gesloten": "O19 gesloten op 15 september 2026. De foto van Martin en Bennet samen bestond al: IMG_6772 uit de sessie van 28 oktober 2025, gecropt naar 9:16. IMG_6771 is de reserve. Op beide staat de netband met de naam van het lesprogramma prominent in beeld; de eigenaren accepteren dat bewust. Zie CLAUDE.md §3 — die grep-regel geldt voor tekst in de code, niet voor wat er fysiek in de hal hangt. (Naam hier met opzet niet uitgeschreven: het commentaarveld rendert niet maar telt wel mee in de letterlijke grep uit §9.)"
   },
   "feitenbalk": {
-    "_regel": "16 september 2026, Mitch. Stilstaande band, direct onder de hero-sectie. Geen marquee, geen animatie, niet klikbaar, geen hover. Vijf kale feiten gescheiden door een ruit; herhaalt de kernpunten NIET (die zeggen wat het betekent). Achtergrond --blauw, tekst wit (9,89:1, §5.1). Nooit oranje: dat is voor de primaire actie. Mobiel: wrappen naar twee regels, nooit automatisch bewegend.",
+    "_regel": "16 september 2026, Mitch. Stilstaande band, direct onder de hero. Geen marquee, geen animatie, niet klikbaar, geen hover. Zes kale feiten gescheiden door een ruit; herhaalt de kernpunten NIET (die zeggen wat het betekent). Achtergrond --blauw, tekst wit (9,89:1, §5.1). Nooit oranje: dat is voor de primaire actie. Altijd één regel: past het niet, dan is de balk horizontaal scrolbaar (geen wrap, geen automatische beweging).",
     "scheidingsteken": "◆",
     "feiten": [
       {
@@ -134,19 +134,24 @@
         "_regel": "De prijs komt uit tarieven.json (daluren, per uur), nooit hardcoderen."
       },
       {
+        "tekst": "Lessen voor ieder niveau"
+      },
+      {
         "tekst": "Materiaal van Babolat"
       },
       {
         "tekst": "Eigen horeca"
       }
-    ]
+    ],
+    "toegankelijkLabel": "Kerngegevens van het centrum",
+    "_toegankelijkLabel": "Naam van de scrolbare lijst voor schermlezers en toetsenbord (WCAG 2.1.1: een scrolgebied moet met de tab-toets bereikbaar zijn)."
   },
   "zoWerktHet": {
     "bron": "banen.json → zoWerktHet",
     "_regel": "Boxtel-sectie 4, en de belangrijkste om te spiegelen: genummerde stappen met een foto ernaast en één primaire knop eronder. Zelfde inhoud als /banen, één bron. De ontbrekende stap over rackethuur is O27."
   },
   "mogelijkheden": {
-    "kop": "Meer mogelijkheden",
+    "kop": "Mogelijkheden",
     "kaarten": [
       {
         "label": "Baan huren",
@@ -290,5 +295,5 @@
   "_vervallen": "De secties 'over', 'beeldstrook', 'tegels' en 'herhaalCta' uit de vorige versie zijn opgegaan in respectievelijk 'kernpunten', 'socialStrook', 'mogelijkheden' en 'welkom'. Verwijder ze uit de componenten.",
   "_beeldbron": "Alle foto's komen uit een camerarol van 28 oktober 2025, iPhone 15 Pro. 223 stills, ALLEMAAL 1536x2048 staand — nul liggend beeld in de hele set. Elk liggend kader op deze site is dus een 16:9-uitsnede uit een portret en verliest 43% van de hoogte; gebruik ze op kaartformaat, nooit op volle breedte. 1536x2048 en 720x1280 zijn Apple's iCloud-proxyformaten: de originelen staan nog in Bennets iCloud en zijn nooit gedownload. Zie OPEN.md O28.",
   "_vervallen_welkom": "VERVALLEN op 15 september 2026, op verzoek van Mitch na het zien van de mobiele weergave. De welkomstband zei 'Vier indoor banen in Son en Breugel, zeven dagen per week open' terwijl de hero er 300 pixels boven 'Vier indoor banen, zeven dagen per week open' zei. Letterlijk dezelfde zin, twee keer binnen één schermhoogte.\n\nDit corrigeert §7.1 punt 1. Daar is op 10 september de dubbele KNOP opgelost door hem naar sectie 2 te verplaatsen, maar de dubbele ZIN bleef staan. Dat was een halve diagnose. De echte oorzaak is structureel: Boxtel heeft die band nodig omdat hun hero een kale carrousel zonder tekst is — daar stelt de pagina zich pas in sectie 2 voor. Onze hero doet dat al. De band had dus niets nieuws te zeggen en vulde zich daarom met een herhaling.\n\nNiet opnieuw toevoegen. De homepage heeft nu zes secties in plaats van zeven. 'Boek een baan' staat één keer in de pagina plus permanent in de sticky header; dat is geen dubbeling maar chrome.",
-  "_volgorde_16sep": "16 september 2026, Mitch: zoWerktHet onder mogelijkheden. Kernpunten is oriëntatie, mogelijkheden het menu, zoWerktHet de handleiding; de handleiding hoort niet vóór het menu. De boekknop staat al in de sticky header en in de hero, dus dit kost geen conversie."
+  "_volgorde_16sep": "Veldinstructie Mitch, 16 september 2026 (tweede ronde): hero → feitenbalk → mogelijkheden → kernpunten (\"Padel bij Martin en Bennet\") → zoWerktHet → informatie → socialStrook. De feitenbalk staat nu wél direct onder de hero."
 }
