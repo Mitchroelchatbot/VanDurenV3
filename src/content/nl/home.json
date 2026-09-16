@@ -14,16 +14,23 @@
     "kop": "Padelbaan huren in Son en Breugel",
     "tekst": "Boek direct online, zonder te bellen of te mailen.",
     "video": {
+      "_liggend_regel": "Boven 768px. Achtergrondloop: muted autoplay loop playsinline preload=\"metadata\". hero-1600.mp4 boven 1024px, hero-960.mp4 tussen 768 en 1024. Uit bij prefers-reduced-motion.",
       "mp4_1600": "/beeld/hero-1600.mp4",
       "mp4_960": "/beeld/hero-960.mp4",
+      "mp4_staand_1080": "/beeld/hero-staand-1080.mp4",
+      "mp4_staand_720": "/beeld/hero-staand-720.mp4",
       "duur": "20,3 s",
-      "_regel": "Achtergrondloop: muted autoplay loop playsinline preload=\"metadata\". Serveer hero-1600.mp4 boven 1024px, hero-960.mp4 daartussen, en NIETS onder 768px — daar alleen de poster. Uit bij prefers-reduced-motion. De video mag nooit de LCP zijn: zet de poster als <img> met fetchpriority=\"high\" eronder en laat de video daaroverheen faden zodra hij kan spelen."
+      "_staand_regel": "NIEUW op 15 september 2026. Onder 768px is de hero een STAANDE box, dus daar hoort staand bronmateriaal. Een liggende bron wordt daar cover-gecropt tot ongeveer een derde van zijn breedte en dan opgeblazen — dat is waarom mobiel zacht oogde. hero-staand-1080.mp4 (1080x1920, 5,8 MB) en hero-staand-720.mp4 (720x1280, 2,9 MB) zijn 9:16-uitsnedes uit de 4K-master, dus geen opblaaswerk en geen weggegooide breedte. Serveer 720 tot en met 430px, 1080 daarboven tot 767px.",
+      "_mobiel_voorwaarden": "§5.2 verbood video onder 768px vanwege datakosten. Dat verbod vervalt, maar VOORWAARDELIJK — 2,9 MB ongevraagd door iemands bundel jagen is niet acceptabel. Laad de staande video alleen als ALLE vier waar zijn:\n1. de poster is geschilderd (de video mag nooit de LCP zijn);\n2. navigator.connection.saveData is niet waar;\n3. navigator.connection.effectiveType is '4g' — bij slow-2g, 2g of 3g alleen de poster;\n4. prefers-reduced-motion staat niet aan.\npreload=\"none\", starten op requestIdleCallback. Ontbreekt navigator.connection, dan wél laden — dat is vooral Safari en die zit doorgaans op wifi. Faden over de poster heen in 400ms."
     },
     "poster": {
       "webp_1920": "/beeld/hero-poster-1920.webp",
       "jpg_1920": "/beeld/hero-poster-1920.jpg",
       "webp_1024": "/beeld/hero-poster-1024.webp",
-      "alt": "Spelers op een van de vier indoor padelbanen van Van Duren"
+      "webp_staand_1080": "/beeld/hero-poster-staand-1080.webp",
+      "webp_staand_720": "/beeld/hero-poster-staand-720.webp",
+      "alt": "Spelers op een van de vier indoor padelbanen van Van Duren",
+      "_regel": "Gebruik <picture> met een MEDIA QUERY, geen srcset op breedte alleen — het gaat om een andere BEELDVERHOUDING, niet om een andere maat. Onder 768px de staande variant, daarboven de liggende.\n\nGEMETEN op 390x844 bij DPR 3 (viewport 1170x2070 fysieke pixels, object-fit: cover):\n  hero-poster-1920 liggend  -> 1,92x opgeblazen, en er is maar 610 van de 1920 bronpixels breed in beeld (32%)\n  hero-poster-staand-1080   -> 1,08x opgeblazen, en alle 1080 bronpixels breed zijn in beeld (100%)\nNetto 1,77x meer echt detail. Dat is de winst, niet alleen het verschil in opblaasfactor.\n\nCORRECTIE op een eerdere versie van dit bestand: daar stond 3,59x. Dat is de opblaasfactor van hero-poster-1024, en die wordt onder DPR 3 nooit gekozen — de browser pakt dan het 1920-bestand. De diagnose was goed (verkeerde beeldverhouding), het getal niet. Hier genoteerd zodat niemand later met het verkeerde cijfer gaat rekenen.\n\nPoster blijft een <img> met fetchpriority=\"high\". Hij is en blijft de LCP."
     },
     "_regel": "De hero draagt nu ALLES: h1, één regel, en de twee knoppen. De welkomstband eronder is vervallen (zie _vervallen_welkom). Overlay: een scrim van minimaal rgba(20,22,28,0.70) achter tekst en knoppen, als bottom-up gradient over de onderste ~70% van de hero, plus 0.15 vlakke verdonkering over het geheel zodat de bovenrand niet uitbijt. 0.70 is GEMETEN, niet geschat: bij 0.60 haalt wit 4.74:1 op het helderst denkbare fotogebied en bij 0.55 nog maar 4.00:1 — onder AA. Ga dus nooit onder 0.70.",
     "knoppen": [
@@ -39,7 +46,8 @@
       }
     ],
     "_regel_knoppen": "De oranje knop haalt op elk scrimniveau maar 1.1 tot 1.3:1 randcontrast tegen de achtergrond — de knopvorm valt volledig weg. Hij krijgt daarom dezelfde witte ring van 2px als op blauw (tokens.css regel 2): breid .op-blauw uit naar .op-beeld. Wit op oranje is 5.27:1, dus het label zelf is goed. De secundaire knop krijgt een witte rand van 2px en een transparante vulling met dezelfde scrim eronder. Beide knoppen minimaal 48px hoog, op mobiel volle breedte met 16px tussenruimte.",
-    "_regel_hoogte": "Mobiel: hoogte zo dat h1 + regel + beide knoppen erin passen zonder af te kappen, maar NOOIT 100vh — laat bewust een strook van de volgende sectie zichtbaar, anders lijkt de pagina daar op te houden. Richtlijn 82vh op 390x844, met de knoppen boven de vouw. Desktop ~70vh. Test op 375, 390 en 430 breed."
+    "_regel_hoogte": "Mobiel: hoogte zo dat h1 + regel + beide knoppen erin passen zonder af te kappen, maar NOOIT 100vh — laat bewust een strook van de volgende sectie zichtbaar, anders lijkt de pagina daar op te houden. Richtlijn 82vh op 390x844, met de knoppen boven de vouw. Desktop ~70vh. Test op 375, 390 en 430 breed.",
+    "_regel_scrim": "Over de scherpte: de vorige mobiele hero was ZACHT omdat hij 3,59x werd opgeblazen, niet omdat het beeld artistiek niet klopte. Vervaag dus NIET de hele foto om dat te maskeren — dat gooit weg waar we net voor betaald hebben. Wat wel mag als het beter oogt: een frosted paneel ACHTER alleen het tekstblok (backdrop-filter: blur(12px) plus background: rgba(20,22,28,0.55)), met de foto eromheen scherp. LET OP: blur verandert de gemeten luminantie niet, dus het vervangt de scrim niet. De ondergrens van rgba(20,22,28,0.70) achter tekst en knoppen blijft gelden — bij 0,60 haalt wit 4,74:1 en bij 0,55 nog maar 4,00:1. Kies er dus EEN van: volle gradient-scrim op 0,70, of een frosted paneel dat samen met zijn eigen achtergrond diezelfde 0,70 haalt. Nooit blur als vervanging van contrast."
   },
   "kernpunten": {
     "kop": "Padel bij Martin en Bennet, in Son en Breugel",
@@ -245,7 +253,7 @@
     "_regel": "Boxtel-sectie 7 is een Instagram-embed. NIET overnemen als embed: die laadt Meta-scripts en zet cookies, en §8 verbiedt trackingcookies zonder toestemming. In plaats daarvan: onze eigen bewegende beeldstrook met de 4K-frames uit de feed, met daarboven de kop en daaronder een link naar het profiel. Zelfde functie, zelfde plek, geen cookiebanner. Marquee ~60s, pauzeert op hover en focus, stil bij prefers-reduced-motion. Foto's decoratief: alt=\"\" en aria-hidden op de rij.",
     "_todo": "Gevuld met twaalf eigen beelden uit de sessie van 28 oktober 2025 (28 sep 2026 verwerkt). Decoratief: alt=\"\" en aria-hidden op de rij, zoals in _regel.",
     "toegankelijkLabel": "Fotostrook van de hal. Zet de tab-toets hierop om het schuiven te pauzeren.",
-    "_hersteld": "§11.1, 15 september 2026 (derde keer): toegankelijkLabel ontbrak opnieuw in de aangeleverde versie. Het is de toegankelijke naam van de marquee, die met de tab-toets te pauzeren moet zijn (WCAG 2.2.2). Neem het veld over in de bronversie."
+    "_hersteld": "§11.1, 16 september 2026 (vierde keer): toegankelijkLabel ontbrak opnieuw in de aangeleverde versie. Het is de toegankelijke naam van de marquee, die met de tab-toets te pauzeren moet zijn (WCAG 2.2.2). Neem het veld over in de bronversie."
   },
   "_motion": {
     "_regel": "Beweging mag, maar dienend. Drie plekken, verder niets. Alles respecteert prefers-reduced-motion: dan staat alles stil en blijft alles zichtbaar. Nooit een element parkeren op opacity 0 dat pas verschijnt bij scrollen — wat gelezen moet worden, staat er meteen.",
