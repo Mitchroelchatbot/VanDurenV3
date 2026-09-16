@@ -21,13 +21,14 @@ const videoStaand720 = video?.mp4_staand_720 && bestaat(video.mp4_staand_720) ? 
 <section class="hero op-beeld">
   {poster && (
     <picture>
-      {/* Andere beeldverhouding, dus een media query en geen srcset op breedte:
-          720 breed tot 430px, 1080 breed tot 767px, daarboven de liggende posters. */}
-      {(staand720 || staand1080) && (
-        <source type="image/webp" media="(max-width: 430px)" srcset={staand720 ?? staand1080} />
-      )}
+      {/* De MEDIA QUERY kiest de beeldverhouding (staand onder 768px); de
+          srcset daarbinnen kiest de dichtheid. Een grens op CSS-pixels alleen
+          (720 tot 430px) gaf op DPR 3 het 720-bestand in een box van 1170px
+          breed: 1,62× opgeblazen. Met 720w/1080w kiest de browser op 390×844
+          bij DPR 3 het 1080-bestand (1,08×), op DPR 2 het 720-bestand. */}
       {staand1080 && (
-        <source type="image/webp" media="(max-width: 767px)" srcset={staand1080} />
+        <source type="image/webp" media="(max-width: 767px)" sizes="100vw"
+                srcset={[staand720 ? `${staand720} 720w` : null, `${staand1080} 1080w`].filter(Boolean).join(', ')} />
       )}
       <source type="image/webp" sizes="100vw"
               srcset={`${poster.webp_1024} 1024w, ${poster.webp_1920} 1920w`} />

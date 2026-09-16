@@ -22,8 +22,16 @@ const canoniek = new URL(pad, Astro.site).href;
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    {/* Preload van de hero-poster, per beeldverhouding: zonder media-attribuut
+        laadde mobiel eerst de liggende poster voor en ontdekte de staande pas
+        bij het parsen (LCP 2,0 → 2,9 s). Zelfde media queries als in Hero.astro. */}
+    {posterPreload && posterPreload.webp_staand_1080 && (
+      <link rel="preload" as="image" type="image/webp" media="(max-width: 767px)"
+            imagesrcset={[posterPreload.webp_staand_720 ? `${posterPreload.webp_staand_720} 720w` : null, `${posterPreload.webp_staand_1080} 1080w`].filter(Boolean).join(', ')}
+            imagesizes="100vw" fetchpriority="high" />
+    )}
     {posterPreload && (
-      <link rel="preload" as="image" type="image/webp"
+      <link rel="preload" as="image" type="image/webp" media={posterPreload.webp_staand_1080 ? '(min-width: 768px)' : undefined}
             href={posterPreload.webp_1920}
             imagesrcset={`${posterPreload.webp_1024} 1024w, ${posterPreload.webp_1920} 1920w`}
             imagesizes="100vw" fetchpriority="high" />
