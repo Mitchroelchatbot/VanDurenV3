@@ -2,10 +2,11 @@
 import home from '../content/nl/home.json';
 import tarieven from '../content/nl/tarieven.json';
 
-// Stilstaande feitenbalk (home.feitenbalk._regel): vijf kale feiten, blauw met
-// witte tekst, geen links, geen beweging. De prijs wordt uit tarieven.json
-// gelezen via `prijsUit` (pad in dot/bracket-notatie), zodat een tariefwijziging
-// één plek is.
+// Stilstaande feitenbalk (home.feitenbalk._regel): kale feiten op één regel, blauw
+// met witte tekst, geen links, geen beweging. Past de regel niet, dan scrolt de
+// lijst horizontaal (nooit wrappen, nooit vanzelf bewegen). De prijs wordt uit
+// tarieven.json gelezen via `prijsUit` (pad in dot/bracket-notatie), zodat een
+// tariefwijziging één plek is.
 const f = home.feitenbalk;
 const lees = (pad) => pad.replace(/^tarieven\./, '').split(/[.\[\]]+/).filter(Boolean)
   .reduce((o, k) => (o == null ? o : o[k]), tarieven);
@@ -17,7 +18,7 @@ const feiten = (f?.feiten ?? []).map((x) => {
 ---
 {feiten.length > 0 && (
   <section class="feiten op-blauw">
-    <ul class="omhulsel feiten__lijst">
+    <ul class="feiten__lijst" tabindex="0" aria-label={f.toegankelijkLabel}>
       {feiten.map((t, i) => (
         <li class="feiten__item">
           {i > 0 && <span class="feiten__ruit" aria-hidden="true">{f.scheidingsteken}</span>}
@@ -31,12 +32,17 @@ const feiten = (f?.feiten ?? []).map((x) => {
 <style>
   .feiten { padding-block: 0.9rem; }
   .feiten__lijst {
-    list-style: none; margin: 0;
-    display: flex; flex-wrap: wrap; justify-content: center;
-    column-gap: 0; row-gap: 0.5rem;
+    list-style: none; margin: 0; padding: 0 var(--marge-rand);
+    display: flex; flex-wrap: nowrap;
+    overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin;
     font-family: var(--font-kop); font-weight: 600; font-size: clamp(0.9rem, 1.1vw, 1rem);
     letter-spacing: 0.01em;
   }
-  .feiten__item { display: inline-flex; align-items: center; white-space: nowrap; }
+  /* Centreren zonder de eerste feiten af te snijden bij overflow: auto-marges
+     aan de uiteinden in plaats van justify-content: center. */
+  .feiten__item { display: inline-flex; align-items: center; white-space: nowrap; flex: 0 0 auto; }
+  .feiten__item:first-child { margin-inline-start: auto; }
+  .feiten__item:last-child { margin-inline-end: auto; }
   .feiten__ruit { font-size: 0.55em; margin-inline: clamp(0.8rem, 1.6vw, 1.4rem); opacity: 0.8; }
+  .feiten__lijst:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }
 </style>
