@@ -5,7 +5,7 @@
 > de projectmap staat. Wijk hier niet van af zonder dat de wijziging eerst in dit
 > bestand is vastgelegd.
 >
-> Laatst bijgewerkt: 15 september 2026 (v12 — welkomstband vervallen, hero draagt alles; §11.1 uitgebreid naar assets)
+> Laatst bijgewerkt: 24 september 2026 (v13 — contracttarieven per boeking, vier uitklapmenu's, slogan, logo-besluit, O33)
 > Opdrachtgever: Mitch Bastiaans (Mr Hostly) · Klant: Martin & Bennet van Duren
 
 ---
@@ -205,14 +205,21 @@ Mitch bevestigd op 1 september 2026.
 Baan 1 en 2 zijn te huren per 1,5 uur; baan 3 en 4 alleen per heel uur, startend
 op het hele uur. Dit is praktische informatie die op `/banen` hoort.
 
-**Contractbaan**
+**Contractbaan** — HERZIEN 24 september 2026 (Bennet, via Mitch als veldinstructie).
+Geen vaste contracttotalen meer maar een **kortingstarief per boeking van 60 minuten**.
+De oude bedragen (€ 450 t/m € 1.875 voor 6 en 12 maanden) zijn niet meer geldig en
+staan nergens meer in de repo.
 
-| | 6 maanden (20–26×) | 12 maanden (45–52×) |
+| Contract | Daluren 09:00–17:00 | Piekuren 17:00–23:00 |
 |---|---|---|
-| Daluren, 1 uur | € 450 | € 850 |
-| Daluren, 1,5 uur | € 675 | € 1.275 |
-| Piekuren, 1 uur | € 650 | € 1.250 |
-| Piekuren, 1,5 uur | € 975 | € 1.875 |
+| 5 maanden (zomer) | € 18 per boeking | € 25 per boeking |
+| 7 maanden (winter) | € 22 per boeking | € 34 per boeking |
+| 12 maanden (jaarrond) | prijs op aanvraag | prijs op aanvraag |
+
+Het 12-maandentarief is **niet bekend** (O33a): Bennet schreef "de bovenstaande bij
+elkaar", en dat is geen bruikbaar tarief. Niet optellen, niet afleiden. Let op: de
+piekuren zijn hier 17:00–23:00, bij losse baanhuur 18:30–22:30 (O33b). Beide staan
+zoals aangeleverd; niet gelijktrekken tot dat beslist is.
 
 **Lessen** — alle prijzen incl. baanhuur, materiaal en trainer, 60 minuten,
 altijd vooraf betalen.
@@ -515,7 +522,7 @@ naast of boven het formulier, zodat de aanvrager al weet waar hij aan toe is.
 | 1 | Welke dag(en) van de week heb je in gedachten? |
 | 2 | Welk tijdslot? (daluren / piekuren / specifiek tijdstip) |
 | 3 | 1 uur of 1,5 uur? (1,5 uur = baan 1 of 2) |
-| 4 | 6 of 12 maanden? |
+| 4 | 5 maanden (zomer) · 7 maanden (winter) · 12 maanden (jaarrond)? *(24 september 2026; was "6 of 12 maanden")* |
 | 5 | Met hoeveel vaste spelers? |
 | 6 | Contactgegevens |
 
@@ -596,12 +603,28 @@ helemaal achteraan.**
 /clinics             Clinics & bedrijven
 /evenementen         Evenementen
 /spelregels          FAQ + padelregels (samengevoegd!)
-/sponsoren           Sponsoren     (niet in het hoofdmenu; tekstlink in de footer, O31)
+/sponsoren           Sponsoren     (onder "Over ons" in het uitklapmenu, 24 september 2026; O31 vervallen)
 /over-ons            Over ons & contact (samengevoegd, laatste item)
 ```
 
 Vervalt: `/nieuwsbrief` (301 → `/`), losse `/team` (gaat op in `/over-ons`),
 losse `/faq` en `/regels` (worden `/spelregels`).
+
+**Navigatie — vier uitklapmenu's (akkoord Bennet, 24 september 2026):**
+
+| Kop | Daaronder |
+|---|---|
+| Banen | Losse boeking · VIP-daluren · Contractbaan |
+| Lessen | Lessen voor volwassenen · Jeugd |
+| Groepen | Clinics & bedrijven · Kinderfeestjes · Evenementen |
+| Over ons | Spelregels & FAQ · Sponsoren · Contact |
+
+"Over ons" blijft het laatste item. Labels en paden staan in `navigatie.json`.
+Toetsenbord: Enter/Space opent, Escape sluit en zet de focus terug op de kop,
+pijltjes lopen door de items; `aria-expanded` en `aria-controls` op de kop. Zonder
+JavaScript is elke kop een gewone link naar de eerste onderliggende pagina en staan
+de items uitgeklapt. Geen hover, alleen klik/tap. O31 is hiermee vervallen; de
+tekstlink `Sponsoren` in de footer blijft staan.
 
 ### 7.1 Home — gespiegeld op padelboxtel.nl
 
@@ -913,6 +936,7 @@ O13 (naamsplitsing akkoord → §3), O15 (VIP-daluren → §7.2),
 | O28 | **De originelen staan nog in iCloud.** Alle 223 foto's zijn exact 1536×2048 en alle 34 video's exact 720×1280 — dat zijn Apple's iCloud-proxyformaten, niet camerabestanden. Bennet moet in Instellingen → Foto's "Download originelen" aanzetten, wachten tot alles binnen is, en pas dan opnieuw exporteren; of downloaden via iCloud.com. Blokkeert niets, maar elk liggend kader blijft tot die tijd een uitsnede van maximaal 1536 px breed. | Fase 5 | Mitch → Bennet |
 | O29 | **Er bestaat geen beeld van klanten, lessen, clinics, horeca, entree of parkeerplaats.** Op alle 257 bestanden staan uitsluitend Martin en Bennet, altijd in een lege hal. De site verkoopt lessen, clinics en gezelligheid achteraf en heeft daar nul beeld van. Opnamedag is toegezegd. Tot die tijd: render geen beeldslot waar geen foto voor is — nooit opvullen met een hal-overzicht dat iets anders moet voorstellen. | Fase 1–4 | Bennet & Martin |
 | O32 | **`/privacy` en `/voorwaarden` bestaan niet — en dat is nu een AVG-probleem, geen losse actie meer.** Gemeten op de preview (15 september 2026): `/privacy`, `/voorwaarden` en `/reserveringsvoorwaarden` geven alle drie een 404. De redirects `/privacybeleid`, `/algemene-voorwaarden` en `/reserveringsvoorwaarden` wijzen dus naar niets. Ondertussen staan er vier formulieren live die persoonsgegevens verzamelen, waaronder **de voornaam en leeftijd van een minderjarige** op `/jeugd`. §8 eist een privacyverklaring met verwerkingsgrondslag. Dit **blokkeert livegang**, niet fase 5. Bouw de twee pagina's als routes zodra de tekst er is; tot die tijd staat er onder elk formulier geen link naar een pagina die niet bestaat. O11 is hiermee opgewaardeerd van administratie naar blokkade. | **Livegang** | Mitch |
+| O33 | **Contractbanen: vier dingen ontbreken nog** (24 september 2026). (a) Wat kost een 12-maandencontract? "De bovenstaande bij elkaar" is onbruikbaar: letterlijk € 18 + € 22 = € 40 per boeking in de daluren, duurder dan de losse € 28. Waarschijnlijk zomer- en wintermaanden elk tegen hun eigen tarief, maar dat is een gok en die komt niet op een tarievenpagina. (b) Piekuren zijn 17:00–23:00 bij contracten en 18:30–22:30 bij losse baanhuur. Eén van de twee is verouderd, of het zijn bewust twee bandbreedtes. Bevestigen. (c) Baan 1 en 2 zijn per 1,5 uur te huren; de nieuwe tarieven zijn alleen per 60 minuten. Kan een contract op 1,5 uur, en wat kost dat? (d) Hoeveel boekingen zitten er in een contract, en betaal je vooraf of per boeking? De oude tabel noemde 20–26× en 45–52×; de nieuwe regeling noemt geen aantal. **Kanttekeningen, geen bevindingen:** het 7-maandencontract is per boeking duurder dan het 5-maandencontract (€ 22 vs € 18, € 34 vs € 25) — logisch als winter het hoogseizoen is en de zomerkorting een vullingsactie, maar één bevestigingsregel waard; en het winterpiektarief van € 34 scheelt maar € 2 op de losse € 36, als propositie bijna niets. | Fase 2 | Bennet & Martin |
 | O22 | **Wie beheert het Google-bedrijfsprofiel?** Het adres is bevestigd, maar er is nog geen toegang om naam, openingstijden en telefoonnummer op Google, Facebook en Playtomic gelijk te trekken met §3.1 — de losse actie uit §8. | Fase 5 | Bennet & Martin |
 
 ### 11.1 Bronwaarheid voor contentbestanden
