@@ -63,6 +63,7 @@ const sfeer = (banen.sfeer?.fotos ?? []).filter((f) => typeof f.alt === 'string'
   <section class="sectie" id="contractbaan">
     <div class="omhulsel">
       <PrijsTabel titel={tarieven.contractbaan.titel} intro={tarieven.contractbaan.intro}
+                  eenheid={tarieven.contractbaan.eenheid}
                   kolommen={tarieven.contractbaan.kolommen} rijen={tarieven.contractbaan.rijen}
                   voetnoot={tarieven.contractbaan.voetnoot} />
       <Formulier naam="contractbaan" titel={w.titel} intro={w.intro} stappen={w.stappen}

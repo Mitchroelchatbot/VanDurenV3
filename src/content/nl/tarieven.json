@@ -23,16 +23,19 @@
   },
 
   "contractbaan": {
+    "_bron": "Bennet, 24 september 2026, via Mitch als veldinstructie (§11.1). Vervangt de vaste contracttotalen voor 6 en 12 maanden uit §4.2 (oud); die bedragen zijn niet meer geldig en staan nergens meer in de repo.",
+    "_regel": "Dit is een KORTINGSTARIEF PER BOEKING van 60 minuten, geen contracttotaal. De regel 'eenheid' rendert daarom prominent onder de kop. Het 12-maandentarief is niet bekend (O33a): 'prijs op aanvraag', nooit optellen of afleiden. Piekuren zijn hier 17:00–23:00 zoals aangeleverd; bij losse baanhuur 18:30–22:30 (O33b) — niet gelijktrekken tot dat beslist is.",
     "titel": "Contractbaan",
-    "intro": "Een vaste baan op een vast moment, het hele seizoen. Vul het formulier in en we komen met een voorstel terug.",
-    "kolommen": ["6 maanden (20–26×)", "12 maanden (45–52×)"],
+    "intro": "Een vaste baan op een vast moment, een heel seizoen lang. Vul het formulier in en we komen met een voorstel terug.",
+    "eenheid": "Tarief per boeking van 60 minuten, geen contracttotaal.",
+    "kolommen": ["Daluren 09:00 – 17:00", "Piekuren 17:00 – 23:00"],
     "rijen": [
-      { "label": "Daluren, 1 uur",    "prijzen": ["€ 450", "€ 850"] },
-      { "label": "Daluren, 1,5 uur",  "prijzen": ["€ 675", "€ 1.275"] },
-      { "label": "Piekuren, 1 uur",   "prijzen": ["€ 650", "€ 1.250"] },
-      { "label": "Piekuren, 1,5 uur", "prijzen": ["€ 975", "€ 1.875"] }
+      { "label": "5 maanden",  "toelichting": "zomer",    "prijzen": ["€ 18", "€ 25"] },
+      { "label": "7 maanden",  "toelichting": "winter",   "prijzen": ["€ 22", "€ 34"] },
+      { "label": "12 maanden", "toelichting": "jaarrond", "prijzen": ["Prijs op aanvraag", "Prijs op aanvraag"], "_todo": "O33a: Bennet schreef 'de bovenstaande bij elkaar'; dat is geen bruikbaar tarief. Niet invullen tot hij het bevestigt." }
     ],
     "voetnoot": "Een contract van 1,5 uur loopt op baan 1 of 2.",
+    "_voetnoot_todo": "O33c: de nieuwe tarieven gelden per 60 minuten; of een contract op 1,5 uur kan en wat dat kost is niet bevestigd.",
     "cta": { "label": "Contractbaan aanvragen", "type": "formulier", "formulier": "contractbaan" }
   },
 

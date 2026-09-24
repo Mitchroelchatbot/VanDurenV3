@@ -1,11 +1,14 @@
 ---
 import Cta from './Cta.astro';
 
-const { titel, intro, kolommen, rijen, voetnoot, cta } = Astro.props;
+const { titel, intro, eenheid, kolommen, rijen, voetnoot, cta } = Astro.props;
+// Een cel die niet met een bedrag begint ("Prijs op aanvraag") mag afbreken.
+const isBedrag = (p) => /^€/.test(String(p));
 ---
 <div class="prijstabel prijs-tabel sectie-body">
   {titel && <h3 class="prijstabel__kop">{titel}</h3>}
   {intro && <p>{intro}</p>}
+  {eenheid && <p class="prijstabel__eenheid">{eenheid}</p>}
   <div class="prijstabel__rol">
     <table>
       <thead>
@@ -21,7 +24,7 @@ const { titel, intro, kolommen, rijen, voetnoot, cta } = Astro.props;
               {r.label}
               {r.toelichting && <span class="prijstabel__toelichting">{r.toelichting}</span>}
             </th>
-            {r.prijzen.map((p) => (<td>{p}</td>))}
+            {r.prijzen.map((p) => (<td class={isBedrag(p) ? undefined : 'prijstabel__tekst'}>{p}</td>))}
           </tr>
         ))}
       </tbody>
@@ -50,6 +53,10 @@ const { titel, intro, kolommen, rijen, voetnoot, cta } = Astro.props;
     thead th, thead th:not(:first-child) { font-size: 0.72rem; letter-spacing: 0.02em; white-space: normal; }
     tbody th { font-size: 0.95rem; }
   }
+  /* De eenheid (per boeking van 60 minuten, geen contracttotaal) moet in één
+     oogopslag te zien zijn: vet, in de dragende kleur, direct boven de tabel. */
+  .prijstabel__eenheid { font-weight: 600; color: var(--blauw); margin-bottom: 0; }
+  td.prijstabel__tekst { white-space: normal; font-variant-numeric: normal; }
   .prijstabel__toelichting { display: block; font-weight: 400; font-size: 0.85rem; color: var(--grijs-500); }
   .prijstabel__voetnoot { font-size: 0.9rem; color: var(--grijs-500); }
 </style>

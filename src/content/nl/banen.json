@@ -39,17 +39,18 @@
       "id": "contractbaan",
       "eyebrow": "Vaste speeltijd",
       "label": "Contractbaan",
-      "omschrijving": "Een vaste baan op een vast moment, zes of twaalf maanden lang. Vul het formulier in, dan komen we met een voorstel.",
+      "omschrijving": "Een vaste baan op een vast moment, een heel seizoen lang. Vul het formulier in, dan komen we met een voorstel.",
       "punten": [
-        "Vanaf € 450 voor 6 maanden",
-        "Daluren of piekuren",
-        "1 uur of 1,5 uur"
+        "Kortingstarief per boeking van 60 minuten",
+        "5 maanden (zomer), 7 maanden (winter) of 12 maanden",
+        "Daluren of piekuren"
       ],
       "cta": {
         "label": "Contractbaan aanvragen",
         "type": "anker",
         "anker": "#contractbaan"
-      }
+      },
+      "_punten_bron": "Bennet, 24 september 2026: tarieven per boeking (€ 18 / € 25 zomer, € 22 / € 34 winter). Het bedrag staat alleen in tarieven.json; 12 maanden is prijs op aanvraag (O33a)."
     }
   ],
   "playtomic": {
@@ -146,9 +147,20 @@
         "vraag": "Voor hoe lang?",
         "type": "keuze",
         "opties": [
-          "6 maanden (20–26 keer)",
-          "12 maanden (45–52 keer)"
-        ]
+          {
+            "waarde": "5 maanden",
+            "sub": "zomer"
+          },
+          {
+            "waarde": "7 maanden",
+            "sub": "winter"
+          },
+          {
+            "waarde": "12 maanden",
+            "sub": "jaarrond"
+          }
+        ],
+        "_bron": "Bennet, 24 september 2026: drie contracten. Het aantal boekingen per contract is niet bekend (O33d); daarom geen '(20–26 keer)' meer in de opties."
       },
       {
         "nr": 5,
