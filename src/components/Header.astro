@@ -4,10 +4,22 @@ import nav from '../content/nl/navigatie.json';
 
 const { pad } = Astro.props;
 const { hoofdmenu, labels } = nav;
-// De kop-CTA staat op elke pagina en elke breedte. Sinds 10 september heeft de
-// hero geen knoppen meer, dus dit is boven de vouw de enige weg naar de
-// boeking; verbergen was precies de klacht van de eigenaren. Onder 560px
-// wordt het zichtbare label korter; de toegankelijke naam volgt het zichtbare label.
+// Vier uitklapmenu's (akkoord Bennet, 24 september 2026; navigatie._hoofdmenu).
+// Per groep staan er twee koppen in de HTML: een gewone link naar de eerste
+// onderliggende pagina (zonder JavaScript) en een knop met aria-expanded en
+// aria-controls (met JavaScript). De klasse `js` op <html> wordt in de <head>
+// gezet, vóór de body wordt geparsed, dus er is nooit een flits: zonder script
+// staan de items gewoon uitgeklapt onder de link, met script klapt de knop ze
+// open en dicht. Geen hover — alleen klik/tap, op elke breedte.
+//
+// De kop-CTA staat op elke pagina en elke breedte: boven de vouw de enige weg
+// naar de boeking; verbergen was precies de klacht van de eigenaren.
+const zonderHash = (p) => p.split('#')[0];
+const groepen = hoofdmenu.map((g, i) => ({
+  ...g,
+  id: `submenu-${i + 1}`,
+  actief: g.items.some((it) => zonderHash(it.pad) === pad),
+}));
 ---
 <header class="kop op-blauw">
   <div class="omhulsel kop__binnen">
@@ -22,9 +34,20 @@ const { hoofdmenu, labels } = nav;
     </button>
 
     <nav id="hoofdnav" class="kop__nav" aria-label={labels.hoofdnavigatie}>
-      <ul>
-        {hoofdmenu.map((item) => (
-          <li><a href={item.pad} aria-current={item.pad === pad ? 'page' : undefined}>{item.label}</a></li>
+      <ul class="kop__groepen">
+        {groepen.map((g) => (
+          <li class="groep" data-groep data-actief={g.actief ? 'true' : undefined}>
+            <a class="groep__link" href={g.pad}>{g.label}</a>
+            <button class="groep__knop" type="button" aria-expanded="false" aria-controls={g.id}>
+              <span>{g.label}</span>
+              <svg class="groep__pijl" aria-hidden="true" viewBox="0 0 12 8" width="12" height="8"><path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            </button>
+            <ul class="groep__items" id={g.id} aria-label={labels.submenuVan.replace('{kop}', g.label)}>
+              {g.items.map((it) => (
+                <li><a href={it.pad} aria-current={zonderHash(it.pad) === pad ? 'page' : undefined}>{it.label}</a></li>
+              ))}
+            </ul>
+          </li>
         ))}
       </ul>
     </nav>
@@ -59,10 +82,29 @@ const { hoofdmenu, labels } = nav;
   .wordmerk__groot { font-family: var(--font-kop); font-weight: 700; font-size: 1.5rem; line-height: 1.05; letter-spacing: -0.02em; }
   .wordmerk__klein { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.92; }
 
-  .kop__nav ul { display: flex; gap: clamp(0.6rem, 0.95vw, 1rem); list-style: none; margin: 0; padding: 0; }
-  .kop__nav a { text-decoration: none; font-size: 0.875rem; padding-block: 0.4em; white-space: nowrap; }
-  .kop__nav a:hover { text-decoration: underline; }
-  .kop__nav a[aria-current='page'] { text-decoration: underline; text-underline-offset: 0.35em; }
+  .kop__groepen, .groep__items { list-style: none; margin: 0; padding: 0; }
+  .kop__groepen { display: flex; gap: clamp(0.25rem, 1vw, 0.75rem); }
+  .groep { position: relative; }
+  .groep__link, .groep__knop {
+    display: inline-flex; align-items: center; gap: 0.4em;
+    font-family: var(--font-tekst); font-size: 0.95rem; color: var(--wit);
+    text-decoration: none; background: none; border: 0; cursor: pointer;
+    padding: 0.5em 0.6em; min-height: 44px; border-radius: var(--radius-klein);
+  }
+  .groep__knop { display: none; }
+  html.js .groep__link { display: none; }
+  html.js .groep__knop { display: inline-flex; }
+  .groep__knop:hover, .groep__link:hover { text-decoration: underline; text-underline-offset: 0.35em; }
+  .groep[data-actief] > .groep__knop, .groep[data-actief] > .groep__link { text-decoration: underline; text-underline-offset: 0.35em; }
+  .groep__pijl { transition: transform 150ms ease; transform-origin: center; }
+  .groep__knop[aria-expanded='true'] .groep__pijl { transform: rotate(180deg); }
+  @media (prefers-reduced-motion: reduce) { .groep__pijl { transition: none; } }
+
+  /* Met JavaScript: dicht tot de knop opent. Zonder: altijd uitgeklapt. */
+  html.js .groep__items:not([data-open='true']) { display: none; }
+  .groep__items a { display: block; text-decoration: none; padding: 0.55em 0.9em; border-radius: var(--radius-klein); white-space: nowrap; }
+  .groep__items a:hover { text-decoration: underline; text-underline-offset: 0.3em; }
+  .groep__items a[aria-current='page'] { font-weight: 600; }
 
   .kop__schakelaar { display: none; background: none; border: 0; padding: 10px; cursor: pointer; }
   .kop__streepjes { display: grid; gap: 5px; }
@@ -72,21 +114,34 @@ const { hoofdmenu, labels } = nav;
   .kop__cta { min-height: 44px; display: inline-flex; align-items: center; }
   .kop__cta-kort { display: none; }
 
+  /* Desktop: de items hangen als wit paneel onder de kop. */
+  @media (min-width: 900px) {
+    .groep__items {
+      position: absolute; top: 100%; left: 0; z-index: 60; min-width: 14rem;
+      margin-top: 0.25rem; padding: 0.4rem;
+      background: var(--wit); color: var(--inkt);
+      border-radius: var(--radius-klein); box-shadow: 0 10px 30px rgb(20 22 28 / 0.25);
+    }
+    .groep__items a { color: var(--blauw); }
+    .groep__items a:hover, .groep__items a:focus-visible { background: var(--grijs-100); }
+    /* Zonder JavaScript is er geen knop om het paneel te openen: dan staan de
+       items in de stroom onder de kop, niet zwevend. */
+    html:not(.js) .groep__items { position: static; box-shadow: none; background: transparent; padding: 0; margin: 0; min-width: 0; }
+    html:not(.js) .groep__items a { color: var(--wit); font-size: 0.85rem; padding: 0.2em 0.6em; }
+    html:not(.js) .kop__groepen { align-items: flex-start; }
+  }
+
   /* Onder 560px moeten wordmerk, CTA en hamburger samen op één rij passen,
      anders valt de header uit elkaar en wordt hij twee rijen hoog. */
   @media (max-width: 560px) {
     .kop__binnen { gap: 10px; }
     .wordmerk__groot { font-size: 1.2rem; }
     .wordmerk__klein { font-size: 0.62rem; letter-spacing: 0.1em; }
-    /* Kort label, maar de knop blijft staan en blijft 44px hoog. */
     .kop__cta { padding: 0.5em 0.9em; font-size: 0.9rem; }
     .kop__cta-lang { display: none; }
     .kop__cta-kort { display: inline; }
     .kop__schakelaar { padding: 8px 4px; }
   }
-
-  /* Zeer smalle toestellen (320-380px): verder verkleinen zodat de rij heel
-     blijft. Het wordmerk blijft volledig leesbaar, alleen kleiner. */
   @media (max-width: 380px) {
     .kop__binnen { gap: 8px; }
     .wordmerk__groot { font-size: 1.05rem; }
@@ -94,35 +149,72 @@ const { hoofdmenu, labels } = nav;
     .kop__cta { padding: 0.45em 0.8em; font-size: 0.85rem; }
     .kop__schakelaar { padding: 6px 2px; }
   }
-
   /* Onder 340px (iPhone SE 1e generatie) past de tweede regel van het
-     wordmerk er niet meer bij zonder dat de rij breekt. Daar blijft alleen
-     "Van Duren" staan; de volledige naam staat in de footer en in de title. */
+     wordmerk er niet meer bij zonder dat de rij breekt. */
   @media (max-width: 340px) {
     .wordmerk__klein { display: none; }
     .kop__cta { padding: 0.45em 0.7em; font-size: 0.82rem; }
   }
 
-  @media (max-width: 1240px) {
+  /* Mobiel en tablet: hamburger, paneel onder de kop, groepen gestapeld.
+     De items klappen met een tik open (geen hover) en staan ingesprongen. */
+  @media (max-width: 899px) {
     .kop__binnen { min-height: 56px; }
     .kop__schakelaar { display: block; order: 3; }
     .kop__cta { order: 2; }
     .kop__nav { order: 4; flex-basis: 100%; display: none; padding-bottom: 1rem; }
-    .kop__nav[data-open='true'] { display: block; }
-    .kop__nav ul { flex-direction: column; gap: 0; }
-    .kop__nav a { display: block; padding: 0.75em 0; }
+    html:not(.js) .kop__nav, .kop__nav[data-open='true'] { display: block; }
+    .kop__groepen { flex-direction: column; gap: 0; }
+    .groep__link, .groep__knop { width: 100%; justify-content: space-between; padding: 0.75em 0; font-size: 1.05rem; }
+    .groep__items { padding: 0 0 0.5rem 1rem; }
+    .groep__items a { padding: 0.6em 0; }
   }
 </style>
 
 <script>
+  // Hamburger (mobiel).
   const knop = document.querySelector('.kop__schakelaar');
   const menu = document.getElementById('hoofdnav');
-  const zet = (open) => {
+  const zetMenu = (open) => {
     knop?.setAttribute('aria-expanded', String(open));
     menu?.setAttribute('data-open', String(open));
   };
-  knop?.addEventListener('click', () => zet(knop.getAttribute('aria-expanded') !== 'true'));
+  knop?.addEventListener('click', () => zetMenu(knop.getAttribute('aria-expanded') !== 'true'));
+
+  // Uitklapmenu's: klik/Enter/Space opent en sluit, Escape sluit en zet de
+  // focus terug op de kop, pijltjes lopen door de items, één groep tegelijk
+  // open, klik of focus buiten de groep sluit hem.
+  const groepen = [...document.querySelectorAll('[data-groep]')];
+  const zet = (g, open) => {
+    g.querySelector('.groep__knop')?.setAttribute('aria-expanded', String(open));
+    g.querySelector('.groep__items')?.setAttribute('data-open', String(open));
+  };
+  const isOpen = (g) => g.querySelector('.groep__knop')?.getAttribute('aria-expanded') === 'true';
+  const sluitAlles = (behalve) => groepen.forEach((g) => { if (g !== behalve) zet(g, false); });
+  const links = (g) => [...g.querySelectorAll('.groep__items a')];
+
+  groepen.forEach((g) => {
+    const kop = g.querySelector('.groep__knop');
+    if (!kop) return;
+    kop.addEventListener('click', () => { const open = !isOpen(g); sluitAlles(g); zet(g, open); });
+    kop.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); sluitAlles(g); zet(g, true); links(g)[0]?.focus(); }
+      if (e.key === 'Escape' && isOpen(g)) { e.preventDefault(); zet(g, false); }
+    });
+    g.addEventListener('keydown', (e) => {
+      const items = links(g); const i = items.indexOf(document.activeElement);
+      if (i < 0) return;
+      if (e.key === 'ArrowDown') { e.preventDefault(); items[(i + 1) % items.length].focus(); }
+      if (e.key === 'ArrowUp') { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+      if (e.key === 'Home') { e.preventDefault(); items[0].focus(); }
+      if (e.key === 'End') { e.preventDefault(); items[items.length - 1].focus(); }
+      if (e.key === 'Escape') { e.preventDefault(); zet(g, false); kop.focus(); }
+    });
+    g.addEventListener('focusout', (e) => { if (!g.contains(e.relatedTarget)) zet(g, false); });
+  });
+  document.addEventListener('click', (e) => { if (!e.target.closest('[data-groep]')) sluitAlles(null); });
+
   // Sluiten bij elke klik op een link in het menu, ook bij een in-page anker
   // (href met #): die herlaadt de pagina niet, dus het menu bleef openstaan.
-  menu?.addEventListener('click', (e) => { if (e.target.closest('a[href]')) zet(false); });
+  menu?.addEventListener('click', (e) => { if (e.target.closest('a[href]')) { sluitAlles(null); zetMenu(false); } });
 </script>

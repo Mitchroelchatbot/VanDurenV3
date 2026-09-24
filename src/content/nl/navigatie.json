@@ -1,36 +1,72 @@
 {
   "hoofdmenu": [
     {
-      "pad": "/",
-      "label": "Home"
-    },
-    {
+      "label": "Banen",
       "pad": "/banen",
-      "label": "Baanhuur"
+      "items": [
+        {
+          "pad": "/banen",
+          "label": "Losse boeking"
+        },
+        {
+          "pad": "/banen#vip",
+          "label": "VIP-daluren"
+        },
+        {
+          "pad": "/banen#contractbaan",
+          "label": "Contractbaan"
+        }
+      ]
     },
     {
+      "label": "Lessen",
       "pad": "/lessen",
-      "label": "Lessen"
+      "items": [
+        {
+          "pad": "/lessen",
+          "label": "Lessen voor volwassenen"
+        },
+        {
+          "pad": "/jeugd",
+          "label": "Jeugd"
+        }
+      ]
     },
     {
-      "pad": "/jeugd",
-      "label": "Jeugd"
-    },
-    {
+      "label": "Groepen",
       "pad": "/clinics",
-      "label": "Clinics & bedrijven"
+      "items": [
+        {
+          "pad": "/clinics",
+          "label": "Clinics & bedrijven"
+        },
+        {
+          "pad": "/clinics#aanvraag-kinderfeestje",
+          "label": "Kinderfeestjes"
+        },
+        {
+          "pad": "/evenementen",
+          "label": "Evenementen"
+        }
+      ]
     },
     {
-      "pad": "/evenementen",
-      "label": "Evenementen"
-    },
-    {
-      "pad": "/spelregels",
-      "label": "Spelregels & FAQ"
-    },
-    {
+      "label": "Over ons",
       "pad": "/over-ons",
-      "label": "Over ons & contact"
+      "items": [
+        {
+          "pad": "/spelregels",
+          "label": "Spelregels & FAQ"
+        },
+        {
+          "pad": "/sponsoren",
+          "label": "Sponsoren"
+        },
+        {
+          "pad": "/over-ons",
+          "label": "Contact"
+        }
+      ]
     }
   ],
   "labels": {
@@ -63,7 +99,8 @@
       "facebook": "Facebook",
       "instagram": "Instagram",
       "playtomic": "Playtomic"
-    }
+    },
+    "submenuVan": "Submenu van {kop}"
   },
   "formulierLabels": {
     "versturen": "Aanvraag versturen",
@@ -104,5 +141,6 @@
       "label": "Sponsoren"
     }
   ],
-  "_voetLinks": "O31 (15 september 2026): /sponsoren uit het hoofdmenu; gewone tekstlink in de footer, altijd zichtbaar (de logobalk is voorwaardelijk, §7.7)."
+  "_voetLinks": "O31 (15 september 2026) is op 24 september vervallen: /sponsoren staat weer in het hoofdmenu (Over ons). De tekstlink in de footer blijft staan; kost niets.",
+  "_hoofdmenu": "Akkoord Bennet, 24 september 2026: vier uitklapmenu's in plaats van acht losse items. 'Over ons' blijft het laatste item (§7). Het wordmerk linkt naar de homepage; een los item 'Home' is daarmee vervallen. Zonder JavaScript is elke kop een gewone link naar de eerste onderliggende pagina (pad) en staan de items uitgeklapt. O31 vervalt: /sponsoren staat weer in de navigatie, onder Over ons; de tekstlink in de footer blijft."
 }
