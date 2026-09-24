@@ -1,5 +1,6 @@
 ---
 import home from '../content/nl/home.json';
+import bedrijf from '../content/nl/bedrijf.json';
 import Cta from './Cta.astro';
 import { bestaat } from '../lib/beeld.js';
 
@@ -44,6 +45,7 @@ const videoStaand720 = video?.mp4_staand_720 && bestaat(video.mp4_staand_720) ? 
   )}
 
   <div class="omhulsel hero__binnen">
+    {h.toonSlogan && bedrijf.slogan && <p class="hero__kicker">{bedrijf.slogan}</p>}
     <h1 class="hero__kop">{h.kop}</h1>
     <p class="hero__onderkop">{h.tekst}</p>
     {h.knoppen?.length > 0 && (
@@ -84,7 +86,9 @@ const videoStaand720 = video?.mp4_staand_720 && bestaat(video.mp4_staand_720) ? 
 
   /* Scrim (hero._regel, gemeten): minimaal rgba(20,22,28,0.70) achter tekst en
      knoppen, als bottom-up gradient over de onderste ~70 %, plus 0.15 vlak over
-     het geheel. De inhoud staat onderin, binnen de zone van 0.70. */
+     het geheel. De inhoud staat onderin, binnen de zone van 0.70. De stop lag
+     op 52 %; met de kicker (24 september 2026) stak die 9 px boven de zone uit
+     (gemeten 390×844), daarom 56 %: de zone groeit mee met de tekst. */
   .hero::before {
     content: ''; position: absolute; inset: 0; z-index: -2;
     background: rgb(20 22 28 / 0.15);
@@ -92,12 +96,14 @@ const videoStaand720 = video?.mp4_staand_720 && bestaat(video.mp4_staand_720) ? 
   .hero::after {
     content: ''; position: absolute; inset: 0; z-index: -1;
     background: linear-gradient(to top,
-      rgb(20 22 28 / 0.70) 0%, rgb(20 22 28 / 0.70) 52%,
-      rgb(20 22 28 / 0.35) 62%, rgb(20 22 28 / 0) 72%);
+      rgb(20 22 28 / 0.70) 0%, rgb(20 22 28 / 0.70) 56%,
+      rgb(20 22 28 / 0.35) 66%, rgb(20 22 28 / 0) 76%);
   }
 
   .hero__binnen { position: relative; padding-block: clamp(2rem, 6vh, 4rem) clamp(2.5rem, 7vh, 4.5rem); }
   /* Centrering komt uit tokens.css regel 4 via de klasse .hero. */
+  /* Kicker: de slogan uit bedrijf.json boven de h1 (home.hero._toonSlogan). Geen kop-element: de h1 draagt de zoekterm. */
+  .hero__kicker { font-family: var(--font-kop); font-weight: 600; font-size: clamp(0.85rem, 1.6vw, 1rem); letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 0.6rem; opacity: 0.95; }
   .hero__kop { max-width: 20ch; margin-inline: auto; margin-bottom: 0.4em; }
   .hero__onderkop { font-size: clamp(1.05rem, 2.2vw, 1.3rem); margin: 0 auto 1.5rem; max-width: 40ch; }
 

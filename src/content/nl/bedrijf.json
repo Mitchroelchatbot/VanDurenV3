@@ -5,8 +5,10 @@
   "wordmark": {
     "regel1": "Van Duren",
     "regel2": "Indoor Padel Centrum",
-    "_todo": "Er bestaat geen logo voor 'Indoor Padel Centrum'. Het enige merkmiddel is de lockup 'PADEL ACADEMY VAN DUREN — powered by Babolat'. Zie OPEN.md O24."
+    "_todo": "Bevestigd door Bennet, 24 september 2026: er bestaat geen logo van Van Duren Indoor Padel Centrum; het enige logobestand is het Academy-logo (lesprogramma) met 'powered by Babolat' erin. Er wordt een nieuw logo gemaakt en het Babolat-logo wordt bij Babolat opgevraagd. Tot die tijd: dit tekst-wordmark in header en footer; het Academy-logo niet in de header, niet als favicon, og:image of schema.org-logo (verkeerde bedrijfsnaam, §3). Wél toegestaan op /lessen en /jeugd."
   },
+  "slogan": "Altijd Padellen in de Son!",
+  "_slogan": "Van Bennet, 24 september 2026. In de footer onder het wordmark; nooit in de h1 of metaTitle (die dragen de zoekterm). Als kicker in de hero alleen als de meting in home.hero._toonSlogan slaagt.",
 
   "bezoekadres": {
     "straat": "Rooijse weg 7",

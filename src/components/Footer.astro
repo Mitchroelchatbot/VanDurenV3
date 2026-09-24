@@ -9,6 +9,7 @@ const jaar = new Date().getFullYear();
   <div class="omhulsel voet__raster">
     <div>
       <p class="voet__merk">{bedrijf.naam}</p>
+      {bedrijf.slogan && <p class="voet__slogan">{bedrijf.slogan}</p>}
       <p class="voet__regel">{labels.kvk} {bedrijf.kvk} · {labels.btw} {bedrijf.btw}</p>
       {nav.voetLinks?.length > 0 && (
         <ul class="voet__links">
@@ -62,6 +63,7 @@ const jaar = new Date().getFullYear();
   .voet__links { list-style: none; padding: 0; margin: 0.75rem 0 0; display: flex; gap: 1rem; flex-wrap: wrap; }
   .voet { padding-top: 3.5rem; }
   .voet__raster { display: grid; gap: 2rem var(--gutter); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .voet__slogan { font-family: var(--font-kop); font-weight: 600; font-size: 0.95rem; margin: 0 0 0.5rem; opacity: 0.92; }
   .voet__merk { font-family: var(--font-kop); font-weight: 700; font-size: 1.15rem; margin-bottom: 0.35rem; }
   .voet__kop { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.85; margin: 1.25rem 0 0.4rem; }
   .voet__kop:first-child { margin-top: 0; }
