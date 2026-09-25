@@ -333,5 +333,12 @@
       "Alle trainingsdagen gaan door — maandag tot en met vrijdag en zaterdag."
     ]
   },
-  "_merknaamregel": "De naam 'Padel Academy van Duren' mag in de intro van deze pagina staan — /jeugd is het lesprogramma voor kinderen en valt onder dezelfde uitzondering als /lessen. CLAUDE.md §3 is daarop verruimd op 15 september 2026. Voorwaarde: de naam staat UITSLUITEND in lopende tekst. Nooit in de h1, nooit in metaTitle, nooit in het navigatielabel — die drie dragen de zoekterm 'padelles kinderen Son en Breugel' en de bedrijfsnaam."
+  "_merknaamregel": "De naam 'Padel Academy van Duren' mag in de intro van deze pagina staan — /jeugd is het lesprogramma voor kinderen en valt onder dezelfde uitzondering als /lessen. CLAUDE.md §3 is daarop verruimd op 15 september 2026. Voorwaarde: de naam staat UITSLUITEND in lopende tekst. Nooit in de h1, nooit in metaTitle, nooit in het navigatielabel — die drie dragen de zoekterm 'padelles kinderen Son en Breugel' en de bedrijfsnaam.",
+  "logo": {
+    "png": "/beeld/padel-academy-logo-620.png",
+    "breedte": 620,
+    "hoogte": 206,
+    "alt": "Padel Academy van Duren, powered by Babolat",
+    "_regel": "Zelfde bestand als op /lessen. Staat onder de intro, klein, niet boven de h1: op /jeugd dragen h1 en metaTitle de zoekterm en de bedrijfsnaam (§3), het logo is een afbeelding in de lopende inhoud."
+  }
 }

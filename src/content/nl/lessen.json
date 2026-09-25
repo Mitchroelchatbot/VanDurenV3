@@ -365,6 +365,13 @@
     "trainer": {
       "naam": "lessen-trainer",
       "alt": "Trainer van Van Duren met racket aan het net"
+    },
+    "logo": {
+      "png": "/beeld/padel-academy-logo-620.png",
+      "breedte": 620,
+      "hoogte": 206,
+      "alt": "Padel Academy van Duren, powered by Babolat",
+      "_regel": "Het logo van het lesprogramma, aangeleverd door Mitch op 24 september 2026 (het enige logobestand dat bestaat). Alleen hier en op /jeugd: het draagt de naam van het lesprogramma, niet de bedrijfsnaam (§3). Nooit in de header, favicon, og:image of schema.org. Transparante PNG, 620 px breed; op de pagina maximaal 320 px, dus scherp tot DPR 2."
     }
   }
 }

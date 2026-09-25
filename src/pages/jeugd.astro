@@ -16,6 +16,7 @@ const stappen = stappenUit(f.vragen);
 const bevestiging = { titel: f.bevestiging.kop, tekst: f.bevestiging.tekst };
 // jeugd.beeld: bewust een lege baan (jeugd.beeld._regel, O10). Rendert alleen
 // als het bestand bestaat en er een alt is.
+const logo = jeugd.logo?.png && bestaat(jeugd.logo.png) ? jeugd.logo : null;
 const beeld = jeugd.beeld?.webp_1536 && typeof jeugd.beeld.alt === 'string' && bestaat(jeugd.beeld.webp_1536) ? jeugd.beeld : null;
 ---
 <BasisLayout pad={pad} meta={meta} wa="lessen">
@@ -29,6 +30,7 @@ const beeld = jeugd.beeld?.webp_1536 && typeof jeugd.beeld.alt === 'string' && b
              width={beeld.breedte} height={beeld.hoogte} loading="lazy" decoding="async" />
       )}
       <p class="jeugd__intro">{jeugd.intro}</p>
+      {logo && <img class="jeugd__logo" src={logo.png} alt={logo.alt} width={logo.breedte} height={logo.hoogte} loading="lazy" decoding="async" />}
 
       {/* Elke kaart toont de reeksprijs én de prijs per les (jeugd._vormen_regel). */}
       <div class="raster-vier">
@@ -84,6 +86,7 @@ const beeld = jeugd.beeld?.webp_1536 && typeof jeugd.beeld.alt === 'string' && b
 </BasisLayout>
 
 <style>
+  .jeugd__logo { display: block; width: min(240px, 60vw); height: auto; margin: 0 0 1.5rem; }
   .jeugd__beeld { display: block; width: 100%; height: auto; border-radius: var(--radius); margin: 1.5rem 0; }
   .jeugd__intro { max-width: 60ch; }
   .raster-vier { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 2rem; }
