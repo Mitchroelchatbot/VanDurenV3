@@ -5,7 +5,7 @@
 > de projectmap staat. Wijk hier niet van af zonder dat de wijziging eerst in dit
 > bestand is vastgelegd.
 >
-> Laatst bijgewerkt: 24 september 2026 (v13 — contracttarieven per boeking, vier uitklapmenu's, slogan, logo-besluit, O33)
+> Laatst bijgewerkt: 1 oktober 2026 (v14 — Academy-logo in header en footer, uitzondering §3)
 > Opdrachtgever: Mitch Bastiaans (Mr Hostly) · Klant: Martin & Bennet van Duren
 
 ---
@@ -111,6 +111,15 @@ offeren.
   tekst**. Niet in de `h1`, niet in `metaTitle`, niet in het navigatielabel — die
   drie dragen de zoekterm en de bedrijfsnaam. Het navigatielabel is `Jeugd`.
 - Header-wordmark: **Van Duren** groot, **Indoor Padel Centrum** klein eronder.
+  **HERZIEN 1 oktober 2026 (Mitch, op verzoek van de klant):** in de header en de
+  footer staat het Padel Academy-logo (het enige logobestand dat bestaat), op een
+  wit vlak omdat het blauwe en zwarte delen heeft. Dit is een bewuste afwijking van
+  de regel hierboven en van punt 6 van 24 september: het logo draagt de naam van het
+  lesprogramma, niet de bedrijfsnaam. De `alt`-tekst staat in `bedrijf.json` onder
+  `logo` en is de enige toegestane plek voor `Padel Academy` buiten `lessen.*`,
+  `jeugd.*` en het navigatielabel. De bedrijfsnaam blijft in `<title>`, footer-tekst,
+  schema.org en favicon. Zodra het nieuwe logo van Van Duren Indoor Padel Centrum er
+  is (OPEN.md), vervangt dat dit bestand op dezelfde plekken.
 - `<title>` homepage: `Van Duren Indoor Padel Centrum — Padelbaan huren in Son en Breugel`
 - `<title>` lessen: `Padel Academy van Duren — Padellessen in Son en Breugel`
 
