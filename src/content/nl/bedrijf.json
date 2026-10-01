@@ -7,6 +7,13 @@
     "regel2": "Indoor Padel Centrum",
     "_todo": "Bevestigd door Bennet, 24 september 2026: er bestaat geen logo van Van Duren Indoor Padel Centrum; het enige logobestand is het Academy-logo (lesprogramma) met 'powered by Babolat' erin. Er wordt een nieuw logo gemaakt en het Babolat-logo wordt bij Babolat opgevraagd. Tot die tijd: dit tekst-wordmark in header en footer; het Academy-logo niet in de header, niet als favicon, og:image of schema.org-logo (verkeerde bedrijfsnaam, §3). Wél toegestaan op /lessen en /jeugd."
   },
+  "logo": {
+    "png": "/beeld/padel-academy-logo-620.png",
+    "breedte": 620,
+    "hoogte": 206,
+    "alt": "Padel Academy van Duren, powered by Babolat",
+    "_regel": "Besluit Mitch en de klant, 1 oktober 2026: dit logo komt in de header en de footer op de plek van het tekst-wordmark, ook al draagt het de naam van het lesprogramma en niet de bedrijfsnaam (CLAUDE.md §3, uitzondering vastgelegd). Het logo heeft blauwe en zwarte delen en is onzichtbaar op --blauw; daarom staat het op een wit vlak. Een witte (knock-out) versie bestaat niet; vraag die bij de ontwerper zodra het nieuwe logo gemaakt wordt. Ontbreekt het bestand, dan valt de header terug op het tekst-wordmark."
+  },
   "slogan": "Altijd Padellen in de Son!",
   "_slogan": "Van Bennet, 24 september 2026. In de footer onder het wordmark; nooit in de h1 of metaTitle (die dragen de zoekterm). Als kicker in de hero alleen als de meting in home.hero._toonSlogan slaagt.",
 

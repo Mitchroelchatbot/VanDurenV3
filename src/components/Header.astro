@@ -1,6 +1,7 @@
 ---
 import bedrijf from '../content/nl/bedrijf.json';
 import nav from '../content/nl/navigatie.json';
+import { bestaat } from '../lib/beeld.js';
 
 const { pad } = Astro.props;
 const { hoofdmenu, labels } = nav;
@@ -14,6 +15,8 @@ const { hoofdmenu, labels } = nav;
 //
 // De kop-CTA staat op elke pagina en elke breedte: boven de vouw de enige weg
 // naar de boeking; verbergen was precies de klacht van de eigenaren.
+// Logo in de header (bedrijf.logo._regel, 1 oktober 2026); zonder bestand het tekst-wordmark.
+const logo = bedrijf.logo?.png && bestaat(bedrijf.logo.png) ? bedrijf.logo : null;
 const zonderHash = (p) => p.split('#')[0];
 const groepen = hoofdmenu.map((g, i) => ({
   ...g,
@@ -23,10 +26,16 @@ const groepen = hoofdmenu.map((g, i) => ({
 ---
 <header class="kop op-blauw">
   <div class="omhulsel kop__binnen">
-    <a class="wordmerk" href="/">
-      <span class="wordmerk__groot">{bedrijf.wordmark.regel1}</span>
-      <span class="wordmerk__klein">{bedrijf.wordmark.regel2}</span>
-    </a>
+    {logo ? (
+      <a class="wordmerk wordmerk--logo" href="/">
+        <img class="wordmerk__logo" src={logo.png} alt={logo.alt} width={logo.breedte} height={logo.hoogte} fetchpriority="high" decoding="async" />
+      </a>
+    ) : (
+      <a class="wordmerk" href="/">
+        <span class="wordmerk__groot">{bedrijf.wordmark.regel1}</span>
+        <span class="wordmerk__klein">{bedrijf.wordmark.regel2}</span>
+      </a>
+    )}
 
     <button class="kop__schakelaar" type="button" aria-expanded="false" aria-controls="hoofdnav">
       <span class="alleen-schermlezer">{labels.menuOpenen}</span>
@@ -81,6 +90,11 @@ const groepen = hoofdmenu.map((g, i) => ({
   .wordmerk { display: flex; flex-direction: column; text-decoration: none; margin-right: auto; }
   .wordmerk__groot { font-family: var(--font-kop); font-weight: 700; font-size: 1.5rem; line-height: 1.05; letter-spacing: -0.02em; }
   .wordmerk__klein { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.92; }
+  /* Logo op een wit vlak: de blauwe en zwarte delen van het logo verdwijnen
+     anders in --blauw. Logo 60 px hoog op desktop, 44 px op tablet, 34/30 px op mobiel. */
+  .wordmerk--logo { background: var(--wit); border-radius: var(--radius-klein); padding: 8px 14px; }
+  .wordmerk__logo { display: block; height: 60px; width: auto; }
+  @media (max-width: 899px) { .wordmerk--logo { padding: 6px 10px; } .wordmerk__logo { height: 44px; } }
 
   .kop__groepen, .groep__items { list-style: none; margin: 0; padding: 0; }
   .kop__groepen { display: flex; gap: clamp(0.25rem, 1vw, 0.75rem); }
@@ -137,6 +151,8 @@ const groepen = hoofdmenu.map((g, i) => ({
     .kop__binnen { gap: 10px; }
     .wordmerk__groot { font-size: 1.2rem; }
     .wordmerk__klein { font-size: 0.62rem; letter-spacing: 0.1em; }
+    .wordmerk--logo { padding: 5px 8px; }
+    .wordmerk__logo { height: 34px; }
     .kop__cta { padding: 0.5em 0.9em; font-size: 0.9rem; }
     .kop__cta-lang { display: none; }
     .kop__cta-kort { display: inline; }
@@ -146,6 +162,7 @@ const groepen = hoofdmenu.map((g, i) => ({
     .kop__binnen { gap: 8px; }
     .wordmerk__groot { font-size: 1.05rem; }
     .wordmerk__klein { font-size: 0.55rem; letter-spacing: 0.08em; }
+    .wordmerk__logo { height: 30px; }
     .kop__cta { padding: 0.45em 0.8em; font-size: 0.85rem; }
     .kop__schakelaar { padding: 6px 2px; }
   }
