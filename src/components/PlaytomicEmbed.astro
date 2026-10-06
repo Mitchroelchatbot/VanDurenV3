@@ -2,10 +2,11 @@
 import banen from '../content/nl/banen.json';
 
 // White-label boekingskalender van Playtomic in een iframe.
-// Het iframe komt pas in de DOM als de sectie in beeld scrolt (IntersectionObserver)
-// of als de bezoeker op de knop tikt. Zonder JavaScript rendert <noscript> hem direct.
-// Onder het iframe staat ALTIJD de directe link naar Playtomic: als het vlak leeg
-// blijft (O26) is er nog steeds een werkende weg naar de boeking.
+// Het iframe komt PAS in de DOM als de bezoeker op de knop klikt (6 oktober 2026,
+// A6): de privacyverklaring zegt dat Playtomic pas na een klik cookies kan
+// plaatsen, dus niet meer bij scrollen en geen noscript-iframe.
+// Onder het vlak staat ALTIJD de directe link naar Playtomic: zonder JavaScript,
+// en als het vlak leeg blijft (O26), is dat de werkende weg naar de boeking.
 const p = banen.playtomic;
 
 if (p && !p.websiteUrlGeregeld) {
@@ -26,10 +27,6 @@ if (p && !p.websiteUrlGeregeld) {
         <div class="playtomic__wacht" data-playtomic-wacht>
           <button type="button" class="knop knop--secundair" data-playtomic-knop>{p.laadLabel}</button>
         </div>
-        <noscript>
-          <iframe src={p.url} title={p.iframeTitel} loading="lazy"
-                  class="playtomic__frame" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </noscript>
       </div>
 
       <p class="playtomic__fallback">
@@ -84,11 +81,5 @@ if (p && !p.websiteUrlGeregeld) {
       wrap.setAttribute('data-geladen', '');
     };
     wrap.querySelector('[data-playtomic-knop]')?.addEventListener('click', laad);
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((es) => {
-        if (es.some((e) => e.isIntersecting)) { laad(); io.disconnect(); }
-      }, { rootMargin: '300px 0px' });
-      io.observe(wrap);
-    }
   }
 </script>
