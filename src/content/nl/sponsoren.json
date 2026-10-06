@@ -1,4 +1,69 @@
 {
+  "_bron": "Mitch, 6 oktober 2026 (deel C2). Teksten letterlijk. Geen prijzen of pakketten: die bestaan nog niet. Het logogrid rendert niet zolang logos leeg is; geen grijze vakken.",
   "hoofdpartner": null,
-  "logos": []
+  "logos": [],
+  "babolat": {
+    "kop": "In samenwerking met Babolat",
+    "tekst": "We spelen en trainen met materiaal van Babolat.",
+    "_logo": "Geen logo tot Bennet het bestand heeft aangeleverd."
+  },
+  "sponsorWorden": {
+    "kop": "Sponsor worden?",
+    "alineas": [
+      "Bij Van Duren Indoor Padel Centrum komen elke week spelers uit Son en Breugel en omgeving over de vloer: vaste groepen, mensen die les nemen, bedrijven en jeugd. Als sponsor ben je zichtbaar op de plek waar zij spelen, bijvoorbeeld met een bord langs de baan of een vermelding op deze website.",
+      "Wat bij jouw bedrijf past, bespreken we graag samen. Laat hieronder je gegevens achter, dan nemen we vrijblijvend contact met je op."
+    ],
+    "formulier": {
+      "naam": "sponsor",
+      "stappen": [
+        {
+          "nr": 1,
+          "vraag": "Waar denk je aan?",
+          "type": "keuze",
+          "opties": [
+            "Bord langs de baan",
+            "Vermelding op de website",
+            "Weet ik nog niet"
+          ]
+        },
+        {
+          "nr": 2,
+          "vraag": "Hoe kunnen we je bereiken?",
+          "type": "contact",
+          "velden": [
+            {
+              "label": "Bedrijfsnaam",
+              "verplicht": true,
+              "type": "tekst",
+              "autocomplete": "organization"
+            },
+            {
+              "label": "Contactpersoon",
+              "verplicht": true,
+              "type": "tekst"
+            },
+            {
+              "label": "E-mail",
+              "verplicht": true,
+              "type": "email"
+            },
+            {
+              "label": "Telefoon",
+              "verplicht": true,
+              "type": "tel"
+            }
+          ],
+          "extra": {
+            "label": "Opmerking",
+            "type": "tekstvak"
+          },
+          "verzendKnop": "Neem contact met mij op"
+        }
+      ],
+      "bevestiging": {
+        "titel": "Je aanvraag is verstuurd",
+        "tekst": "We komen binnen één werkdag bij je terug met een voorstel. Je hoeft niets meer te mailen."
+      }
+    }
+  }
 }

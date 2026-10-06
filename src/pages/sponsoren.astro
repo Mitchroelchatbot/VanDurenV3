@@ -1,14 +1,46 @@
 ---
 import BasisLayout from '../layouts/BasisLayout.astro';
+import Formulier from '../components/Formulier.astro';
 import paginas from '../content/nl/paginas.json';
+import sponsoren from '../content/nl/sponsoren.json';
 
+// Opbouw volgens sponsoren.json (Mitch, 6 oktober 2026, C2). Het logogrid
+// rendert NIET zolang logos leeg is: geen grijze vakken (§7.7).
 const pad = '/sponsoren';
 const meta = paginas[pad];
+const logos = (sponsoren.logos ?? []).filter((l) => l && l.beeld && l.naam);
+const f = sponsoren.sponsorWorden.formulier;
 ---
-<BasisLayout pad={pad} waSjabloon={meta.wa}>
+<BasisLayout pad={pad} meta={meta} wa="algemeen">
   <section class="sectie">
-    <div class="omhulsel">
+    <div class="omhulsel omhulsel--midden sectie-body">
       <h1>{meta.h1}</h1>
+      <h2 class="sponsoren__kop">{sponsoren.babolat.kop}</h2>
+      <p>{sponsoren.babolat.tekst}</p>
+    </div>
+  </section>
+
+  {logos.length > 0 && (
+    <section class="sectie sectie--licht">
+      <div class="omhulsel">
+        <ul class="sponsoren__grid">
+          {logos.map((l) => (<li><img src={l.beeld} alt={l.naam} loading="lazy" decoding="async" /></li>))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section class="sectie sectie--licht" id="sponsor-worden">
+    <div class="omhulsel omhulsel--midden sectie-body">
+      <h2 class="sectie-kop">{sponsoren.sponsorWorden.kop}</h2>
+      {sponsoren.sponsorWorden.alineas.map((a) => (<p>{a}</p>))}
+      <Formulier naam={f.naam} stappen={f.stappen} bevestiging={f.bevestiging} />
     </div>
   </section>
 </BasisLayout>
+
+<style>
+  .sponsoren__kop { font-size: 1.35rem; margin-top: 1.5rem; }
+  .sponsoren__grid { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); align-items: center; }
+  .sponsoren__grid img { display: block; width: 100%; height: auto; }
+</style>
