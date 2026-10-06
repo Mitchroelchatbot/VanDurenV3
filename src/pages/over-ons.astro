@@ -1,22 +1,91 @@
 ---
 import BasisLayout from '../layouts/BasisLayout.astro';
-import Beeld from '../components/Beeld.astro';
-import paginas from '../content/nl/paginas.json';
+import Formulier from '../components/Formulier.astro';
+import Cta from '../components/Cta.astro';
+import overOns from '../content/nl/over-ons.json';
+import bedrijf from '../content/nl/bedrijf.json';
+import home from '../content/nl/home.json';
+import nav from '../content/nl/navigatie.json';
+import { bestaat } from '../lib/beeld.js';
 
+// Opbouw volgens over-ons.json (Mitch, 6 oktober 2026, C1): intro met de
+// duo-foto van de homepage, "Zo vind je ons" uit bedrijf.json, contactformulier.
 const pad = '/over-ons';
-const meta = paginas[pad];
+const meta = { titel: overOns.metaTitle, beschrijving: overOns.metaDescription };
+const L = nav.labels;
+const foto = (home.kernpunten?.fotos ?? []).find((f) => f.keuze === 'primair' && typeof f.alt === 'string' && bestaat(f.webp_1080)) ?? null;
+const pa = bedrijf.parkeeradres;
+// Gewone link naar het parkeeradres, geen iframe (over-ons.vinden._kaart).
+const kaartUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(`${pa.straat}, ${pa.postcode} ${pa.plaats}`);
+const f = overOns.vraag.formulier;
 ---
-<BasisLayout pad={pad} waSjabloon={meta.wa}>
+<BasisLayout pad={pad} meta={meta} wa="algemeen">
   <section class="sectie">
-    <div class="omhulsel">
-      <h1>{meta.h1}</h1>
-      {meta.beeld && (
-        <Beeld naam={meta.beeld.naam} alt={meta.beeld.alt} maten={[1080, 720]} klasse="overons__foto" sizes="(min-width: 900px) 540px, 100vw" />
+    <div class="omhulsel omhulsel--midden overons sectie-body" data-met-foto={foto ? 'true' : 'false'}>
+      <div class="overons__tekst">
+        <h1>{overOns.h1}</h1>
+        {overOns.intro.alineas.map((a) => (<p>{a}</p>))}
+        <p class="overons__ondertekening">{overOns.intro.ondertekening}</p>
+      </div>
+      {foto && (
+        <div class="overons__foto">
+          <img src={foto.webp_1080}
+               srcset={[bestaat(foto.webp_720) ? `${foto.webp_720} 720w` : null, `${foto.webp_1080} 1080w`].filter(Boolean).join(', ')}
+               sizes="(min-width: 900px) 40vw, 100vw" alt={foto.alt}
+               width={foto.breedte} height={foto.hoogte} loading="lazy" decoding="async" />
+        </div>
       )}
+    </div>
+  </section>
+
+  <section class="sectie sectie--licht" id="vinden">
+    <div class="omhulsel omhulsel--midden sectie-body">
+      <h2 class="sectie-kop">{overOns.vinden.kop}</h2>
+      <div class="vinden">
+        <div>
+          <h3 class="vinden__kop">{L.bezoekadres}</h3>
+          <address class="vinden__regel">{bedrijf.bezoekadres.straat}<br />{bedrijf.bezoekadres.postcode} {bedrijf.bezoekadres.plaats}</address>
+        </div>
+        <div class="vinden__parkeren">
+          <h3 class="vinden__kop">{L.parkeeradres}</h3>
+          <address class="vinden__regel">{pa.straat}<br />{pa.postcode} {pa.plaats}</address>
+          {pa.toelichting && <p class="vinden__letop">{pa.toelichting}</p>}
+          <a class="knop knop--secundair vinden__kaart" href={kaartUrl} rel="noopener" target="_blank">{overOns.vinden.kaartLabel}</a>
+        </div>
+        <div>
+          <h3 class="vinden__kop">{L.openingstijden}</h3>
+          <dl class="vinden__tijden">
+            {bedrijf.openingstijdenTekst.map((t) => (<><dt>{t.label}</dt><dd>{t.tijd}</dd></>))}
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sectie" id="contact">
+    <div class="omhulsel omhulsel--midden sectie-body">
+      <h2 class="sectie-kop">{overOns.vraag.kop}</h2>
+      <p class="overons__boven">{overOns.vraag.boven}</p>
+      <p class="overons__boven-knop"><Cta cta={overOns.vraag.playtomicKnop} soort="secundair" /></p>
+      <Formulier naam={f.naam} stappen={f.stappen} bevestiging={f.bevestiging} />
     </div>
   </section>
 </BasisLayout>
 
 <style>
-  .overons__foto { display: block; max-width: 540px; width: 100%; height: auto; border-radius: var(--radius); margin-top: 1.5rem; }
+  .overons { display: grid; gap: var(--gutter); align-items: start; }
+  @media (min-width: 900px) { .overons[data-met-foto='true'] { grid-template-columns: 3fr 2fr; } }
+  .overons__ondertekening { font-style: italic; color: var(--grijs-500); }
+  .overons__foto img { display: block; width: 100%; height: auto; border-radius: var(--radius); max-height: 60vh; object-fit: cover; }
+  .vinden { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .vinden__kop { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grijs-500); margin: 0 0 0.4rem; }
+  .vinden__regel { font-style: normal; margin: 0; }
+  /* Parkeren visueel apart: ander adres dan de hal (§3.1). */
+  .vinden__parkeren { background: var(--wit); border: 2px solid var(--blauw); border-radius: var(--radius); padding: 1rem; }
+  .vinden__letop { margin: 0.5rem 0 0.9rem; font-weight: 600; color: var(--blauw); }
+  .vinden__kaart { min-height: 44px; }
+  .vinden__tijden { display: grid; grid-template-columns: auto 1fr; gap: 0.15rem 1rem; margin: 0; }
+  .vinden__tijden dd { margin: 0; }
+  .overons__boven { margin-bottom: 0.6rem; }
+  .overons__boven-knop { margin-bottom: 1.5rem; }
 </style>

@@ -1,0 +1,76 @@
+{
+  "_bron": "Mitch, 6 oktober 2026 (deel C1). Teksten letterlijk. Bedrijfsgegevens komen uit bedrijf.json; de foto is kernpunten.fotos (primair) uit home.json.",
+  "metaTitle": "Over ons en contact — Van Duren Indoor Padel Centrum",
+  "metaDescription": "Wie we zijn, waar je ons vindt en hoe je ons bereikt: adres, parkeren, openingstijden en contact van Van Duren Indoor Padel Centrum.",
+  "h1": "Over ons en contact",
+  "intro": {
+    "alineas": [
+      "Van Duren Indoor Padel Centrum is de hal van Martin en Bennet van Duren in Son en Breugel. Geen keten en geen hoofdkantoor: een plek waar het om padel draait en waar je de mensen kent met wie je speelt.",
+      "Je vindt hier vier indoor banen, zeven dagen per week open. Je kunt een baan huren, les nemen bij onze gediplomeerde trainers of met een groep komen voor een clinic. Na afloop schuif je aan in onze eigen horeca.",
+      "Altijd Padellen in de Son!"
+    ],
+    "ondertekening": "Martin en Bennet van Duren"
+  },
+  "vinden": {
+    "kop": "Zo vind je ons",
+    "kaartLabel": "Open in Google Maps",
+    "_kaart": "Gewone link naar het PARKEERADRES, geen ingesloten Google Maps-iframe (plaatst cookies; de privacyverklaring zegt dat we die niet plaatsen). De URL wordt in de pagina opgebouwd uit bedrijf.parkeeradres."
+  },
+  "vraag": {
+    "kop": "Stel je vraag",
+    "boven": "Voor het boeken van een baan hoef je niet te mailen: dat doe je direct via Playtomic.",
+    "playtomicKnop": {
+      "label": "Boek een baan",
+      "type": "playtomic"
+    },
+    "_regel": "Geen namen of foto's van trainers. Geen mailto-link als hoofdactie. De Playtomic-knop is secundair: de verzendknop van het formulier is al de ene oranje knop in dit scherm (§5.1).",
+    "formulier": {
+      "naam": "contact",
+      "stappen": [
+        {
+          "nr": 1,
+          "vraag": "Waar gaat je vraag over?",
+          "type": "keuze",
+          "opties": [
+            "Baan huren",
+            "Lessen",
+            "Clinic of groep",
+            "Sponsoring",
+            "Iets anders"
+          ]
+        },
+        {
+          "nr": 2,
+          "vraag": "Hoe kunnen we je bereiken?",
+          "type": "contact",
+          "velden": [
+            {
+              "label": "Naam",
+              "verplicht": true,
+              "type": "tekst"
+            },
+            {
+              "label": "E-mail",
+              "verplicht": true,
+              "type": "email"
+            },
+            {
+              "label": "Telefoon",
+              "verplicht": true,
+              "type": "tel"
+            },
+            {
+              "label": "Je bericht",
+              "verplicht": true,
+              "type": "tekstvak"
+            }
+          ]
+        }
+      ],
+      "bevestiging": {
+        "titel": "Je aanvraag is verstuurd",
+        "tekst": "We komen binnen één werkdag bij je terug met een voorstel. Je hoeft niets meer te mailen."
+      }
+    }
+  }
+}
