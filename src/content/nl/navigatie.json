@@ -133,12 +133,27 @@
     "aanpassen": "Aanpassen",
     "samenvatting": "Je antwoorden",
     "bezig": "Versturen…",
-    "mislukt": "Versturen lukte niet. Probeer het opnieuw."
+    "mislukt": "Versturen lukte niet. Probeer het opnieuw.",
+    "privacyRegel": {
+      "voor": "We gebruiken je gegevens alleen om je aanvraag te beantwoorden. Lees onze",
+      "link": "privacyverklaring",
+      "href": "/privacy",
+      "na": "."
+    },
+    "_privacyRegel": "Mitch, 6 oktober 2026 (A3): onder de verzendknop van ELK formulier, letterlijk."
   },
   "voetLinks": [
     {
       "pad": "/sponsoren",
       "label": "Sponsoren"
+    },
+    {
+      "pad": "/privacy",
+      "label": "Privacy"
+    },
+    {
+      "pad": "/voorwaarden",
+      "label": "Voorwaarden"
     }
   ],
   "_voetLinks": "O31 (15 september 2026) is op 24 september vervallen: /sponsoren staat weer in het hoofdmenu (Over ons). De tekstlink in de footer blijft staan; kost niets.",

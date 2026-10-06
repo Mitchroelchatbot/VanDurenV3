@@ -208,7 +208,7 @@ const conditieCss = [
                 ? <textarea class="form__invoer" rows="4" name={v.label} data-leeg-invullen={!v.verplicht || undefined} required={v.verplicht || undefined}></textarea>
                 : <input class="form__invoer"
                        type={v.type === 'email' ? 'email' : v.type === 'tel' ? 'tel' : 'text'}
-                       autocomplete={autocompleteVoor(v.type)}
+                       autocomplete={v.autocomplete ?? autocompleteVoor(v.type)}
                        name={v.label} required={v.verplicht || undefined}
                        data-email={v.type === 'email' ? 'true' : undefined}
                        data-leeg-invullen={!v.verplicht || undefined} />}
@@ -238,6 +238,9 @@ const conditieCss = [
   <div class="form__afsluiting" data-afsluiting>
     <button class="knop knop--primair" type="submit" data-versturen>{verzendLabel}</button>
     <p class="form__hint">{L.hint}</p>
+    {L.privacyRegel && (
+      <p class="form__privacy">{L.privacyRegel.voor} <a href={L.privacyRegel.href}>{L.privacyRegel.link}</a>{L.privacyRegel.na}</p>
+    )}
   </div>
   <p class="form__bevestiging" data-bevestiging-regel>{bevestiging.tekst}</p>
 </form>
@@ -289,6 +292,8 @@ const conditieCss = [
 
   .form__afsluiting { margin-top: 2rem; }
   .form__hint { font-size: 0.85rem; color: var(--grijs-500); margin: 0.6rem 0 0; }
+  .form__privacy { font-size: 0.85rem; color: var(--grijs-500); margin: 0.4rem 0 0; }
+  .form__privacy a { color: var(--blauw); }
   .form__bevestiging { font-size: 0.9rem; color: var(--grijs-500); margin-top: 1rem; }
   [data-versturen][disabled] { opacity: 0.55; cursor: not-allowed; }
 
