@@ -8,8 +8,11 @@ import WhatsAppKnop from '../components/WhatsAppKnop.astro';
 import SchemaOrg from '../components/SchemaOrg.astro';
 import nav from '../content/nl/navigatie.json';
 import paginas from '../content/nl/paginas.json';
+import home from '../content/nl/home.json';
 
-const { pad, meta: metaProp, posterPreload, wa = 'algemeen', faq } = Astro.props;
+const { pad, meta: metaProp, posterPreload, wa = 'algemeen', faq, noindex = false } = Astro.props;
+// og:image is op elke pagina de heroposter (B12, 6 oktober 2026); nooit het logo.
+const ogBeeld = home.hero?.poster?.jpg_1920 ? new URL(home.hero.poster.jpg_1920, Astro.site).href : null;
 const meta = metaProp ?? paginas[pad];
 const canoniek = new URL(pad, Astro.site).href;
 ---
@@ -47,6 +50,9 @@ const canoniek = new URL(pad, Astro.site).href;
     <meta property="og:description" content={meta.beschrijving} />
     <meta property="og:url" content={canoniek} />
     <meta property="og:locale" content="nl_NL" />
+    {ogBeeld && <meta property="og:image" content={ogBeeld} />}
+    {ogBeeld && home.hero.poster.alt && <meta property="og:image:alt" content={home.hero.poster.alt} />}
+    {noindex && <meta name="robots" content="noindex" />}
     {pad === '/' && <SchemaOrg />}
     {faq && <SchemaOrg faq={faq} />}
     <slot name="head" />

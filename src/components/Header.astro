@@ -28,7 +28,11 @@ const groepen = hoofdmenu.map((g, i) => ({
   <div class="omhulsel kop__binnen">
     {logo ? (
       <a class="wordmerk wordmerk--logo" href="/">
-        <img class="wordmerk__logo" src={logo.png} alt={logo.alt} width={logo.breedte} height={logo.hoogte} fetchpriority="high" decoding="async" />
+        <span class="wordmerk__vlak"><img class="wordmerk__logo" src={logo.png} alt={logo.alt} width={logo.breedte} height={logo.hoogte} decoding="async" /></span>
+        {/* Het logo toont de naam van het lesprogramma; de bedrijfsnaam blijft in
+            de header staan (B12, 6 oktober 2026): zichtbaar vanaf 1024 px, daaronder
+            alleen voor schermlezers. */}
+        <span class="wordmerk__naam">{bedrijf.naam}</span>
       </a>
     ) : (
       <a class="wordmerk" href="/">
@@ -92,9 +96,20 @@ const groepen = hoofdmenu.map((g, i) => ({
   .wordmerk__klein { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.92; }
   /* Logo op een wit vlak: de blauwe en zwarte delen van het logo verdwijnen
      anders in --blauw. Logo 60 px hoog op desktop, 44 px op tablet, 34/30 px op mobiel. */
-  .wordmerk--logo { background: var(--wit); border-radius: var(--radius-klein); padding: 8px 14px; }
+  .wordmerk--logo { flex-direction: row; align-items: center; gap: 12px; color: var(--wit); }
+  .wordmerk__vlak { display: block; background: var(--wit); border-radius: var(--radius-klein); padding: 8px 14px; }
   .wordmerk__logo { display: block; height: 60px; width: auto; }
-  @media (max-width: 899px) { .wordmerk--logo { padding: 6px 10px; } .wordmerk__logo { height: 44px; } }
+  .wordmerk__naam { font-family: var(--font-kop); font-weight: 700; font-size: 0.95rem; line-height: 1.15; max-width: 9ch; letter-spacing: -0.01em; }
+  @media (max-width: 899px) {
+    .wordmerk__vlak { padding: 6px 10px; }
+    .wordmerk__logo { height: 44px; }
+  }
+  /* Onder 1024 px alleen voor schermlezers (zelfde regels als .alleen-schermlezer
+     in basis.css): op 900–1023 past de naam niet naast logo, vier koppen en CTA
+     (gemeten: header brak naar 160 px). */
+  @media (max-width: 1023px) {
+    .wordmerk__naam { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  }
 
   .kop__groepen, .groep__items { list-style: none; margin: 0; padding: 0; }
   .kop__groepen { display: flex; gap: clamp(0.25rem, 1vw, 0.75rem); }
@@ -151,7 +166,7 @@ const groepen = hoofdmenu.map((g, i) => ({
     .kop__binnen { gap: 10px; }
     .wordmerk__groot { font-size: 1.2rem; }
     .wordmerk__klein { font-size: 0.62rem; letter-spacing: 0.1em; }
-    .wordmerk--logo { padding: 5px 8px; }
+    .wordmerk__vlak { padding: 5px 8px; }
     .wordmerk__logo { height: 34px; }
     .kop__cta { padding: 0.5em 0.9em; font-size: 0.9rem; }
     .kop__cta-lang { display: none; }

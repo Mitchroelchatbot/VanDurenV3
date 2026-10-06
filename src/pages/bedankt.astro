@@ -5,7 +5,7 @@ import bedankt from '../content/nl/bedankt.json';
 const pad = '/bedankt';
 const meta = { titel: bedankt.metaTitle, beschrijving: bedankt.metaDescription };
 ---
-<BasisLayout pad={pad} meta={meta}>
+<BasisLayout pad={pad} meta={meta} noindex={true}>
   <section class="sectie">
     <div class="omhulsel omhulsel--smal bevestiging">
       <h1>{bedankt.titel}</h1>
