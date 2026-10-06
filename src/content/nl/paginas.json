@@ -17,7 +17,8 @@
       "naam": "overons-duo",
       "alt": "Martin en Bennet van Duren geven elkaar een high five aan het net",
       "_regel": "Staand; met opzet een ander frame dan de homepage."
-    }
+    },
+    "_beeld_oud": "Sinds 6 oktober 2026 toont /over-ons de duo-foto uit home.kernpunten (instructie C1); overons-duo staat hier nog als reserve."
   },
   "/404": {
     "titel": "Pagina niet gevonden — Van Duren Indoor Padel Centrum",
@@ -38,5 +39,15 @@
         "label": "Naar de startpagina"
       }
     ]
+  },
+  "/privacy": {
+    "titel": "Privacyverklaring — Van Duren Indoor Padel Centrum",
+    "beschrijving": "Welke gegevens Van Duren Indoor Padel Centrum via de formulieren op deze website krijgt, waarvoor we ze gebruiken en wat je rechten zijn.",
+    "_regel": "De h1 en de tekst komen uit privacy.md (Mitch, 6 oktober 2026, letterlijk). Deze metabeschrijving is functionele tekst, samengevat uit de eerste alinea."
+  },
+  "/voorwaarden": {
+    "titel": "Voorwaarden en huisregels — Van Duren Indoor Padel Centrum",
+    "beschrijving": "Reserveren, betalen, annuleren en de huisregels van Van Duren Indoor Padel Centrum in Son en Breugel.",
+    "_regel": "De h1 en de tekst komen uit voorwaarden.md (Mitch, 6 oktober 2026, letterlijk)."
   }
 }

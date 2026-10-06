@@ -1,0 +1,35 @@
+---
+import BasisLayout from '../layouts/BasisLayout.astro';
+import paginas from '../content/nl/paginas.json';
+import { Content } from '../content/nl/privacy.md';
+
+// Tekst letterlijk uit src/content/nl/privacy.md (Mitch, 6 oktober 2026). De h1
+// staat in het Markdown-bestand. Zolang er "[BEVESTIGEN"-markeringen in staan
+// blokkeert scripts/controleer-bevestigen.mjs de build.
+const pad = '/privacy';
+const meta = paginas[pad];
+---
+<BasisLayout pad={pad} meta={meta}>
+  <section class="sectie">
+    <div class="omhulsel omhulsel--smal juridisch sectie-body">
+      <Content />
+    </div>
+  </section>
+</BasisLayout>
+
+<style is:global>
+  .juridisch h1 { margin-bottom: 0.5rem; }
+  .juridisch h2 { font-size: 1.35rem; margin-top: 2rem; }
+  .juridisch table { border-collapse: collapse; width: 100%; margin-block: 1rem; font-size: 0.95rem; }
+  .juridisch th, .juridisch td { text-align: left; vertical-align: top; padding: 0.6rem 0.7rem; border-bottom: 1px solid var(--grijs-100); }
+  .juridisch th { font-family: var(--font-kop); font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--grijs-500); }
+  .juridisch ul { padding-left: 1.2rem; }
+  .juridisch a { color: var(--blauw); }
+  @media (max-width: 640px) {
+    .juridisch table, .juridisch thead, .juridisch tbody, .juridisch tr, .juridisch th, .juridisch td { display: block; }
+    .juridisch thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .juridisch tr { border-bottom: 2px solid var(--grijs-100); padding-block: 0.5rem; }
+    .juridisch td { border: 0; padding: 0.2rem 0; }
+    .juridisch td:first-child { font-weight: 600; }
+  }
+</style>

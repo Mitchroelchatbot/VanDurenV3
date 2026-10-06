@@ -60,7 +60,7 @@
 # --- Juridisch ----------------------------------------------------------
 /privacybeleid                              /privacy                  301
 /algemene-voorwaarden                       /voorwaarden              301
-/reserveringsvoorwaarden                    /voorwaarden#reservering  301
+/reserveringsvoorwaarden                    /voorwaarden#reserveren   301
 
 # --- Webshop: vervalt ---------------------------------------------------
 # De WooCommerce-shop bevat welgeteld één product (jeugdtraining) en wordt
