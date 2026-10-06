@@ -5,7 +5,7 @@
 > de projectmap staat. Wijk hier niet van af zonder dat de wijziging eerst in dit
 > bestand is vastgelegd.
 >
-> Laatst bijgewerkt: 1 oktober 2026 (v14 — Academy-logo in header en footer, uitzondering §3)
+> Laatst bijgewerkt: 6 oktober 2026 (v15 — juridische pagina's met veiligheidsslot, rechtsnaam, lege pagina's gevuld, Playtomic pas na klik)
 > Opdrachtgever: Mitch Bastiaans (Mr Hostly) · Klant: Martin & Bennet van Duren
 
 ---
@@ -116,8 +116,11 @@ offeren.
   wit vlak omdat het blauwe en zwarte delen heeft. Dit is een bewuste afwijking van
   de regel hierboven en van punt 6 van 24 september: het logo draagt de naam van het
   lesprogramma, niet de bedrijfsnaam. De `alt`-tekst staat in `bedrijf.json` onder
-  `logo` en is de enige toegestane plek voor `Padel Academy` buiten `lessen.*`,
-  `jeugd.*` en het navigatielabel. De bedrijfsnaam blijft in `<title>`, footer-tekst,
+  `logo` en is de **derde uitzondering** op de grep-regel, naast `lessen.*` en
+  `jeugd.*` (plus het navigatielabel) — tot het nieuwe logo er is (bevestigd
+  6 oktober 2026, B12). Naast het logo staat de bedrijfsnaam als tekst: zichtbaar
+  vanaf 1024 px, daaronder alleen voor schermlezers. Het logo komt niet in
+  schema.org `logo` en niet als `og:image`; `og:image` is de heroposter. De bedrijfsnaam blijft in `<title>`, footer-tekst,
   schema.org en favicon. Zodra het nieuwe logo van Van Duren Indoor Padel Centrum er
   is (OPEN.md), vervangt dat dit bestand op dezelfde plekken.
 - `<title>` homepage: `Van Duren Indoor Padel Centrum — Padelbaan huren in Son en Breugel`
@@ -133,7 +136,8 @@ Deze gegevens komen van de live site `indoorpadelcentrum.nl` en zijn leidend voo
 footer, contactpagina, schema.org en Google Business Profile.
 
 ```
-Bedrijfsnaam   Van Duren Indoor Padel Centrum
+Bedrijfsnaam   Van Duren Indoor Padel Centrum          (handelsnaam, overal op de site)
+Rechtsnaam     Van Duren Indoor Padel Centre B.V.     (KvK; Centre, niet Centrum — 6 oktober 2026, B9)
 Bezoekadres    Rooijse weg 7, 5691 PA Son en Breugel
 Parkeeradres   Vlielandlaan 12, 5691 ZK Son en Breugel
 Telefoon       06-19154409          (voorlopig; zie O3b)
@@ -147,8 +151,11 @@ Facebook       https://www.facebook.com/VanDurenindoorpadelcentrum/
 Instagram      https://www.instagram.com/vandurenindoorpadelcentrum/
 ```
 
+De rechtsnaam staat op precies drie plekken: de KvK-regel in de footer, `legalName`
+in het schema.org-blok en de twee juridische teksten. Veld `rechtsnaam` in `bedrijf.json`.
+
 Aanvragen uit alle formulieren gaan naar `vanduren@indoorpadelcentrum.nl` —
-hetzelfde adres als nu. Facebook en Instagram horen in de footer én in `sameAs`
+hetzelfde adres als nu (mailbox sinds 25 september 2026 bij TransIP). Facebook en Instagram horen in de footer én in `sameAs`
 van het `SportsActivityLocation`-schema.
 
 **Let op:** het prototype in `03 — Website Bestanden/site/` bevat op elk van deze
@@ -529,7 +536,7 @@ naast of boven het formulier, zodat de aanvrager al weet waar hij aan toe is.
 | Stap | Vraag |
 |---|---|
 | 1 | Welke dag(en) van de week heb je in gedachten? |
-| 2 | Welk tijdslot? (daluren / piekuren / specifiek tijdstip) |
+| 2 | Welk tijdslot? (daluren 09:00–17:00 / piekuren 17:00–23:00 / specifiek tijdstip — de contracttijden uit §4.2, 6 oktober 2026, B6) |
 | 3 | 1 uur of 1,5 uur? (1,5 uur = baan 1 of 2) |
 | 4 | 5 maanden (zomer) · 7 maanden (winter) · 12 maanden (jaarrond)? *(24 september 2026; was "6 of 12 maanden")* |
 | 5 | Met hoeveel vaste spelers? |
@@ -566,9 +573,11 @@ Correctly", geraadpleegd 9 september 2026.
 - **Harde voorwaarde:** in Playtomic Manager moet de website-URL van de club exact
   gelijk zijn aan het domein waarop het iframe draait — inclusief `https` en
   `www`. Wijkt dat af, dan laadt het iframe niet. Zie O26.
-- Bouwregels staan in `banen.json` onder `playtomic`: lazy loading via
-  IntersectionObserver, vaste min-height, en altijd een zichtbare fallbacklink
-  eronder voor wie iframes blokkeert.
+- Bouwregels staan in `banen.json` onder `playtomic`: het iframe wordt **pas na
+  een klik** geladen (6 oktober 2026 — de privacyverklaring zegt dat Playtomic pas
+  na een klik cookies kan plaatsen; het laden bij scrollen en het noscript-iframe
+  zijn daarom vervallen), vaste min-height, en altijd een zichtbare fallbacklink
+  eronder voor wie iframes blokkeert of geen JavaScript heeft.
 
 **De Playtomic-API is geen alternatief.** Read-only, levert boekingen en geen
 beschikbaarheid, vereist een Champion- of Master-abonnement, moet via de
@@ -766,6 +775,9 @@ Zie §6.1. Verder:
   gepland. Wil je op de hoogte blijven? Volg ons op Facebook of Instagram." —
   géén nieuwsbrief-aanmelding.
 - Onderaan blok: "Zelf een toernooi organiseren?" → formulier (hergebruik §6.1).
+  Gebouwd 6 oktober 2026 als "Zelf iets organiseren?" met de tekst uit
+  `evenementen-pagina.json` en de knop "Vraag het aan" naar `/clinics#aanvraag`.
+  De lege staat staat in de server-HTML zolang `evenementen.json` geen items heeft.
 - **Bevestigd:** er staan op dit moment geen toernooien of clinics gepland. De
   pagina gaat dus live in de lege staat. Dat is geen tekortkoming maar de
   werkelijkheid — verzin er niets bij.
@@ -787,13 +799,19 @@ Eén pagina, twee secties met een ankermenu bovenaan. FAQ als accordeon, met
   Acht lege vakjes onder elke pagina zetten ziet er onaf uit; een sectie die er
   gewoon niet staat valt niemand op. Bouw de component, laat hem verschijnen zodra
   er logo's zijn.
-- "Word sponsor" → formulier, geen mailadres.
+- "Word sponsor" → formulier, geen mailadres. Gebouwd 6 oktober 2026 uit `sponsoren.json`:
+  blok "In samenwerking met Babolat" (één zin), "Sponsor worden?" met formulier `sponsor`
+  (verzendknop "Neem contact met mij op"). Geen prijzen of pakketten; het logogrid rendert
+  pas als `logos` gevuld is, geen grijze vakken.
 
 ### 7.8 Over ons & contact
 
 Samenvoeging van `/team` en `/contact`. Verhaal van het familiebedrijf, de coaches,
 en verder alle gegevens uit §3.1: bezoekadres, **apart parkeeradres**,
-openingstijden, kaart, contactformulier.
+openingstijden, kaart, contactformulier. Gebouwd 6 oktober 2026 uit `over-ons.json`:
+intro met de duo-foto van de homepage, "Zo vind je ons" met een gewone link naar
+Google Maps (parkeeradres, geen iframe), "Stel je vraag" met de Playtomic-knop
+erboven en het contactformulier `contact`. Geen trainersnamen, geen `mailto:`.
 
 ### 7.9 Sponsorbalk in de footer
 
@@ -839,7 +857,20 @@ Zie de conditie in §7.7.
 **AVG**
 
 - Formuliergegevens gaan naar een EU-regio. Privacyverklaring en
-  verwerkingsgrondslag op `/privacy`.
+  verwerkingsgrondslag op `/privacy`, voorwaarden en huisregels op `/voorwaarden`
+  (teksten letterlijk in `src/content/nl/privacy.md` en `voorwaarden.md`, Mitch,
+  6 oktober 2026). Onder elke verzendknop staat de regel met de link naar
+  `/privacy`; `Privacy` en `Voorwaarden` staan als tekstlinks in de footer.
+- **Veiligheidsslot:** zolang `[BEVESTIGEN` ergens in `src/content/` voorkomt,
+  laat `scripts/controleer-bevestigen.mjs` de build falen (`npm run build`).
+  Die markeringen staan op regels die de eigenaren nog moeten goedkeuren; Mitch
+  haalt ze weg, de agent nooit.
+- Geen Google Maps-iframe (plaatst cookies): op `/over-ons` een gewone link
+  "Open in Google Maps" naar het parkeeradres.
+- Jeugdformulier: "Komt er iemand mee die je al kent?" is ja/nee zonder naamveld
+  (6 oktober 2026, B8): geen voornamen van andere kinderen verzamelen zonder dat hun
+  ouders dat weten. Bij "Ja": "Dan nemen we bij het indelen even contact met je op."
+- `/bedankt` staat niet in de sitemap en heeft `noindex` (B7).
 - Geen analytics-cookies zonder toestemming. Advies: gebruik een cookieloze tool
   (Plausible of Vercel Analytics) — dan is een cookiebanner niet nodig.
 - Geen Google Fonts vanaf Google's servers (zie §5.3).
@@ -851,9 +882,11 @@ Zie de conditie in §7.7.
 Draai deze lijst voor je een fase oplevert en rapporteer per punt.
 
 - [ ] Nergens in de repo komt `#c3f400` of een andere groentint voor.
-- [ ] `grep -ri "nieuwsbrief"` geeft nul treffers in `src/`.
+- [ ] `grep -ri "nieuwsbrief"` geeft nul treffers in `src/` — behalve de zin "we versturen geen
+      nieuwsbrief" in `privacy.md` (letterlijke juridische tekst, 6 oktober 2026).
 - [ ] `grep -ri "mailto:"` geeft nul treffers, behalve op `/over-ons`.
-- [ ] `grep -ri "Padel Academy"` komt alleen voor in `lessen.*` en het navigatielabel.
+- [ ] `grep -ri "Padel Academy"` komt alleen voor in `lessen.*`, `jeugd.*`, het navigatielabel
+      en de alt-tekst van het logo in `bedrijf.json` (derde uitzondering, §3, tot het nieuwe logo er is).
 - [ ] `grep -ri "Van Duren Padel Academy"` geeft nul treffers (fout woordvolgorde).
 - [ ] Geen "Madrid" op `/lessen`.
 - [ ] `grep -ri "Wolverstraat\|12345678"` geeft nul treffers.
@@ -866,6 +899,10 @@ Draai deze lijst voor je een fase oplevert en rapporteer per punt.
 - [ ] Elk formulier één keer end-to-end ingestuurd en de ontvangen mail
       gecontroleerd op volledigheid.
 - [ ] Alle oude URL's redirecten; handmatig gecontroleerd.
+- [ ] `npm run build` faalt zolang `[BEVESTIGEN` in `src/content/` staat; slaagt zodra Mitch de
+      markeringen heeft weggehaald.
+- [ ] Geen cookies en geen verzoeken naar andere domeinen bij laden en scrollen van welke pagina
+      ook; Playtomic pas na een klik.
 
 ---
 
@@ -944,7 +981,7 @@ O13 (naamsplitsing akkoord → §3), O15 (VIP-daluren → §7.2),
 | O27 | **Verhuurt Van Duren losse rackets buiten de lessen om, en wat kost dat?** Padel Boxtel noemt € 3 en dat is precies zo'n vraag die anders aan de balie gesteld wordt. Hoort als stap in "Zo werkt het" (§6.5) en als FAQ-antwoord. Nu onbekend. | Fase 2 | Bennet & Martin |
 | O28 | **De originelen staan nog in iCloud.** Alle 223 foto's zijn exact 1536×2048 en alle 34 video's exact 720×1280 — dat zijn Apple's iCloud-proxyformaten, niet camerabestanden. Bennet moet in Instellingen → Foto's "Download originelen" aanzetten, wachten tot alles binnen is, en pas dan opnieuw exporteren; of downloaden via iCloud.com. Blokkeert niets, maar elk liggend kader blijft tot die tijd een uitsnede van maximaal 1536 px breed. | Fase 5 | Mitch → Bennet |
 | O29 | **Er bestaat geen beeld van klanten, lessen, clinics, horeca, entree of parkeerplaats.** Op alle 257 bestanden staan uitsluitend Martin en Bennet, altijd in een lege hal. De site verkoopt lessen, clinics en gezelligheid achteraf en heeft daar nul beeld van. Opnamedag is toegezegd. Tot die tijd: render geen beeldslot waar geen foto voor is — nooit opvullen met een hal-overzicht dat iets anders moet voorstellen. | Fase 1–4 | Bennet & Martin |
-| O32 | **`/privacy` en `/voorwaarden` bestaan niet — en dat is nu een AVG-probleem, geen losse actie meer.** Gemeten op de preview (15 september 2026): `/privacy`, `/voorwaarden` en `/reserveringsvoorwaarden` geven alle drie een 404. De redirects `/privacybeleid`, `/algemene-voorwaarden` en `/reserveringsvoorwaarden` wijzen dus naar niets. Ondertussen staan er vier formulieren live die persoonsgegevens verzamelen, waaronder **de voornaam en leeftijd van een minderjarige** op `/jeugd`. §8 eist een privacyverklaring met verwerkingsgrondslag. Dit **blokkeert livegang**, niet fase 5. Bouw de twee pagina's als routes zodra de tekst er is; tot die tijd staat er onder elk formulier geen link naar een pagina die niet bestaat. O11 is hiermee opgewaardeerd van administratie naar blokkade. | **Livegang** | Mitch |
+| O32 | **GEBOUWD op 6 oktober 2026, nog niet vrijgegeven.** `/privacy` en `/voorwaarden` bestaan, de redirects wijzen erheen, elk formulier linkt naar de privacyverklaring. De teksten bevatten negen `[BEVESTIGEN`-regels (bewaartermijnen, annuleren baan/clinic/les, vier huisregels) en zolang die er staan faalt de build. Bennet en Martin keuren ze goed, Mitch haalt de markeringen weg. *Oorspronkelijke melding:* `/privacy` en `/voorwaarden` bestaan niet — en dat is nu een AVG-probleem, geen losse actie meer. Gemeten op de preview (15 september 2026): `/privacy`, `/voorwaarden` en `/reserveringsvoorwaarden` geven alle drie een 404. De redirects `/privacybeleid`, `/algemene-voorwaarden` en `/reserveringsvoorwaarden` wijzen dus naar niets. Ondertussen staan er vier formulieren live die persoonsgegevens verzamelen, waaronder **de voornaam en leeftijd van een minderjarige** op `/jeugd`. §8 eist een privacyverklaring met verwerkingsgrondslag. Dit **blokkeert livegang**, niet fase 5. Bouw de twee pagina's als routes zodra de tekst er is; tot die tijd staat er onder elk formulier geen link naar een pagina die niet bestaat. O11 is hiermee opgewaardeerd van administratie naar blokkade. | **Livegang** | Mitch |
 | O33 | **Contractbanen: vier dingen ontbreken nog** (24 september 2026). (a) Wat kost een 12-maandencontract? "De bovenstaande bij elkaar" is onbruikbaar: letterlijk € 18 + € 22 = € 40 per boeking in de daluren, duurder dan de losse € 28. Waarschijnlijk zomer- en wintermaanden elk tegen hun eigen tarief, maar dat is een gok en die komt niet op een tarievenpagina. (b) Piekuren zijn 17:00–23:00 bij contracten en 18:30–22:30 bij losse baanhuur. Eén van de twee is verouderd, of het zijn bewust twee bandbreedtes. Bevestigen. (c) Baan 1 en 2 zijn per 1,5 uur te huren; de nieuwe tarieven zijn alleen per 60 minuten. Kan een contract op 1,5 uur, en wat kost dat? (d) Hoeveel boekingen zitten er in een contract, en betaal je vooraf of per boeking? De oude tabel noemde 20–26× en 45–52×; de nieuwe regeling noemt geen aantal. **Kanttekeningen, geen bevindingen:** het 7-maandencontract is per boeking duurder dan het 5-maandencontract (€ 22 vs € 18, € 34 vs € 25) — logisch als winter het hoogseizoen is en de zomerkorting een vullingsactie, maar één bevestigingsregel waard; en het winterpiektarief van € 34 scheelt maar € 2 op de losse € 36, als propositie bijna niets. | Fase 2 | Bennet & Martin |
 | O22 | **Wie beheert het Google-bedrijfsprofiel?** Het adres is bevestigd, maar er is nog geen toegang om naam, openingstijden en telefoonnummer op Google, Facebook en Playtomic gelijk te trekken met §3.1 — de losse actie uit §8. | Fase 5 | Bennet & Martin |
 
