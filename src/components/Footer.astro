@@ -13,7 +13,7 @@ const jaar = new Date().getFullYear();
       {logo && <p class="voet__logo"><img src={logo.png} alt={logo.alt} width={logo.breedte} height={logo.hoogte} loading="lazy" decoding="async" /></p>}
       <p class="voet__merk">{bedrijf.naam}</p>
       {bedrijf.slogan && <p class="voet__slogan">{bedrijf.slogan}</p>}
-      <p class="voet__regel">{labels.kvk} {bedrijf.kvk} · {labels.btw} {bedrijf.btw}</p>
+      <p class="voet__regel">{bedrijf.rechtsnaam && <>{bedrijf.rechtsnaam} · </>}{labels.kvk} {bedrijf.kvk} · {labels.btw} {bedrijf.btw}</p>
       {nav.voetLinks?.length > 0 && (
         <ul class="voet__links">
           {nav.voetLinks.map((l) => (<li><a href={l.pad}>{l.label}</a></li>))}

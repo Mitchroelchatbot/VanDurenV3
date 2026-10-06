@@ -222,19 +222,15 @@
           },
           {
             "waarde": "ja",
-            "label": "Ja, met een vriend of vriendin"
-          },
-          {
-            "waarde": "ja-meer",
-            "label": "Ja, we zijn al met een groepje"
+            "label": "Ja"
           }
         ],
-        "vervolgTekstBij": [
-          "ja",
-          "ja-meer"
-        ],
-        "vervolgLabel": "Met wie? (voornamen zijn genoeg)",
-        "_regel": "Dit is de vraag die het meeste mailverkeer scheelt: het samenstellen van groepjes is precies waar de heen-en-weer over gaat."
+        "_regel": "Mitch, 6 oktober 2026 (B8): ja/nee zonder naamveld. Het oude tekstveld 'Met wie? (voornamen zijn genoeg)' verzamelde namen van andere kinderen zonder dat hun ouders dat wisten; de privacyverklaring gaat ervan uit dat dit veld weg is.",
+        "toelichtingBij": {
+          "ja": {
+            "tekst": "Dan nemen we bij het indelen even contact met je op."
+          }
+        }
       },
       {
         "id": "beschikbaarheid",

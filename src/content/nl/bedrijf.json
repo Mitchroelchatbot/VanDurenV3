@@ -2,6 +2,8 @@
   "_bron": "indoorpadelcentrum.nl/contact/ — geverifieerd 1 september 2026. Zie CLAUDE.md §3.1. Wijzig hier niets zonder de bron opnieuw te controleren.",
 
   "naam": "Van Duren Indoor Padel Centrum",
+  "rechtsnaam": "Van Duren Indoor Padel Centre B.V.",
+  "_rechtsnaam": "KvK-naam (Centre, niet Centrum; Mitch, 6 oktober 2026, B9). Alleen in de KvK-regel van de footer, schema.org legalName en de juridische teksten. De handelsnaam op de site blijft overal 'Van Duren Indoor Padel Centrum'.",
   "wordmark": {
     "regel1": "Van Duren",
     "regel2": "Indoor Padel Centrum",

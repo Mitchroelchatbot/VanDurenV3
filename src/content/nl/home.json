@@ -70,7 +70,7 @@
       },
       {
         "label": "Vaste baan of VIP-daluren",
-        "tekst": "Een contractbaan voor 6 of 12 maanden, of drie keer per week spelen voor € 249,99 per jaar.",
+        "tekst": "Een contractbaan voor 5, 7 of 12 maanden, of drie keer per week spelen voor € 249,99 per jaar.",
         "link": {
           "label": "Bekijk de opties",
           "href": "/banen"
@@ -78,11 +78,12 @@
       },
       {
         "label": "Eigen horeca",
-        "tekst": "Even blijven hangen na je potje, of een borrel of lunch bij je clinic."
+        "tekst": "Even blijven hangen na je potje, of een borrel of lunch bij je clinic. Onze horeca hanteert verenigingsprijzen."
       },
       {
         "label": "In samenwerking met Babolat",
-        "tekst": "Rackets en ballen liggen klaar. Eigen racket meenemen mag."
+        "tekst": "Een racket huren kan via de automaat. Ballen en grips zijn daar ook te koop. Bij lessen en clinics is materiaal inbegrepen.",
+        "_bron": "Bennet via Mitch, 6 oktober 2026 (B10): racketverhuur, ballen en gripjes via een automaat; geen prijzen (O27)."
       }
     ],
     "ondertekening": "Martin en Bennet van Duren",

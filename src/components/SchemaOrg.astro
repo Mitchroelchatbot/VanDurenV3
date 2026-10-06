@@ -10,6 +10,7 @@ const locatie = {
   '@context': 'https://schema.org',
   '@type': 'SportsActivityLocation',
   name: bedrijf.naam,
+  ...(bedrijf.rechtsnaam ? { legalName: bedrijf.rechtsnaam } : {}),
   url: 'https://indoorpadelcentrum.nl',
   telephone: bedrijf.telefoonE164,
   email: bedrijf.email,

@@ -87,7 +87,7 @@
       },
       {
         "titel": "Blijf nog even hangen",
-        "tekst": "We hebben eigen horeca. Even nakletsen na je potje kan gewoon."
+        "tekst": "We hebben eigen horeca. Even nakletsen na je potje kan gewoon. Onze horeca hanteert verenigingsprijzen."
       }
     ],
     "cta": {
@@ -97,8 +97,8 @@
   },
   "babolat": {
     "titel": "In samenwerking met Babolat",
-    "tekst": "We spelen met materiaal van Babolat. Rackets en ballen liggen klaar; je eigen racket meenemen mag altijd.",
-    "_todo": "De eigenaren vroegen om een blok over de samenwerking met Babolat. Bovenstaande tekst is het minimum dat uit bestaande bronnen te onderbouwen is. Wil je er meer over vertellen (sinds wanneer, wat houdt het partnership in), vraag dat dan aan Bennet. Niets bijverzinnen."
+    "tekst": "We spelen met materiaal van Babolat. Een racket huren kan via de automaat. Ballen en grips zijn daar ook te koop. Bij lessen en clinics is materiaal inbegrepen.",
+    "_todo": "Bennet via Mitch, 6 oktober 2026 (B10): racketverhuur, ballen en gripjes via een automaat; alleen bij lessen en clinics is materiaal inbegrepen. Geen prijzen (O27). Meer over het partnership: vraag Bennet, niets bijverzinnen."
   },
   "contractbaanWizard": {
     "titel": "Contractbaan aanvragen",
@@ -125,12 +125,13 @@
         "vraag": "Welk tijdslot?",
         "type": "keuze-plus-tekst",
         "opties": [
-          "Daluren (vanaf 09:00)",
-          "Piekuren (ma–vr 18:30 – 22:30)",
+          "Daluren (09:00 – 17:00)",
+          "Piekuren (17:00 – 23:00)",
           "Een specifiek tijdstip"
         ],
         "tekstveldBij": "Een specifiek tijdstip",
-        "tekstveldLabel": "Welk tijdstip?"
+        "tekstveldLabel": "Welk tijdstip?",
+        "_bron": "Contracttijden zoals in tarieven.contractbaan (Mitch, 6 oktober 2026, B6). De losse baanhuur houdt 18:30–22:30; dat verschil is O33b."
       },
       {
         "nr": 3,
