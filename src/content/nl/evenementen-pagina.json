@@ -1,0 +1,15 @@
+{
+  "_bron": "Mitch, 6 oktober 2026 (deel C3). Teksten letterlijk. De lege staat staat in de server-HTML zolang evenementen.json geen items heeft.",
+  "legeStaat": {
+    "tekst": "Er staat op dit moment geen evenement gepland. Wil je op de hoogte blijven? Volg ons op",
+    "_regel": "Daarna de twee links uit bedrijf.json (Facebook, Instagram) met de labels uit navigatie.labels.sociaal, verbonden met 'of' en afgesloten met een punt."
+  },
+  "organiseren": {
+    "kop": "Zelf iets organiseren?",
+    "tekst": "Een toernooi, een clubdag of een bedrijfsevenement bij ons in de hal? Vertel ons wat je in gedachten hebt, dan denken we mee.",
+    "knop": {
+      "label": "Vraag het aan",
+      "href": "/clinics#aanvraag"
+    }
+  }
+}

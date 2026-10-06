@@ -1,14 +1,37 @@
 ---
 import BasisLayout from '../layouts/BasisLayout.astro';
 import paginas from '../content/nl/paginas.json';
+import pagina from '../content/nl/evenementen-pagina.json';
+import agenda from '../content/nl/evenementen.json';
+import bedrijf from '../content/nl/bedrijf.json';
+import nav from '../content/nl/navigatie.json';
 
+// Lege staat in de server-HTML zolang evenementen.json geen items heeft
+// (Mitch, 6 oktober 2026, B3/C3). De agenda-import uit de Sheet (§4.3) is fase 3.
 const pad = '/evenementen';
 const meta = paginas[pad];
+const items = agenda.items ?? [];
+const soc = nav.labels.sociaal;
 ---
-<BasisLayout pad={pad} waSjabloon={meta.wa}>
+<BasisLayout pad={pad} meta={meta} wa="evenementen">
   <section class="sectie">
-    <div class="omhulsel">
+    <div class="omhulsel omhulsel--midden sectie-body">
       <h1>{meta.h1}</h1>
+      {items.length === 0 && (
+        <p class="agenda__leeg">{pagina.legeStaat.tekst} <a href={bedrijf.facebook} rel="noopener">{soc.facebook}</a> of <a href={bedrijf.instagram} rel="noopener">{soc.instagram}</a>.</p>
+      )}
+    </div>
+  </section>
+
+  <section class="sectie sectie--licht">
+    <div class="omhulsel omhulsel--midden sectie-body">
+      <h2 class="sectie-kop">{pagina.organiseren.kop}</h2>
+      <p>{pagina.organiseren.tekst}</p>
+      <p><a class="knop knop--primair" href={pagina.organiseren.knop.href}>{pagina.organiseren.knop.label}</a></p>
     </div>
   </section>
 </BasisLayout>
+
+<style>
+  .agenda__leeg a { color: var(--blauw); }
+</style>
