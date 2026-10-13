@@ -50,8 +50,8 @@ reservering. Annuleer je later, dan krijg je geen geld en geen tegoed terug.
 dan krijg je je geld terug of zoeken we samen een andere datum. Annuleer je
 binnen 7 dagen, dan krijg je geen geld terug.
 
-**Lessen.** [BEVESTIGEN: de regel voor het afzeggen of verzetten van een les is
-nog niet doorgegeven. Deze alinea mag niet live zonder tekst.]
+**Lessen.** Een les kun je tot 7 dagen van tevoren annuleren; dan krijg je je
+geld terug. Annuleer je binnen 7 dagen, dan krijg je geen geld terug.
 
 ## Kleding en materiaal
 
