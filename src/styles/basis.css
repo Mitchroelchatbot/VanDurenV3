@@ -124,3 +124,8 @@ img, video { max-width: 100%; height: auto; display: block; }
     scroll-behavior: auto !important;
   }
 }
+
+/* Ankerdoelen (#contact, #vip, #contractbaan, #reserveren, …) mogen niet onder
+   de sticky header (max 100 px) verdwijnen bij een sprong uit het menu of een
+   redirect. */
+[id] { scroll-margin-top: 112px; }
