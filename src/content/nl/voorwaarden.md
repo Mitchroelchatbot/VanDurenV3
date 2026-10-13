@@ -42,13 +42,13 @@ contractbanen krijg je een factuur.
 
 ## Annuleren
 
-**Baan.** [BEVESTIGEN: Een baanreservering kun je tot 24 uur van tevoren
+**Baan.** Een baanreservering kun je tot 24 uur van tevoren
 annuleren via Playtomic. Je krijgt het bedrag dan als tegoed voor een volgende
-reservering. Annuleer je later, dan krijg je geen geld en geen tegoed terug.]
+reservering. Annuleer je later, dan krijg je geen geld en geen tegoed terug.
 
-**Clinic.** [BEVESTIGEN: Annuleer je een clinic 7 dagen of langer van tevoren,
+**Clinic.** Annuleer je een clinic 7 dagen of langer van tevoren,
 dan krijg je je geld terug of zoeken we samen een andere datum. Annuleer je
-binnen 7 dagen, dan krijg je geen geld terug.]
+binnen 7 dagen, dan krijg je geen geld terug.
 
 **Lessen.** [BEVESTIGEN: de regel voor het afzeggen of verzetten van een les is
 nog niet doorgegeven. Deze alinea mag niet live zonder tekst.]
@@ -62,11 +62,11 @@ eigen racket mee of huur je er een via de automaat in de hal.
 ## Huisregels
 
 - Volg aanwijzingen van onze medewerkers en trainers op.
-- [BEVESTIGEN: Roken en vapen is in de hele hal niet toegestaan.]
-- [BEVESTIGEN: Huisdieren zijn niet toegestaan, behalve hulphonden.]
-- [BEVESTIGEN: Glaswerk blijft in de horeca en gaat niet mee de baan op.]
-- [BEVESTIGEN: Kinderen tot en met 14 jaar zijn in de hal onder toezicht van
-  een volwassene, behalve tijdens hun les of training.]
+- Roken en vapen is in de hele hal niet toegestaan.
+- Huisdieren zijn niet toegestaan, behalve hulphonden.
+- Glaswerk blijft in de horeca en gaat niet mee de baan op.
+- Kinderen tot en met 14 jaar zijn in de hal onder toezicht van
+  een volwassene, behalve tijdens hun les of training.
 - Wie zich niet aan de huisregels houdt, kunnen we vragen de hal te verlaten.
 
 ## Schade en aansprakelijkheid
