@@ -9,7 +9,9 @@ import { slug } from '../lib/slug.js';
 // `id` is optioneel: staat hij er, dan krijgt het formulier dat id en per
 // optie van de eerste vraag een anker `#<id>-<slug>`, zodat een kaart elders
 // op de pagina de eerste vraag alvast kan beantwoorden (bijv. Kinderfeestje).
-const { naam, id, titel, intro, stappen, bevestiging, aantalGrens } = Astro.props;
+// wizard={false}: alle vragen tegelijk in beeld als gewoon formulier (contact op
+// /over-ons, 13 oktober 2026); het script laat het formulier dan met rust.
+const { naam, id, titel, intro, stappen, bevestiging, aantalGrens, wizard = true } = Astro.props;
 const L = nav.formulierLabels;
 const grensVraag = stappen.find((st) => st.type === 'aantal')?.nr;
 const isEmail = (v) => /mail/i.test(v);
@@ -54,12 +56,12 @@ const conditieCss = [
   class="form formulier sectie-body"
   name={naam}
   id={id}
-  data-ankers={ankers.length ? JSON.stringify(ankers) : undefined}
+  data-ankers={wizard && ankers.length ? JSON.stringify(ankers) : undefined}
   method="POST"
   action="/bedankt"
   data-netlify="true"
   netlify-honeypot={L.honeypotVeld}
-  data-form
+  data-form={wizard || undefined}
   data-labels={JSON.stringify(L)}
   data-bevestiging-titel={bevestiging.titel}
   data-bevestiging-tekst={bevestiging.tekst}
