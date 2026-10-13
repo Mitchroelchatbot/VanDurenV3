@@ -83,10 +83,10 @@ Verder geven we gegevens alleen door als de wet ons daartoe verplicht.
 
 ## Hoe lang we je gegevens bewaren
 
-- Aanvragen die niet tot een boeking leiden: [BEVESTIGEN: 12 maanden], daarna
+- Aanvragen die niet tot een boeking leiden: 12 maanden, daarna
   verwijderen we ze.
 - Aanvragen die wel tot een boeking, les of contract leiden: zolang de afspraak
-  loopt en [BEVESTIGEN: 12 maanden] daarna.
+  loopt en 12 maanden daarna.
 - Facturen en de gegevens die daarbij horen: 7 jaar, omdat de Belastingdienst
   dat voorschrijft.
 
