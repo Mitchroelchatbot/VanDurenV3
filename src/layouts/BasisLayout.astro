@@ -22,7 +22,10 @@ const canoniek = new URL(pad, Astro.site).href;
     <meta charset="utf-8" />
     <script is:inline>document.documentElement.classList.add('js');</script>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    {/* Favicon: het dot-grid uit het logo, gevectoriseerd (21 oktober 2026, besluit Mitch).
+        SVG eerst (scherp op elke grootte); ico en png als terugval. */}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     {/* Preload van de hero-poster, per beeldverhouding: zonder media-attribuut
