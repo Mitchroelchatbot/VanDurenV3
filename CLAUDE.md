@@ -5,7 +5,7 @@
 > de projectmap staat. Wijk hier niet van af zonder dat de wijziging eerst in dit
 > bestand is vastgelegd.
 >
-> Laatst bijgewerkt: 13 oktober 2026 (v16 — juridische teksten vrijgegeven, O32 gesloten)
+> Laatst bijgewerkt: 21 oktober 2026 (v17 — favicon is het dot-grid uit het logo)
 > Opdrachtgever: Mitch Bastiaans (Mr Hostly) · Klant: Martin & Bennet van Duren
 
 ---
@@ -120,8 +120,11 @@ offeren.
   `jeugd.*` (plus het navigatielabel) — tot het nieuwe logo er is (bevestigd
   6 oktober 2026, B12). Naast het logo staat de bedrijfsnaam als tekst: zichtbaar
   vanaf 1024 px, daaronder alleen voor schermlezers. Het logo komt niet in
-  schema.org `logo` en niet als `og:image`; `og:image` is de heroposter. De bedrijfsnaam blijft in `<title>`, footer-tekst,
-  schema.org en favicon. Zodra het nieuwe logo van Van Duren Indoor Padel Centrum er
+  schema.org `logo` en niet als `og:image`; `og:image` is de heroposter. De bedrijfsnaam blijft in `<title>`, footer-tekst
+  en schema.org. **Favicon sinds 21 oktober 2026 (besluit Mitch):** het dot-grid uit het
+  Academy-logo, gevectoriseerd naar `favicon.svg` met ico/png-terugval; het eerdere
+  tekst-icoon "VD" is vervallen. Gemeten: leesbaar vanaf 32 px, op 16 px een vlek — bekend
+  en geaccepteerd. Zodra het nieuwe logo van Van Duren Indoor Padel Centrum er
   is (OPEN.md), vervangt dat dit bestand op dezelfde plekken.
 - `<title>` homepage: `Van Duren Indoor Padel Centrum — Padelbaan huren in Son en Breugel`
 - `<title>` lessen: `Padel Academy van Duren — Padellessen in Son en Breugel`
