@@ -14,6 +14,8 @@ import { slug } from '../lib/slug.js';
 const { naam, id, titel, intro, stappen, bevestiging, aantalGrens, wizard = true } = Astro.props;
 const L = nav.formulierLabels;
 const grensVraag = stappen.find((st) => st.type === 'aantal')?.nr;
+// Zachte grens: op de stap met zachteGrens: true, of anders op de eerste aantal-vraag.
+const metGrens = (st) => Boolean(aantalGrens) && (st.zachteGrens ?? st.nr === grensVraag);
 const isEmail = (v) => /mail/i.test(v);
 const esc = (s) => String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 const vraagVan = (nr) => stappen.find((s) => String(s.nr) === String(nr))?.vraag ?? '';
@@ -88,6 +90,7 @@ const conditieCss = [
       data-label={st.label}
       data-vervolg-direct={st.vervolgDirect ? 'true' : undefined}
       data-verder-knop={st.verderKnop ? 'true' : undefined}
+      data-weet-niet={st.weetNiet ? 'true' : undefined}
     >
       <legend class="form__legenda">{st.vraag}</legend>
       {st.toelichting && <p class="form__toelichting">{st.toelichting}</p>}
@@ -137,9 +140,9 @@ const conditieCss = [
         <>
           <input class="form__invoer form__invoer--kort" type="text" inputmode="numeric" pattern="[0-9]*|.*"
                  name={st.vraag} aria-label={st.vraag} data-leeg-invullen data-aantal
-                 data-zacht-min={aantalGrens && st.nr === grensVraag ? String(aantalGrens.zachtMin) : undefined}
-                 data-zacht-max={aantalGrens && st.nr === grensVraag ? String(aantalGrens.zachtMax) : undefined} />
-          {aantalGrens && st.nr === grensVraag && (
+                 data-zacht-min={metGrens(st) ? String(aantalGrens.zachtMin) : undefined}
+                 data-zacht-max={metGrens(st) ? String(aantalGrens.zachtMax) : undefined} />
+          {metGrens(st) && (
             <p class="form__zacht" data-zacht-tekst hidden>{aantalGrens.buitenBereikTekst}</p>
           )}
         </>
@@ -352,6 +355,7 @@ const conditieCss = [
       label: el.dataset.label || el.dataset.vraag,
       vervolgDirect: el.dataset.vervolgDirect === 'true',
       verderKnop: el.dataset.verderKnop === 'true',
+      weetNiet: el.dataset.weetNiet === 'true',
     }));
     const antwoorden = []; // { stap, tekst, waarde }
 
@@ -459,6 +463,8 @@ const conditieCss = [
         const veld = st.el.querySelector('[data-tekst]');
         huidigEl.appendChild(miniInvoer('text', (v) => { veld.value = v; beantwoord(st, v, v); },
           { numeriek: false, label: st.label, breed: true }));
+        // weetNiet: true in de content (bijv. "Wanneer ongeveer?" bij clinics) — een uitweg naast het veld.
+        if (st.weetNiet) huidigEl.appendChild(chipsRij([], () => { veld.value = L.nogNietBekend; beantwoord(st, L.weetNogNiet, L.nogNietBekend); }));
       } else if (st.type === 'keuze-plus-tekst' && st.vervolgDirect) {
         // De vervolgvraag ("Met wie?") komt meteen na de keuze, niet pas bij de
         // contactstap. Het tekstveld mag leeg blijven; de keuze zelf telt.
@@ -519,9 +525,30 @@ const conditieCss = [
         rij.appendChild(weet); huidigEl.appendChild(rij);
       } else if (st.type === 'aantal') {
         const veld = st.el.querySelector('[data-aantal]');
-        const rij = chipsRij(st.chips || [], (o) => { veld.value = o; beantwoord(st, o, o); },
-          { stil: [[L.anders, (b) => { rij.after(miniInvoer('text', (v) => { veld.value = v; beantwoord(st, v, v); })); b.disabled = true; }]] });
-        huidigEl.appendChild(rij);
+        const kies = (v) => { veld.value = v; beantwoord(st, v, v); };
+        // Zachte grens (alleen tonen, nooit blokkeren): de regel uit de content
+        // verschijnt onder het veld zodra het getal buiten het bereik valt.
+        const min = Number(veld.dataset.zachtMin), max = Number(veld.dataset.zachtMax);
+        const grensTekst = st.el.querySelector('[data-zacht-tekst]')?.cloneNode(true);
+        const metGrensCheck = (mini) => {
+          if (!grensTekst) return mini;
+          const inp = mini.querySelector('input');
+          inp.addEventListener('input', () => { const n = parseInt(inp.value, 10); grensTekst.hidden = !(n > 0 && (n < min || n > max)); });
+          mini.after(grensTekst); return mini;
+        };
+        if (st.chips?.length) {
+          // Met vaste keuzes (contractbaan: 1–4, Meer): knoppen, plus "Anders" voor een eigen getal.
+          const rij = chipsRij(st.chips, (o) => kies(o),
+            { stil: [[L.anders, (b) => { const m = miniInvoer('text', kies); rij.after(m); metGrensCheck(m); b.disabled = true; }]] });
+          huidigEl.appendChild(rij);
+        } else {
+          // Zonder vaste keuzes (clinics, 26 november 2026): meteen het invoerveld,
+          // met "Weet ik nog niet" ernaast. Eerder stond hier alleen "Anders" en
+          // "Weet ik nog niet", omdat de content geen keuzes heeft.
+          const m = miniInvoer('text', kies, { label: st.vraag });
+          huidigEl.appendChild(m); metGrensCheck(m);
+          huidigEl.appendChild(chipsRij([], (o, _b, label) => { veld.value = o; beantwoord(st, label || o, o); }));
+        }
       } else if (st.type === 'datum-dagdeel') {
         const datumVeld = st.el.querySelector('[data-datum]');
         const dagdeelOpties = [...st.el.querySelectorAll('[data-dagdeel] .chip input')].map((i) => i.value);
