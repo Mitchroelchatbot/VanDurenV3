@@ -86,7 +86,8 @@ const sfeer = (banen.sfeer?.fotos ?? []).filter((f) => typeof f.alt === 'string'
      (melding 26 november 2026), en vanaf 1280 px vier kleine fotootjes. */
   .sfeer { display: grid; gap: var(--gutter); grid-template-columns: 1fr; }
   @media (min-width: 600px) { .sfeer { grid-template-columns: repeat(2, 1fr); } }
-  .sfeer__foto { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+  /* :global — de img zit in Beeld.astro; scoped paginastijlen bereiken hem anders niet. */
+  :global(.sfeer__foto) { display: block; width: 100%; height: auto; border-radius: var(--radius); }
   .raster-drie { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
   .vip__prijs { font-family: var(--font-kop); font-weight: 700; font-size: 2rem; color: var(--blauw); margin-bottom: 0.2rem; }
   .vip__per { font-family: var(--font-tekst); font-weight: 400; font-size: 1rem; color: var(--grijs-500); }

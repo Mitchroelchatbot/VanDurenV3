@@ -63,7 +63,8 @@ const ctaVan = (k) => ({ type: 'formulier', formulier: FORMULIER_ID, start: k.la
   .raster { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); margin-top: 2rem; }
   .clinics__intro { max-width: 60ch; }
   .clinics__beeld { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 2rem; }
-  .clinics__foto { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+  /* :global — de img zit in Beeld.astro; scoped paginastijlen bereiken hem anders niet. */
+  :global(.clinics__foto) { display: block; width: 100%; height: auto; border-radius: var(--radius); }
   .clinics__vanaf { font-family: var(--font-kop); font-weight: 700; font-size: 1.9rem; color: var(--blauw); margin-bottom: 0.6rem; }
   .clinics__punten { padding-left: 1.2rem; display: grid; gap: 0.35rem; margin-bottom: 1.25rem; }
 </style>
