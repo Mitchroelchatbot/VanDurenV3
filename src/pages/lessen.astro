@@ -21,7 +21,7 @@ const logo = beeld.logo?.png && bestaat(beeld.logo.png) ? beeld.logo : null;
   <section class="sectie">
     <div class="omhulsel">
       {logo && <img class="lessen__logo" src={logo.png} alt={logo.alt} width={logo.breedte} height={logo.hoogte} decoding="async" />}
-      <h1>{lessen.titel}</h1>
+      <h1 class="lessen__titel">{lessen.titel}</h1>
       <p class="lessen__ondertitel">{lessen.ondertitel}</p>
       {beeld.header && (
         <Beeld naam={beeld.header.naam} alt={beeld.header.alt} klasse="lessen__header" sizes="(min-width: 1280px) 1200px, 100vw" />
@@ -88,18 +88,24 @@ const logo = beeld.logo?.png && bestaat(beeld.logo.png) ? beeld.logo : null;
 <style>
   .lessen__logo { display: block; width: min(320px, 70vw); height: auto; margin: 0 auto 1.25rem; }
   .raster-drie { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); margin-top: 2rem; }
+  /* Paginakop gecentreerd onder het (gecentreerde) logo, §5.4. De intro is op
+     desktop drie regels en staat dan ook gecentreerd; op de telefoon is hij
+     langer en staat hij links (26 november 2026, melding eigenaren). */
+  .lessen__titel, .lessen__ondertitel { text-align: center; margin-inline: auto; }
   .lessen__ondertitel { font-family: var(--font-kop); font-size: 1.2rem; color: var(--grijs-500); margin-top: -0.5rem; }
-  .lessen__header { display: block; width: 100%; height: auto; border-radius: var(--radius); margin: 1.5rem 0; }
+  /* :global — de img zit in Beeld.astro; scoped paginastijlen bereiken hem anders niet. */
+  :global(.lessen__header) { display: block; width: 100%; height: auto; border-radius: var(--radius); margin: 1.5rem 0 2rem; }
   .lessen__intro { max-width: 60ch; }
+  @media (min-width: 768px) { .lessen__intro { margin-inline: auto; text-align: center; } }
   .praktisch { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 0; }
   .praktisch__item dt { font-family: var(--font-kop); font-weight: 600; margin-bottom: 0.25rem; }
   .praktisch__item dd { margin: 0; font-size: 0.95rem; }
   .lessen__trainers { display: grid; gap: var(--gutter); align-items: center; }
-  .lessen__trainer { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+  :global(.lessen__trainer) { display: block; width: 100%; height: auto; border-radius: var(--radius); }
   .trainers { margin: 0; color: var(--grijs-500); }
   #trainers { scroll-margin-top: 6rem; }
   .trainerlijst { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr)); }
-  .trainer__foto { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--radius); margin-bottom: 0.75rem; }
+  :global(.trainer__foto) { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--radius); margin-bottom: 0.75rem; }
   .trainer__naam { font-size: 1.15rem; margin: 0 0 0.25rem; }
   .trainer__tekst { margin: 0; font-size: 0.95rem; color: var(--grijs-500); }
 </style>
