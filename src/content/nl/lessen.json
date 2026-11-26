@@ -64,7 +64,7 @@
       "id": "groepsles",
       "label": "Groepsles",
       "eyebrow": "Samen",
-      "omschrijving": "Met twee, drie of vier spelers van hetzelfde niveau. Openbare groepslessen schrijf je direct in via Playtomic.",
+      "omschrijving": "Met twee, drie of vier spelers van hetzelfde niveau.",
       "prijs": "€ 70 daluren / € 90 piekuren",
       "prijsPer": "per les",
       "kenmerken": [
@@ -73,16 +73,18 @@
         "Reeks van 5, 8 of 10 lessen",
         "Inclusief baan, materiaal en trainer"
       ],
-      "route": "playtomic",
-      "formulier": null,
-      "playtomicUrl": "https://playtomic.io/van-duren-indoor-padel-centrum/a52205f6-6954-4d82-bda0-b2040fc82dc4",
-      "cta": "Bekijk beschikbare groepslessen",
+      "route": "formulier",
+      "formulier": "les",
+      "playtomicUrl": null,
+      "cta": "Groepsles aanvragen",
+      "_route_26nov": "Mitch, 26 november 2026: groepsles gaat via hetzelfde aanvraagformulier als proefles en privéles, met de vraag met hoeveel personen je al bent (1 t/m 4). Vervangt de Playtomic-route uit B8.",
       "video": {
         "mp4_720": "/beeld/les-techniek-3-720.mp4",
         "poster_720": "/beeld/les-techniek-3-poster-720.webp",
         "breedte": 720,
         "hoogte": 1280,
-        "duur": "8 s",
+        "duur": "3 s",
+        "_bewerkt": "26 november 2026: ingekort tot 5,0–8,0 s van de oorspronkelijke clip. De slagen op 2,0 s en 4,6 s gingen allebei in het net (melding Bennet); de slag op 7,1 s is de enige die goed gaat",
         "geluid": false,
         "alt": "Bennet van Duren slaat ballen op een van de indoor banen, met het bord Padel Academy van Duren op de achtergrond"
       }
@@ -106,8 +108,16 @@
     ]
   },
   "trainers": {
+    "kop": "Onze trainers",
     "tekst": "De lessen worden gegeven door onze gediplomeerde trainers.",
-    "_regel": "Geen namen, geen foto's, geen trainerskaartjes. Akkoord eigenaren, CLAUDE.md §11. Noem hier NOOIT dat Martin en Bennet alle lessen geven, en gebruik het woord 'Madrid' niet."
+    "lijst": [],
+    "_regel": "HERZIEN 26 november 2026 (eigenaren via Mitch): er komt een blok met wie er lesgeeft, met foto. Vervangt 'geen namen, geen foto's' van 1 september. Zolang 'lijst' leeg is rendert alleen de zin hierboven en staat 'Trainers' niet in het menu. Vul per trainer een object volgens _invulschema; een foto rendert alleen als het bestand bestaat. Geen naam verzinnen, geen stand-in. Toestemming van elke trainer voor naam en foto op de site is nodig (OPEN.md F61). Noem nooit dat Martin en Bennet alle lessen geven, en gebruik het woord 'Madrid' niet.",
+    "_invulschema": {
+      "naam": "Voornaam (en achternaam als de trainer dat wil)",
+      "foto": "bestandsnaam zonder maat, bijv. 'trainer-voornaam' → public/beeld/trainer-voornaam-720.webp en -360.webp, staand 3:4",
+      "alt": "Beschrijving van de foto",
+      "omschrijving": "Optioneel: één of twee zinnen, aangeleverd door de trainer zelf"
+    }
   },
   "_todo_video": "Gesloten op 15 september 2026 — met een kanttekening. De clips komen uit de sessie van 28 oktober 2025 (720x1280, 30 fps, 3,2 Mbit, geluid verwijderd). Ze tonen ALLEMAAL EEN PERSOON ALLEEN die ballen slaat; er bestaat geen beeld van een trainer MET een leerling, en dus niets dat een proefles, een prive-les of een groepsles daadwerkelijk laat zien. De koppeling clip->lesvorm is daarom willekeurig en puur sfeer. Zet de video als stille achtergrondloop in de lesvormkaart, nooit als 'zo ziet je les eruit'. Vervangen zodra de opnamedag uit de wenslijst is geweest.",
   "_todo_jeugd": "Gesloten 15 september 2026: /jeugd bestaat, gebouwd uit jeugd.json (O25).",
@@ -115,10 +125,8 @@
     "_regel": "Conversational form: één vraag tegelijk, antwoorden zijn knoppen, beantwoorde vragen blijven als bubbels staan. Zelfde opzet als clinics.json. Alleen e-mail verplicht. Elke inhoudelijke vraag heeft de knop 'Weet ik nog niet'. Vragen met 'toonBij' verschijnen alleen als de conditie klopt — nooit een vraag stellen die niet bij het vorige antwoord past.",
     "ontvanger": "vanduren@indoorpadelcentrum.nl",
     "intro": {
-      "kop": "Proefles of privéles plannen",
-      "tekst": "Zes korte vragen, dan weten we genoeg om een voorstel te sturen.",
-      "groepslesHint": "Zoek je een groepsles? Die boek je direct via Playtomic.",
-      "groepslesUrl": "https://playtomic.io/van-duren-indoor-padel-centrum/a52205f6-6954-4d82-bda0-b2040fc82dc4"
+      "kop": "Proefles, privéles of groepsles aanvragen",
+      "tekst": "Een paar korte vragen, dan weten we genoeg om een voorstel te sturen."
     },
     "vragen": [
       {
@@ -137,6 +145,11 @@
             "sub": "€ 90 · 60 min · 1-op-1 · reeks van 5, 8 of 10"
           },
           {
+            "waarde": "groepsles",
+            "label": "Groepsles",
+            "sub": "€ 70 daluren / € 90 piekuren · 60 min · 2 tot 4 personen · reeks van 5, 8 of 10"
+          },
+          {
             "waarde": "onbekend",
             "label": "Weet ik nog niet",
             "sub": "Dan adviseren we je"
@@ -144,9 +157,23 @@
         ]
       },
       {
+        "id": "groepsAantal",
+        "vraag": "Met hoeveel personen zijn jullie al?",
+        "type": "keuze",
+        "opties": [
+          { "waarde": "1", "label": "1" },
+          { "waarde": "2", "label": "2" },
+          { "waarde": "3", "label": "3" },
+          { "waarde": "4", "label": "4" }
+        ],
+        "toonBij": { "lesvorm": ["groepsles"] },
+        "_regel": "26 november 2026: alleen bij groepsles. In plaats van 'Voor wie is de les?' — die vraag (met 'Mijn kind' en 'Ik en iemand anders') past niet bij een groepsles."
+      },
+      {
         "id": "voorWie",
         "vraag": "Voor wie is de les?",
         "type": "keuze",
+        "toonBij": { "lesvorm": ["proefles", "priveles", "onbekend"] },
         "opties": [
           {
             "waarde": "mezelf",

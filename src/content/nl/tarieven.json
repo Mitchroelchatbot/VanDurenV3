@@ -11,12 +11,13 @@
   },
 
   "baanhuur": {
+    "_bron": "Bennet/Martin via Mitch, 26 november 2026: daluren € 22 (60 min) / € 38 (90 min), piekuren € 42 / € 62. Vervangt € 28/€ 42 en € 36/€ 54. € 38 voor 90 min daluren is per uur duurder dan 60 min (€ 25,33 vs € 22); expliciet bevestigd als juist, geen tikfout.",
     "titel": "Baanhuur",
     "intro": "Losse boekingen lopen via Playtomic. Daar zie je live welke banen vrij zijn.",
     "kolommen": ["Per uur", "Per 1,5 uur"],
     "rijen": [
-      { "label": "Daluren", "toelichting": "vanaf 09:00", "prijzen": ["€ 28", "€ 42"] },
-      { "label": "Piekuren", "toelichting": "ma–vr 18:30 – 22:30", "prijzen": ["€ 36", "€ 54"] }
+      { "label": "Daluren", "toelichting": "vanaf 09:00", "prijzen": ["€ 22", "€ 38"] },
+      { "label": "Piekuren", "toelichting": "ma–vr 18:30 – 22:30", "prijzen": ["€ 42", "€ 62"] }
     ],
     "voetnoot": "Baan 1 en 2 zijn te huren per 1,5 uur. Baan 3 en 4 gaan per heel uur en starten op het hele uur.",
     "cta": { "label": "Boek een baan", "type": "playtomic" }
@@ -24,14 +25,14 @@
 
   "contractbaan": {
     "_bron": "Bennet, 24 september 2026, via Mitch als veldinstructie (§11.1). Vervangt de vaste contracttotalen voor 6 en 12 maanden uit §4.2 (oud); die bedragen zijn niet meer geldig en staan nergens meer in de repo.",
+    "_wijziging_26nov": "Mitch, 26 november 2026: zomer naar € 20 / € 28; het wintercontract (7 maanden) vervalt. Nieuwe contracten worden voortaan 12 maanden; prijs volgt (O33a). Zomer blijft staan tot dat beslist is (bevestigd: 'Zomer + 12 maanden').",
     "_regel": "Dit is een KORTINGSTARIEF PER BOEKING van 60 minuten, geen contracttotaal. De regel 'eenheid' rendert daarom prominent onder de kop. Het 12-maandentarief is niet bekend (O33a): 'prijs op aanvraag', nooit optellen of afleiden. Piekuren zijn hier 17:00–23:00 zoals aangeleverd; bij losse baanhuur 18:30–22:30 (O33b) — niet gelijktrekken tot dat beslist is.",
     "titel": "Contractbaan",
-    "intro": "Een vaste baan op een vast moment, een heel seizoen lang. Vul het formulier in en we komen met een voorstel terug.",
+    "intro": "Een vaste baan op een vast moment. Vul het formulier in en we komen met een voorstel terug.",
     "eenheid": "Tarief per boeking van 60 minuten, geen contracttotaal.",
     "kolommen": ["Daluren 09:00 – 17:00", "Piekuren 17:00 – 23:00"],
     "rijen": [
-      { "label": "5 maanden",  "toelichting": "zomer",    "prijzen": ["€ 18", "€ 25"] },
-      { "label": "7 maanden",  "toelichting": "winter",   "prijzen": ["€ 22", "€ 34"] },
+      { "label": "5 maanden",  "toelichting": "zomer",    "prijzen": ["€ 20", "€ 28"] },
       { "label": "12 maanden", "toelichting": "jaarrond", "prijzen": ["Prijs op aanvraag", "Prijs op aanvraag"], "_todo": "O33a: Bennet schreef 'de bovenstaande bij elkaar'; dat is geen bruikbaar tarief. Niet invullen tot hij het bevestigt." }
     ],
     "voetnoot": "Een contract van 1,5 uur loopt op baan 1 of 2.",

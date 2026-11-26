@@ -5,7 +5,7 @@
 > de projectmap staat. Wijk hier niet van af zonder dat de wijziging eerst in dit
 > bestand is vastgelegd.
 >
-> Laatst bijgewerkt: 21 oktober 2026 (v17 — favicon is het dot-grid uit het logo)
+> Laatst bijgewerkt: 26 november 2026 (v18 — nieuwe baanprijzen, winter vervalt, groepsles via formulier, trainersblok)
 > Opdrachtgever: Mitch Bastiaans (Mr Hostly) · Klant: Martin & Bennet van Duren
 
 ---
@@ -61,7 +61,7 @@ mailverkeer, of veroorzaakt het juist mailverkeer?*
 | B5 | **Geen groen/lime meer.** Palet komt uit het logo én uit de hal. | Zie §5. |
 | B6 | **Nieuwsbrief verdwijnt volledig** — pagina, footerblok, alle links. | Expliciete wens eigenaren. |
 | B7 | **Geen CMS, wél een redactiebron voor de agenda.** De evenementenagenda komt uit een Google Sheet die Bennet zelf bijhoudt; al het andere staat in bestanden in de repo. | Zie §4.3. Vier tot tien evenementen per jaar rechtvaardigen geen admin-paneel. |
-| B8 | **Lessen: alleen openbare groepslessen gaan via Playtomic.** Proefles en privéles lopen via een aanvraagformulier. | Playtomic ondersteunt alleen open inschrijving; 1-op-1 en proeflessen niet. Zie §6.3. |
+| B8 | **Lessen: alle drie de lesvormen lopen via het aanvraagformulier.** *HERZIEN 26 november 2026 (eigenaren via Mitch):* ook de groepsles, met de vraag met hoeveel personen je al bent (1–4). Was: groepsles via Playtomic. | Eén trechter voor alle lessen; de aanvrager zegt meteen of hij al een groep heeft. Zie §6.3. |
 
 ---
 
@@ -218,8 +218,12 @@ Mitch bevestigd op 1 september 2026.
 
 | | Per uur | Per 1,5 uur |
 |---|---|---|
-| Daluren (vanaf 09:00) | € 28 | € 42 |
-| Piekuren (ma–vr 18:30–22:30) | € 36 | € 54 |
+| Daluren (vanaf 09:00) | € 22 | € 38 |
+| Piekuren (ma–vr 18:30–22:30) | € 42 | € 62 |
+
+*HERZIEN 26 november 2026 (eigenaren via Mitch); was € 28 / € 42 en € 36 / € 54.*
+€ 38 voor 90 minuten in de daluren is per uur duurder dan 60 minuten (€ 25,33 vs
+€ 22). Nagevraagd en bevestigd als juist — geen tikfout, niet "corrigeren".
 
 Baan 1 en 2 zijn te huren per 1,5 uur; baan 3 en 4 alleen per heel uur, startend
 op het hele uur. Dit is praktische informatie die op `/banen` hoort.
@@ -231,9 +235,12 @@ staan nergens meer in de repo.
 
 | Contract | Daluren 09:00–17:00 | Piekuren 17:00–23:00 |
 |---|---|---|
-| 5 maanden (zomer) | € 18 per boeking | € 25 per boeking |
-| 7 maanden (winter) | € 22 per boeking | € 34 per boeking |
+| 5 maanden (zomer) | € 20 per boeking | € 28 per boeking |
 | 12 maanden (jaarrond) | prijs op aanvraag | prijs op aanvraag |
+
+*HERZIEN 26 november 2026:* zomer naar € 20 / € 28 (was € 18 / € 25); het
+wintercontract (7 maanden) vervalt. Nieuwe contracten worden voortaan 12 maanden;
+de eigenaren leveren die prijs nog aan. Tot dan blijft zomer staan (bevestigd).
 
 Het 12-maandentarief is **niet bekend** (O33a): Bennet schreef "de bovenstaande bij
 elkaar", en dat is geen bruikbaar tarief. Niet optellen, niet afleiden. Let op: de
@@ -519,10 +526,10 @@ gevuld, en de andere twee als `<!-- TODO -->` die niet renderen.
 | Stap | Vraag | Type |
 |---|---|---|
 | 1 | Wat voor groep? | Bedrijf · Vrienden · Kinderfeestje |
-| 2 | Met hoeveel personen? | Aantal, zachte grens 4–48 |
+| 2 | Met hoeveel personen? *(bij Kinderfeestje: "Met hoeveel kinderen?")* | Invoerveld + "Weet ik nog niet", zachte grens 4–48 |
 | 2a | *Alleen bij Kinderfeestje:* leeftijd van de kinderen | t/m 8 · 9–12 · 13–16 · gemengd |
 | 2b | *Alleen bij Kinderfeestje:* aantal volwassen begeleiders | Aantal |
-| 3 | Wanneer ongeveer? | Datum + dagdeel + "flexibel" optie |
+| 3 | Wanneer ongeveer? | Eén vrij tekstveld + "Weet ik nog niet" *(26 november 2026; was datum + dagdeel, te veel keuzes)* |
 | 4 | Ervaring in de groep? | Nooit gespeeld · Gemengd · Ervaren |
 | 5 | Horeca erbij? | Niets · Borrel · Lunch · Diner |
 | 6 | Bij "Bedrijf": factuur op rekening? | Ja/nee + factuurgegevens |
@@ -541,7 +548,7 @@ naast of boven het formulier, zodat de aanvrager al weet waar hij aan toe is.
 | 1 | Welke dag(en) van de week heb je in gedachten? |
 | 2 | Welk tijdslot? (daluren 09:00–17:00 / piekuren 17:00–23:00 / specifiek tijdstip — de contracttijden uit §4.2, 6 oktober 2026, B6) |
 | 3 | 1 uur of 1,5 uur? (1,5 uur = baan 1 of 2) |
-| 4 | 5 maanden (zomer) · 7 maanden (winter) · 12 maanden (jaarrond)? *(24 september 2026; was "6 of 12 maanden")* |
+| 4 | 5 maanden (zomer) · 12 maanden (jaarrond)? *(26 november 2026: winter vervallen; 24 september was "5, 7 of 12")* |
 | 5 | Met hoeveel vaste spelers? |
 | 6 | Contactgegevens |
 
@@ -552,11 +559,12 @@ inschrijving.** Proeflessen en privélessen kunnen daar niet doorheen. Daarom:
 
 | Lesvorm | Route | CTA |
 |---|---|---|
-| **Groepsles** (openbaar, open inschrijving) | Playtomic | "Bekijk beschikbare groepslessen" → directe Playtomic-link |
+| **Groepsles** | Aanvraagformulier *(26 november 2026; was Playtomic)* | "Groepsles aanvragen" |
 | **Proefles** | Aanvraagformulier | "Plan een proefles" |
 | **Privéles** | Aanvraagformulier | "Privéles aanvragen" |
 
-Het lesformulier (proefles + privéles) is kort: lesvorm, niveau (nooit gespeeld /
+Het lesformulier (proefles, privéles, groepsles) is kort: lesvorm, bij groepsles
+"Met hoeveel personen zijn jullie al?" (1–4), niveau (nooit gespeeld /
 beginner / gevorderd), voorkeursdagdelen, aantal personen, contactgegevens.
 **Geen `mailto:` — nergens op deze pagina.**
 
@@ -580,7 +588,12 @@ Correctly", geraadpleegd 9 september 2026.
   een klik** geladen (6 oktober 2026 — de privacyverklaring zegt dat Playtomic pas
   na een klik cookies kan plaatsen; het laden bij scrollen en het noscript-iframe
   zijn daarom vervallen), vaste min-height, en altijd een zichtbare fallbacklink
-  eronder voor wie iframes blokkeert of geen JavaScript heeft.
+  eronder voor wie iframes blokkeert of geen JavaScript heeft. Die link gaat naar de
+  gewone clubpagina (`bedrijf.playtomic`), **nooit** naar de `/wl/`-URL — die werkt
+  alleen in een iframe.
+- **26 november 2026:** de kalendersectie rendert pas als
+  `banen.playtomic.websiteUrlGeregeld` true is. Tot O26 geregeld is laadde de knop een
+  leeg vlak (melding eigenaren: "de boekingskalender werkt niet").
 
 **De Playtomic-API is geen alternatief.** Read-only, levert boekingen en geen
 beschikbaarheid, vereist een Champion- of Master-abonnement, moet via de
@@ -746,8 +759,11 @@ Kop mag luiden: **Padel Academy van Duren**.
 - **Verwijderen:** de verwijzing naar "Babolat Padel Academy Madrid" bovenin.
 - **Verwijderen:** de zin dat lessen altijd door Martin en Bennet worden gegeven.
   Vervangen door letterlijk: **"Onze gediplomeerde trainers."** Er werken meerdere
-  trainers; namen en foto's komen bewust niet op de site (akkoord eigenaren).
-  Zet dus ook geen trainerskaartjes met "Naam coach" neer — die sectie bestaat niet.
+  trainers. **HERZIEN 26 november 2026 (eigenaren via Mitch):** er komt een blok
+  "Onze trainers" met naam en foto per trainer, op `/lessen#trainers`, met een
+  menu-item "Trainers" onder Lessen. Gevuld uit `lessen.json` → `trainers.lijst`;
+  zolang die leeg is rendert alleen de zin en staat het menu-item er niet. Nooit
+  vullen met een stand-in ("Naam coach"). Toestemming van elke trainer nodig (F61).
 - Drie opties: Proefles · Privéles · Groepsles, met de prijzen uit §4.2 en de
   routing uit §6.3.
 - **Onder** de drie opties één balk met praktische info: wat neem je zelf mee,
@@ -943,7 +959,7 @@ O13 (naamsplitsing akkoord → §3), O15 (VIP-daluren → §7.2),
 | O17 | **Webshop vervalt.** Geen betaalsysteem in de nieuwe site; redirects staan in `_redirects`. |
 | O18 | **Geen aparte competitiepagina.** Competitie is hooguit een item in de agenda. `/competitie` → `/evenementen`. |
 | O11 | Mitch werkt de bestaande privacyverklaring, algemene voorwaarden en reserveringsvoorwaarden bij. Niet nieuw schrijven. |
-| — | **Trainers:** meerdere, uitsluitend "onze gediplomeerde trainers", geen namen, geen profielen — ook niet op `/over-ons`. |
+| — | **Trainers:** meerdere, uitsluitend "onze gediplomeerde trainers", geen namen, geen profielen — ook niet op `/over-ons`. *Herzien 26 november 2026: namen en foto's op `/lessen#trainers`, zie §7.3.* |
 | — | **Agenda:** Bennet houdt de Sheet bij. Nu geen toernooien of clinics gepland → live in de lege staat van §7.5. |
 | — | **Aanvragen** komen binnen op `vanduren@indoorpadelcentrum.nl`. |
 | — | **Sponsoren:** `Sponsor 1` t/m `Sponsor 8` als neutrale vakken; footerbalk verborgen tot `sponsoren.json` gevuld is (§7.7). |

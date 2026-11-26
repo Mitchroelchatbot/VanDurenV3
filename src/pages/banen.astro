@@ -74,14 +74,18 @@ const sfeer = (banen.sfeer?.fotos ?? []).filter((f) => typeof f.alt === 'string'
   {sfeer.length > 0 && (
     <section class="sectie sectie--licht">
       <div class="omhulsel sfeer">
-        {sfeer.map((f) => (<Beeld naam={f.naam} alt={f.alt} klasse="sfeer__foto" sizes="(min-width: 900px) 50vw, 100vw" />))}
+        {sfeer.map((f) => (<Beeld naam={f.naam} alt={f.alt} klasse="sfeer__foto" sizes="(min-width: 1280px) 600px, (min-width: 600px) 50vw, 100vw" />))}
       </div>
     </section>
   )}
 </BasisLayout>
 
 <style>
-  .sfeer { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  /* Altijd een volle 2×2 (op de telefoon onder elkaar). auto-fit gaf tussen
+     ~980 en ~1280 px drie naast elkaar met de vierde alleen op een nieuwe regel
+     (melding 26 november 2026), en vanaf 1280 px vier kleine fotootjes. */
+  .sfeer { display: grid; gap: var(--gutter); grid-template-columns: 1fr; }
+  @media (min-width: 600px) { .sfeer { grid-template-columns: repeat(2, 1fr); } }
   .sfeer__foto { display: block; width: 100%; height: auto; border-radius: var(--radius); }
   .raster-drie { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
   .vip__prijs { font-family: var(--font-kop); font-weight: 700; font-size: 2rem; color: var(--blauw); margin-bottom: 0.2rem; }

@@ -70,7 +70,7 @@
       "zachtMin": 4,
       "zachtMax": 48,
       "buitenBereikTekst": "We nemen contact met je op om te kijken wat er mogelijk is.",
-      "_regel": "Zachte grens, geen harde validatie. Aanvragen buiten dit bereik worden gewoon geaccepteerd. Het echte minimum en maximum zijn niet bekend — OPEN.md O20."
+      "_regel": "Geldt voor de stappen met zachteGrens: true (personen én kinderen), niet voor het aantal begeleiders. Zachte grens, geen harde validatie. Aanvragen buiten dit bereik worden gewoon geaccepteerd. Het echte minimum en maximum zijn niet bekend — OPEN.md O20."
     },
     "stappen": [
       {
@@ -86,7 +86,23 @@
       {
         "nr": 2,
         "vraag": "Met hoeveel personen komen jullie?",
-        "type": "aantal"
+        "type": "aantal",
+        "zachteGrens": true,
+        "toonBij": {
+          "stap": 1,
+          "waarden": ["Bedrijf", "Vriendengroep"]
+        }
+      },
+      {
+        "nr": "2k",
+        "vraag": "Met hoeveel kinderen komen jullie?",
+        "type": "aantal",
+        "zachteGrens": true,
+        "toonBij": {
+          "stap": 1,
+          "waarde": "Kinderfeestje"
+        },
+        "_regel": "26 november 2026 (melding eigenaren): bij een kinderfeestje vraagt het formulier naar het aantal kinderen, niet naar personen. De begeleiders komen in 2b."
       },
       {
         "nr": "2a",
@@ -107,6 +123,7 @@
         "nr": "2b",
         "vraag": "Hoeveel volwassen begeleiders komen mee?",
         "type": "aantal",
+        "zachteGrens": false,
         "toonBij": {
           "stap": 1,
           "waarde": "Kinderfeestje"
@@ -115,13 +132,10 @@
       {
         "nr": 3,
         "vraag": "Wanneer ongeveer?",
-        "type": "datum-dagdeel",
-        "opties": [
-          "Ochtend",
-          "Middag",
-          "Avond",
-          "Flexibel"
-        ]
+        "type": "tekst",
+        "label": "Datum of periode",
+        "weetNiet": true,
+        "_regel": "26 november 2026 (melding eigenaren): eerst vier keuzes voor de maand en daarna vier voor het dagdeel was te veel. Nu één vrij tekstveld, of 'Weet ik nog niet'."
       },
       {
         "nr": 4,

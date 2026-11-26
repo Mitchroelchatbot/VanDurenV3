@@ -1,22 +1,30 @@
 ---
 import banen from '../content/nl/banen.json';
+import bedrijf from '../content/nl/bedrijf.json';
 
 // White-label boekingskalender van Playtomic in een iframe.
 // Het iframe komt PAS in de DOM als de bezoeker op de knop klikt (6 oktober 2026,
 // A6): de privacyverklaring zegt dat Playtomic pas na een klik cookies kan
 // plaatsen, dus niet meer bij scrollen en geen noscript-iframe.
 // Onder het vlak staat ALTIJD de directe link naar Playtomic: zonder JavaScript,
-// en als het vlak leeg blijft (O26), is dat de werkende weg naar de boeking.
+// en als het vlak leeg blijft, is dat de werkende weg naar de boeking.
+// 26 november 2026: de directe link ging naar de /wl/-URL; die is alleen voor
+// het iframe en werkt niet als losse pagina. Hij wijst nu naar de gewone
+// clubpagina uit bedrijf.json.
+// Zolang websiteUrlGeregeld false is (O26), laadt het iframe niet en rendert
+// deze sectie helemaal niet: een knop die een leeg vlak oplevert is erger dan
+// geen knop. De kaart "Losse boeking" erboven linkt al naar Playtomic.
 const p = banen.playtomic;
+const toon = p && p.websiteUrlGeregeld;
 
 if (p && !p.websiteUrlGeregeld) {
   console.warn(
-    '\n[banen] Playtomic-embed: verwacht een LEEG vlak tot de website-URL in Playtomic Manager\n' +
-    '        op het nieuwe domein staat (OPEN.md O26). De fallbacklink eronder werkt wel.\n'
+    '\n[banen] Playtomic-embed staat UIT tot de website-URL in Playtomic Manager\n' +
+    '        op het domein staat (OPEN.md O26). Zet dan banen.playtomic.websiteUrlGeregeld op true.\n'
   );
 }
 ---
-{p && (
+{toon && (
   <section class="sectie sectie--licht" id="boeken">
     <div class="omhulsel omhulsel--midden">
       {p.kop && <h2 class="sectie-kop">{p.kop}</h2>}
@@ -30,7 +38,7 @@ if (p && !p.websiteUrlGeregeld) {
       </div>
 
       <p class="playtomic__fallback">
-        <a href={p.url} rel="noopener" target="_blank">{p.fallbackLabel}</a>
+        <a href={bedrijf.playtomic} rel="noopener" target="_blank">{p.fallbackLabel}</a>
       </p>
     </div>
   </section>

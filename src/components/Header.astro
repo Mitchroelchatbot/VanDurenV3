@@ -1,6 +1,7 @@
 ---
 import bedrijf from '../content/nl/bedrijf.json';
 import nav from '../content/nl/navigatie.json';
+import lessen from '../content/nl/lessen.json';
 import { bestaat } from '../lib/beeld.js';
 
 const { pad } = Astro.props;
@@ -18,8 +19,11 @@ const { hoofdmenu, labels } = nav;
 // Logo in de header (bedrijf.logo._regel, 1 oktober 2026); zonder bestand het tekst-wordmark.
 const logo = bedrijf.logo?.png && bestaat(bedrijf.logo.png) ? bedrijf.logo : null;
 const zonderHash = (p) => p.split('#')[0];
+// Item met alleenAls: alleen tonen als die content gevuld is (nu: trainers).
+const gevuld = { trainers: (lessen.trainers?.lijst ?? []).length > 0 };
 const groepen = hoofdmenu.map((g, i) => ({
   ...g,
+  items: g.items.filter((it) => !it.alleenAls || gevuld[it.alleenAls]),
   id: `submenu-${i + 1}`,
   actief: g.items.some((it) => zonderHash(it.pad) === pad),
 }));

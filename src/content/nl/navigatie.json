@@ -29,6 +29,12 @@
         {
           "pad": "/jeugd",
           "label": "Jeugd"
+        },
+        {
+          "pad": "/lessen#trainers",
+          "label": "Trainers",
+          "alleenAls": "trainers",
+          "_alleenAls": "26 november 2026: staat pas in het menu als lessen.trainers.lijst gevuld is. Een menu-item naar een leeg blok is erger dan geen item."
         }
       ]
     },
