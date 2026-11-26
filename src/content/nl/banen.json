@@ -10,8 +10,8 @@
       "label": "Losse boeking",
       "omschrijving": "Reserveer per uur of per anderhalf uur via Playtomic. Live beschikbaarheid, direct online betalen.",
       "punten": [
-        "€ 28 per uur in de daluren",
-        "€ 36 per uur in de piekuren",
+        "€ 22 per uur in de daluren",
+        "€ 42 per uur in de piekuren",
         "Baan 1 en 2 ook per 1,5 uur"
       ],
       "cta": {
@@ -39,10 +39,10 @@
       "id": "contractbaan",
       "eyebrow": "Vaste speeltijd",
       "label": "Contractbaan",
-      "omschrijving": "Een vaste baan op een vast moment, een heel seizoen lang. Vul het formulier in, dan komen we met een voorstel.",
+      "omschrijving": "Een vaste baan op een vast moment. Vul het formulier in, dan komen we met een voorstel.",
       "punten": [
         "Kortingstarief per boeking van 60 minuten",
-        "5 maanden (zomer), 7 maanden (winter) of 12 maanden",
+        "5 maanden (zomer) of 12 maanden",
         "Daluren of piekuren"
       ],
       "cta": {
@@ -50,7 +50,7 @@
         "type": "anker",
         "anker": "#contractbaan"
       },
-      "_punten_bron": "Bennet, 24 september 2026: tarieven per boeking (€ 18 / € 25 zomer, € 22 / € 34 winter). Het bedrag staat alleen in tarieven.json; 12 maanden is prijs op aanvraag (O33a)."
+      "_punten_bron": "Bennet, 24 september 2026: tarieven per boeking. 26 november 2026: zomer € 20 / € 28, winter vervallen. Het bedrag staat alleen in tarieven.json; 12 maanden is prijs op aanvraag (O33a)."
     }
   ],
   "playtomic": {
@@ -61,6 +61,7 @@
     "laadLabel": "Laad de boekingskalender",
     "fallbackLabel": "Kalender niet zichtbaar? Boek rechtstreeks op Playtomic",
     "websiteUrlGeregeld": false,
+    "_websiteUrlGeregeld": "26 november 2026: zolang dit false is rendert de kalendersectie NIET (melding eigenaren: 'de boekingskalender werkt niet'). Op true zetten zodra de website-URL in Playtomic Manager exact https://indoorpadelcentrum.nl is en het iframe op het live domein getest is. De fallbacklink gebruikt bedrijf.playtomic, nooit de /wl/-URL.",
     "_regel": "White-label kalender in een iframe. Lazy: pas laden bij scrollen of op klik. Altijd de directe link eronder. Werkt pas als de website-URL in Playtomic Manager op het nieuwe domein staat; tot dan een leeg vlak (O26). Zet websiteUrlGeregeld op true zodra dat klopt; dan verdwijnt de build-warning.",
     "_todo": "STAND-IN van 9 september 2026: de aangeleverde banen.json met dit blok stond niet in Drive. url komt uit de opdracht; de labels zijn functioneel, geen marketingtekst. kop en intro bewust null: niet verzonnen. Vervang dit blok byte-exact door het aangeleverde zodra het er is."
   },
@@ -151,10 +152,6 @@
           {
             "waarde": "5 maanden",
             "sub": "zomer"
-          },
-          {
-            "waarde": "7 maanden",
-            "sub": "winter"
           },
           {
             "waarde": "12 maanden",
